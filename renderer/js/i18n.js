@@ -1,0 +1,101 @@
+// Interface translations. The strings live in renderer/i18n/<code>.js; English fills any gap.
+import en from '../i18n/en.js';
+import pl from '../i18n/pl.js';
+import de from '../i18n/de.js';
+import es from '../i18n/es.js';
+import fr from '../i18n/fr.js';
+
+export const LANGUAGES = [
+  ['en', 'English'],
+  ['pl', 'Polski'],
+  ['de', 'Deutsch'],
+  ['es', 'Español'],
+  ['fr', 'Français'],
+];
+export const LANG_CODES = LANGUAGES.map(([c]) => c);
+const DICTS = { en, pl, de, es, fr };
+
+export let lang = 'en';
+let plural = new Intl.PluralRules('en');
+let numbers = new Intl.NumberFormat('en');
+
+/** Picks a supported language: the saved choice, else the system language, else English. */
+export function pickLanguage(saved, system) {
+  for (const code of [saved, (system || '').slice(0, 2).toLowerCase()]) {
+    if (code && DICTS[code]) return code;
+  }
+  return 'en';
+}
+
+export function setLanguage(code) {
+  lang = DICTS[code] ? code : 'en';
+  plural = new Intl.PluralRules(lang);
+  numbers = new Intl.NumberFormat(lang);
+  if (typeof document !== 'undefined') document.documentElement.lang = lang;
+}
+
+export const num = (n) => numbers.format(n);
+
+/**
+ * Translates `key`, filling {placeholders} from `vars`. A plural entry
+ * ({one, few, many, other}) is chosen by `vars.n`.
+ */
+export function t(key, vars = {}) {
+  return translate(lang, key, vars, plural, numbers);
+}
+
+/** Translates into a given language without switching the interface (language picker). */
+export function tIn(code, key, vars = {}) {
+  const c = DICTS[code] ? code : 'en';
+  return translate(c, key, vars, new Intl.PluralRules(c), new Intl.NumberFormat(c));
+}
+
+function translate(code, key, vars, pluralRules, numberFormat) {
+  let s = DICTS[code][key] ?? en[key];
+  if (s == null) return key;
+  if (typeof s === 'object') s = s[pluralRules.select(vars.n ?? 0)] ?? s.other;
+  return s.replace(/\{(\w+)\}/g, (whole, k) => {
+    const v = vars[k];
+    if (v == null) return whole;
+    return typeof v === 'number' ? numberFormat.format(v) : String(v);
+  });
+}
+
+/** Like t(), but a value may be a DOM node. */
+export function tNodes(key, vars = {}) {
+  const nodes = {};
+  const text = {};
+  for (const [k, v] of Object.entries(vars)) (v instanceof Node ? nodes : text)[k] = v;
+  const frag = document.createDocumentFragment();
+  for (const part of t(key, text).split(/(\{\w+\})/)) {
+    const m = part.match(/^\{(\w+)\}$/);
+    if (m && nodes[m[1]]) frag.append(nodes[m[1]]);
+    else if (part) frag.append(part);
+  }
+  return frag;
+}
+
+/** Picks the current language's text from a { en, pl, … } object. */
+export function pick(obj) {
+  if (!obj) return '';
+  return obj[lang] ?? obj.en ?? '';
+}
+
+// ---- dates ------------------------------------------------------------------------------
+
+/** Weeks start on Sunday in the English interface and on Monday in the others. */
+export const weekStart = () => (lang === 'en' ? 0 : 1);
+
+const locale = () => ({ en: 'en-US', pl: 'pl-PL', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' })[lang] || 'en-US';
+
+export function fmtDate(date, opts = { day: 'numeric', month: 'long', year: 'numeric' }) {
+  return new Intl.DateTimeFormat(locale(), opts).format(date);
+}
+
+export function weekdayNames(style = 'short') {
+  // 2023-01-01 was a Sunday
+  return Array.from({ length: 7 }, (_, i) => fmtDate(new Date(2023, 0, 1 + i), { weekday: style }));
+}
+
+/** For tests: every dictionary by language code. */
+export const dictionaries = DICTS;

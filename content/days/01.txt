@@ -1,0 +1,350 @@
+@day 1
+@source readme.md
+
+@title
+en: Introduction
+pl: Wprowadzenie
+de: Einführung
+es: Introducción
+fr: Introduction
+
+@summary
+en: What Python is, the Python shell, your first program, comments and the basic data types.
+pl: Czym jest Python, powłoka Pythona, pierwszy program, komentarze i podstawowe typy danych.
+de: Was Python ist, die Python-Shell, dein erstes Programm, Kommentare und die grundlegenden Datentypen.
+es: Qué es Python, el intérprete interactivo, tu primer programa, los comentarios y los tipos de datos básicos.
+fr: Ce qu'est Python, le shell Python, ton premier programme, les commentaires et les types de données de base.
+
+@md
+en: ## Welcome to Python
+Python is a high-level, general-purpose programming language created by Guido van Rossum and first released in 1991. It is known for code that reads almost like English, which makes it one of the best first languages. Python is used for web development, data analysis, machine learning, automation, scripting and much more.
+
+Over the next 30 days you will learn one topic a day. Each class has an explanation, examples you can run with one click, and exercises the app checks for you.
+pl: ## Witaj w Pythonie
+Python to język programowania wysokiego poziomu i ogólnego przeznaczenia, stworzony przez Guido van Rossuma i wydany po raz pierwszy w 1991 roku. Słynie z kodu, który czyta się prawie jak zwykły tekst, dlatego jest jednym z najlepszych języków na początek. Pythona używa się do tworzenia stron, analizy danych, uczenia maszynowego, automatyzacji, skryptów i wielu innych rzeczy.
+
+Przez najbliższe 30 dni poznasz jeden temat dziennie. Każda lekcja ma wyjaśnienie, przykłady uruchamiane jednym kliknięciem i ćwiczenia, które aplikacja sprawdza za Ciebie.
+de: ## Willkommen bei Python
+Python ist eine universelle Hochsprache, die von Guido van Rossum entwickelt und 1991 erstmals veröffentlicht wurde. Python-Code liest sich fast wie Englisch, deshalb ist Python eine der besten Sprachen für den Einstieg. Man nutzt Python für Webentwicklung, Datenanalyse, maschinelles Lernen, Automatisierung, Skripte und vieles mehr.
+
+In den nächsten 30 Tagen lernst du jeden Tag ein Thema. Jede Lektion hat eine Erklärung, Beispiele, die du mit einem Klick ausführst, und Übungen, die die App für dich prüft.
+es: ## Bienvenido a Python
+Python es un lenguaje de programación de alto nivel y propósito general, creado por Guido van Rossum y publicado por primera vez en 1991. Es famoso porque su código se lee casi como inglés, por eso es uno de los mejores lenguajes para empezar. Python se usa en desarrollo web, análisis de datos, aprendizaje automático, automatización, scripts y mucho más.
+
+Durante los próximos 30 días aprenderás un tema al día. Cada clase tiene una explicación, ejemplos que ejecutas con un clic y ejercicios que la aplicación comprueba por ti.
+fr: ## Bienvenue dans Python
+Python est un langage de programmation de haut niveau et polyvalent, créé par Guido van Rossum et publié pour la première fois en 1991. Son code se lit presque comme de l'anglais, ce qui en fait l'un des meilleurs langages pour débuter. On utilise Python pour le développement web, l'analyse de données, l'apprentissage automatique, l'automatisation, les scripts et bien plus encore.
+
+Pendant les 30 prochains jours, tu apprendras un sujet par jour. Chaque cours contient une explication, des exemples à exécuter en un clic et des exercices que l'application vérifie pour toi.
+
+@md
+en: ## Your first program
+The right half of this window is a code editor, like Visual Studio Code, with a terminal below it. Write code in the editor and press **Run** (or **Ctrl+Enter**): Python runs it and the terminal shows what it prints.
+
+The built-in function `print()` writes text to the screen. Text in Python goes between quotes – single `'…'` or double `"…"`, both work.
+pl: ## Twój pierwszy program
+Prawa połowa okna to edytor kodu, taki jak w Visual Studio Code, a pod nim terminal. Napisz kod w edytorze i naciśnij **Uruchom** (albo **Ctrl+Enter**): Python go wykona, a terminal pokaże to, co program wypisze.
+
+Wbudowana funkcja `print()` wypisuje tekst na ekran. Tekst w Pythonie zapisujemy w cudzysłowie – pojedynczym `'…'` albo podwójnym `"…"`, oba działają.
+de: ## Dein erstes Programm
+Die rechte Hälfte des Fensters ist ein Code-Editor wie in Visual Studio Code, darunter ein Terminal. Schreib Code in den Editor und drück **Ausführen** (oder **Strg+Enter**): Python führt ihn aus und das Terminal zeigt, was er ausgibt.
+
+Die eingebaute Funktion `print()` gibt Text auf dem Bildschirm aus. Text steht in Python zwischen Anführungszeichen – einfachen `'…'` oder doppelten `"…"`, beides funktioniert.
+es: ## Tu primer programa
+La mitad derecha de la ventana es un editor de código, como el de Visual Studio Code, con una terminal debajo. Escribe código en el editor y pulsa **Ejecutar** (o **Ctrl+Enter**): Python lo ejecuta y la terminal muestra lo que imprime.
+
+La función integrada `print()` escribe texto en la pantalla. En Python el texto va entre comillas, simples `'…'` o dobles `"…"`; las dos funcionan.
+fr: ## Ton premier programme
+La moitié droite de la fenêtre est un éditeur de code, comme celui de Visual Studio Code, avec un terminal en dessous. Écris du code dans l'éditeur et appuie sur **Exécuter** (ou **Ctrl+Entrée**) : Python l'exécute et le terminal affiche ce qu'il imprime.
+
+La fonction intégrée `print()` écrit du texte à l'écran. En Python, le texte se met entre guillemets, simples `'…'` ou doubles `"…"` : les deux fonctionnent.
+
+@code
+print('Hello, World!')
+print("Welcome to 30 Days Of Python")
+@end
+
+@md
+en: `print()` can take several values separated by commas. It prints them on one line, with a space between them. Python also works as a calculator:
+pl: `print()` może przyjąć kilka wartości rozdzielonych przecinkami. Wypisuje je w jednym wierszu, oddzielone spacją. Python działa też jak kalkulator:
+de: `print()` kann mehrere Werte annehmen, durch Kommas getrennt. Es gibt sie in einer Zeile aus, mit einem Leerzeichen dazwischen. Python funktioniert auch als Taschenrechner:
+es: `print()` puede recibir varios valores separados por comas. Los imprime en una línea, separados por un espacio. Python también sirve de calculadora:
+fr: `print()` peut recevoir plusieurs valeurs séparées par des virgules. Elle les affiche sur une ligne, séparées par une espace. Python sert aussi de calculatrice :
+
+@code
+print('Python', 'is', 'fun')
+print(2 + 3)     # addition: 5
+print(7 - 2)     # subtraction: 5
+print(4 * 3)     # multiplication: 12
+print(7 / 2)     # division: 3.5
+print(7 // 2)    # division without the remainder: 3
+print(7 % 2)     # remainder: 1
+print(2 ** 10)   # power: 1024
+@end
+
+@md
+en: ## The Python shell
+Python can also run code line by line in its **interactive shell** (also called the REPL: read, evaluate, print, loop). Press **Python shell** above the terminal and type `2 + 3`, then Enter: the answer appears right away. It's handy for trying small things. Type `exit()` to leave it.
+
+## Comments
+Everything after `#` on a line is a **comment**: Python ignores it. Comments explain the code to people. For a longer explanation you can use a text in triple quotes; Python treats it as a string that nobody uses.
+pl: ## Powłoka Pythona
+Python potrafi też wykonywać kod wiersz po wierszu w **powłoce interaktywnej** (zwanej też REPL: read, evaluate, print, loop – wczytaj, oblicz, wypisz, powtórz). Kliknij **Powłoka Pythona** nad terminalem, wpisz `2 + 3` i naciśnij Enter: wynik pojawi się od razu. To wygodne miejsce do szybkich prób. Wpisz `exit()`, żeby z niej wyjść.
+
+## Komentarze
+Wszystko po znaku `#` w danym wierszu to **komentarz**: Python go pomija. Komentarze wyjaśniają kod ludziom. Do dłuższego opisu można użyć tekstu w potrójnym cudzysłowie; Python traktuje go jak napis, którego nikt nie używa.
+de: ## Die Python-Shell
+Python kann Code auch Zeile für Zeile in seiner **interaktiven Shell** ausführen (auch REPL genannt: read, evaluate, print, loop). Klick über dem Terminal auf **Python-Shell**, tipp `2 + 3` und drück Enter: Das Ergebnis erscheint sofort. Praktisch, um Kleinigkeiten auszuprobieren. Mit `exit()` verlässt du sie.
+
+## Kommentare
+Alles nach `#` in einer Zeile ist ein **Kommentar**: Python ignoriert ihn. Kommentare erklären den Code für Menschen. Für längere Erklärungen kannst du Text in dreifachen Anführungszeichen schreiben; Python behandelt ihn als Zeichenkette, die niemand benutzt.
+es: ## El intérprete de Python
+Python también puede ejecutar código línea a línea en su **intérprete interactivo** (también llamado REPL: read, evaluate, print, loop: leer, evaluar, imprimir, repetir). Pulsa **Intérprete de Python** encima de la terminal, escribe `2 + 3` y pulsa Enter: el resultado aparece al momento. Es ideal para probar cosas pequeñas. Escribe `exit()` para salir.
+
+## Comentarios
+Todo lo que va después de `#` en una línea es un **comentario**: Python lo ignora. Los comentarios explican el código a las personas. Para una explicación larga puedes usar un texto entre comillas triples; Python lo trata como una cadena que nadie usa.
+fr: ## Le shell Python
+Python peut aussi exécuter du code ligne par ligne dans son **shell interactif** (appelé aussi REPL : read, evaluate, print, loop – lire, évaluer, afficher, recommencer). Clique sur **Shell Python** au-dessus du terminal, tape `2 + 3` puis Entrée : le résultat s'affiche aussitôt. C'est pratique pour essayer de petites choses. Tape `exit()` pour en sortir.
+
+## Commentaires
+Tout ce qui suit `#` sur une ligne est un **commentaire** : Python l'ignore. Les commentaires expliquent le code aux humains. Pour une explication plus longue, tu peux utiliser un texte entre triples guillemets ; Python le traite comme une chaîne que personne n'utilise.
+
+@code
+# This is a comment: Python skips this line
+print('Comments do not change the output')  # a comment can also end a line
+
+"""
+A text in triple quotes can span
+several lines.
+"""
+@end
+
+@md
+en: ## Basic data types
+Every value in Python has a **type**. The most common ones:
+
+| Type | Name | Examples |
+|---|---|---|
+| `int` | whole number | `10`, `-3`, `0` |
+| `float` | decimal number | `3.14`, `9.81`, `-0.5` |
+| `complex` | complex number | `1 + 2j` |
+| `str` | string (text) | `'Python'`, `"Hello"` |
+| `bool` | boolean | `True`, `False` |
+| `list` | list, can change | `[1, 2, 3]` |
+| `tuple` | tuple, cannot change | `(1, 2, 3)` |
+| `set` | set of unique items | `{1, 2, 3}` |
+| `dict` | dictionary of key–value pairs | `{'name': 'Ada'}` |
+
+You will meet each of them in the coming days. The function `type()` tells you the type of any value:
+pl: ## Podstawowe typy danych
+Każda wartość w Pythonie ma **typ**. Najczęściej spotykane:
+
+| Typ | Nazwa | Przykłady |
+|---|---|---|
+| `int` | liczba całkowita | `10`, `-3`, `0` |
+| `float` | liczba zmiennoprzecinkowa | `3.14`, `9.81`, `-0.5` |
+| `complex` | liczba zespolona | `1 + 2j` |
+| `str` | napis (tekst) | `'Python'`, `"Cześć"` |
+| `bool` | wartość logiczna | `True`, `False` |
+| `list` | lista, można ją zmieniać | `[1, 2, 3]` |
+| `tuple` | krotka, nie można jej zmienić | `(1, 2, 3)` |
+| `set` | zbiór niepowtarzających się elementów | `{1, 2, 3}` |
+| `dict` | słownik par klucz–wartość | `{'name': 'Ada'}` |
+
+Każdy z nich poznasz w najbliższych dniach. Funkcja `type()` podaje typ dowolnej wartości:
+de: ## Grundlegende Datentypen
+Jeder Wert in Python hat einen **Typ**. Die wichtigsten:
+
+| Typ | Name | Beispiele |
+|---|---|---|
+| `int` | ganze Zahl | `10`, `-3`, `0` |
+| `float` | Kommazahl | `3.14`, `9.81`, `-0.5` |
+| `complex` | komplexe Zahl | `1 + 2j` |
+| `str` | Zeichenkette (Text) | `'Python'`, `"Hallo"` |
+| `bool` | Wahrheitswert | `True`, `False` |
+| `list` | Liste, veränderbar | `[1, 2, 3]` |
+| `tuple` | Tupel, unveränderbar | `(1, 2, 3)` |
+| `set` | Menge eindeutiger Elemente | `{1, 2, 3}` |
+| `dict` | Wörterbuch aus Schlüssel-Wert-Paaren | `{'name': 'Ada'}` |
+
+Alle lernst du in den nächsten Tagen kennen. Die Funktion `type()` verrät dir den Typ jedes Wertes:
+es: ## Tipos de datos básicos
+Cada valor en Python tiene un **tipo**. Los más comunes:
+
+| Tipo | Nombre | Ejemplos |
+|---|---|---|
+| `int` | número entero | `10`, `-3`, `0` |
+| `float` | número decimal | `3.14`, `9.81`, `-0.5` |
+| `complex` | número complejo | `1 + 2j` |
+| `str` | cadena (texto) | `'Python'`, `"Hola"` |
+| `bool` | booleano | `True`, `False` |
+| `list` | lista, se puede cambiar | `[1, 2, 3]` |
+| `tuple` | tupla, no se puede cambiar | `(1, 2, 3)` |
+| `set` | conjunto de elementos únicos | `{1, 2, 3}` |
+| `dict` | diccionario de pares clave–valor | `{'name': 'Ada'}` |
+
+Conocerás cada uno en los próximos días. La función `type()` te dice el tipo de cualquier valor:
+fr: ## Les types de données de base
+Chaque valeur en Python a un **type**. Les plus courants :
+
+| Type | Nom | Exemples |
+|---|---|---|
+| `int` | nombre entier | `10`, `-3`, `0` |
+| `float` | nombre décimal | `3.14`, `9.81`, `-0.5` |
+| `complex` | nombre complexe | `1 + 2j` |
+| `str` | chaîne (texte) | `'Python'`, `"Bonjour"` |
+| `bool` | booléen | `True`, `False` |
+| `list` | liste, modifiable | `[1, 2, 3]` |
+| `tuple` | tuple, non modifiable | `(1, 2, 3)` |
+| `set` | ensemble d'éléments uniques | `{1, 2, 3}` |
+| `dict` | dictionnaire de paires clé–valeur | `{'name': 'Ada'}` |
+
+Tu les découvriras tous dans les prochains jours. La fonction `type()` donne le type de n'importe quelle valeur :
+
+@code
+print(type(10))          # <class 'int'>
+print(type(3.14))        # <class 'float'>
+print(type(1 + 3j))      # <class 'complex'>
+print(type('Asabeneh'))  # <class 'str'>
+print(type(True))        # <class 'bool'>
+print(type([1, 2, 3]))   # <class 'list'>
+print(type({'name': 'Asabeneh'}))  # <class 'dict'>
+@end
+
+@md
+en: ## Python files
+Code in the shell is gone when you close it. To keep a program, save it in a file with the `.py` extension and run it with `python file.py` – exactly what the **Run** button does with the file open in the editor. Your files here are saved automatically.
+
+> Indentation matters in Python: lines that belong together are indented with the same number of spaces (usually 4). You'll see this from day 9 on, with `if` and loops.
+pl: ## Pliki Pythona
+Kod wpisany w powłoce znika po jej zamknięciu. Żeby zachować program, zapisuje się go w pliku z rozszerzeniem `.py` i uruchamia poleceniem `python plik.py` – dokładnie to robi przycisk **Uruchom** z plikiem otwartym w edytorze. Twoje pliki zapisują się tutaj automatycznie.
+
+> W Pythonie ważne są wcięcia: wiersze, które należą do siebie, mają tyle samo spacji na początku (zwykle 4). Zobaczysz to od dnia 9, przy `if` i pętlach.
+de: ## Python-Dateien
+Code in der Shell ist weg, sobald du sie schließt. Um ein Programm zu behalten, speicherst du es in einer Datei mit der Endung `.py` und startest es mit `python datei.py` – genau das macht der Knopf **Ausführen** mit der Datei, die im Editor offen ist. Deine Dateien werden hier automatisch gespeichert.
+
+> Einrückung ist in Python wichtig: Zeilen, die zusammengehören, beginnen mit gleich vielen Leerzeichen (meist 4). Das siehst du ab Tag 9 bei `if` und Schleifen.
+es: ## Archivos de Python
+El código del intérprete desaparece al cerrarlo. Para conservar un programa, se guarda en un archivo con la extensión `.py` y se ejecuta con `python archivo.py`: justo lo que hace el botón **Ejecutar** con el archivo abierto en el editor. Aquí tus archivos se guardan automáticamente.
+
+> En Python la sangría importa: las líneas que van juntas empiezan con el mismo número de espacios (normalmente 4). Lo verás a partir del día 9, con `if` y los bucles.
+fr: ## Les fichiers Python
+Le code tapé dans le shell disparaît quand tu le fermes. Pour garder un programme, on l'enregistre dans un fichier avec l'extension `.py` et on le lance avec `python fichier.py` – c'est exactement ce que fait le bouton **Exécuter** avec le fichier ouvert dans l'éditeur. Ici, tes fichiers sont enregistrés automatiquement.
+
+> L'indentation compte en Python : les lignes qui vont ensemble commencent par le même nombre d'espaces (en général 4). Tu le verras à partir du jour 9, avec `if` et les boucles.
+
+@exercise hello-world
+@title
+en: Hello, World!
+pl: Hello, World!
+de: Hello, World!
+es: Hello, World!
+fr: Hello, World!
+@text
+en: Print exactly `Hello, World!` – the first program of almost every programmer.
+pl: Wypisz dokładnie `Hello, World!` – pierwszy program niemal każdego programisty.
+de: Gib genau `Hello, World!` aus – das erste Programm fast jedes Programmierers.
+es: Imprime exactamente `Hello, World!`, el primer programa de casi todos los programadores.
+fr: Affiche exactement `Hello, World!` – le premier programme de presque tous les programmeurs.
+@hint
+en: Use `print()` with the text in quotes: `print('...')`.
+pl: Użyj `print()` z tekstem w cudzysłowie: `print('...')`.
+de: Nutze `print()` mit dem Text in Anführungszeichen: `print('...')`.
+es: Usa `print()` con el texto entre comillas: `print('...')`.
+fr: Utilise `print()` avec le texte entre guillemets : `print('...')`.
+@starter
+# Write your code below
+@end
+@solution
+print('Hello, World!')
+@end
+@case
+out: Hello, World!
+
+@exercise three-lines
+@title
+en: Three lines
+pl: Trzy wiersze
+de: Drei Zeilen
+es: Tres líneas
+fr: Trois lignes
+@text
+en: Print three lines: `30 Days Of Python`, then your first name, then `Let's start!`.
+pl: Wypisz trzy wiersze: `30 Days Of Python`, potem swoje imię, potem `Let's start!`.
+de: Gib drei Zeilen aus: `30 Days Of Python`, dann deinen Vornamen, dann `Let's start!`.
+es: Imprime tres líneas: `30 Days Of Python`, después tu nombre y después `Let's start!`.
+fr: Affiche trois lignes : `30 Days Of Python`, puis ton prénom, puis `Let's start!`.
+@hint
+en: Each `print()` prints one line. A text with an apostrophe is easiest in double quotes: `"Let's start!"`.
+pl: Każde `print()` wypisuje jeden wiersz. Tekst z apostrofem najłatwiej zapisać w podwójnym cudzysłowie: `"Let's start!"`.
+de: Jedes `print()` gibt eine Zeile aus. Text mit Apostroph schreibst du am einfachsten in doppelten Anführungszeichen: `"Let's start!"`.
+es: Cada `print()` imprime una línea. Un texto con apóstrofo es más fácil entre comillas dobles: `"Let's start!"`.
+fr: Chaque `print()` affiche une ligne. Un texte avec une apostrophe s'écrit plus facilement entre guillemets doubles : `"Let's start!"`.
+@starter
+print('30 Days Of Python')
+@end
+@solution
+print('30 Days Of Python')
+print('Ada')
+print("Let's start!")
+@end
+@case
+expr: len(_lines) == 3
+expr: _lines[0] == '30 Days Of Python'
+expr: _lines[2] == "Let's start!"
+
+@exercise calculator
+@title
+en: Python as a calculator
+pl: Python jako kalkulator
+de: Python als Taschenrechner
+es: Python como calculadora
+fr: Python comme calculatrice
+@text
+en: Print the results of `3 + 4`, `3 - 4`, `3 * 4`, `3 / 4` and `3 ** 4`, each on its own line, in this order. Let Python calculate them – don't type the answers.
+pl: Wypisz wyniki działań `3 + 4`, `3 - 4`, `3 * 4`, `3 / 4` i `3 ** 4`, każdy w osobnym wierszu, w tej kolejności. Niech policzy je Python – nie wpisuj gotowych wyników.
+de: Gib die Ergebnisse von `3 + 4`, `3 - 4`, `3 * 4`, `3 / 4` und `3 ** 4` aus, jedes in einer eigenen Zeile, in dieser Reihenfolge. Lass Python rechnen – tipp die Ergebnisse nicht ein.
+es: Imprime los resultados de `3 + 4`, `3 - 4`, `3 * 4`, `3 / 4` y `3 ** 4`, cada uno en su línea y en este orden. Deja que Python los calcule: no escribas las respuestas.
+fr: Affiche les résultats de `3 + 4`, `3 - 4`, `3 * 4`, `3 / 4` et `3 ** 4`, chacun sur sa ligne, dans cet ordre. Laisse Python les calculer – n'écris pas les réponses.
+@starter
+print(3 + 4)
+@end
+@solution
+print(3 + 4)
+print(3 - 4)
+print(3 * 4)
+print(3 / 4)
+print(3 ** 4)
+@end
+@case
+expr: _lines == ['7', '-1', '12', '0.75', '81']
+
+@exercise types
+@title
+en: What type is it?
+pl: Jaki to typ?
+de: Welcher Typ ist das?
+es: ¿De qué tipo es?
+fr: Quel est ce type ?
+@text
+en: Use `type()` to print the types of `10`, `9.8`, `'Asabeneh'`, `True` and `[1, 2, 3]`.
+pl: Użyj `type()`, żeby wypisać typy wartości `10`, `9.8`, `'Asabeneh'`, `True` i `[1, 2, 3]`.
+de: Gib mit `type()` die Typen von `10`, `9.8`, `'Asabeneh'`, `True` und `[1, 2, 3]` aus.
+es: Usa `type()` para imprimir los tipos de `10`, `9.8`, `'Asabeneh'`, `True` y `[1, 2, 3]`.
+fr: Utilise `type()` pour afficher les types de `10`, `9.8`, `'Asabeneh'`, `True` et `[1, 2, 3]`.
+@starter
+print(type(10))
+@end
+@solution
+print(type(10))
+print(type(9.8))
+print(type('Asabeneh'))
+print(type(True))
+print(type([1, 2, 3]))
+@end
+@case
+out: <class 'int'>
+out: <class 'float'>
+out: <class 'str'>
+out: <class 'bool'>
+out: <class 'list'>

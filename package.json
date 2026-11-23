@@ -13,7 +13,7 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "test": "node --test test/*.test.js",
+    "test": "node --test test/*.test.mjs",
     "check-content": "node tools/check-content.mjs",
     "smoke": "node scripts/smoke.js",
     "shots": "node scripts/smoke.js --shots",
