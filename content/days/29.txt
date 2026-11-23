@@ -1,0 +1,423 @@
+@day 29
+@source 29_Day_Building_API/29_building_API.md
+
+@title
+en: Building an API
+pl: Budowanie API
+de: Eine API bauen
+es: Construir una API
+fr: Construire une API
+
+@summary
+en: Design a REST API around resources, map create, read, update and delete to HTTP methods, build one with Flask, and write the request handling yourself in plain Python.
+pl: Zaprojektuj API REST wokół zasobów, przypisz tworzenie, odczyt, aktualizację i usuwanie do metod HTTP, zbuduj je we Flasku i napisz obsługę żądań samodzielnie w czystym Pythonie.
+de: Eine REST-API rund um Ressourcen entwerfen, Anlegen, Lesen, Aktualisieren und Löschen auf HTTP-Methoden abbilden, sie mit Flask bauen und die Anfragebehandlung selbst in reinem Python schreiben.
+es: Diseña una API REST en torno a recursos, asigna crear, leer, actualizar y borrar a métodos HTTP, constrúyela con Flask y escribe tú mismo el manejo de peticiones en Python puro.
+fr: Conçois une API REST autour de ressources, associe créer, lire, mettre à jour et supprimer aux méthodes HTTP, construis-la avec Flask et écris toi-même la gestion des requêtes en Python pur.
+
+@md
+en: ## REST and CRUD
+Yesterday you used APIs; today you build one. Most web APIs follow the **REST** style: the data is organised as **resources** with their own URLs, such as `/students` for all students and `/students/3` for one of them, and the HTTP method says what to do with it. The four basic operations on stored data are called **CRUD**:
+
+| Operation | Method | URL | Answer |
+|---|---|---|---|
+| Create | `POST` | `/students` | `201` and the new student |
+| Read all | `GET` | `/students` | `200` and a list |
+| Read one | `GET` | `/students/3` | `200`, or `404` if there is none |
+| Update | `PUT` | `/students/3` | `200` and the changed student |
+| Delete | `DELETE` | `/students/3` | `204` with no body |
+
+Requests and answers carry JSON. A request with missing or wrong data gets `400` and a short error message.
+pl: ## REST i CRUD
+Wczoraj korzystałeś z API; dziś zbudujesz własne. Większość webowych API trzyma się stylu **REST**: dane są uporządkowane jako **zasoby** z własnymi adresami, np. `/students` dla wszystkich studentów i `/students/3` dla jednego z nich, a metoda HTTP mówi, co z nimi zrobić. Cztery podstawowe operacje na przechowywanych danych to **CRUD**:
+
+| Operacja | Metoda | Adres | Odpowiedź |
+|---|---|---|---|
+| Utworzenie | `POST` | `/students` | `201` i nowy student |
+| Odczyt wszystkich | `GET` | `/students` | `200` i lista |
+| Odczyt jednego | `GET` | `/students/3` | `200` albo `404`, jeśli go nie ma |
+| Aktualizacja | `PUT` | `/students/3` | `200` i zmieniony student |
+| Usunięcie | `DELETE` | `/students/3` | `204` bez treści |
+
+Żądania i odpowiedzi przenoszą JSON. Żądanie z brakującymi albo złymi danymi dostaje `400` i krótki komunikat o błędzie.
+de: ## REST und CRUD
+Gestern hast du APIs benutzt, heute baust du eine. Die meisten Web-APIs folgen dem **REST**-Stil: Die Daten sind als **Ressourcen** mit eigenen URLs organisiert, etwa `/students` für alle Studierenden und `/students/3` für eine davon, und die HTTP-Methode sagt, was damit geschehen soll. Die vier Grundoperationen auf gespeicherten Daten heißen **CRUD**:
+
+| Operation | Methode | URL | Antwort |
+|---|---|---|---|
+| Anlegen | `POST` | `/students` | `201` und der neue Eintrag |
+| Alle lesen | `GET` | `/students` | `200` und eine Liste |
+| Einen lesen | `GET` | `/students/3` | `200`, oder `404`, wenn es ihn nicht gibt |
+| Aktualisieren | `PUT` | `/students/3` | `200` und der geänderte Eintrag |
+| Löschen | `DELETE` | `/students/3` | `204` ohne Body |
+
+Anfragen und Antworten transportieren JSON. Eine Anfrage mit fehlenden oder falschen Daten bekommt `400` und eine kurze Fehlermeldung.
+es: ## REST y CRUD
+Ayer usaste API; hoy construyes una. La mayoría de las API web siguen el estilo **REST**: los datos se organizan como **recursos** con sus propias URL, como `/students` para todos los estudiantes y `/students/3` para uno de ellos, y el método HTTP indica qué hacer con ellos. Las cuatro operaciones básicas sobre datos guardados se llaman **CRUD**:
+
+| Operación | Método | URL | Respuesta |
+|---|---|---|---|
+| Crear | `POST` | `/students` | `201` y el nuevo estudiante |
+| Leer todos | `GET` | `/students` | `200` y una lista |
+| Leer uno | `GET` | `/students/3` | `200`, o `404` si no existe |
+| Actualizar | `PUT` | `/students/3` | `200` y el estudiante cambiado |
+| Borrar | `DELETE` | `/students/3` | `204` sin cuerpo |
+
+Las peticiones y las respuestas llevan JSON. Una petición con datos que faltan o son incorrectos recibe `400` y un mensaje de error breve.
+fr: ## REST et CRUD
+Hier, tu as utilisé des API ; aujourd'hui, tu en construis une. La plupart des API web suivent le style **REST** : les données sont organisées en **ressources** ayant leurs propres URL, comme `/students` pour tous les étudiants et `/students/3` pour l'un d'eux, et la méthode HTTP dit quoi en faire. Les quatre opérations de base sur des données stockées s'appellent **CRUD** :
+
+| Opération | Méthode | URL | Réponse |
+|---|---|---|---|
+| Créer | `POST` | `/students` | `201` et le nouvel étudiant |
+| Lire tout | `GET` | `/students` | `200` et une liste |
+| Lire un | `GET` | `/students/3` | `200`, ou `404` s'il n'existe pas |
+| Mettre à jour | `PUT` | `/students/3` | `200` et l'étudiant modifié |
+| Supprimer | `DELETE` | `/students/3` | `204` sans corps |
+
+Requêtes et réponses transportent du JSON. Une requête aux données manquantes ou erronées reçoit `400` et un court message d'erreur.
+
+@md
+en: ## A REST API with Flask
+Flask's `jsonify` turns Python data into a JSON response, `request.get_json()` reads the JSON body of a request, and `methods=[...]` says which HTTP methods a route accepts. Copy the example into the editor with **Edit** to run it, then try it with a tool such as `curl` or Postman, or from Python with `requests`:
+
+```
+curl http://127.0.0.1:5000/students
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ola\"}" http://127.0.0.1:5000/students
+```
+pl: ## API REST we Flasku
+`jsonify` z Flaska zamienia dane Pythona na odpowiedź w JSON, `request.get_json()` odczytuje treść żądania w JSON, a `methods=[...]` mówi, jakie metody HTTP przyjmuje dana trasa. Skopiuj przykład do edytora przyciskiem **Edytuj**, żeby go uruchomić, a potem wypróbuj go narzędziem takim jak `curl` albo Postman, albo z Pythona przez `requests`:
+
+```
+curl http://127.0.0.1:5000/students
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ola\"}" http://127.0.0.1:5000/students
+```
+de: ## Eine REST-API mit Flask
+Flasks `jsonify` macht aus Python-Daten eine JSON-Antwort, `request.get_json()` liest den JSON-Body einer Anfrage, und `methods=[...]` legt fest, welche HTTP-Methoden eine Route annimmt. Kopier das Beispiel mit **Bearbeiten** in den Editor, um es auszuführen, und probier es dann mit einem Werkzeug wie `curl` oder Postman aus oder aus Python mit `requests`:
+
+```
+curl http://127.0.0.1:5000/students
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ola\"}" http://127.0.0.1:5000/students
+```
+es: ## Una API REST con Flask
+`jsonify` de Flask convierte datos de Python en una respuesta JSON, `request.get_json()` lee el cuerpo JSON de una petición y `methods=[...]` indica qué métodos HTTP acepta una ruta. Copia el ejemplo al editor con **Editar** para ejecutarlo y después pruébalo con una herramienta como `curl` o Postman, o desde Python con `requests`:
+
+```
+curl http://127.0.0.1:5000/students
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ola\"}" http://127.0.0.1:5000/students
+```
+fr: ## Une API REST avec Flask
+`jsonify` de Flask transforme des données Python en réponse JSON, `request.get_json()` lit le corps JSON d'une requête, et `methods=[...]` indique quelles méthodes HTTP une route accepte. Copie l'exemple dans l'éditeur avec **Modifier** pour l'exécuter, puis essaie-le avec un outil comme `curl` ou Postman, ou depuis Python avec `requests` :
+
+```
+curl http://127.0.0.1:5000/students
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ola\"}" http://127.0.0.1:5000/students
+```
+
+@code norun needs=flask
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+students = {1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'}}
+next_id = 2
+
+
+@app.route('/students', methods=['GET'])
+def list_students():
+    return jsonify(list(students.values()))
+
+
+@app.route('/students/<int:sid>', methods=['GET'])
+def get_student(sid):
+    if sid not in students:
+        return jsonify({'error': 'not found'}), 404
+    return jsonify(students[sid])
+
+
+@app.route('/students', methods=['POST'])
+def create_student():
+    global next_id
+    data = request.get_json() or {}
+    if 'name' not in data:
+        return jsonify({'error': 'name is required'}), 400
+    student = {'id': next_id, **data}
+    students[next_id] = student
+    next_id += 1
+    return jsonify(student), 201
+
+
+@app.route('/students/<int:sid>', methods=['DELETE'])
+def delete_student(sid):
+    students.pop(sid, None)
+    return '', 204
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+@end
+
+@md
+en: ## The same logic without a server
+Under the framework, an API is a function from a request – method, path and body – to a response – status code and data. Keeping that logic in a plain function makes it easy to test, and that is what the exercises build: `handle(method, path, body)` returns a tuple `(status, data)`.
+pl: ## Ta sama logika bez serwera
+Pod spodem frameworka API to funkcja z żądania – metody, ścieżki i treści – w odpowiedź – kod statusu i dane. Trzymanie tej logiki w zwykłej funkcji ułatwia testowanie i właśnie to budują ćwiczenia: `handle(method, path, body)` zwraca krotkę `(status, data)`.
+de: ## Dieselbe Logik ohne Server
+Unter dem Framework ist eine API eine Funktion von einer Anfrage – Methode, Pfad und Body – auf eine Antwort – Statuscode und Daten. Steckt diese Logik in einer normalen Funktion, lässt sie sich leicht testen, und genau das bauen die Übungen: `handle(method, path, body)` gibt ein Tupel `(status, data)` zurück.
+es: ## La misma lógica sin servidor
+Debajo del framework, una API es una función que va de una petición (método, ruta y cuerpo) a una respuesta (código de estado y datos). Tener esa lógica en una función normal facilita probarla, y eso es lo que construyen los ejercicios: `handle(method, path, body)` devuelve una tupla `(status, data)`.
+fr: ## La même logique sans serveur
+Sous le framework, une API est une fonction qui va d'une requête – méthode, chemin et corps – à une réponse – code d'état et données. Garder cette logique dans une fonction ordinaire la rend facile à tester, et c'est ce que construisent les exercices : `handle(method, path, body)` renvoie un tuple `(status, data)`.
+
+@code
+students = {1: {'id': 1, 'name': 'Asabeneh'}}
+
+def handle(method, path):
+    if method == 'GET' and path == '/students':
+        return 200, list(students.values())
+    return 404, {'error': 'not found'}
+
+print(handle('GET', '/students'))
+print(handle('GET', '/teachers'))
+@end
+
+@exercise read
+@title
+en: Reading resources
+pl: Odczyt zasobów
+de: Ressourcen lesen
+es: Leer recursos
+fr: Lire des ressources
+@text
+en: Complete `handle(method, path, body=None)`. `GET /students` returns `(200, list)` with all students in `students`. `GET /students/<id>` returns `(200, student)`, or `(404, {'error': 'not found'})` if there is no student with that id or the id is not a number. Every other request returns `(404, {'error': 'not found'})` too.
+pl: Dokończ `handle(method, path, body=None)`. `GET /students` zwraca `(200, list)` ze wszystkimi studentami z `students`. `GET /students/<id>` zwraca `(200, student)` albo `(404, {'error': 'not found'})`, jeśli nie ma studenta o tym id albo id nie jest liczbą. Każde inne żądanie też zwraca `(404, {'error': 'not found'})`.
+de: Vervollständige `handle(method, path, body=None)`. `GET /students` gibt `(200, list)` mit allen Einträgen aus `students` zurück. `GET /students/<id>` gibt `(200, student)` zurück, oder `(404, {'error': 'not found'})`, wenn es keinen Eintrag mit dieser id gibt oder die id keine Zahl ist. Jede andere Anfrage gibt ebenfalls `(404, {'error': 'not found'})` zurück.
+es: Completa `handle(method, path, body=None)`. `GET /students` devuelve `(200, list)` con todos los estudiantes de `students`. `GET /students/<id>` devuelve `(200, student)`, o `(404, {'error': 'not found'})` si no hay ningún estudiante con ese id o el id no es un número. Cualquier otra petición devuelve también `(404, {'error': 'not found'})`.
+fr: Complète `handle(method, path, body=None)`. `GET /students` renvoie `(200, list)` avec tous les étudiants de `students`. `GET /students/<id>` renvoie `(200, student)`, ou `(404, {'error': 'not found'})` s'il n'y a pas d'étudiant avec cet id ou si l'id n'est pas un nombre. Toute autre requête renvoie aussi `(404, {'error': 'not found'})`.
+@hint
+en: `path.strip('/').split('/')` gives `['students']` or `['students', '3']`. `part.isdigit()` tells you whether the id is a number.
+pl: `path.strip('/').split('/')` daje `['students']` albo `['students', '3']`. `part.isdigit()` mówi, czy id jest liczbą.
+de: `path.strip('/').split('/')` ergibt `['students']` oder `['students', '3']`. `part.isdigit()` sagt dir, ob die id eine Zahl ist.
+es: `path.strip('/').split('/')` da `['students']` o `['students', '3']`. `part.isdigit()` te dice si el id es un número.
+fr: `path.strip('/').split('/')` donne `['students']` ou `['students', '3']`. `part.isdigit()` t'indique si l'id est un nombre.
+@starter
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    return NOT_FOUND
+@end
+@solution
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    parts = path.strip('/').split('/')
+    if parts[0] != 'students' or len(parts) > 2:
+        return NOT_FOUND
+    if method == 'GET' and len(parts) == 1:
+        return 200, list(students.values())
+    if method == 'GET' and parts[1].isdigit():
+        sid = int(parts[1])
+        if sid in students:
+            return 200, students[sid]
+    return NOT_FOUND
+
+
+print(handle('GET', '/students'))
+print(handle('GET', '/students/2'))
+print(handle('GET', '/students/9'))
+@end
+@case
+expr: handle('GET', '/students') == (200, [students[1], students[2]])
+expr: handle('GET', '/students/2') == (200, {'id': 2, 'name': 'Anna', 'country': 'Poland'})
+expr: handle('GET', '/students/9') == (404, {'error': 'not found'}) and handle('GET', '/students/abc') == (404, {'error': 'not found'})
+expr: handle('GET', '/teachers') == (404, {'error': 'not found'}) and handle('GET', '/students/1/x') == (404, {'error': 'not found'})
+
+@exercise create
+@title
+en: Creating resources
+pl: Tworzenie zasobów
+de: Ressourcen anlegen
+es: Crear recursos
+fr: Créer des ressources
+@text
+en: Add `POST /students` to `handle`. The body is a dictionary; if it has no `'name'` or the name is empty, return `(400, {'error': 'name is required'})`. Otherwise store a new student with the next free id – one more than the largest id so far – plus the fields from the body, and return `(201, student)`.
+pl: Dodaj do `handle` obsługę `POST /students`. Treść to słownik; jeśli nie ma w nim `'name'` albo imię jest puste, zwróć `(400, {'error': 'name is required'})`. W przeciwnym razie zapisz nowego studenta z następnym wolnym id – o jeden większym od największego dotychczasowego – i polami z treści, i zwróć `(201, student)`.
+de: Ergänze `handle` um `POST /students`. Der Body ist ein Dictionary; fehlt `'name'` oder ist der Name leer, gib `(400, {'error': 'name is required'})` zurück. Sonst speichere einen neuen Eintrag mit der nächsten freien id – eins mehr als die bisher größte – und den Feldern aus dem Body und gib `(201, student)` zurück.
+es: Añade `POST /students` a `handle`. El cuerpo es un diccionario; si no tiene `'name'` o el nombre está vacío, devuelve `(400, {'error': 'name is required'})`. Si no, guarda un nuevo estudiante con el siguiente id libre (uno más que el mayor hasta ahora) y los campos del cuerpo, y devuelve `(201, student)`.
+fr: Ajoute `POST /students` à `handle`. Le corps est un dictionnaire ; s'il n'a pas de `'name'` ou si le nom est vide, renvoie `(400, {'error': 'name is required'})`. Sinon, range un nouvel étudiant avec le prochain id libre – un de plus que le plus grand jusqu'ici – et les champs du corps, et renvoie `(201, student)`.
+@hint
+en: `new_id = max(students, default=0) + 1`, then `student = {**body, 'id': new_id}`.
+pl: `new_id = max(students, default=0) + 1`, potem `student = {**body, 'id': new_id}`.
+de: `new_id = max(students, default=0) + 1`, dann `student = {**body, 'id': new_id}`.
+es: `new_id = max(students, default=0) + 1` y después `student = {**body, 'id': new_id}`.
+fr: `new_id = max(students, default=0) + 1`, puis `student = {**body, 'id': new_id}`.
+@starter
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    parts = path.strip('/').split('/')
+    if parts[0] != 'students' or len(parts) > 2:
+        return NOT_FOUND
+    if method == 'GET' and len(parts) == 1:
+        return 200, list(students.values())
+    if method == 'GET' and parts[1].isdigit():
+        sid = int(parts[1])
+        if sid in students:
+            return 200, students[sid]
+    return NOT_FOUND
+@end
+@solution
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    parts = path.strip('/').split('/')
+    if parts[0] != 'students' or len(parts) > 2:
+        return NOT_FOUND
+    if len(parts) == 1:
+        if method == 'GET':
+            return 200, list(students.values())
+        if method == 'POST':
+            body = body or {}
+            if not body.get('name'):
+                return 400, {'error': 'name is required'}
+            new_id = max(students, default=0) + 1
+            student = {**body, 'id': new_id}
+            students[new_id] = student
+            return 201, student
+        return NOT_FOUND
+    if method == 'GET' and parts[1].isdigit():
+        sid = int(parts[1])
+        if sid in students:
+            return 200, students[sid]
+    return NOT_FOUND
+
+
+print(handle('POST', '/students', {'name': 'Lukas', 'country': 'Germany'}))
+print(handle('POST', '/students', {'country': 'Spain'}))
+@end
+@case
+expr: students.clear() or students.update({1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'}, 2: {'id': 2, 'name': 'Anna', 'country': 'Poland'}}) or True
+expr: handle('POST', '/students', {'name': 'Lukas', 'country': 'Germany'}) == (201, {'name': 'Lukas', 'country': 'Germany', 'id': 3})
+expr: handle('GET', '/students/3') == (200, {'name': 'Lukas', 'country': 'Germany', 'id': 3}) and len(students) == 3
+expr: handle('POST', '/students', {'country': 'Spain'}) == (400, {'error': 'name is required'}) and handle('POST', '/students', {'name': ''})[0] == 400
+expr: handle('POST', '/students') == (400, {'error': 'name is required'}) and len(students) == 3
+expr: handle('GET', '/students/1') == (200, {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'})
+
+@exercise update-delete
+@title
+en: Updating and deleting
+pl: Aktualizacja i usuwanie
+de: Aktualisieren und löschen
+es: Actualizar y borrar
+fr: Mettre à jour et supprimer
+@text
+en: Finish the API. `PUT /students/<id>` changes the fields given in the body (the `id` itself never changes) and returns `(200, student)`. `DELETE /students/<id>` removes the student and returns `(204, None)`. Both return `(404, {'error': 'not found'})` for an unknown id.
+pl: Dokończ API. `PUT /students/<id>` zmienia pola podane w treści (samo `id` nigdy się nie zmienia) i zwraca `(200, student)`. `DELETE /students/<id>` usuwa studenta i zwraca `(204, None)`. Oba zwracają `(404, {'error': 'not found'})` dla nieznanego id.
+de: Stell die API fertig. `PUT /students/<id>` ändert die im Body angegebenen Felder (die `id` selbst ändert sich nie) und gibt `(200, student)` zurück. `DELETE /students/<id>` entfernt den Eintrag und gibt `(204, None)` zurück. Beide geben für eine unbekannte id `(404, {'error': 'not found'})` zurück.
+es: Termina la API. `PUT /students/<id>` cambia los campos indicados en el cuerpo (el `id` nunca cambia) y devuelve `(200, student)`. `DELETE /students/<id>` borra al estudiante y devuelve `(204, None)`. Los dos devuelven `(404, {'error': 'not found'})` para un id desconocido.
+fr: Termine l'API. `PUT /students/<id>` modifie les champs donnés dans le corps (l'`id` lui-même ne change jamais) et renvoie `(200, student)`. `DELETE /students/<id>` supprime l'étudiant et renvoie `(204, None)`. Les deux renvoient `(404, {'error': 'not found'})` pour un id inconnu.
+@hint
+en: For `PUT`, `students[sid].update(body)` and then set `students[sid]['id'] = sid` again. For `DELETE`, `del students[sid]`.
+pl: Przy `PUT` wykonaj `students[sid].update(body)`, a potem ponownie ustaw `students[sid]['id'] = sid`. Przy `DELETE` – `del students[sid]`.
+de: Bei `PUT` `students[sid].update(body)` und danach wieder `students[sid]['id'] = sid` setzen. Bei `DELETE` `del students[sid]`.
+es: Para `PUT`, `students[sid].update(body)` y después vuelve a poner `students[sid]['id'] = sid`. Para `DELETE`, `del students[sid]`.
+fr: Pour `PUT`, `students[sid].update(body)` puis remets `students[sid]['id'] = sid`. Pour `DELETE`, `del students[sid]`.
+@starter
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    parts = path.strip('/').split('/')
+    if parts[0] != 'students' or len(parts) > 2:
+        return NOT_FOUND
+    if len(parts) == 1:
+        if method == 'GET':
+            return 200, list(students.values())
+        if method == 'POST':
+            body = body or {}
+            if not body.get('name'):
+                return 400, {'error': 'name is required'}
+            new_id = max(students, default=0) + 1
+            student = {**body, 'id': new_id}
+            students[new_id] = student
+            return 201, student
+        return NOT_FOUND
+    if not parts[1].isdigit() or int(parts[1]) not in students:
+        return NOT_FOUND
+    sid = int(parts[1])
+    if method == 'GET':
+        return 200, students[sid]
+    return NOT_FOUND
+@end
+@solution
+students = {
+    1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'},
+    2: {'id': 2, 'name': 'Anna', 'country': 'Poland'},
+}
+NOT_FOUND = (404, {'error': 'not found'})
+
+
+def handle(method, path, body=None):
+    parts = path.strip('/').split('/')
+    if parts[0] != 'students' or len(parts) > 2:
+        return NOT_FOUND
+    if len(parts) == 1:
+        if method == 'GET':
+            return 200, list(students.values())
+        if method == 'POST':
+            body = body or {}
+            if not body.get('name'):
+                return 400, {'error': 'name is required'}
+            new_id = max(students, default=0) + 1
+            student = {**body, 'id': new_id}
+            students[new_id] = student
+            return 201, student
+        return NOT_FOUND
+    if not parts[1].isdigit() or int(parts[1]) not in students:
+        return NOT_FOUND
+    sid = int(parts[1])
+    if method == 'GET':
+        return 200, students[sid]
+    if method == 'PUT':
+        students[sid].update(body or {})
+        students[sid]['id'] = sid
+        return 200, students[sid]
+    if method == 'DELETE':
+        del students[sid]
+        return 204, None
+    return NOT_FOUND
+
+
+print(handle('PUT', '/students/2', {'country': 'Germany'}))
+print(handle('DELETE', '/students/1'))
+print(handle('GET', '/students'))
+@end
+@case
+expr: students.clear() or students.update({1: {'id': 1, 'name': 'Asabeneh', 'country': 'Finland'}, 2: {'id': 2, 'name': 'Anna', 'country': 'Poland'}}) or True
+expr: handle('PUT', '/students/2', {'country': 'Germany', 'id': 99}) == (200, {'id': 2, 'name': 'Anna', 'country': 'Germany'})
+expr: handle('PUT', '/students/7', {'name': 'X'}) == (404, {'error': 'not found'})
+expr: handle('DELETE', '/students/1') == (204, None) and 1 not in students
+expr: handle('DELETE', '/students/1') == (404, {'error': 'not found'}) and handle('GET', '/students') == (200, [{'id': 2, 'name': 'Anna', 'country': 'Germany'}])

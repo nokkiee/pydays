@@ -1,0 +1,262 @@
+@day 30
+@source 30_Day_Conclusions/30_conclusions.md
+
+@title
+en: Conclusions
+pl: Podsumowanie
+de: Abschluss
+es: Conclusiones
+fr: Conclusion
+
+@summary
+en: Look back at the thirty days, see where to go next, and finish with three small projects that combine what you have learnt.
+pl: Spójrz wstecz na trzydzieści dni, zobacz, dokąd iść dalej, i zakończ trzema małymi projektami, które łączą to, czego się nauczyłeś.
+de: Auf die dreißig Tage zurückblicken, sehen, wie es weitergeht, und mit drei kleinen Projekten abschließen, die das Gelernte verbinden.
+es: Repasa los treinta días, descubre por dónde seguir y termina con tres pequeños proyectos que combinan lo que has aprendido.
+fr: Reviens sur les trente jours, vois où aller ensuite, et termine par trois petits projets qui combinent ce que tu as appris.
+
+@md
+en: ## You made it
+Thirty days ago you printed `Hello, World!`. Since then you have worked with every basic data type, controlled programs with conditions and loops, written functions, classes and decorators, caught errors, read and written files, used regular expressions, organised code into modules and packages, and looked at how the web, databases and APIs work from Python.
+
+That is the whole foundation of the language. Everything else – data science, web development, automation, games, machine learning – is built from these same pieces.
+pl: ## Udało się
+Trzydzieści dni temu wypisałeś `Hello, World!`. Od tego czasu pracowałeś ze wszystkimi podstawowymi typami danych, sterowałeś programami przez warunki i pętle, pisałeś funkcje, klasy i dekoratory, łapałeś błędy, czytałeś i zapisywałeś pliki, używałeś wyrażeń regularnych, układałeś kod w moduły i pakiety i zobaczyłeś, jak z Pythona działa się z siecią, bazami danych i API.
+
+To cały fundament języka. Wszystko inne – analiza danych, tworzenie stron, automatyzacja, gry, uczenie maszynowe – buduje się z tych samych elementów.
+de: ## Geschafft
+Vor dreißig Tagen hast du `Hello, World!` ausgegeben. Seitdem hast du mit allen grundlegenden Datentypen gearbeitet, Programme mit Bedingungen und Schleifen gesteuert, Funktionen, Klassen und Dekoratoren geschrieben, Fehler abgefangen, Dateien gelesen und geschrieben, reguläre Ausdrücke verwendet, Code in Module und Pakete gegliedert und gesehen, wie Web, Datenbanken und APIs von Python aus funktionieren.
+
+Das ist das ganze Fundament der Sprache. Alles andere – Data Science, Webentwicklung, Automatisierung, Spiele, maschinelles Lernen – wird aus genau diesen Teilen gebaut.
+es: ## Lo has conseguido
+Hace treinta días imprimiste `Hello, World!`. Desde entonces has trabajado con todos los tipos de datos básicos, has controlado programas con condiciones y bucles, has escrito funciones, clases y decoradores, has capturado errores, has leído y escrito archivos, has usado expresiones regulares, has organizado código en módulos y paquetes y has visto cómo se trabaja con la web, las bases de datos y las API desde Python.
+
+Esa es toda la base del lenguaje. Todo lo demás (ciencia de datos, desarrollo web, automatización, juegos, aprendizaje automático) se construye con estas mismas piezas.
+fr: ## Tu l'as fait
+Il y a trente jours, tu affichais `Hello, World!`. Depuis, tu as manipulé tous les types de données de base, contrôlé des programmes avec des conditions et des boucles, écrit des fonctions, des classes et des décorateurs, intercepté des erreurs, lu et écrit des fichiers, utilisé des expressions régulières, organisé du code en modules et en paquets, et vu comment Python travaille avec le web, les bases de données et les API.
+
+C'est toute la base du langage. Tout le reste – science des données, développement web, automatisation, jeux, apprentissage automatique – se construit avec ces mêmes briques.
+
+@md
+en: ## Where to go next
+- **Build something of your own.** A project you care about teaches more than any course: a script that renames your photos, a bot, a small game, a website for a club.
+- **Read the official documentation** at docs.python.org – the tutorial and the library reference answer most questions.
+- **Write readable code.** PEP 8 is Python's style guide; tools like `ruff` or `black` check and format code for you.
+- **Test your code.** `assert` is the simplest test; the `unittest` module and the `pytest` package run whole test suites.
+- **Use type hints** – `def add(a: int, b: int) -> int:` – to document what functions expect.
+- **Learn git** to keep the history of your projects and share them on GitHub.
+- **Pick a direction:** pandas and Jupyter for data, Django or FastAPI for the web, `pygame` for games.
+
+The original *30 Days Of Python* by Asabeneh Yetayeh, which this course follows, has more exercises for every day – the link is at the bottom of each lesson.
+pl: ## Co dalej
+- **Zbuduj coś własnego.** Projekt, na którym ci zależy, uczy więcej niż każdy kurs: skrypt zmieniający nazwy zdjęć, bot, mała gra, strona dla klubu.
+- **Czytaj oficjalną dokumentację** na docs.python.org – tutorial i opis biblioteki odpowiadają na większość pytań.
+- **Pisz czytelny kod.** PEP 8 to przewodnik stylu Pythona; narzędzia takie jak `ruff` czy `black` sprawdzają i formatują kod za ciebie.
+- **Testuj swój kod.** `assert` to najprostszy test; moduł `unittest` i pakiet `pytest` uruchamiają całe zestawy testów.
+- **Używaj adnotacji typów** – `def add(a: int, b: int) -> int:` – żeby opisać, czego funkcje oczekują.
+- **Naucz się gita**, żeby przechowywać historię projektów i udostępniać je na GitHubie.
+- **Wybierz kierunek:** pandas i Jupyter do danych, Django albo FastAPI do stron, `pygame` do gier.
+
+Oryginalne *30 Days Of Python* Asabeneha Yetayeha, na którym opiera się ten kurs, ma więcej ćwiczeń do każdego dnia – link jest na dole każdej lekcji.
+de: ## Wie es weitergeht
+- **Bau etwas Eigenes.** Ein Projekt, das dir wichtig ist, lehrt mehr als jeder Kurs: ein Skript, das deine Fotos umbenennt, ein Bot, ein kleines Spiel, eine Website für einen Verein.
+- **Lies die offizielle Dokumentation** auf docs.python.org – Tutorial und Bibliotheksreferenz beantworten die meisten Fragen.
+- **Schreib lesbaren Code.** PEP 8 ist der Styleguide von Python; Werkzeuge wie `ruff` oder `black` prüfen und formatieren Code für dich.
+- **Teste deinen Code.** `assert` ist der einfachste Test; das Modul `unittest` und das Paket `pytest` führen ganze Testsuiten aus.
+- **Nutze Type Hints** – `def add(a: int, b: int) -> int:` –, um zu dokumentieren, was Funktionen erwarten.
+- **Lern git**, um die Geschichte deiner Projekte festzuhalten und sie auf GitHub zu teilen.
+- **Wähl eine Richtung:** pandas und Jupyter für Daten, Django oder FastAPI fürs Web, `pygame` für Spiele.
+
+Das ursprüngliche *30 Days Of Python* von Asabeneh Yetayeh, dem dieser Kurs folgt, hat für jeden Tag weitere Übungen – der Link steht unten in jeder Lektion.
+es: ## Por dónde seguir
+- **Construye algo tuyo.** Un proyecto que te importe enseña más que cualquier curso: un script que renombre tus fotos, un bot, un juego pequeño, una web para un club.
+- **Lee la documentación oficial** en docs.python.org: el tutorial y la referencia de la biblioteca responden a casi todo.
+- **Escribe código legible.** PEP 8 es la guía de estilo de Python; herramientas como `ruff` o `black` revisan y formatean el código por ti.
+- **Prueba tu código.** `assert` es la prueba más sencilla; el módulo `unittest` y el paquete `pytest` ejecutan baterías de pruebas completas.
+- **Usa anotaciones de tipo** (`def add(a: int, b: int) -> int:`) para documentar lo que esperan las funciones.
+- **Aprende git** para guardar el historial de tus proyectos y compartirlos en GitHub.
+- **Elige un camino:** pandas y Jupyter para datos, Django o FastAPI para la web, `pygame` para juegos.
+
+El *30 Days Of Python* original de Asabeneh Yetayeh, que sigue este curso, tiene más ejercicios para cada día; el enlace está al final de cada lección.
+fr: ## Et maintenant ?
+- **Construis quelque chose à toi.** Un projet qui te tient à cœur apprend plus que n'importe quel cours : un script qui renomme tes photos, un bot, un petit jeu, un site pour une association.
+- **Lis la documentation officielle** sur docs.python.org – le tutoriel et la référence de la bibliothèque répondent à la plupart des questions.
+- **Écris du code lisible.** PEP 8 est le guide de style de Python ; des outils comme `ruff` ou `black` vérifient et formatent le code pour toi.
+- **Teste ton code.** `assert` est le test le plus simple ; le module `unittest` et le paquet `pytest` exécutent des suites de tests complètes.
+- **Utilise les annotations de type** – `def add(a: int, b: int) -> int:` – pour documenter ce qu'attendent les fonctions.
+- **Apprends git** pour garder l'historique de tes projets et les partager sur GitHub.
+- **Choisis une direction :** pandas et Jupyter pour les données, Django ou FastAPI pour le web, `pygame` pour les jeux.
+
+Le *30 Days Of Python* original d'Asabeneh Yetayeh, que suit ce cours, propose davantage d'exercices pour chaque jour – le lien se trouve en bas de chaque leçon.
+
+@code
+def add(a: int, b: int) -> int:
+    return a + b
+
+assert add(2, 3) == 5
+assert add(-1, 1) == 0
+print('All tests passed!')
+@end
+
+@exercise top-words
+@title
+en: Word counter
+pl: Licznik słów
+de: Wortzähler
+es: Contador de palabras
+fr: Compteur de mots
+@text
+en: Read lines of text with `input()` until an empty line. Then print the three most frequent words, ignoring case and punctuation, one per line as `word: count` – the most frequent first, and words with the same count in alphabetical order.
+pl: Wczytuj wiersze tekstu przez `input()` aż do pustego wiersza. Potem wypisz trzy najczęstsze słowa, bez rozróżniania wielkości liter i bez interpunkcji, po jednym w wierszu jako `word: count` – najczęstsze najpierw, a słowa o tej samej liczbie wystąpień alfabetycznie.
+de: Lies mit `input()` Textzeilen bis zu einer leeren Zeile ein. Gib dann die drei häufigsten Wörter aus, ohne Groß-/Kleinschreibung und Satzzeichen, eins pro Zeile als `word: count` – das häufigste zuerst, Wörter mit gleicher Anzahl alphabetisch.
+es: Lee líneas de texto con `input()` hasta una línea vacía. Después imprime las tres palabras más frecuentes, sin distinguir mayúsculas y sin signos de puntuación, una por línea como `word: count`: la más frecuente primero y, a igual número, en orden alfabético.
+fr: Lis des lignes de texte avec `input()` jusqu'à une ligne vide. Affiche ensuite les trois mots les plus fréquents, sans tenir compte de la casse ni de la ponctuation, un par ligne sous la forme `word: count` – le plus fréquent d'abord, et à égalité par ordre alphabétique.
+@hint
+en: Loop with `while True:` and `break` on an empty line. `re.findall(r"[a-z']+", text.lower())` finds the words; sort with `key=lambda p: (-p[1], p[0])`.
+pl: Użyj pętli `while True:` i `break` przy pustym wierszu. `re.findall(r"[a-z']+", text.lower())` znajduje słowa; sortuj z `key=lambda p: (-p[1], p[0])`.
+de: Nimm eine Schleife `while True:` mit `break` bei einer leeren Zeile. `re.findall(r"[a-z']+", text.lower())` findet die Wörter; sortiere mit `key=lambda p: (-p[1], p[0])`.
+es: Usa un bucle `while True:` con `break` en la línea vacía. `re.findall(r"[a-z']+", text.lower())` encuentra las palabras; ordena con `key=lambda p: (-p[1], p[0])`.
+fr: Utilise une boucle `while True:` avec `break` sur une ligne vide. `re.findall(r"[a-z']+", text.lower())` trouve les mots ; trie avec `key=lambda p: (-p[1], p[0])`.
+@starter
+import re
+
+lines = []
+@end
+@solution
+import re
+
+lines = []
+while True:
+    line = input()
+    if not line:
+        break
+    lines.append(line)
+
+counts = {}
+for word in re.findall(r"[a-z']+", ' '.join(lines).lower()):
+    counts[word] = counts.get(word, 0) + 1
+
+for word, n in sorted(counts.items(), key=lambda p: (-p[1], p[0]))[:3]:
+    print(f'{word}: {n}')
+@end
+@case stdin="The cat sat on the mat.\nThe dog sat too!\n\n"
+expr: _lines == ['the: 3', 'sat: 2', 'cat: 1']
+@case stdin="b a\nA b c\n\n"
+expr: _lines == ['a: 2', 'b: 2', 'c: 1']
+
+@exercise todo
+@title
+en: A to-do list
+pl: Lista zadań
+de: Eine To-do-Liste
+es: Una lista de tareas
+fr: Une liste de tâches
+@text
+en: Write the class `TodoList`. `add(title)` adds a task that is not done yet; `complete(title)` marks it done and returns `True`, or `False` if there is no such task; `pending()` returns the titles not done yet, in the order they were added. `save(filename)` writes the tasks to a JSON file, and the class method `TodoList.load(filename)` creates a list from such a file.
+pl: Napisz klasę `TodoList`. `add(title)` dodaje zadanie, które nie jest jeszcze zrobione; `complete(title)` oznacza je jako zrobione i zwraca `True` albo `False`, jeśli takiego zadania nie ma; `pending()` zwraca tytuły jeszcze niezrobionych zadań w kolejności dodania. `save(filename)` zapisuje zadania do pliku JSON, a metoda klasy `TodoList.load(filename)` tworzy listę z takiego pliku.
+de: Schreib die Klasse `TodoList`. `add(title)` fügt eine noch nicht erledigte Aufgabe hinzu; `complete(title)` markiert sie als erledigt und gibt `True` zurück, oder `False`, wenn es die Aufgabe nicht gibt; `pending()` liefert die Titel der offenen Aufgaben in der Reihenfolge, in der sie hinzugefügt wurden. `save(filename)` schreibt die Aufgaben in eine JSON-Datei, und die Klassenmethode `TodoList.load(filename)` erzeugt eine Liste aus so einer Datei.
+es: Escribe la clase `TodoList`. `add(title)` añade una tarea todavía sin hacer; `complete(title)` la marca como hecha y devuelve `True`, o `False` si no existe esa tarea; `pending()` devuelve los títulos de las tareas pendientes, en el orden en que se añadieron. `save(filename)` escribe las tareas en un archivo JSON, y el método de clase `TodoList.load(filename)` crea una lista a partir de un archivo así.
+fr: Écris la classe `TodoList`. `add(title)` ajoute une tâche pas encore faite ; `complete(title)` la marque comme faite et renvoie `True`, ou `False` si cette tâche n'existe pas ; `pending()` renvoie les titres des tâches pas encore faites, dans l'ordre d'ajout. `save(filename)` écrit les tâches dans un fichier JSON, et la méthode de classe `TodoList.load(filename)` crée une liste à partir d'un tel fichier.
+@hint
+en: Keep a list of dictionaries like `{'title': 'Read', 'done': False}`. A class method is written with `@classmethod` above `def load(cls, filename):` and ends with `return todo` after filling `todo = cls()`.
+pl: Przechowuj listę słowników w rodzaju `{'title': 'Read', 'done': False}`. Metodę klasy zapisuje się z `@classmethod` nad `def load(cls, filename):`; kończy się ona `return todo` po wypełnieniu `todo = cls()`.
+de: Halte eine Liste von Dictionaries wie `{'title': 'Read', 'done': False}`. Eine Klassenmethode schreibst du mit `@classmethod` über `def load(cls, filename):`; sie endet mit `return todo`, nachdem `todo = cls()` gefüllt ist.
+es: Guarda una lista de diccionarios como `{'title': 'Read', 'done': False}`. Un método de clase se escribe con `@classmethod` encima de `def load(cls, filename):` y termina con `return todo` tras rellenar `todo = cls()`.
+fr: Garde une liste de dictionnaires comme `{'title': 'Read', 'done': False}`. Une méthode de classe s'écrit avec `@classmethod` au-dessus de `def load(cls, filename):` et se termine par `return todo` après avoir rempli `todo = cls()`.
+@starter
+import json
+
+
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+@end
+@solution
+import json
+
+
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add(self, title):
+        self.tasks.append({'title': title, 'done': False})
+
+    def complete(self, title):
+        for task in self.tasks:
+            if task['title'] == title and not task['done']:
+                task['done'] = True
+                return True
+        return False
+
+    def pending(self):
+        return [t['title'] for t in self.tasks if not t['done']]
+
+    def save(self, filename):
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(self.tasks, f, ensure_ascii=False, indent=2)
+
+    @classmethod
+    def load(cls, filename):
+        todo = cls()
+        with open(filename, encoding='utf-8') as f:
+            todo.tasks = json.load(f)
+        return todo
+
+
+todo = TodoList()
+todo.add('Finish day 30')
+todo.add('Start a project')
+todo.complete('Finish day 30')
+print(todo.pending())
+@end
+@case
+expr: (lambda t: [t.add('A'), t.add('B'), t.add('C'), t.complete('B'), t.complete('X'), t.pending()][3:])(TodoList()) == [True, False, ['A', 'C']]
+expr: (lambda t: [t.add('Zażółć'), t.add('Two'), t.complete('Two'), t.save('todo.json'), TodoList.load('todo.json').pending()][-1])(TodoList()) == ['Zażółć']
+expr: isinstance(TodoList.load('todo.json'), TodoList)
+
+@exercise fizzbuzz
+@title
+en: FizzBuzz
+pl: FizzBuzz
+de: FizzBuzz
+es: FizzBuzz
+fr: FizzBuzz
+@text
+en: The classic last test. Write `fizzbuzz(n)` that returns a list of strings for the numbers 1 to `n`: `'Fizz'` for multiples of 3, `'Buzz'` for multiples of 5, `'FizzBuzz'` for multiples of both, and the number itself otherwise. Then print `fizzbuzz(15)`, one item per line.
+pl: Klasyczny test na koniec. Napisz `fizzbuzz(n)`, która zwraca listę napisów dla liczb od 1 do `n`: `'Fizz'` dla wielokrotności 3, `'Buzz'` dla wielokrotności 5, `'FizzBuzz'` dla wielokrotności obu, a w pozostałych przypadkach samą liczbę. Potem wypisz `fizzbuzz(15)`, po jednym elemencie w wierszu.
+de: Der klassische letzte Test. Schreib `fizzbuzz(n)`, die für die Zahlen 1 bis `n` eine Liste von Zeichenketten zurückgibt: `'Fizz'` für Vielfache von 3, `'Buzz'` für Vielfache von 5, `'FizzBuzz'` für Vielfache von beiden und sonst die Zahl selbst. Gib dann `fizzbuzz(15)` aus, ein Element pro Zeile.
+es: La clásica prueba final. Escribe `fizzbuzz(n)`, que devuelve una lista de cadenas para los números del 1 a `n`: `'Fizz'` para los múltiplos de 3, `'Buzz'` para los de 5, `'FizzBuzz'` para los de ambos y, en otro caso, el propio número. Después imprime `fizzbuzz(15)`, un elemento por línea.
+fr: Le test final classique. Écris `fizzbuzz(n)` qui renvoie une liste de chaînes pour les nombres de 1 à `n` : `'Fizz'` pour les multiples de 3, `'Buzz'` pour les multiples de 5, `'FizzBuzz'` pour les multiples des deux, et sinon le nombre lui-même. Affiche ensuite `fizzbuzz(15)`, un élément par ligne.
+@hint
+en: Check for 15 first – otherwise every multiple of 15 stops at the test for 3.
+pl: Najpierw sprawdź 15 – inaczej każda wielokrotność 15 zatrzyma się na teście dla 3.
+de: Prüf zuerst auf 15 – sonst bleibt jedes Vielfache von 15 schon beim Test auf 3 hängen.
+es: Comprueba primero el 15; si no, cada múltiplo de 15 se quedará en la comprobación del 3.
+fr: Vérifie 15 en premier – sinon chaque multiple de 15 s'arrête au test de 3.
+@starter
+def fizzbuzz(n):
+    pass
+@end
+@solution
+def fizzbuzz(n):
+    result = []
+    for i in range(1, n + 1):
+        if i % 15 == 0:
+            result.append('FizzBuzz')
+        elif i % 3 == 0:
+            result.append('Fizz')
+        elif i % 5 == 0:
+            result.append('Buzz')
+        else:
+            result.append(str(i))
+    return result
+
+
+for item in fizzbuzz(15):
+    print(item)
+@end
+@case
+expr: fizzbuzz(15) == ['1', '2', 'Fizz', '4', 'Buzz', 'Fizz', '7', '8', 'Fizz', 'Buzz', '11', 'Fizz', '13', '14', 'FizzBuzz']
+expr: fizzbuzz(0) == [] and fizzbuzz(30)[-1] == 'FizzBuzz'
+expr: _lines == fizzbuzz(15)
