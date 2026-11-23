@@ -100,7 +100,7 @@ Loops can be nested: the inner loop runs completely for every round of the outer
 pl: ## Liczenie z range
 `range()` daje liczby do przejścia pętlą bez budowania listy: `range(5)` daje od 0 do 4, `range(2, 6)` od 2 do 5, a `range(10, 0, -2)` odlicza w dół co 2. Tak jak w wycinkach, koniec nigdy nie jest wliczany.
 
-Pętle można zagnieżdżać: wewnętrzna pętla wykonuje się w całości przy każdym obrocie zewnętrznej. `pass` to zaślepka dla bloku, którego jeszcze nie napisałeś.
+Pętle można zagnieżdżać: wewnętrzna pętla wykonuje się w całości przy każdym obrocie zewnętrznej. `pass` to zaślepka dla bloku, który dopiero napiszesz.
 de: ## Zählen mit range
 `range()` liefert Zahlen zum Durchlaufen, ohne eine Liste zu bauen: `range(5)` ergibt 0 bis 4, `range(2, 6)` ergibt 2 bis 5, und `range(10, 0, -2)` zählt in Zweierschritten rückwärts. Wie bei Slices ist das Ende nie enthalten.
 
@@ -324,7 +324,7 @@ es: Contar y parar
 fr: Compter et s'arrêter
 @text
 en: Go through `languages` with a `for` loop and print each one. When you reach `'Python'`, print `I found Python!` and stop the loop with `break`. Store in `seen` how many languages you printed before stopping, including Python.
-pl: Przejdź pętlą `for` po `languages` i wypisz każdy język. Gdy dojdziesz do `'Python'`, wypisz `I found Python!` i przerwij pętlę przez `break`. W `seen` zapisz, ile języków wypisałeś przed przerwaniem, łącznie z Pythonem.
+pl: Przejdź pętlą `for` po `languages` i wypisz każdy język. Gdy dojdziesz do `'Python'`, wypisz `I found Python!` i przerwij pętlę przez `break`. W `seen` zapisz, ile języków zostało wypisanych przed przerwaniem, łącznie z Pythonem.
 de: Geh mit einer `for`-Schleife durch `languages` und gib jede Sprache aus. Bei `'Python'` gibst du `I found Python!` aus und beendest die Schleife mit `break`. Speichere in `seen`, wie viele Sprachen du bis dahin ausgegeben hast, Python eingeschlossen.
 es: Recorre `languages` con un bucle `for` e imprime cada lenguaje. Cuando llegues a `'Python'`, imprime `I found Python!` y para el bucle con `break`. Guarda en `seen` cuántos lenguajes imprimiste antes de parar, Python incluido.
 fr: Parcours `languages` avec une boucle `for` et affiche chaque langage. Quand tu arrives à `'Python'`, affiche `I found Python!` et arrête la boucle avec `break`. Range dans `seen` le nombre de langages affichés avant l'arrêt, Python compris.

@@ -10,7 +10,7 @@ fr: Conclusion
 
 @summary
 en: Look back at the thirty days, see where to go next, and finish with three small projects that combine what you have learnt.
-pl: Spójrz wstecz na trzydzieści dni, zobacz, dokąd iść dalej, i zakończ trzema małymi projektami, które łączą to, czego się nauczyłeś.
+pl: Spójrz wstecz na trzydzieści dni, zobacz, dokąd iść dalej, i zakończ trzema małymi projektami, które łączą wszystko, co już umiesz.
 de: Auf die dreißig Tage zurückblicken, sehen, wie es weitergeht, und mit drei kleinen Projekten abschließen, die das Gelernte verbinden.
 es: Repasa los treinta días, descubre por dónde seguir y termina con tres pequeños proyectos que combinan lo que has aprendido.
 fr: Reviens sur les trente jours, vois où aller ensuite, et termine par trois petits projets qui combinent ce que tu as appris.
@@ -21,7 +21,7 @@ Thirty days ago you printed `Hello, World!`. Since then you have worked with eve
 
 That is the whole foundation of the language. Everything else – data science, web development, automation, games, machine learning – is built from these same pieces.
 pl: ## Udało się
-Trzydzieści dni temu wypisałeś `Hello, World!`. Od tego czasu pracowałeś ze wszystkimi podstawowymi typami danych, sterowałeś programami przez warunki i pętle, pisałeś funkcje, klasy i dekoratory, łapałeś błędy, czytałeś i zapisywałeś pliki, używałeś wyrażeń regularnych, układałeś kod w moduły i pakiety i zobaczyłeś, jak z Pythona działa się z siecią, bazami danych i API.
+Trzydzieści dni temu na ekranie pojawiło się twoje pierwsze `Hello, World!`. Od tego czasu masz za sobą wszystkie podstawowe typy danych, sterowanie programem przez warunki i pętle, własne funkcje, klasy i dekoratory, łapanie błędów, czytanie i zapisywanie plików, wyrażenia regularne, moduły i pakiety, a także pierwsze kroki z siecią, bazami danych i API w Pythonie.
 
 To cały fundament języka. Wszystko inne – analiza danych, tworzenie stron, automatyzacja, gry, uczenie maszynowe – buduje się z tych samych elementów.
 de: ## Geschafft
@@ -32,7 +32,7 @@ es: ## Lo has conseguido
 Hace treinta días imprimiste `Hello, World!`. Desde entonces has trabajado con todos los tipos de datos básicos, has controlado programas con condiciones y bucles, has escrito funciones, clases y decoradores, has capturado errores, has leído y escrito archivos, has usado expresiones regulares, has organizado código en módulos y paquetes y has visto cómo se trabaja con la web, las bases de datos y las API desde Python.
 
 Esa es toda la base del lenguaje. Todo lo demás (ciencia de datos, desarrollo web, automatización, juegos, aprendizaje automático) se construye con estas mismas piezas.
-fr: ## Tu l'as fait
+fr: ## Tu as réussi !
 Il y a trente jours, tu affichais `Hello, World!`. Depuis, tu as manipulé tous les types de données de base, contrôlé des programmes avec des conditions et des boucles, écrit des fonctions, des classes et des décorateurs, intercepté des erreurs, lu et écrit des fichiers, utilisé des expressions régulières, organisé du code en modules et en paquets, et vu comment Python travaille avec le web, les bases de données et les API.
 
 C'est toute la base du langage. Tout le reste – science des données, développement web, automatisation, jeux, apprentissage automatique – se construit avec ces mêmes briques.

@@ -29,7 +29,7 @@ Yesterday you used APIs; today you build one. Most web APIs follow the **REST** 
 
 Requests and answers carry JSON. A request with missing or wrong data gets `400` and a short error message.
 pl: ## REST i CRUD
-Wczoraj korzystałeś z API; dziś zbudujesz własne. Większość webowych API trzyma się stylu **REST**: dane są uporządkowane jako **zasoby** z własnymi adresami, np. `/students` dla wszystkich studentów i `/students/3` dla jednego z nich, a metoda HTTP mówi, co z nimi zrobić. Cztery podstawowe operacje na przechowywanych danych to **CRUD**:
+Wczoraj chodziło o korzystanie z API; dziś zbudujesz własne. Większość webowych API trzyma się stylu **REST**: dane są uporządkowane jako **zasoby** z własnymi adresami, np. `/students` dla wszystkich studentów i `/students/3` dla jednego z nich, a metoda HTTP mówi, co z nimi zrobić. Cztery podstawowe operacje na przechowywanych danych to **CRUD**:
 
 | Operacja | Metoda | Adres | Odpowiedź |
 |---|---|---|---|

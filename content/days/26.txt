@@ -21,7 +21,7 @@ When you open a page, the browser sends an **HTTP request** for a path such as `
 
 Python has several frameworks; **Flask** is small and easy to start with, **Django** is larger and comes with much more built in. Install Flask with `python -m pip install flask`.
 pl: ## Jak działa aplikacja WWW
-Gdy otwierasz stronę, przeglądarka wysyła do serwera **żądanie HTTP** o ścieżkę, na przykład `/about`. Serwer uruchamia kod, który decyduje, co odesłać – zwykle HTML – i odpowiada **odpowiedzią**. **Framework webowy** zajmuje się całą instalacją rurową: odbiera żądania, wywołuje funkcję, którą napisałeś dla danej ścieżki, i odsyła to, co ona zwróci.
+Gdy otwierasz stronę, przeglądarka wysyła do serwera **żądanie HTTP** o ścieżkę, na przykład `/about`. Serwer uruchamia kod, który decyduje, co odesłać – zwykle HTML – i odpowiada **odpowiedzią**. **Framework webowy** zajmuje się całą instalacją rurową: odbiera żądania, wywołuje funkcję napisaną przez ciebie dla danej ścieżki, i odsyła to, co ona zwróci.
 
 Python ma kilka frameworków; **Flask** jest mały i łatwy na początek, **Django** jest większy i ma znacznie więcej wbudowanych funkcji. Flaska zainstalujesz przez `python -m pip install flask`.
 de: ## Wie eine Webanwendung funktioniert
