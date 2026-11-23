@@ -1,0 +1,282 @@
+@day 23
+@source 23_Day_Virtual_environment/23_virtual_environment.md
+
+@title
+en: Virtual environments
+pl: Środowiska wirtualne
+de: Virtuelle Umgebungen
+es: Entornos virtuales
+fr: Environnements virtuels
+
+@summary
+en: Give every project its own set of packages with venv: create, activate and deactivate an environment, and freeze its packages into requirements.txt.
+pl: Daj każdemu projektowi własny zestaw pakietów dzięki venv: twórz, aktywuj i dezaktywuj środowisko i zapisuj jego pakiety do requirements.txt.
+de: Jedem Projekt mit venv eigene Pakete geben: eine Umgebung anlegen, aktivieren und deaktivieren und ihre Pakete in requirements.txt festhalten.
+es: Da a cada proyecto su propio conjunto de paquetes con venv: crea, activa y desactiva un entorno y congela sus paquetes en requirements.txt.
+fr: Donne à chaque projet son propre ensemble de paquets avec venv : crée, active et désactive un environnement, et fige ses paquets dans requirements.txt.
+
+@md
+en: ## Why a virtual environment?
+Packages installed with pip normally go into one place for the whole computer. That breaks down quickly: one project needs Flask 2, another Flask 3, and an upgrade for one breaks the other. A **virtual environment** is a folder with its own copy of the Python interpreter and its own packages. Each project gets one, and what you install there stays there.
+
+The `venv` module that creates them is part of the standard library.
+pl: ## Po co środowisko wirtualne?
+Pakiety instalowane przez pip trafiają zwykle w jedno miejsce dla całego komputera. To szybko przestaje działać: jeden projekt potrzebuje Flaska 2, inny Flaska 3, a aktualizacja dla jednego psuje drugi. **Środowisko wirtualne** to folder z własną kopią interpretera Pythona i własnymi pakietami. Każdy projekt dostaje swoje, a to, co w nim zainstalujesz, tam zostaje.
+
+Moduł `venv`, który je tworzy, należy do biblioteki standardowej.
+de: ## Warum eine virtuelle Umgebung?
+Mit pip installierte Pakete landen normalerweise an einem Ort für den ganzen Computer. Das geht schnell schief: Ein Projekt braucht Flask 2, ein anderes Flask 3, und ein Update für das eine macht das andere kaputt. Eine **virtuelle Umgebung** ist ein Ordner mit einer eigenen Kopie des Python-Interpreters und eigenen Paketen. Jedes Projekt bekommt eine, und was du dort installierst, bleibt dort.
+
+Das Modul `venv`, das sie anlegt, gehört zur Standardbibliothek.
+es: ## ¿Para qué un entorno virtual?
+Los paquetes instalados con pip suelen ir a un único lugar para todo el ordenador. Eso falla pronto: un proyecto necesita Flask 2, otro Flask 3, y actualizar uno estropea el otro. Un **entorno virtual** es una carpeta con su propia copia del intérprete de Python y sus propios paquetes. Cada proyecto tiene el suyo, y lo que instalas ahí se queda ahí.
+
+El módulo `venv`, que los crea, forma parte de la biblioteca estándar.
+fr: ## Pourquoi un environnement virtuel ?
+Les paquets installés avec pip vont normalement à un seul endroit pour tout l'ordinateur. Cela coince vite : un projet a besoin de Flask 2, un autre de Flask 3, et une mise à jour pour l'un casse l'autre. Un **environnement virtuel** est un dossier avec sa propre copie de l'interpréteur Python et ses propres paquets. Chaque projet a le sien, et ce que tu y installes y reste.
+
+Le module `venv`, qui les crée, fait partie de la bibliothèque standard.
+
+@md
+en: ## Creating and using one
+In your system terminal, inside the project folder:
+
+```
+python -m venv venv
+```
+
+This creates a folder `venv`. To **activate** it:
+
+| System | Command |
+|---|---|
+| Windows (Command Prompt) | `venv\Scripts\activate` |
+| Windows (PowerShell) | `venv\Scripts\Activate.ps1` |
+| macOS, Linux | `source venv/bin/activate` |
+
+The prompt then starts with `(venv)`, and `python` and `pip` now mean the environment's copies. Install what the project needs, save the list with `pip freeze > requirements.txt`, and leave with `deactivate`. Do not put the `venv` folder into git – add it to `.gitignore`; `requirements.txt` is enough to rebuild it.
+
+To use a virtual environment in this app, put the path of its Python in **Settings → Python**: `venv\Scripts\python.exe` on Windows, `venv/bin/python` elsewhere.
+pl: ## Tworzenie i używanie
+W terminalu systemu, w folderze projektu:
+
+```
+python -m venv venv
+```
+
+To polecenie tworzy folder `venv`. Żeby je **aktywować**:
+
+| System | Polecenie |
+|---|---|
+| Windows (Wiersz polecenia) | `venv\Scripts\activate` |
+| Windows (PowerShell) | `venv\Scripts\Activate.ps1` |
+| macOS, Linux | `source venv/bin/activate` |
+
+Znak zachęty zaczyna się wtedy od `(venv)`, a `python` i `pip` oznaczają kopie ze środowiska. Zainstaluj, czego projekt potrzebuje, zapisz listę przez `pip freeze > requirements.txt` i wyjdź przez `deactivate`. Nie dodawaj folderu `venv` do gita – wpisz go do `.gitignore`; `requirements.txt` wystarczy, żeby go odtworzyć.
+
+Żeby używać środowiska wirtualnego w tej aplikacji, wpisz ścieżkę do jego Pythona w **Ustawienia → Python**: `venv\Scripts\python.exe` w Windows, `venv/bin/python` w pozostałych systemach.
+de: ## Anlegen und benutzen
+Im Terminal deines Systems, im Projektordner:
+
+```
+python -m venv venv
+```
+
+Das legt einen Ordner `venv` an. Zum **Aktivieren**:
+
+| System | Befehl |
+|---|---|
+| Windows (Eingabeaufforderung) | `venv\Scripts\activate` |
+| Windows (PowerShell) | `venv\Scripts\Activate.ps1` |
+| macOS, Linux | `source venv/bin/activate` |
+
+Die Eingabeaufforderung beginnt dann mit `(venv)`, und `python` und `pip` meinen jetzt die Kopien der Umgebung. Installiere, was das Projekt braucht, speichere die Liste mit `pip freeze > requirements.txt` und verlass die Umgebung mit `deactivate`. Leg den Ordner `venv` nicht in git ab – trag ihn in `.gitignore` ein; `requirements.txt` reicht, um ihn neu aufzubauen.
+
+Um eine virtuelle Umgebung in dieser App zu nutzen, trag den Pfad ihres Pythons unter **Einstellungen → Python** ein: `venv\Scripts\python.exe` unter Windows, sonst `venv/bin/python`.
+es: ## Crear y usar uno
+En la terminal del sistema, dentro de la carpeta del proyecto:
+
+```
+python -m venv venv
+```
+
+Esto crea una carpeta `venv`. Para **activarlo**:
+
+| Sistema | Comando |
+|---|---|
+| Windows (Símbolo del sistema) | `venv\Scripts\activate` |
+| Windows (PowerShell) | `venv\Scripts\Activate.ps1` |
+| macOS, Linux | `source venv/bin/activate` |
+
+Entonces el indicador empieza por `(venv)`, y `python` y `pip` pasan a ser las copias del entorno. Instala lo que necesite el proyecto, guarda la lista con `pip freeze > requirements.txt` y sal con `deactivate`. No metas la carpeta `venv` en git; añádela a `.gitignore`: con `requirements.txt` basta para reconstruirla.
+
+Para usar un entorno virtual en esta aplicación, pon la ruta de su Python en **Ajustes → Python**: `venv\Scripts\python.exe` en Windows y `venv/bin/python` en los demás sistemas.
+fr: ## En créer et en utiliser un
+Dans le terminal de ton système, dans le dossier du projet :
+
+```
+python -m venv venv
+```
+
+Cela crée un dossier `venv`. Pour l'**activer** :
+
+| Système | Commande |
+|---|---|
+| Windows (Invite de commandes) | `venv\Scripts\activate` |
+| Windows (PowerShell) | `venv\Scripts\Activate.ps1` |
+| macOS, Linux | `source venv/bin/activate` |
+
+L'invite commence alors par `(venv)`, et `python` et `pip` désignent désormais les copies de l'environnement. Installe ce dont le projet a besoin, enregistre la liste avec `pip freeze > requirements.txt` et sors avec `deactivate`. Ne mets pas le dossier `venv` dans git – ajoute-le à `.gitignore` ; `requirements.txt` suffit pour le reconstruire.
+
+Pour utiliser un environnement virtuel dans cette application, indique le chemin de son Python dans **Réglages → Python** : `venv\Scripts\python.exe` sous Windows, `venv/bin/python` ailleurs.
+
+@md
+en: ## Which Python is running?
+The `sys` module tells you about the running interpreter: `sys.executable` is its path, `sys.version_info` its version, and `sys.prefix` the folder of the environment. Inside a virtual environment `sys.prefix` differs from `sys.base_prefix`, the folder of the Python it was made from.
+pl: ## Który Python działa?
+Moduł `sys` mówi o uruchomionym interpreterze: `sys.executable` to jego ścieżka, `sys.version_info` – wersja, a `sys.prefix` – folder środowiska. W środowisku wirtualnym `sys.prefix` różni się od `sys.base_prefix`, czyli folderu Pythona, z którego środowisko powstało.
+de: ## Welches Python läuft?
+Das Modul `sys` gibt Auskunft über den laufenden Interpreter: `sys.executable` ist sein Pfad, `sys.version_info` seine Version und `sys.prefix` der Ordner der Umgebung. In einer virtuellen Umgebung unterscheidet sich `sys.prefix` von `sys.base_prefix`, dem Ordner des Pythons, aus dem sie erzeugt wurde.
+es: ## ¿Qué Python se está ejecutando?
+El módulo `sys` informa sobre el intérprete en ejecución: `sys.executable` es su ruta, `sys.version_info` su versión y `sys.prefix` la carpeta del entorno. Dentro de un entorno virtual, `sys.prefix` es distinto de `sys.base_prefix`, la carpeta del Python a partir del cual se creó.
+fr: ## Quel Python est en train de tourner ?
+Le module `sys` renseigne sur l'interpréteur en cours : `sys.executable` est son chemin, `sys.version_info` sa version et `sys.prefix` le dossier de l'environnement. Dans un environnement virtuel, `sys.prefix` diffère de `sys.base_prefix`, le dossier du Python à partir duquel il a été créé.
+
+@code
+import sys
+print(sys.executable)
+print(sys.version_info.major, sys.version_info.minor)
+print(sys.prefix)
+print('In a virtual environment:', sys.prefix != sys.base_prefix)
+@end
+
+@exercise in-venv
+@title
+en: Am I in a virtual environment?
+pl: Czy jestem w środowisku wirtualnym?
+de: Bin ich in einer virtuellen Umgebung?
+es: ¿Estoy en un entorno virtual?
+fr: Suis-je dans un environnement virtuel ?
+@text
+en: Write `in_virtualenv()` that returns `True` when the program runs inside a virtual environment and `False` otherwise, and `python_version()` that returns the running version as text like `'3.12'` (major and minor only).
+pl: Napisz `in_virtualenv()`, która zwraca `True`, gdy program działa w środowisku wirtualnym, a w przeciwnym razie `False`, oraz `python_version()`, która zwraca działającą wersję jako tekst, np. `'3.12'` (tylko główny i poboczny numer).
+de: Schreib `in_virtualenv()`, die `True` zurückgibt, wenn das Programm in einer virtuellen Umgebung läuft, sonst `False`, und `python_version()`, die die laufende Version als Text wie `'3.12'` zurückgibt (nur Haupt- und Nebenversion).
+es: Escribe `in_virtualenv()`, que devuelve `True` cuando el programa se ejecuta dentro de un entorno virtual y `False` si no, y `python_version()`, que devuelve la versión en ejecución como texto, por ejemplo `'3.12'` (solo la versión mayor y la menor).
+fr: Écris `in_virtualenv()` qui renvoie `True` quand le programme tourne dans un environnement virtuel et `False` sinon, et `python_version()` qui renvoie la version en cours sous forme de texte comme `'3.12'` (version majeure et mineure seulement).
+@hint
+en: Compare `sys.prefix` with `sys.base_prefix` inside the function. `f'{sys.version_info.major}.{sys.version_info.minor}'` builds the version.
+pl: Porównaj w funkcji `sys.prefix` z `sys.base_prefix`. `f'{sys.version_info.major}.{sys.version_info.minor}'` buduje wersję.
+de: Vergleich in der Funktion `sys.prefix` mit `sys.base_prefix`. `f'{sys.version_info.major}.{sys.version_info.minor}'` baut die Version.
+es: Compara dentro de la función `sys.prefix` con `sys.base_prefix`. `f'{sys.version_info.major}.{sys.version_info.minor}'` construye la versión.
+fr: Compare dans la fonction `sys.prefix` à `sys.base_prefix`. `f'{sys.version_info.major}.{sys.version_info.minor}'` construit la version.
+@starter
+import sys
+
+
+def in_virtualenv():
+    pass
+
+
+def python_version():
+    pass
+@end
+@solution
+import sys
+
+
+def in_virtualenv():
+    return sys.prefix != sys.base_prefix
+
+
+def python_version():
+    return f'{sys.version_info.major}.{sys.version_info.minor}'
+
+
+print(in_virtualenv(), python_version())
+@end
+@case
+expr: in_virtualenv() == (__import__('sys').prefix != __import__('sys').base_prefix)
+expr: (lambda sys, old: [setattr(sys, 'prefix', old + '-venv'), in_virtualenv(), setattr(sys, 'prefix', old)][1])(__import__('sys'), __import__('sys').prefix) is True
+expr: python_version() == '%d.%d' % __import__('sys').version_info[:2]
+
+@exercise activate
+@title
+en: The activate command
+pl: Polecenie aktywacji
+de: Der Aktivierungsbefehl
+es: El comando de activación
+fr: La commande d'activation
+@text
+en: Write `activate_command(system, folder='venv')` that returns the command that activates the environment in `folder`: for `system == 'windows'` it is `folder\Scripts\activate`, for anything else `source folder/bin/activate`. For example `activate_command('linux', '.venv')` returns `'source .venv/bin/activate'`.
+pl: Napisz `activate_command(system, folder='venv')`, która zwraca polecenie aktywujące środowisko w `folder`: dla `system == 'windows'` to `folder\Scripts\activate`, dla każdego innego – `source folder/bin/activate`. Na przykład `activate_command('linux', '.venv')` zwraca `'source .venv/bin/activate'`.
+de: Schreib `activate_command(system, folder='venv')`, die den Befehl zurückgibt, der die Umgebung in `folder` aktiviert: für `system == 'windows'` ist es `folder\Scripts\activate`, für alles andere `source folder/bin/activate`. Zum Beispiel liefert `activate_command('linux', '.venv')` `'source .venv/bin/activate'`.
+es: Escribe `activate_command(system, folder='venv')`, que devuelve el comando que activa el entorno de `folder`: para `system == 'windows'` es `folder\Scripts\activate`, y para cualquier otro, `source folder/bin/activate`. Por ejemplo, `activate_command('linux', '.venv')` devuelve `'source .venv/bin/activate'`.
+fr: Écris `activate_command(system, folder='venv')` qui renvoie la commande activant l'environnement situé dans `folder` : pour `system == 'windows'`, c'est `folder\Scripts\activate`, pour tout le reste `source folder/bin/activate`. Par exemple, `activate_command('linux', '.venv')` renvoie `'source .venv/bin/activate'`.
+@hint
+en: In a normal string a backslash starts an escape sequence – write `'\\'` for one backslash, or use a raw string.
+pl: W zwykłym napisie ukośnik wsteczny zaczyna sekwencję ucieczki – napisz `'\\'` dla jednego ukośnika albo użyj surowego napisu.
+de: In einer normalen Zeichenkette beginnt ein Backslash eine Escape-Sequenz – schreib `'\\'` für einen Backslash oder nimm einen Raw-String.
+es: En una cadena normal, la barra invertida empieza una secuencia de escape: escribe `'\\'` para una barra o usa una cadena sin procesar.
+fr: Dans une chaîne normale, une barre oblique inverse commence une séquence d'échappement – écris `'\\'` pour une barre, ou utilise une chaîne brute.
+@starter
+def activate_command(system, folder='venv'):
+    pass
+@end
+@solution
+def activate_command(system, folder='venv'):
+    if system == 'windows':
+        return folder + '\\Scripts\\activate'
+    return f'source {folder}/bin/activate'
+
+
+print(activate_command('windows'))
+print(activate_command('linux', '.venv'))
+@end
+@case
+expr: activate_command('windows') == 'venv\\Scripts\\activate'
+expr: activate_command('linux', '.venv') == 'source .venv/bin/activate'
+expr: activate_command('macos') == 'source venv/bin/activate'
+expr: activate_command('windows', 'env') == 'env\\Scripts\\activate'
+
+@exercise freeze
+@title
+en: Write requirements.txt
+pl: Zapisz requirements.txt
+de: requirements.txt schreiben
+es: Escribe requirements.txt
+fr: Écris requirements.txt
+@text
+en: Write `make_requirements(packages)` that does what `pip freeze` does: from a dictionary of package names and versions it returns the text of a requirements file – one `name==version` per line, sorted by name ignoring case, each line ending with a new line. Then write the text for `installed` to the file `requirements.txt`.
+pl: Napisz `make_requirements(packages)`, która robi to co `pip freeze`: ze słownika nazw pakietów i wersji zwraca tekst pliku requirements – jedno `name==version` w wierszu, posortowane po nazwie bez względu na wielkość liter, każdy wiersz zakończony nowym wierszem. Potem zapisz tekst dla `installed` do pliku `requirements.txt`.
+de: Schreib `make_requirements(packages)`, die tut, was `pip freeze` tut: Aus einem Dictionary von Paketnamen und Versionen gibt sie den Text einer Requirements-Datei zurück – ein `name==version` pro Zeile, nach Namen sortiert ohne Rücksicht auf Groß-/Kleinschreibung, jede Zeile mit Zeilenumbruch am Ende. Schreib dann den Text für `installed` in die Datei `requirements.txt`.
+es: Escribe `make_requirements(packages)`, que hace lo mismo que `pip freeze`: a partir de un diccionario de nombres de paquetes y versiones devuelve el texto de un archivo requirements, con un `name==version` por línea, ordenado por nombre sin distinguir mayúsculas y con un salto de línea al final de cada línea. Después escribe el texto para `installed` en el archivo `requirements.txt`.
+fr: Écris `make_requirements(packages)` qui fait ce que fait `pip freeze` : à partir d'un dictionnaire de noms de paquets et de versions, elle renvoie le texte d'un fichier requirements – un `name==version` par ligne, trié par nom sans tenir compte de la casse, chaque ligne se terminant par un saut de ligne. Écris ensuite le texte pour `installed` dans le fichier `requirements.txt`.
+@hint
+en: `sorted(packages, key=str.lower)` sorts the names; build a line for each and `''.join(...)` them.
+pl: `sorted(packages, key=str.lower)` sortuje nazwy; zbuduj wiersz dla każdej i połącz je przez `''.join(...)`.
+de: `sorted(packages, key=str.lower)` sortiert die Namen; bau für jeden eine Zeile und verbinde sie mit `''.join(...)`.
+es: `sorted(packages, key=str.lower)` ordena los nombres; crea una línea para cada uno y únelas con `''.join(...)`.
+fr: `sorted(packages, key=str.lower)` trie les noms ; construis une ligne pour chacun et assemble-les avec `''.join(...)`.
+@starter
+installed = {'requests': '2.32.3', 'Flask': '3.1.0', 'numpy': '2.1.3', 'Jinja2': '3.1.4'}
+
+
+def make_requirements(packages):
+    pass
+@end
+@solution
+installed = {'requests': '2.32.3', 'Flask': '3.1.0', 'numpy': '2.1.3', 'Jinja2': '3.1.4'}
+
+
+def make_requirements(packages):
+    lines = [f'{name}=={packages[name]}\n' for name in sorted(packages, key=str.lower)]
+    return ''.join(lines)
+
+
+with open('requirements.txt', 'w', encoding='utf-8') as f:
+    f.write(make_requirements(installed))
+print(make_requirements(installed))
+@end
+@case
+expr: make_requirements(installed) == 'Flask==3.1.0\nJinja2==3.1.4\nnumpy==2.1.3\nrequests==2.32.3\n'
+expr: make_requirements({}) == ''
+expr: open('requirements.txt', encoding='utf-8').read() == make_requirements(installed)
