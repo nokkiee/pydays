@@ -1,0 +1,350 @@
+@day 19
+@source 19_Day_File_handling/19_file_handling.md
+
+@title
+en: File handling
+pl: Praca z plikami
+de: Dateien verarbeiten
+es: Manejo de archivos
+fr: Manipuler des fichiers
+
+@summary
+en: Open, read and write text files with a with block, and read and write data in CSV and JSON format.
+pl: Otwieraj, czytaj i zapisuj pliki tekstowe w bloku with oraz odczytuj i zapisuj dane w formatach CSV i JSON.
+de: Textdateien mit einem with-Block öffnen, lesen und schreiben und Daten im CSV- und JSON-Format lesen und schreiben.
+es: Abre, lee y escribe archivos de texto con un bloque with, y lee y escribe datos en formato CSV y JSON.
+fr: Ouvre, lis et écris des fichiers texte avec un bloc with, et lis et écris des données au format CSV et JSON.
+
+@md
+en: ## Opening a file
+`open(name, mode)` opens a file. The **mode** says what you want to do:
+
+| Mode | Meaning |
+|---|---|
+| `'r'` | read (the default); the file must exist |
+| `'w'` | write; creates the file or **empties** an existing one |
+| `'a'` | append to the end; creates the file if needed |
+| `'x'` | create; fails if the file already exists |
+
+Use a `with` block: it closes the file for you when the block ends, even after an error. Pass `encoding='utf-8'` so that letters such as ą, ü, é or ñ are read correctly on every system.
+
+This lesson comes with a few files, shown below – they are saved next to your program.
+pl: ## Otwieranie pliku
+`open(name, mode)` otwiera plik. **Tryb** mówi, co chcesz zrobić:
+
+| Tryb | Znaczenie |
+|---|---|
+| `'r'` | odczyt (domyślny); plik musi istnieć |
+| `'w'` | zapis; tworzy plik albo **czyści** istniejący |
+| `'a'` | dopisywanie na końcu; w razie potrzeby tworzy plik |
+| `'x'` | utworzenie; błąd, jeśli plik już istnieje |
+
+Używaj bloku `with`: sam zamyka plik po zakończeniu bloku, nawet po błędzie. Podawaj `encoding='utf-8'`, żeby litery takie jak ą, ü, é czy ñ były poprawnie czytane w każdym systemie.
+
+Do tej lekcji należy kilka plików, pokazanych poniżej – są zapisane obok twojego programu.
+de: ## Eine Datei öffnen
+`open(name, mode)` öffnet eine Datei. Der **Modus** sagt, was du vorhast:
+
+| Modus | Bedeutung |
+|---|---|
+| `'r'` | lesen (Standard); die Datei muss existieren |
+| `'w'` | schreiben; legt die Datei an oder **leert** eine vorhandene |
+| `'a'` | ans Ende anhängen; legt die Datei bei Bedarf an |
+| `'x'` | anlegen; schlägt fehl, wenn die Datei schon existiert |
+
+Nimm einen `with`-Block: Er schließt die Datei für dich, wenn der Block endet, auch nach einem Fehler. Gib `encoding='utf-8'` an, damit Buchstaben wie ą, ü, é oder ñ auf jedem System richtig gelesen werden.
+
+Zu dieser Lektion gehören ein paar Dateien, die du unten siehst – sie liegen neben deinem Programm.
+es: ## Abrir un archivo
+`open(name, mode)` abre un archivo. El **modo** indica lo que quieres hacer:
+
+| Modo | Significado |
+|---|---|
+| `'r'` | leer (el predeterminado); el archivo debe existir |
+| `'w'` | escribir; crea el archivo o **vacía** uno existente |
+| `'a'` | añadir al final; crea el archivo si hace falta |
+| `'x'` | crear; falla si el archivo ya existe |
+
+Usa un bloque `with`: cierra el archivo por ti al terminar el bloque, incluso tras un error. Indica `encoding='utf-8'` para que letras como ą, ü, é o ñ se lean bien en cualquier sistema.
+
+Esta lección incluye algunos archivos, que ves abajo; están guardados junto a tu programa.
+fr: ## Ouvrir un fichier
+`open(name, mode)` ouvre un fichier. Le **mode** dit ce que tu veux faire :
+
+| Mode | Signification |
+|---|---|
+| `'r'` | lire (par défaut) ; le fichier doit exister |
+| `'w'` | écrire ; crée le fichier ou **vide** un fichier existant |
+| `'a'` | ajouter à la fin ; crée le fichier si besoin |
+| `'x'` | créer ; échoue si le fichier existe déjà |
+
+Utilise un bloc `with` : il ferme le fichier pour toi à la fin du bloc, même après une erreur. Indique `encoding='utf-8'` pour que les lettres comme ą, ü, é ou ñ soient lues correctement sur tous les systèmes.
+
+Cette leçon est accompagnée de quelques fichiers, affichés ci-dessous – ils sont enregistrés à côté de ton programme.
+
+@file reading.txt
+This is an example to show how to open a file and read.
+This is the second line of the text.
+Python makes reading files easy.
+Zażółć gęślą jaźń – and the letters still look right.
+@end
+
+@md
+en: ## Reading
+`read()` gives the whole file as one string, `readline()` one line at a time, and `readlines()` a list of lines. Looping over the file object reads it line by line, which also works for big files. Each line ends with `'\n'`; `strip()` removes it, or `read().splitlines()` gives lines without it.
+pl: ## Odczyt
+`read()` daje cały plik jako jeden napis, `readline()` – po jednym wierszu, a `readlines()` – listę wierszy. Pętla po obiekcie pliku czyta go wiersz po wierszu, co działa także dla dużych plików. Każdy wiersz kończy się znakiem `'\n'`; `strip()` go usuwa, a `read().splitlines()` daje wiersze bez niego.
+de: ## Lesen
+`read()` liefert die ganze Datei als eine Zeichenkette, `readline()` jeweils eine Zeile und `readlines()` eine Liste von Zeilen. Eine Schleife über das Dateiobjekt liest Zeile für Zeile, was auch bei großen Dateien funktioniert. Jede Zeile endet mit `'\n'`; `strip()` entfernt es, oder `read().splitlines()` liefert die Zeilen ohne.
+es: ## Leer
+`read()` da el archivo entero como una cadena, `readline()` una línea cada vez y `readlines()` una lista de líneas. Recorrer el objeto archivo con un bucle lo lee línea a línea, lo que también sirve para archivos grandes. Cada línea termina en `'\n'`; `strip()` lo quita, o `read().splitlines()` da las líneas sin él.
+fr: ## Lire
+`read()` donne tout le fichier sous forme d'une seule chaîne, `readline()` une ligne à la fois, et `readlines()` une liste de lignes. Une boucle sur l'objet fichier le lit ligne par ligne, ce qui marche aussi pour les gros fichiers. Chaque ligne se termine par `'\n'` ; `strip()` le retire, ou `read().splitlines()` donne les lignes sans lui.
+
+@code
+with open('reading.txt', encoding='utf-8') as f:
+    text = f.read()
+print(len(text), 'characters')
+
+with open('reading.txt', encoding='utf-8') as f:
+    for number, line in enumerate(f, start=1):
+        print(number, line.strip())
+@end
+
+@md
+en: ## Writing
+Opening with `'w'` creates the file – or replaces what was in it – and `write()` puts text into it. Unlike `print`, `write` does not add a new line, so add `'\n'` yourself. `'a'` keeps the old content and adds to the end. The `os` module can check whether a file exists and delete it.
+pl: ## Zapis
+Otwarcie w trybie `'w'` tworzy plik – albo zastępuje jego zawartość – a `write()` wpisuje do niego tekst. W odróżnieniu od `print` metoda `write` nie dodaje nowego wiersza, więc dopisz `'\n'` sam. `'a'` zachowuje starą zawartość i dopisuje na końcu. Moduł `os` potrafi sprawdzić, czy plik istnieje, i go usunąć.
+de: ## Schreiben
+Öffnen mit `'w'` legt die Datei an – oder ersetzt ihren Inhalt –, und `write()` schreibt Text hinein. Anders als `print` fügt `write` keinen Zeilenumbruch an, also setz `'\n'` selbst. `'a'` behält den alten Inhalt und hängt ans Ende an. Das Modul `os` kann prüfen, ob eine Datei existiert, und sie löschen.
+es: ## Escribir
+Abrir con `'w'` crea el archivo (o sustituye su contenido) y `write()` escribe texto en él. A diferencia de `print`, `write` no añade un salto de línea, así que pon tú el `'\n'`. `'a'` conserva el contenido anterior y añade al final. El módulo `os` puede comprobar si un archivo existe y borrarlo.
+fr: ## Écrire
+Ouvrir avec `'w'` crée le fichier – ou remplace son contenu – et `write()` y écrit du texte. Contrairement à `print`, `write` n'ajoute pas de saut de ligne, ajoute donc `'\n'` toi-même. `'a'` garde l'ancien contenu et ajoute à la fin. Le module `os` peut vérifier si un fichier existe et le supprimer.
+
+@code
+import os
+with open('notes.txt', 'w', encoding='utf-8') as f:
+    f.write('First line\n')
+    f.write('Second line\n')
+with open('notes.txt', 'a', encoding='utf-8') as f:
+    f.write('Added later\n')
+with open('notes.txt', encoding='utf-8') as f:
+    print(f.read())
+print(os.path.exists('notes.txt'))
+os.remove('notes.txt')
+print(os.path.exists('notes.txt'))
+@end
+
+@md
+en: ## CSV files
+**CSV** (comma-separated values) is a simple table format: one row per line, values separated by commas, often with a header row. The `csv` module handles quotes and commas inside values for you. `csv.DictReader` gives each row as a dictionary keyed by the header.
+pl: ## Pliki CSV
+**CSV** (comma-separated values, wartości rozdzielone przecinkami) to prosty format tabeli: jeden wiersz na linię, wartości rozdzielone przecinkami, często z wierszem nagłówka. Moduł `csv` sam radzi sobie z cudzysłowami i przecinkami wewnątrz wartości. `csv.DictReader` daje każdy wiersz jako słownik z kluczami z nagłówka.
+de: ## CSV-Dateien
+**CSV** (comma-separated values, kommagetrennte Werte) ist ein einfaches Tabellenformat: eine Zeile pro Datensatz, Werte durch Kommas getrennt, oft mit einer Kopfzeile. Das Modul `csv` kümmert sich um Anführungszeichen und Kommas in Werten. `csv.DictReader` liefert jede Zeile als Dictionary mit den Spaltennamen als Schlüsseln.
+es: ## Archivos CSV
+**CSV** (comma-separated values, valores separados por comas) es un formato de tabla sencillo: una fila por línea, valores separados por comas y a menudo una fila de cabecera. El módulo `csv` se ocupa de las comillas y las comas dentro de los valores. `csv.DictReader` da cada fila como un diccionario cuyas claves son las de la cabecera.
+fr: ## Les fichiers CSV
+**CSV** (comma-separated values, valeurs séparées par des virgules) est un format de tableau simple : une ligne par enregistrement, des valeurs séparées par des virgules, souvent avec une ligne d'en-tête. Le module `csv` gère pour toi les guillemets et les virgules à l'intérieur des valeurs. `csv.DictReader` donne chaque ligne sous forme de dictionnaire dont les clés sont celles de l'en-tête.
+
+@file people.csv
+name,country,city,skills
+Asabeneh,Finland,Helsinki,"JavaScript,React,Python"
+Anna,Poland,Kraków,"Python,SQL"
+Lukas,Germany,Berlin,Go
+Lucía,Spain,Sevilla,"HTML,CSS"
+Camille,France,Lyon,"Python,Django,SQL"
+@end
+
+@code
+import csv
+with open('people.csv', encoding='utf-8', newline='') as f:
+    for row in csv.DictReader(f):
+        skills = row['skills'].split(',')
+        print(f"{row['name']} lives in {row['city']} and knows {len(skills)} skill(s)")
+@end
+
+@md
+en: ## JSON
+**JSON** is the most common format for exchanging data between programs and over the web. It looks almost like Python dictionaries and lists. `json.load(file)` reads JSON from a file into Python objects and `json.dump(obj, file)` writes them back; `json.loads` and `json.dumps` do the same with strings. `indent=2` makes the output readable.
+pl: ## JSON
+**JSON** to najpopularniejszy format wymiany danych między programami i w sieci. Wygląda prawie jak pythonowe słowniki i listy. `json.load(file)` wczytuje JSON z pliku do obiektów Pythona, a `json.dump(obj, file)` zapisuje je z powrotem; `json.loads` i `json.dumps` robią to samo z napisami. `indent=2` sprawia, że wynik jest czytelny.
+de: ## JSON
+**JSON** ist das verbreitetste Format, um Daten zwischen Programmen und über das Web auszutauschen. Es sieht fast aus wie Python-Dictionaries und -Listen. `json.load(file)` liest JSON aus einer Datei in Python-Objekte, `json.dump(obj, file)` schreibt sie zurück; `json.loads` und `json.dumps` tun dasselbe mit Zeichenketten. `indent=2` macht die Ausgabe lesbar.
+es: ## JSON
+**JSON** es el formato más habitual para intercambiar datos entre programas y por la web. Se parece mucho a los diccionarios y listas de Python. `json.load(file)` lee JSON de un archivo y lo convierte en objetos de Python, y `json.dump(obj, file)` los vuelve a escribir; `json.loads` y `json.dumps` hacen lo mismo con cadenas. `indent=2` hace que la salida sea legible.
+fr: ## JSON
+**JSON** est le format le plus répandu pour échanger des données entre programmes et sur le web. Il ressemble beaucoup aux dictionnaires et aux listes de Python. `json.load(file)` lit du JSON depuis un fichier et le transforme en objets Python, et `json.dump(obj, file)` les réécrit ; `json.loads` et `json.dumps` font la même chose avec des chaînes. `indent=2` rend la sortie lisible.
+
+@file user.json
+{
+  "name": "Asabeneh",
+  "country": "Finland",
+  "city": "Helsinki",
+  "skills": ["JavaScript", "React", "Python"],
+  "is_teacher": true,
+  "address": null
+}
+@end
+
+@code
+import json
+with open('user.json', encoding='utf-8') as f:
+    user = json.load(f)
+print(type(user), user['skills'])
+print(user['is_teacher'], user['address'])    # true -> True, null -> None
+user['skills'].append('Pandas')
+print(json.dumps(user, indent=2, ensure_ascii=False))
+@end
+
+@exercise count-lines
+@title
+en: Lines and words
+pl: Wiersze i słowa
+de: Zeilen und Wörter
+es: Líneas y palabras
+fr: Lignes et mots
+@text
+en: Write `count_lines_and_words(filename)` that reads a text file and returns a tuple `(lines, words)` – the number of lines and of words in it. For `reading.txt` it returns `(4, 36)`.
+pl: Napisz `count_lines_and_words(filename)`, która czyta plik tekstowy i zwraca krotkę `(lines, words)` – liczbę wierszy i słów. Dla `reading.txt` zwraca `(4, 36)`.
+de: Schreib `count_lines_and_words(filename)`, die eine Textdatei liest und ein Tupel `(lines, words)` zurückgibt – die Anzahl der Zeilen und der Wörter. Für `reading.txt` liefert sie `(4, 36)`.
+es: Escribe `count_lines_and_words(filename)`, que lee un archivo de texto y devuelve una tupla `(lines, words)` con el número de líneas y de palabras. Para `reading.txt` devuelve `(4, 36)`.
+fr: Écris `count_lines_and_words(filename)` qui lit un fichier texte et renvoie un tuple `(lines, words)` – le nombre de lignes et de mots qu'il contient. Pour `reading.txt`, elle renvoie `(4, 36)`.
+@hint
+en: `text = f.read()`, then `len(text.splitlines())` and `len(text.split())`.
+pl: `text = f.read()`, potem `len(text.splitlines())` i `len(text.split())`.
+de: `text = f.read()`, dann `len(text.splitlines())` und `len(text.split())`.
+es: `text = f.read()`, después `len(text.splitlines())` y `len(text.split())`.
+fr: `text = f.read()`, puis `len(text.splitlines())` et `len(text.split())`.
+@starter
+def count_lines_and_words(filename):
+    pass
+@end
+@solution
+def count_lines_and_words(filename):
+    with open(filename, encoding='utf-8') as f:
+        text = f.read()
+    return len(text.splitlines()), len(text.split())
+
+
+print(count_lines_and_words('reading.txt'))
+@end
+@case
+expr: count_lines_and_words('reading.txt') == (4, 36)
+
+@exercise write-file
+@title
+en: Write a file
+pl: Zapisz plik
+de: Eine Datei schreiben
+es: Escribe un archivo
+fr: Écris un fichier
+@text
+en: Write the numbers from 1 to 5 into the file `numbers.txt`, one per line. Then read the file back and print the sum of the numbers in it.
+pl: Zapisz liczby od 1 do 5 w pliku `numbers.txt`, po jednej w wierszu. Potem odczytaj plik i wypisz sumę zapisanych w nim liczb.
+de: Schreib die Zahlen von 1 bis 5 in die Datei `numbers.txt`, eine pro Zeile. Lies die Datei dann wieder ein und gib die Summe der Zahlen darin aus.
+es: Escribe los números del 1 al 5 en el archivo `numbers.txt`, uno por línea. Después vuelve a leer el archivo e imprime la suma de los números que contiene.
+fr: Écris les nombres de 1 à 5 dans le fichier `numbers.txt`, un par ligne. Relis ensuite le fichier et affiche la somme des nombres qu'il contient.
+@hint
+en: `f.write(f'{n}\n')` in a loop; when reading, `int(line)` works even with the `'\n'` at the end.
+pl: `f.write(f'{n}\n')` w pętli; przy odczycie `int(line)` działa nawet z `'\n'` na końcu.
+de: `f.write(f'{n}\n')` in einer Schleife; beim Lesen funktioniert `int(line)` auch mit dem `'\n'` am Ende.
+es: `f.write(f'{n}\n')` en un bucle; al leer, `int(line)` funciona aunque haya un `'\n'` al final.
+fr: `f.write(f'{n}\n')` dans une boucle ; à la lecture, `int(line)` fonctionne même avec le `'\n'` final.
+@starter
+# write numbers.txt
+
+# read it back and print the sum
+@end
+@solution
+with open('numbers.txt', 'w', encoding='utf-8') as f:
+    for n in range(1, 6):
+        f.write(f'{n}\n')
+
+total = 0
+with open('numbers.txt', encoding='utf-8') as f:
+    for line in f:
+        total += int(line)
+print(total)
+@end
+@case
+expr: open('numbers.txt', encoding='utf-8').read().split() == ['1', '2', '3', '4', '5']
+re: (?<![\d.])15(?![\d.])
+
+@exercise csv-skills
+@title
+en: Who knows Python?
+pl: Kto zna Pythona?
+de: Wer kann Python?
+es: ¿Quién sabe Python?
+fr: Qui connaît Python ?
+@text
+en: Read `people.csv` with the `csv` module. Store in `python_people` the list of names of everyone whose skills include `Python`, in file order, and in `countries` the set of all countries in the file.
+pl: Odczytaj `people.csv` modułem `csv`. Zapisz w `python_people` listę imion wszystkich osób, które mają w umiejętnościach `Python`, w kolejności z pliku, a w `countries` zbiór wszystkich krajów z pliku.
+de: Lies `people.csv` mit dem Modul `csv`. Speichere in `python_people` die Liste der Namen aller, deren Fähigkeiten `Python` enthalten, in der Reihenfolge der Datei, und in `countries` die Menge aller Länder in der Datei.
+es: Lee `people.csv` con el módulo `csv`. Guarda en `python_people` la lista de nombres de todas las personas cuyas habilidades incluyen `Python`, en el orden del archivo, y en `countries` el conjunto de todos los países del archivo.
+fr: Lis `people.csv` avec le module `csv`. Range dans `python_people` la liste des noms de toutes les personnes dont les compétences incluent `Python`, dans l'ordre du fichier, et dans `countries` l'ensemble de tous les pays du fichier.
+@hint
+en: With `csv.DictReader`, `row['skills'].split(',')` gives a list of skills.
+pl: Przy `csv.DictReader` wyrażenie `row['skills'].split(',')` daje listę umiejętności.
+de: Mit `csv.DictReader` liefert `row['skills'].split(',')` eine Liste der Fähigkeiten.
+es: Con `csv.DictReader`, `row['skills'].split(',')` da una lista de habilidades.
+fr: Avec `csv.DictReader`, `row['skills'].split(',')` donne une liste de compétences.
+@starter
+import csv
+@end
+@solution
+import csv
+
+python_people = []
+countries = set()
+with open('people.csv', encoding='utf-8', newline='') as f:
+    for row in csv.DictReader(f):
+        countries.add(row['country'])
+        if 'Python' in row['skills'].split(','):
+            python_people.append(row['name'])
+print(python_people, countries)
+@end
+@case
+expr: python_people == ['Asabeneh', 'Anna', 'Camille']
+expr: countries == {'Finland', 'Poland', 'Germany', 'Spain', 'France'}
+
+@exercise json-roundtrip
+@title
+en: JSON in and out
+pl: JSON w obie strony
+de: JSON hin und zurück
+es: JSON de ida y vuelta
+fr: JSON dans les deux sens
+@text
+en: Load `user.json`. Change `city` to `'Espoo'`, add `'SQL'` to `skills`, and save the result to a new file `user_updated.json` with `json.dump`. Store the loaded and changed dictionary in `user`.
+pl: Wczytaj `user.json`. Zmień `city` na `'Espoo'`, dodaj `'SQL'` do `skills` i zapisz wynik do nowego pliku `user_updated.json` przez `json.dump`. Wczytany i zmieniony słownik zapisz w `user`.
+de: Lade `user.json`. Ändere `city` in `'Espoo'`, füge `'SQL'` zu `skills` hinzu und speichere das Ergebnis mit `json.dump` in der neuen Datei `user_updated.json`. Speichere das geladene und geänderte Dictionary in `user`.
+es: Carga `user.json`. Cambia `city` a `'Espoo'`, añade `'SQL'` a `skills` y guarda el resultado en un archivo nuevo `user_updated.json` con `json.dump`. Guarda el diccionario cargado y modificado en `user`.
+fr: Charge `user.json`. Change `city` en `'Espoo'`, ajoute `'SQL'` à `skills` et enregistre le résultat dans un nouveau fichier `user_updated.json` avec `json.dump`. Range le dictionnaire chargé et modifié dans `user`.
+@hint
+en: Open the new file with `'w'` and call `json.dump(user, f, indent=2)`.
+pl: Otwórz nowy plik w trybie `'w'` i wywołaj `json.dump(user, f, indent=2)`.
+de: Öffne die neue Datei mit `'w'` und ruf `json.dump(user, f, indent=2)` auf.
+es: Abre el archivo nuevo con `'w'` y llama a `json.dump(user, f, indent=2)`.
+fr: Ouvre le nouveau fichier avec `'w'` et appelle `json.dump(user, f, indent=2)`.
+@starter
+import json
+@end
+@solution
+import json
+
+with open('user.json', encoding='utf-8') as f:
+    user = json.load(f)
+user['city'] = 'Espoo'
+user['skills'].append('SQL')
+with open('user_updated.json', 'w', encoding='utf-8') as f:
+    json.dump(user, f, indent=2)
+print(user)
+@end
+@case
+expr: user['city'] == 'Espoo' and user['skills'][-1] == 'SQL'
+expr: __import__('json').load(open('user_updated.json', encoding='utf-8')) == user
+expr: __import__('json').load(open('user.json', encoding='utf-8'))['city'] == 'Helsinki'

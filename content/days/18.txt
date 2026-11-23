@@ -1,0 +1,338 @@
+@day 18
+@source 18_Day_Regular_expressions/18_regular_expressions.md
+
+@title
+en: Regular expressions
+pl: Wyrażenia regularne
+de: Reguläre Ausdrücke
+es: Expresiones regulares
+fr: Expressions régulières
+
+@summary
+en: Search, extract, split and replace text by patterns with the re module, and learn the building blocks of a regular expression.
+pl: Wyszukuj, wyciągaj, dziel i zamieniaj tekst według wzorców modułem re i poznaj elementy, z których buduje się wyrażenie regularne.
+de: Text mit dem Modul re nach Mustern durchsuchen, herausziehen, zerlegen und ersetzen und die Bausteine eines regulären Ausdrucks kennenlernen.
+es: Busca, extrae, divide y reemplaza texto según patrones con el módulo re, y aprende las piezas de una expresión regular.
+fr: Cherche, extrais, découpe et remplace du texte selon des motifs avec le module re, et découvre les briques d'une expression régulière.
+
+@md
+en: ## What is a regular expression?
+A **regular expression** (regex) is a small pattern that describes text: “a digit”, “one or more letters”, “something that looks like an e-mail address”. Python's `re` module searches text for such patterns. Write patterns as **raw strings**, `r'...'`, so that backslashes reach the regex unchanged.
+pl: ## Czym jest wyrażenie regularne?
+**Wyrażenie regularne** (regex) to mały wzorzec opisujący tekst: „cyfra”, „jedna lub więcej liter”, „coś, co wygląda jak adres e-mail”. Moduł `re` w Pythonie szuka takich wzorców w tekście. Wzorce zapisuj jako **surowe napisy**, `r'...'`, żeby ukośniki wsteczne dotarły do wyrażenia bez zmian.
+de: ## Was ist ein regulärer Ausdruck?
+Ein **regulärer Ausdruck** (Regex) ist ein kleines Muster, das Text beschreibt: „eine Ziffer“, „ein oder mehrere Buchstaben“, „etwas, das wie eine E-Mail-Adresse aussieht“. Das Python-Modul `re` sucht solche Muster in Text. Schreib Muster als **Raw-Strings**, `r'...'`, damit Backslashes unverändert beim Regex ankommen.
+es: ## ¿Qué es una expresión regular?
+Una **expresión regular** (regex) es un pequeño patrón que describe texto: «una cifra», «una o más letras», «algo que parece una dirección de correo». El módulo `re` de Python busca esos patrones en un texto. Escribe los patrones como **cadenas sin procesar**, `r'...'`, para que las barras invertidas lleguen intactas a la expresión.
+fr: ## Qu'est-ce qu'une expression régulière ?
+Une **expression régulière** (regex) est un petit motif qui décrit du texte : « un chiffre », « une ou plusieurs lettres », « quelque chose qui ressemble à une adresse e-mail ». Le module `re` de Python cherche de tels motifs dans un texte. Écris les motifs sous forme de **chaînes brutes**, `r'...'`, pour que les barres obliques inverses arrivent telles quelles à la regex.
+
+@md
+en: ## Functions of the re module
+
+| Function | What it does |
+|---|---|
+| `re.match(p, text)` | matches only at the **start** of the text |
+| `re.search(p, text)` | finds the **first** match anywhere |
+| `re.findall(p, text)` | returns a list of **all** matches |
+| `re.split(p, text)` | splits the text at every match |
+| `re.sub(p, new, text)` | replaces every match with `new` |
+
+`match` and `search` return a match object or `None`; `group()` gives the matched text and `span()` its position. `re.I` as a flag ignores upper and lower case.
+pl: ## Funkcje modułu re
+
+| Funkcja | Co robi |
+|---|---|
+| `re.match(p, text)` | dopasowuje tylko na **początku** tekstu |
+| `re.search(p, text)` | znajduje **pierwsze** dopasowanie w dowolnym miejscu |
+| `re.findall(p, text)` | zwraca listę **wszystkich** dopasowań |
+| `re.split(p, text)` | dzieli tekst w każdym dopasowaniu |
+| `re.sub(p, new, text)` | zamienia każde dopasowanie na `new` |
+
+`match` i `search` zwracają obiekt dopasowania albo `None`; `group()` daje dopasowany tekst, a `span()` jego pozycję. Flaga `re.I` każe ignorować wielkość liter.
+de: ## Funktionen des Moduls re
+
+| Funktion | Was sie macht |
+|---|---|
+| `re.match(p, text)` | passt nur am **Anfang** des Textes |
+| `re.search(p, text)` | findet den **ersten** Treffer irgendwo |
+| `re.findall(p, text)` | gibt eine Liste **aller** Treffer zurück |
+| `re.split(p, text)` | zerlegt den Text an jedem Treffer |
+| `re.sub(p, new, text)` | ersetzt jeden Treffer durch `new` |
+
+`match` und `search` geben ein Match-Objekt oder `None` zurück; `group()` liefert den gefundenen Text und `span()` seine Position. Das Flag `re.I` ignoriert Groß- und Kleinschreibung.
+es: ## Funciones del módulo re
+
+| Función | Qué hace |
+|---|---|
+| `re.match(p, text)` | solo coincide al **principio** del texto |
+| `re.search(p, text)` | encuentra la **primera** coincidencia en cualquier lugar |
+| `re.findall(p, text)` | devuelve una lista de **todas** las coincidencias |
+| `re.split(p, text)` | divide el texto en cada coincidencia |
+| `re.sub(p, new, text)` | reemplaza cada coincidencia por `new` |
+
+`match` y `search` devuelven un objeto de coincidencia o `None`; `group()` da el texto encontrado y `span()` su posición. La opción `re.I` ignora mayúsculas y minúsculas.
+fr: ## Les fonctions du module re
+
+| Fonction | Ce qu'elle fait |
+|---|---|
+| `re.match(p, text)` | ne trouve une correspondance qu'au **début** du texte |
+| `re.search(p, text)` | trouve la **première** correspondance, n'importe où |
+| `re.findall(p, text)` | renvoie une liste de **toutes** les correspondances |
+| `re.split(p, text)` | découpe le texte à chaque correspondance |
+| `re.sub(p, new, text)` | remplace chaque correspondance par `new` |
+
+`match` et `search` renvoient un objet de correspondance ou `None` ; `group()` donne le texte trouvé et `span()` sa position. L'option `re.I` ignore les majuscules et minuscules.
+
+@code
+import re
+txt = 'I love to teach Python and JavaScript'
+print(re.match('I love', txt))
+print(re.match('Python', txt))                 # None – not at the start
+m = re.search('python', txt, re.I)
+print(m.group(), m.span())
+print(re.findall('a', txt))
+print(re.split(' ', 'one two  three'))
+print(re.sub('Python|JavaScript', 'coding', txt))
+@end
+
+@md
+en: ## Building patterns
+A few building blocks go a long way:
+
+| Pattern | Matches |
+|---|---|
+| `.` | any character except a new line |
+| `\d`, `\w`, `\s` | a digit, a word character (letter, digit, `_`), a space |
+| `[abc]`, `[a-z]`, `[^0-9]` | one of these characters, a range, anything but these |
+| `*`, `+`, `?` | zero or more, one or more, zero or one of what comes before |
+| `{3}`, `{2,4}` | exactly 3, from 2 to 4 times |
+| `^`, `$` | the start and the end of the text |
+| `a\|b` | `a` or `b` |
+| `( )` | a group – `findall` then returns the groups |
+| `\.` | a real dot; a backslash makes a special character ordinary |
+pl: ## Budowanie wzorców
+Kilka elementów wystarczy na bardzo wiele:
+
+| Wzorzec | Pasuje do |
+|---|---|
+| `.` | dowolnego znaku oprócz nowego wiersza |
+| `\d`, `\w`, `\s` | cyfry, znaku słowa (litera, cyfra, `_`), odstępu |
+| `[abc]`, `[a-z]`, `[^0-9]` | jednego z tych znaków, zakresu, czegokolwiek oprócz nich |
+| `*`, `+`, `?` | zera lub więcej, jednego lub więcej, zera lub jednego wystąpienia tego, co przed nim |
+| `{3}`, `{2,4}` | dokładnie 3, od 2 do 4 razy |
+| `^`, `$` | początku i końca tekstu |
+| `a\|b` | `a` albo `b` |
+| `( )` | grupy – `findall` zwraca wtedy grupy |
+| `\.` | prawdziwej kropki; ukośnik wsteczny zamienia znak specjalny w zwykły |
+de: ## Muster bauen
+Mit wenigen Bausteinen kommst du weit:
+
+| Muster | Passt auf |
+|---|---|
+| `.` | ein beliebiges Zeichen außer Zeilenumbruch |
+| `\d`, `\w`, `\s` | eine Ziffer, ein Wortzeichen (Buchstabe, Ziffer, `_`), ein Leerraumzeichen |
+| `[abc]`, `[a-z]`, `[^0-9]` | eines dieser Zeichen, einen Bereich, alles außer diesen |
+| `*`, `+`, `?` | null oder mehr, eins oder mehr, null oder eins vom Vorherigen |
+| `{3}`, `{2,4}` | genau 3-mal, 2- bis 4-mal |
+| `^`, `$` | Anfang und Ende des Textes |
+| `a\|b` | `a` oder `b` |
+| `( )` | eine Gruppe – `findall` gibt dann die Gruppen zurück |
+| `\.` | einen echten Punkt; ein Backslash macht ein Sonderzeichen gewöhnlich |
+es: ## Construir patrones
+Con unas pocas piezas se llega lejos:
+
+| Patrón | Coincide con |
+|---|---|
+| `.` | cualquier carácter salvo un salto de línea |
+| `\d`, `\w`, `\s` | una cifra, un carácter de palabra (letra, cifra, `_`), un espacio |
+| `[abc]`, `[a-z]`, `[^0-9]` | uno de estos caracteres, un rango, cualquiera menos estos |
+| `*`, `+`, `?` | cero o más, uno o más, cero o uno de lo anterior |
+| `{3}`, `{2,4}` | exactamente 3 veces, de 2 a 4 veces |
+| `^`, `$` | el principio y el final del texto |
+| `a\|b` | `a` o `b` |
+| `( )` | un grupo; entonces `findall` devuelve los grupos |
+| `\.` | un punto de verdad; la barra invertida convierte un carácter especial en normal |
+fr: ## Construire des motifs
+Quelques briques suffisent pour aller loin :
+
+| Motif | Correspond à |
+|---|---|
+| `.` | n'importe quel caractère sauf un saut de ligne |
+| `\d`, `\w`, `\s` | un chiffre, un caractère de mot (lettre, chiffre, `_`), un espace |
+| `[abc]`, `[a-z]`, `[^0-9]` | l'un de ces caractères, une plage, tout sauf ceux-ci |
+| `*`, `+`, `?` | zéro ou plus, un ou plus, zéro ou un de ce qui précède |
+| `{3}`, `{2,4}` | exactement 3 fois, de 2 à 4 fois |
+| `^`, `$` | le début et la fin du texte |
+| `a\|b` | `a` ou `b` |
+| `( )` | un groupe – `findall` renvoie alors les groupes |
+| `\.` | un vrai point ; une barre oblique inverse rend ordinaire un caractère spécial |
+
+@code
+import re
+txt = 'Call 555-1234 or 555-9876 before 18:30. Prices: 4.99, 12.50'
+print(re.findall(r'\d+', txt))                   # every run of digits
+print(re.findall(r'\d{3}-\d{4}', txt))           # phone numbers
+print(re.findall(r'\d+\.\d+', txt))              # decimal numbers
+print(re.findall(r'(\d\d):(\d\d)', txt))         # groups -> tuples
+print(re.findall(r'[A-Z]\w*', txt))              # words with a capital letter
+print(bool(re.fullmatch(r'[a-z]+', 'python')))   # the whole text must match
+@end
+
+@exercise most-frequent
+@title
+en: The most frequent word
+pl: Najczęstsze słowo
+de: Das häufigste Wort
+es: La palabra más frecuente
+fr: Le mot le plus fréquent
+@text
+en: Write `most_frequent_words(text)` that finds the words with `re.findall` (letters only, ignoring case) and returns a list of `(count, word)` tuples, the most frequent first. Words with the same count are sorted alphabetically. For `paragraph`, the first item is `(6, 'love')`.
+pl: Napisz `most_frequent_words(text)`, która znajduje słowa przez `re.findall` (same litery, bez rozróżniania wielkości) i zwraca listę krotek `(count, word)`, od najczęstszego. Słowa z tą samą liczbą wystąpień są posortowane alfabetycznie. Dla `paragraph` pierwszy element to `(6, 'love')`.
+de: Schreib `most_frequent_words(text)`, die die Wörter mit `re.findall` findet (nur Buchstaben, ohne Groß-/Kleinschreibung) und eine Liste von `(count, word)`-Tupeln zurückgibt, das häufigste zuerst. Wörter mit gleicher Anzahl sind alphabetisch sortiert. Für `paragraph` ist das erste Element `(6, 'love')`.
+es: Escribe `most_frequent_words(text)`, que encuentra las palabras con `re.findall` (solo letras, sin distinguir mayúsculas) y devuelve una lista de tuplas `(count, word)`, la más frecuente primero. Las palabras con el mismo número de apariciones van en orden alfabético. Para `paragraph`, el primer elemento es `(6, 'love')`.
+fr: Écris `most_frequent_words(text)` qui trouve les mots avec `re.findall` (lettres seulement, sans tenir compte de la casse) et renvoie une liste de tuples `(count, word)`, le plus fréquent d'abord. Les mots ayant le même nombre d'occurrences sont triés par ordre alphabétique. Pour `paragraph`, le premier élément est `(6, 'love')`.
+@hint
+en: `re.findall(r'[a-z]+', text.lower())`, count with a dictionary, then `sorted(..., key=lambda p: (-p[0], p[1]))`.
+pl: `re.findall(r'[a-z]+', text.lower())`, policz słownikiem, potem `sorted(..., key=lambda p: (-p[0], p[1]))`.
+de: `re.findall(r'[a-z]+', text.lower())`, mit einem Dictionary zählen, dann `sorted(..., key=lambda p: (-p[0], p[1]))`.
+es: `re.findall(r'[a-z]+', text.lower())`, cuenta con un diccionario y después `sorted(..., key=lambda p: (-p[0], p[1]))`.
+fr: `re.findall(r'[a-z]+', text.lower())`, compte avec un dictionnaire, puis `sorted(..., key=lambda p: (-p[0], p[1]))`.
+@starter
+import re
+
+paragraph = 'I love teaching. If you do not love teaching what else can you love. I love Python if you do not love something which can give you all the capabilities to develop an application what else can you love.'
+
+
+def most_frequent_words(text):
+    pass
+@end
+@solution
+import re
+
+paragraph = 'I love teaching. If you do not love teaching what else can you love. I love Python if you do not love something which can give you all the capabilities to develop an application what else can you love.'
+
+
+def most_frequent_words(text):
+    counts = {}
+    for word in re.findall(r'[a-z]+', text.lower()):
+        counts[word] = counts.get(word, 0) + 1
+    pairs = [(n, w) for w, n in counts.items()]
+    return sorted(pairs, key=lambda p: (-p[0], p[1]))
+
+
+print(most_frequent_words(paragraph)[:5])
+@end
+@case
+expr: most_frequent_words(paragraph)[:4] == [(6, 'love'), (5, 'you'), (3, 'can'), (2, 'do')]
+expr: most_frequent_words('b a B') == [(2, 'b'), (1, 'a')]
+
+@exercise distance
+@title
+en: Distance between points
+pl: Odległość między punktami
+de: Abstand zwischen Punkten
+es: Distancia entre puntos
+fr: Distance entre des points
+@text
+en: The sentence `points` mentions several points on a line. Extract all the numbers (including negative ones) into the list `numbers` as integers, sorted from smallest to largest, and store in `distance` the distance between the two furthest points.
+pl: Zdanie `points` wymienia kilka punktów na prostej. Wyciągnij wszystkie liczby (także ujemne) do listy `numbers` jako liczby całkowite, posortowane rosnąco, i zapisz w `distance` odległość między dwoma najdalszymi punktami.
+de: Der Satz `points` nennt mehrere Punkte auf einer Geraden. Zieh alle Zahlen (auch negative) als ganze Zahlen in die Liste `numbers`, aufsteigend sortiert, und speichere in `distance` den Abstand zwischen den beiden am weitesten entfernten Punkten.
+es: La frase `points` menciona varios puntos de una recta. Extrae todos los números (también los negativos) a la lista `numbers` como enteros, ordenados de menor a mayor, y guarda en `distance` la distancia entre los dos puntos más alejados.
+fr: La phrase `points` mentionne plusieurs points sur une droite. Extrais tous les nombres (y compris négatifs) dans la liste `numbers` sous forme d'entiers, triés du plus petit au plus grand, et range dans `distance` la distance entre les deux points les plus éloignés.
+@hint
+en: `-?\d+` is an optional minus followed by digits. The distance is the largest minus the smallest.
+pl: `-?\d+` to opcjonalny minus i cyfry. Odległość to największa minus najmniejsza.
+de: `-?\d+` ist ein optionales Minus gefolgt von Ziffern. Der Abstand ist die größte minus die kleinste Zahl.
+es: `-?\d+` es un signo menos opcional seguido de cifras. La distancia es el mayor menos el menor.
+fr: `-?\d+` est un signe moins facultatif suivi de chiffres. La distance est le plus grand moins le plus petit.
+@starter
+import re
+
+points = 'The position of some particles on the horizontal x-axis are -12, -4, -3 and -1 in the negative direction, 0 at origin, 4 and 8 in the positive direction.'
+@end
+@solution
+import re
+
+points = 'The position of some particles on the horizontal x-axis are -12, -4, -3 and -1 in the negative direction, 0 at origin, 4 and 8 in the positive direction.'
+numbers = sorted(int(n) for n in re.findall(r'-?\d+', points))
+distance = numbers[-1] - numbers[0]
+print(numbers, distance)
+@end
+@case
+expr: numbers == [-12, -4, -3, -1, 0, 4, 8]
+expr: distance == 20
+
+@exercise variable
+@title
+en: A valid variable name?
+pl: Poprawna nazwa zmiennej?
+de: Ein gültiger Variablenname?
+es: ¿Un nombre de variable válido?
+fr: Un nom de variable valide ?
+@text
+en: Write `is_valid_variable(name)` that returns `True` if `name` starts with a letter or `_` and continues only with letters, digits or `_`, and `False` otherwise. Use `re.fullmatch`. For example `first_name` and `_x1` are valid, `first-name` and `1st` are not.
+pl: Napisz `is_valid_variable(name)`, która zwraca `True`, jeśli `name` zaczyna się od litery albo `_` i dalej ma tylko litery, cyfry albo `_`, a w przeciwnym razie `False`. Użyj `re.fullmatch`. Na przykład `first_name` i `_x1` są poprawne, a `first-name` i `1st` nie.
+de: Schreib `is_valid_variable(name)`, die `True` zurückgibt, wenn `name` mit einem Buchstaben oder `_` beginnt und danach nur Buchstaben, Ziffern oder `_` enthält, sonst `False`. Nimm `re.fullmatch`. Zum Beispiel sind `first_name` und `_x1` gültig, `first-name` und `1st` nicht.
+es: Escribe `is_valid_variable(name)`, que devuelve `True` si `name` empieza por una letra o `_` y sigue solo con letras, cifras o `_`, y `False` en caso contrario. Usa `re.fullmatch`. Por ejemplo, `first_name` y `_x1` son válidos; `first-name` y `1st`, no.
+fr: Écris `is_valid_variable(name)` qui renvoie `True` si `name` commence par une lettre ou `_` et ne contient ensuite que des lettres, des chiffres ou `_`, et `False` sinon. Utilise `re.fullmatch`. Par exemple, `first_name` et `_x1` sont valides, `first-name` et `1st` ne le sont pas.
+@hint
+en: `r'[A-Za-z_]\w*'` – and `bool(...)` turns the match or `None` into `True` or `False`.
+pl: `r'[A-Za-z_]\w*'` – a `bool(...)` zamienia dopasowanie albo `None` na `True` albo `False`.
+de: `r'[A-Za-z_]\w*'` – und `bool(...)` macht aus dem Treffer oder `None` ein `True` oder `False`.
+es: `r'[A-Za-z_]\w*'`; y `bool(...)` convierte la coincidencia o `None` en `True` o `False`.
+fr: `r'[A-Za-z_]\w*'` – et `bool(...)` transforme la correspondance ou `None` en `True` ou `False`.
+@starter
+import re
+
+
+def is_valid_variable(name):
+    pass
+@end
+@solution
+import re
+
+
+def is_valid_variable(name):
+    return bool(re.fullmatch(r'[A-Za-z_]\w*', name))
+
+
+print(is_valid_variable('first_name'), is_valid_variable('first-name'))
+@end
+@case
+expr: [is_valid_variable(n) for n in ['first_name', '_x1', 'Age', 'a']] == [True, True, True, True]
+expr: [is_valid_variable(n) for n in ['first-name', '1st', 'first name', '']] == [False, False, False, False]
+
+@exercise clean
+@title
+en: Clean up the text
+pl: Wyczyść tekst
+de: Den Text säubern
+es: Limpia el texto
+fr: Nettoie le texte
+@text
+en: `sentence` is full of stray characters. Store in `cleaned` the text with every character removed that is not a letter, a digit, a space or a dot. The result starts with `I am a teacher and I love teaching.`
+pl: `sentence` jest pełne przypadkowych znaków. Zapisz w `cleaned` tekst, z którego usunięto każdy znak niebędący literą, cyfrą, spacją ani kropką. Wynik zaczyna się od `I am a teacher and I love teaching.`
+de: `sentence` ist voller überflüssiger Zeichen. Speichere in `cleaned` den Text, aus dem jedes Zeichen entfernt ist, das kein Buchstabe, keine Ziffer, kein Leerzeichen und kein Punkt ist. Das Ergebnis beginnt mit `I am a teacher and I love teaching.`
+es: `sentence` está lleno de caracteres sobrantes. Guarda en `cleaned` el texto tras quitar cualquier carácter que no sea una letra, una cifra, un espacio o un punto. El resultado empieza por `I am a teacher and I love teaching.`
+fr: `sentence` est plein de caractères parasites. Range dans `cleaned` le texte dont on a retiré tout caractère qui n'est ni une lettre, ni un chiffre, ni un espace, ni un point. Le résultat commence par `I am a teacher and I love teaching.`
+@hint
+en: `re.sub(r'[^A-Za-z0-9 .]', '', sentence)` – inside brackets, `^` means “not”.
+pl: `re.sub(r'[^A-Za-z0-9 .]', '', sentence)` – w nawiasach kwadratowych `^` znaczy „nie”.
+de: `re.sub(r'[^A-Za-z0-9 .]', '', sentence)` – in eckigen Klammern bedeutet `^` „nicht“.
+es: `re.sub(r'[^A-Za-z0-9 .]', '', sentence)`; dentro de los corchetes, `^` significa «no».
+fr: `re.sub(r'[^A-Za-z0-9 .]', '', sentence)` – entre crochets, `^` veut dire « pas ».
+@starter
+import re
+
+sentence = '%I $am@% a %tea@cher%, &and& I lo%#ve %tea@ching%;. There $is nothing; &as& mo@re rewarding as educa@ting &and& @emp%o@wering peo@ple.'
+@end
+@solution
+import re
+
+sentence = '%I $am@% a %tea@cher%, &and& I lo%#ve %tea@ching%;. There $is nothing; &as& mo@re rewarding as educa@ting &and& @emp%o@wering peo@ple.'
+cleaned = re.sub(r'[^A-Za-z0-9 .]', '', sentence)
+print(cleaned)
+@end
+@case
+expr: cleaned == 'I am a teacher and I love teaching. There is nothing as more rewarding as educating and empowering people.'
