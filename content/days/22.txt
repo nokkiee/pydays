@@ -1,0 +1,352 @@
+@day 22
+@source 22_Day_Web_scraping/22_web_scraping.md
+
+@title
+en: Web scraping
+pl: Web scraping
+de: Web-Scraping
+es: Web scraping
+fr: Web scraping
+
+@summary
+en: Fetch web pages, understand how HTML is built, and pull data out of it – with requests and BeautifulSoup, or with the standard library's html.parser.
+pl: Pobieraj strony WWW, zrozum budowę HTML i wyciągaj z niego dane – przez requests i BeautifulSoup albo przez html.parser z biblioteki standardowej.
+de: Webseiten abrufen, den Aufbau von HTML verstehen und Daten daraus gewinnen – mit requests und BeautifulSoup oder mit html.parser aus der Standardbibliothek.
+es: Descarga páginas web, entiende cómo se construye el HTML y extrae datos de él, con requests y BeautifulSoup o con html.parser de la biblioteca estándar.
+fr: Récupère des pages web, comprends la structure du HTML et extrais-en des données – avec requests et BeautifulSoup, ou avec html.parser de la bibliothèque standard.
+
+@md
+en: ## What is web scraping?
+**Web scraping** means collecting data from web pages with a program instead of copying it by hand. A page is written in **HTML**: nested **tags** like `<h1>`, `<p>`, `<a>` or `<table>`, which can carry **attributes** – `<a href="...">` holds the address of a link, and `class` and `id` name elements so that they can be found.
+
+Scrape responsibly: check a site's terms and its `robots.txt`, do not send many requests in a short time, and prefer an official API when there is one (day 28).
+pl: ## Czym jest web scraping?
+**Web scraping** to zbieranie danych ze stron WWW programem zamiast ręcznego kopiowania. Strona jest napisana w **HTML**: zagnieżdżonych **znacznikach** takich jak `<h1>`, `<p>`, `<a>` czy `<table>`, które mogą mieć **atrybuty** – `<a href="...">` zawiera adres linku, a `class` i `id` nazywają elementy, żeby dało się je znaleźć.
+
+Scrapuj odpowiedzialnie: sprawdź regulamin strony i jej `robots.txt`, nie wysyłaj wielu żądań w krótkim czasie i wybieraj oficjalne API, jeśli istnieje (dzień 28).
+de: ## Was ist Web-Scraping?
+**Web-Scraping** heißt, Daten mit einem Programm von Webseiten zu sammeln, statt sie von Hand zu kopieren. Eine Seite ist in **HTML** geschrieben: verschachtelte **Tags** wie `<h1>`, `<p>`, `<a>` oder `<table>`, die **Attribute** haben können – `<a href="...">` enthält die Adresse eines Links, und `class` und `id` benennen Elemente, damit man sie findet.
+
+Scrape verantwortungsvoll: Prüf die Nutzungsbedingungen einer Seite und ihre `robots.txt`, schick nicht viele Anfragen in kurzer Zeit und nimm lieber eine offizielle API, wenn es eine gibt (Tag 28).
+es: ## ¿Qué es el web scraping?
+El **web scraping** consiste en recoger datos de páginas web con un programa en lugar de copiarlos a mano. Una página está escrita en **HTML**: **etiquetas** anidadas como `<h1>`, `<p>`, `<a>` o `<table>`, que pueden llevar **atributos**; `<a href="...">` contiene la dirección de un enlace, y `class` e `id` dan nombre a los elementos para poder encontrarlos.
+
+Haz scraping con responsabilidad: revisa las condiciones de uso del sitio y su `robots.txt`, no envíes muchas peticiones en poco tiempo y usa una API oficial si existe (día 28).
+fr: ## Qu'est-ce que le web scraping ?
+Le **web scraping** consiste à collecter des données sur des pages web avec un programme au lieu de les copier à la main. Une page est écrite en **HTML** : des **balises** imbriquées comme `<h1>`, `<p>`, `<a>` ou `<table>`, qui peuvent porter des **attributs** – `<a href="...">` contient l'adresse d'un lien, et `class` et `id` nomment des éléments pour qu'on puisse les retrouver.
+
+Scrape de façon responsable : vérifie les conditions d'utilisation du site et son `robots.txt`, n'envoie pas beaucoup de requêtes en peu de temps, et préfère une API officielle quand il y en a une (jour 28).
+
+@md
+en: ## requests and BeautifulSoup
+The usual tools are the packages `requests`, which downloads a page, and `beautifulsoup4`, which parses the HTML so you can search it: `find` returns the first matching element, `find_all` all of them, and `get_text()` the text inside. Install them with `python -m pip install requests beautifulsoup4`.
+pl: ## requests i BeautifulSoup
+Zwykle używa się pakietów `requests`, który pobiera stronę, i `beautifulsoup4`, który parsuje HTML tak, żeby dało się go przeszukiwać: `find` zwraca pierwszy pasujący element, `find_all` wszystkie, a `get_text()` tekst w środku. Zainstalujesz je przez `python -m pip install requests beautifulsoup4`.
+de: ## requests und BeautifulSoup
+Die üblichen Werkzeuge sind die Pakete `requests`, das eine Seite herunterlädt, und `beautifulsoup4`, das das HTML zerlegt, damit du es durchsuchen kannst: `find` liefert das erste passende Element, `find_all` alle, und `get_text()` den Text darin. Installiere sie mit `python -m pip install requests beautifulsoup4`.
+es: ## requests y BeautifulSoup
+Las herramientas habituales son los paquetes `requests`, que descarga una página, y `beautifulsoup4`, que analiza el HTML para que puedas buscar en él: `find` devuelve el primer elemento que coincide, `find_all` todos, y `get_text()` el texto de dentro. Instálalos con `python -m pip install requests beautifulsoup4`.
+fr: ## requests et BeautifulSoup
+Les outils habituels sont les paquets `requests`, qui télécharge une page, et `beautifulsoup4`, qui analyse le HTML pour que tu puisses y chercher : `find` renvoie le premier élément correspondant, `find_all` tous, et `get_text()` le texte qu'il contient. Installe-les avec `python -m pip install requests beautifulsoup4`.
+
+@code net needs=requests,bs4
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get('https://www.python.org')
+soup = BeautifulSoup(response.text, 'html.parser')
+print(soup.title.get_text())
+for link in soup.find_all('a')[:10]:
+    print(link.get('href'))
+@end
+
+@md
+en: ## Parsing HTML with the standard library
+You can do the same without installing anything: `html.parser.HTMLParser` reads HTML and calls your methods as it goes – `handle_starttag(tag, attrs)` for every opening tag, `handle_data(data)` for the text between tags, and `handle_endtag(tag)` for every closing tag. You write a class that inherits from it (day 21) and collects what you need.
+
+This lesson comes with a saved page, `page.html`, shown below, so the examples work without the internet.
+pl: ## Parsowanie HTML biblioteką standardową
+To samo można zrobić bez instalowania czegokolwiek: `html.parser.HTMLParser` czyta HTML i po drodze wywołuje twoje metody – `handle_starttag(tag, attrs)` dla każdego znacznika otwierającego, `handle_data(data)` dla tekstu między znacznikami i `handle_endtag(tag)` dla każdego znacznika zamykającego. Piszesz klasę, która po nim dziedziczy (dzień 21) i zbiera to, czego potrzebujesz.
+
+Do tej lekcji należy zapisana strona `page.html`, pokazana poniżej, więc przykłady działają bez internetu.
+de: ## HTML mit der Standardbibliothek zerlegen
+Dasselbe geht ohne Installation: `html.parser.HTMLParser` liest HTML und ruft dabei deine Methoden auf – `handle_starttag(tag, attrs)` für jedes öffnende Tag, `handle_data(data)` für den Text zwischen Tags und `handle_endtag(tag)` für jedes schließende Tag. Du schreibst eine Klasse, die davon erbt (Tag 21), und sammelst, was du brauchst.
+
+Zu dieser Lektion gehört eine gespeicherte Seite, `page.html`, die du unten siehst – so funktionieren die Beispiele ohne Internet.
+es: ## Analizar HTML con la biblioteca estándar
+Lo mismo se puede hacer sin instalar nada: `html.parser.HTMLParser` lee el HTML y va llamando a tus métodos: `handle_starttag(tag, attrs)` para cada etiqueta de apertura, `handle_data(data)` para el texto entre etiquetas y `handle_endtag(tag)` para cada etiqueta de cierre. Escribes una clase que hereda de él (día 21) y recoge lo que necesitas.
+
+Esta lección incluye una página guardada, `page.html`, que ves abajo, así que los ejemplos funcionan sin internet.
+fr: ## Analyser du HTML avec la bibliothèque standard
+On peut faire la même chose sans rien installer : `html.parser.HTMLParser` lit le HTML et appelle tes méthodes au fur et à mesure – `handle_starttag(tag, attrs)` pour chaque balise ouvrante, `handle_data(data)` pour le texte entre les balises et `handle_endtag(tag)` pour chaque balise fermante. Tu écris une classe qui en hérite (jour 21) et qui collecte ce dont tu as besoin.
+
+Cette leçon est accompagnée d'une page enregistrée, `page.html`, affichée ci-dessous, pour que les exemples fonctionnent sans internet.
+
+@file page.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookshop – Python books</title>
+</head>
+<body>
+  <h1>Python books</h1>
+  <p class="intro">Our <a href="/about">bookshop</a> sells books for every level.</p>
+
+  <h2>For beginners</h2>
+  <ul>
+    <li><a href="/books/automate">Automate the Boring Stuff</a></li>
+    <li><a href="/books/crash-course">Python Crash Course</a></li>
+  </ul>
+
+  <h2>For advanced readers</h2>
+  <ul>
+    <li><a href="/books/fluent">Fluent Python</a></li>
+    <li><a href="/books/effective">Effective Python</a></li>
+  </ul>
+
+  <h2>Price list</h2>
+  <table id="prices">
+    <tr><th>Title</th><th>Price</th><th>In stock</th></tr>
+    <tr><td>Automate the Boring Stuff</td><td>29.99</td><td>yes</td></tr>
+    <tr><td>Python Crash Course</td><td>34.50</td><td>yes</td></tr>
+    <tr><td>Fluent Python</td><td>59.00</td><td>no</td></tr>
+    <tr><td>Effective Python</td><td>42.00</td><td>yes</td></tr>
+  </table>
+
+  <p>Questions? Write to <a href="mailto:shop@example.com">shop@example.com</a>.</p>
+</body>
+</html>
+@end
+
+@code
+from html.parser import HTMLParser
+
+class TagPrinter(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print('start:', tag, dict(attrs))
+
+    def handle_data(self, data):
+        if data.strip():
+            print('text: ', data.strip())
+
+parser = TagPrinter()
+parser.feed('<p class="intro">Hello <a href="/about">world</a>!</p>')
+@end
+
+@code
+from html.parser import HTMLParser
+
+class TitleFinder(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.in_title = False
+        self.title = ''
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'title':
+            self.in_title = True
+
+    def handle_endtag(self, tag):
+        if tag == 'title':
+            self.in_title = False
+
+    def handle_data(self, data):
+        if self.in_title:
+            self.title += data
+
+with open('page.html', encoding='utf-8') as f:
+    finder = TitleFinder()
+    finder.feed(f.read())
+print(finder.title)
+@end
+
+@exercise links
+@title
+en: Collect the links
+pl: Zbierz linki
+de: Links sammeln
+es: Reúne los enlaces
+fr: Collecte les liens
+@text
+en: Complete `LinkCollector` so that it collects the `href` of every `<a>` tag into the list `self.links`. Then feed it `page.html` and store the result in `links`. The page has 6 links; the first is `/about`.
+pl: Dokończ `LinkCollector` tak, żeby zbierał `href` każdego znacznika `<a>` do listy `self.links`. Potem nakarm go plikiem `page.html` i zapisz wynik w `links`. Strona ma 6 linków; pierwszy to `/about`.
+de: Vervollständige `LinkCollector`, sodass er das `href` jedes `<a>`-Tags in der Liste `self.links` sammelt. Füttere ihn dann mit `page.html` und speichere das Ergebnis in `links`. Die Seite hat 6 Links; der erste ist `/about`.
+es: Completa `LinkCollector` para que recoja el `href` de cada etiqueta `<a>` en la lista `self.links`. Después pásale `page.html` y guarda el resultado en `links`. La página tiene 6 enlaces; el primero es `/about`.
+fr: Complète `LinkCollector` pour qu'il collecte le `href` de chaque balise `<a>` dans la liste `self.links`. Donne-lui ensuite `page.html` et range le résultat dans `links`. La page contient 6 liens ; le premier est `/about`.
+@hint
+en: `attrs` is a list of `(name, value)` pairs, so `dict(attrs).get('href')` gives the address.
+pl: `attrs` to lista par `(name, value)`, więc `dict(attrs).get('href')` daje adres.
+de: `attrs` ist eine Liste von `(name, value)`-Paaren, also liefert `dict(attrs).get('href')` die Adresse.
+es: `attrs` es una lista de pares `(name, value)`, así que `dict(attrs).get('href')` da la dirección.
+fr: `attrs` est une liste de paires `(name, value)`, donc `dict(attrs).get('href')` donne l'adresse.
+@starter
+from html.parser import HTMLParser
+
+
+class LinkCollector(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        pass
+@end
+@solution
+from html.parser import HTMLParser
+
+
+class LinkCollector(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'a':
+            href = dict(attrs).get('href')
+            if href:
+                self.links.append(href)
+
+
+collector = LinkCollector()
+with open('page.html', encoding='utf-8') as f:
+    collector.feed(f.read())
+links = collector.links
+print(links)
+@end
+@case
+expr: links == ['/about', '/books/automate', '/books/crash-course', '/books/fluent', '/books/effective', 'mailto:shop@example.com']
+
+@exercise headings
+@title
+en: Section headings
+pl: Nagłówki sekcji
+de: Abschnittsüberschriften
+es: Títulos de sección
+fr: Titres de section
+@text
+en: Write a parser `HeadingCollector` that collects the text of every `<h2>` element of `page.html` into `self.headings`, and store the list in `headings`.
+pl: Napisz parser `HeadingCollector`, który zbiera tekst każdego elementu `<h2>` z `page.html` do `self.headings`, i zapisz tę listę w `headings`.
+de: Schreib einen Parser `HeadingCollector`, der den Text jedes `<h2>`-Elements von `page.html` in `self.headings` sammelt, und speichere die Liste in `headings`.
+es: Escribe un analizador `HeadingCollector` que recoja el texto de cada elemento `<h2>` de `page.html` en `self.headings`, y guarda la lista en `headings`.
+fr: Écris un analyseur `HeadingCollector` qui collecte le texte de chaque élément `<h2>` de `page.html` dans `self.headings`, et range la liste dans `headings`.
+@hint
+en: As in `TitleFinder`: remember in an attribute whether you are inside an `<h2>`, and add the text in `handle_data` only then.
+pl: Jak w `TitleFinder`: zapamiętuj w atrybucie, czy jesteś w środku `<h2>`, i tylko wtedy dodawaj tekst w `handle_data`.
+de: Wie in `TitleFinder`: Merk dir in einem Attribut, ob du gerade in einem `<h2>` bist, und füge nur dann in `handle_data` Text hinzu.
+es: Como en `TitleFinder`: recuerda en un atributo si estás dentro de un `<h2>` y añade el texto en `handle_data` solo en ese caso.
+fr: Comme dans `TitleFinder` : retiens dans un attribut si tu es à l'intérieur d'un `<h2>`, et n'ajoute le texte dans `handle_data` que dans ce cas.
+@starter
+from html.parser import HTMLParser
+
+
+class HeadingCollector(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.headings = []
+@end
+@solution
+from html.parser import HTMLParser
+
+
+class HeadingCollector(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.headings = []
+        self.inside = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'h2':
+            self.inside = True
+            self.headings.append('')
+
+    def handle_endtag(self, tag):
+        if tag == 'h2':
+            self.inside = False
+
+    def handle_data(self, data):
+        if self.inside:
+            self.headings[-1] += data
+
+
+parser = HeadingCollector()
+with open('page.html', encoding='utf-8') as f:
+    parser.feed(f.read())
+headings = [h.strip() for h in parser.headings]
+print(headings)
+@end
+@case
+expr: [h.strip() for h in headings] == ['For beginners', 'For advanced readers', 'Price list']
+
+@exercise table
+@title
+en: Scrape a table
+pl: Zeskrobuj tabelę
+de: Eine Tabelle auslesen
+es: Extrae una tabla
+fr: Extraire un tableau
+@text
+en: Read the price table of `page.html` into `books`, a list of dictionaries like `{'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}` – the price as a `float`, the stock as a `bool`. Then store in `cheapest` the title of the cheapest book that is in stock.
+pl: Odczytaj tabelę cen z `page.html` do `books`, listy słowników w rodzaju `{'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}` – cena jako `float`, dostępność jako `bool`. Potem zapisz w `cheapest` tytuł najtańszej książki, która jest dostępna.
+de: Lies die Preistabelle aus `page.html` in `books` ein, eine Liste von Dictionaries wie `{'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}` – den Preis als `float`, den Bestand als `bool`. Speichere dann in `cheapest` den Titel des günstigsten Buchs, das vorrätig ist.
+es: Lee la tabla de precios de `page.html` en `books`, una lista de diccionarios como `{'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}`, con el precio como `float` y la disponibilidad como `bool`. Después guarda en `cheapest` el título del libro más barato que esté disponible.
+fr: Lis le tableau des prix de `page.html` dans `books`, une liste de dictionnaires comme `{'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}` – le prix en `float`, la disponibilité en `bool`. Range ensuite dans `cheapest` le titre du livre disponible le moins cher.
+@hint
+en: Collect every row as a list of cell texts: start a new list at `<tr>` and add the text of each `<td>`. Rows with only `<th>` cells stay empty – skip them. Then `min(..., key=lambda b: b['price'])`.
+pl: Zbieraj każdy wiersz jako listę tekstów komórek: przy `<tr>` zacznij nową listę i dodawaj tekst każdego `<td>`. Wiersze z samymi komórkami `<th>` zostaną puste – pomiń je. Potem `min(..., key=lambda b: b['price'])`.
+de: Sammle jede Zeile als Liste von Zellentexten: Bei `<tr>` beginnst du eine neue Liste und fügst den Text jeder `<td>` hinzu. Zeilen mit nur `<th>`-Zellen bleiben leer – überspring sie. Dann `min(..., key=lambda b: b['price'])`.
+es: Recoge cada fila como una lista de textos de celda: empieza una lista nueva en `<tr>` y añade el texto de cada `<td>`. Las filas con solo celdas `<th>` quedan vacías; sáltalas. Después `min(..., key=lambda b: b['price'])`.
+fr: Récupère chaque ligne sous forme de liste de textes de cellules : commence une nouvelle liste à `<tr>` et ajoute le texte de chaque `<td>`. Les lignes ne contenant que des cellules `<th>` restent vides – ignore-les. Puis `min(..., key=lambda b: b['price'])`.
+@starter
+from html.parser import HTMLParser
+
+
+class TableParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.rows = []
+        self.in_cell = False
+@end
+@solution
+from html.parser import HTMLParser
+
+
+class TableParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.rows = []
+        self.in_cell = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'tr':
+            self.rows.append([])
+        elif tag == 'td':
+            self.in_cell = True
+            self.rows[-1].append('')
+
+    def handle_endtag(self, tag):
+        if tag == 'td':
+            self.in_cell = False
+
+    def handle_data(self, data):
+        if self.in_cell:
+            self.rows[-1][-1] += data
+
+
+parser = TableParser()
+with open('page.html', encoding='utf-8') as f:
+    parser.feed(f.read())
+
+books = []
+for row in parser.rows:
+    if row:
+        title, price, stock = row
+        books.append({'title': title, 'price': float(price), 'in_stock': stock == 'yes'})
+cheapest = min((b for b in books if b['in_stock']), key=lambda b: b['price'])['title']
+print(books)
+print(cheapest)
+@end
+@case
+expr: len(books) == 4
+expr: books[2] == {'title': 'Fluent Python', 'price': 59.0, 'in_stock': False}
+expr: [b['price'] for b in books] == [29.99, 34.5, 59.0, 42.0]
+expr: cheapest == 'Automate the Boring Stuff'
