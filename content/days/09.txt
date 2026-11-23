@@ -1,0 +1,286 @@
+@day 9
+@source 09_Day_Conditionals/09_conditionals.md
+
+@title
+en: Conditionals
+pl: Instrukcje warunkowe
+de: Bedingungen
+es: Condicionales
+fr: Conditions
+
+@summary
+en: Let your program decide with if, elif and else, nest conditions, combine them with and, or and not, and write short one-line conditions.
+pl: Niech program podejmuje decyzje dzięki if, elif i else; zagnieżdżaj warunki, łącz je przez and, or i not i pisz krótkie warunki w jednym wierszu.
+de: Lass dein Programm mit if, elif und else entscheiden, verschachtle Bedingungen, verknüpfe sie mit and, or und not und schreib kurze einzeilige Bedingungen.
+es: Haz que tu programa decida con if, elif y else, anida condiciones, combínalas con and, or y not y escribe condiciones cortas en una línea.
+fr: Fais décider ton programme avec if, elif et else, imbrique des conditions, combine-les avec and, or et not, et écris de courtes conditions sur une ligne.
+
+@md
+en: ## if and else
+Until now every line ran, one after another. A **condition** lets the program choose. After `if` comes an expression and a colon; the indented block below it runs only when the expression is true. `else:` gives the block for every other case.
+
+Indentation is part of the syntax in Python: the lines of a block must be indented the same – four spaces is the convention.
+pl: ## if i else
+Dotąd wykonywał się każdy wiersz, jeden po drugim. **Warunek** pozwala programowi wybierać. Po `if` jest wyrażenie i dwukropek; wcięty blok pod spodem wykonuje się tylko wtedy, gdy wyrażenie jest prawdziwe. `else:` to blok na wszystkie pozostałe przypadki.
+
+W Pythonie wcięcia są częścią składni: wiersze jednego bloku muszą mieć takie samo wcięcie – zwyczajowo cztery spacje.
+de: ## if und else
+Bisher lief jede Zeile, eine nach der anderen. Eine **Bedingung** lässt das Programm wählen. Nach `if` kommen ein Ausdruck und ein Doppelpunkt; der eingerückte Block darunter läuft nur, wenn der Ausdruck wahr ist. `else:` ist der Block für alle anderen Fälle.
+
+Einrückung gehört in Python zur Syntax: Die Zeilen eines Blocks müssen gleich weit eingerückt sein – üblich sind vier Leerzeichen.
+es: ## if y else
+Hasta ahora se ejecutaba cada línea, una tras otra. Una **condición** permite que el programa elija. Después de `if` va una expresión y dos puntos; el bloque sangrado de debajo solo se ejecuta si la expresión es verdadera. `else:` es el bloque para todos los demás casos.
+
+En Python la sangría forma parte de la sintaxis: las líneas de un bloque deben tener la misma sangría; lo habitual son cuatro espacios.
+fr: ## if et else
+Jusqu'ici, chaque ligne s'exécutait, l'une après l'autre. Une **condition** permet au programme de choisir. Après `if` viennent une expression et deux-points ; le bloc indenté en dessous ne s'exécute que si l'expression est vraie. `else:` donne le bloc pour tous les autres cas.
+
+En Python, l'indentation fait partie de la syntaxe : les lignes d'un bloc doivent avoir la même indentation – par convention, quatre espaces.
+
+@code
+a = 3
+if a > 0:
+    print('A is a positive number')
+else:
+    print('A is not a positive number')
+@end
+
+@md
+en: ## elif – more than two cases
+With several possibilities, add `elif` (“else if”) branches. Python checks them from the top and runs only the **first** one that is true; `else` catches the rest.
+pl: ## elif – więcej niż dwa przypadki
+Przy kilku możliwościach dodaje się gałęzie `elif` („else if”). Python sprawdza je od góry i wykonuje tylko **pierwszą** prawdziwą; `else` łapie resztę.
+de: ## elif – mehr als zwei Fälle
+Bei mehreren Möglichkeiten fügst du `elif`-Zweige hinzu („else if“). Python prüft sie von oben und führt nur den **ersten** wahren aus; `else` fängt den Rest ab.
+es: ## elif: más de dos casos
+Cuando hay varias posibilidades, se añaden ramas `elif` («else if»). Python las comprueba de arriba abajo y ejecuta solo la **primera** que sea verdadera; `else` recoge el resto.
+fr: ## elif – plus de deux cas
+Quand il y a plusieurs possibilités, on ajoute des branches `elif` (« else if »). Python les vérifie de haut en bas et n'exécute que la **première** qui est vraie ; `else` attrape le reste.
+
+@code
+temperature = 18
+if temperature >= 25:
+    print('Hot')
+elif temperature >= 15:
+    print('Warm')
+elif temperature >= 5:
+    print('Cool')
+else:
+    print('Cold')
+@end
+
+@md
+en: ## Nesting and combining conditions
+A condition can sit inside another one, but deep nesting is hard to read. Often `and`, `or` and `not` say the same thing more simply: `and` needs both sides true, `or` at least one, and `not` flips a value.
+pl: ## Zagnieżdżanie i łączenie warunków
+Warunek może siedzieć w innym warunku, ale głębokie zagnieżdżenia trudno się czyta. Często `and`, `or` i `not` mówią to samo prościej: `and` wymaga, żeby obie strony były prawdziwe, `or` – co najmniej jedna, a `not` odwraca wartość.
+de: ## Bedingungen verschachteln und verknüpfen
+Eine Bedingung kann in einer anderen stecken, aber tiefe Verschachtelung ist schwer zu lesen. Oft sagen `and`, `or` und `not` dasselbe einfacher: `and` braucht zwei wahre Seiten, `or` mindestens eine, und `not` dreht einen Wert um.
+es: ## Anidar y combinar condiciones
+Una condición puede ir dentro de otra, pero anidar mucho cuesta de leer. A menudo `and`, `or` y `not` dicen lo mismo de forma más simple: `and` necesita que los dos lados sean verdaderos, `or` al menos uno, y `not` invierte un valor.
+fr: ## Imbriquer et combiner des conditions
+Une condition peut se trouver dans une autre, mais une imbrication profonde est difficile à lire. Souvent, `and`, `or` et `not` disent la même chose plus simplement : `and` exige que les deux côtés soient vrais, `or` au moins un, et `not` inverse une valeur.
+
+@code
+a = 7
+# nested
+if a > 0:
+    if a % 2 == 0:
+        print('A is a positive and even integer')
+    else:
+        print('A is a positive odd number')
+# combined with and
+if a > 0 and a % 2 == 1:
+    print('Positive and odd')
+user = 'James'
+access_level = 3
+if user == 'admin' or access_level >= 4:
+    print('Access granted')
+else:
+    print('Access denied')
+@end
+
+@md
+en: ## Short conditions
+For a simple choice between two values there is a one-line form: `value_if_true if condition else value_if_false`. Use it for short expressions only – a full `if` block is clearer for anything longer.
+pl: ## Krótkie warunki
+Do prostego wyboru między dwiema wartościami jest forma jednowierszowa: `value_if_true if condition else value_if_false`. Używaj jej tylko do krótkich wyrażeń – przy czymś dłuższym pełny blok `if` jest czytelniejszy.
+de: ## Kurze Bedingungen
+Für eine einfache Wahl zwischen zwei Werten gibt es eine Kurzform in einer Zeile: `value_if_true if condition else value_if_false`. Nimm sie nur für kurze Ausdrücke – bei allem Längeren ist ein ganzer `if`-Block klarer.
+es: ## Condiciones cortas
+Para elegir entre dos valores existe una forma de una sola línea: `value_if_true if condition else value_if_false`. Úsala solo para expresiones cortas; para algo más largo, un bloque `if` completo se lee mejor.
+fr: ## Conditions courtes
+Pour un simple choix entre deux valeurs, il existe une forme sur une ligne : `value_if_true if condition else value_if_false`. Réserve-la aux expressions courtes – pour tout ce qui est plus long, un vrai bloc `if` est plus clair.
+
+@code
+age = 17
+status = 'adult' if age >= 18 else 'minor'
+print(status)
+n = 4
+print('even' if n % 2 == 0 else 'odd')
+@end
+
+@exercise drive
+@title
+en: Old enough to drive?
+pl: Czy możesz prowadzić?
+de: Alt genug zum Fahren?
+es: ¿Puedes conducir?
+fr: En âge de conduire ?
+@text
+en: Read an age with `input()`. If it is 18 or more, print `You are old enough to learn to drive.` Otherwise print `You need N more years to learn to drive.` where `N` is the number of years missing.
+pl: Wczytaj wiek przez `input()`. Jeśli wynosi 18 lub więcej, wypisz `You are old enough to learn to drive.` W przeciwnym razie wypisz `You need N more years to learn to drive.`, gdzie `N` to brakująca liczba lat.
+de: Lies mit `input()` ein Alter ein. Ist es 18 oder mehr, gib `You are old enough to learn to drive.` aus. Sonst gib `You need N more years to learn to drive.` aus, wobei `N` die fehlenden Jahre sind.
+es: Lee una edad con `input()`. Si es 18 o más, imprime `You are old enough to learn to drive.` Si no, imprime `You need N more years to learn to drive.`, donde `N` es el número de años que faltan.
+fr: Lis un âge avec `input()`. S'il vaut 18 ou plus, affiche `You are old enough to learn to drive.` Sinon, affiche `You need N more years to learn to drive.`, où `N` est le nombre d'années qui manquent.
+@hint
+en: Convert with `int()` first, then the missing years are `18 - age`.
+pl: Najpierw zamień przez `int()`; brakujące lata to `18 - age`.
+de: Wandle zuerst mit `int()` um; die fehlenden Jahre sind `18 - age`.
+es: Convierte primero con `int()`; los años que faltan son `18 - age`.
+fr: Convertis d'abord avec `int()` ; les années manquantes sont `18 - age`.
+@starter
+age = input('Enter your age: ')
+@end
+@solution
+age = int(input('Enter your age: '))
+if age >= 18:
+    print('You are old enough to learn to drive.')
+else:
+    print(f'You need {18 - age} more years to learn to drive.')
+@end
+@case stdin="30\n"
+out: You are old enough to learn to drive.
+@case stdin="18\n"
+out: You are old enough to learn to drive.
+@case stdin="15\n"
+out: You need 3 more years to learn to drive.
+
+@exercise grade
+@title
+en: Grades
+pl: Oceny
+de: Noten
+es: Notas
+fr: Notes
+@text
+en: Read a score from 0 to 100 and print its grade: 80–100 → `A`, 70–79 → `B`, 60–69 → `C`, 50–59 → `D`, below 50 → `F`. Print only the letter.
+pl: Wczytaj wynik od 0 do 100 i wypisz ocenę: 80–100 → `A`, 70–79 → `B`, 60–69 → `C`, 50–59 → `D`, poniżej 50 → `F`. Wypisz tylko literę.
+de: Lies eine Punktzahl von 0 bis 100 ein und gib die Note aus: 80–100 → `A`, 70–79 → `B`, 60–69 → `C`, 50–59 → `D`, unter 50 → `F`. Gib nur den Buchstaben aus.
+es: Lee una puntuación de 0 a 100 e imprime su nota: 80–100 → `A`, 70–79 → `B`, 60–69 → `C`, 50–59 → `D`, menos de 50 → `F`. Imprime solo la letra.
+fr: Lis un score de 0 à 100 et affiche la note : 80–100 → `A`, 70–79 → `B`, 60–69 → `C`, 50–59 → `D`, moins de 50 → `F`. Affiche seulement la lettre.
+@hint
+en: Check from the top: `if score >= 80`, then `elif score >= 70`, and so on.
+pl: Sprawdzaj od góry: `if score >= 80`, potem `elif score >= 70` i tak dalej.
+de: Prüfe von oben: `if score >= 80`, dann `elif score >= 70` und so weiter.
+es: Comprueba de arriba abajo: `if score >= 80`, luego `elif score >= 70`, y así sucesivamente.
+fr: Vérifie en partant du haut : `if score >= 80`, puis `elif score >= 70`, et ainsi de suite.
+@starter
+score = int(input('Score: '))
+@end
+@solution
+score = int(input('Score: '))
+if score >= 80:
+    print('A')
+elif score >= 70:
+    print('B')
+elif score >= 60:
+    print('C')
+elif score >= 50:
+    print('D')
+else:
+    print('F')
+@end
+@case stdin="95\n"
+re: (?m)(^|\s)A\s*$
+@case stdin="80\n"
+re: (?m)(^|\s)A\s*$
+@case stdin="72\n"
+re: (?m)(^|\s)B\s*$
+@case stdin="60\n"
+re: (?m)(^|\s)C\s*$
+@case stdin="55\n"
+re: (?m)(^|\s)D\s*$
+@case stdin="12\n"
+re: (?m)(^|\s)F\s*$
+
+@exercise season
+@title
+en: Season of the year
+pl: Pora roku
+de: Jahreszeit
+es: Estación del año
+fr: Saison
+@text
+en: Read a month name in English and print its season: September, October, November → `Autumn`; December, January, February → `Winter`; March, April, May → `Spring`; June, July, August → `Summer`. Accept any capitalisation, e.g. `march`.
+pl: Wczytaj nazwę miesiąca po angielsku i wypisz porę roku: September, October, November → `Autumn`; December, January, February → `Winter`; March, April, May → `Spring`; June, July, August → `Summer`. Przyjmij dowolną wielkość liter, np. `march`.
+de: Lies einen englischen Monatsnamen ein und gib die Jahreszeit aus: September, October, November → `Autumn`; December, January, February → `Winter`; March, April, May → `Spring`; June, July, August → `Summer`. Akzeptiere jede Schreibweise, z. B. `march`.
+es: Lee el nombre de un mes en inglés e imprime su estación: September, October, November → `Autumn`; December, January, February → `Winter`; March, April, May → `Spring`; June, July, August → `Summer`. Acepta cualquier combinación de mayúsculas, p. ej. `march`.
+fr: Lis un nom de mois en anglais et affiche sa saison : September, October, November → `Autumn` ; December, January, February → `Winter` ; March, April, May → `Spring` ; June, July, August → `Summer`. Accepte n'importe quelle casse, par exemple `march`.
+@hint
+en: `month = input().strip().title()`, then `if month in ['September', 'October', 'November']:`
+pl: `month = input().strip().title()`, potem `if month in ['September', 'October', 'November']:`
+de: `month = input().strip().title()`, dann `if month in ['September', 'October', 'November']:`
+es: `month = input().strip().title()`, luego `if month in ['September', 'October', 'November']:`
+fr: `month = input().strip().title()`, puis `if month in ['September', 'October', 'November']:`
+@starter
+month = input('Month: ')
+@end
+@solution
+month = input('Month: ').strip().title()
+if month in ['September', 'October', 'November']:
+    print('Autumn')
+elif month in ['December', 'January', 'February']:
+    print('Winter')
+elif month in ['March', 'April', 'May']:
+    print('Spring')
+else:
+    print('Summer')
+@end
+@case stdin="October\n"
+out: Autumn
+@case stdin="january\n"
+out: Winter
+@case stdin="MAY\n"
+out: Spring
+@case stdin="July\n"
+out: Summer
+
+@exercise fruits
+@title
+en: Fruit basket
+pl: Koszyk owoców
+de: Obstkorb
+es: Cesta de fruta
+fr: Corbeille de fruits
+@text
+en: Read a fruit name. If it is already in `fruits`, print `That fruit already exist in the list`. Otherwise add it and print the updated list.
+pl: Wczytaj nazwę owocu. Jeśli już jest w `fruits`, wypisz `That fruit already exist in the list`. W przeciwnym razie dodaj go i wypisz zaktualizowaną listę.
+de: Lies einen Obstnamen ein. Steht er schon in `fruits`, gib `That fruit already exist in the list` aus. Sonst füge ihn hinzu und gib die aktualisierte Liste aus.
+es: Lee el nombre de una fruta. Si ya está en `fruits`, imprime `That fruit already exist in the list`. Si no, añádela e imprime la lista actualizada.
+fr: Lis un nom de fruit. S'il est déjà dans `fruits`, affiche `That fruit already exist in the list`. Sinon, ajoute-le et affiche la liste mise à jour.
+@hint
+en: `if fruit in fruits:` … `else: fruits.append(fruit)`
+pl: `if fruit in fruits:` … `else: fruits.append(fruit)`
+de: `if fruit in fruits:` … `else: fruits.append(fruit)`
+es: `if fruit in fruits:` … `else: fruits.append(fruit)`
+fr: `if fruit in fruits:` … `else: fruits.append(fruit)`
+@starter
+fruits = ['banana', 'orange', 'mango', 'lemon']
+fruit = input('Fruit: ')
+@end
+@solution
+fruits = ['banana', 'orange', 'mango', 'lemon']
+fruit = input('Fruit: ')
+if fruit in fruits:
+    print('That fruit already exist in the list')
+else:
+    fruits.append(fruit)
+    print(fruits)
+@end
+@case stdin="mango\n"
+out: That fruit already exist in the list
+expr: fruits == ['banana', 'orange', 'mango', 'lemon']
+@case stdin="kiwi\n"
+out: ['banana', 'orange', 'mango', 'lemon', 'kiwi']
+expr: fruits == ['banana', 'orange', 'mango', 'lemon', 'kiwi']

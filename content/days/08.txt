@@ -1,0 +1,270 @@
+@day 8
+@source 08_Day_Dictionaries/08_dictionaries.md
+
+@title
+en: Dictionaries
+pl: Słowniki
+de: Dictionaries
+es: Diccionarios
+fr: Dictionnaires
+
+@summary
+en: Store data as key–value pairs, read values safely, add, change and remove keys, and walk through keys, values and items.
+pl: Przechowuj dane jako pary klucz–wartość, bezpiecznie odczytuj wartości, dodawaj, zmieniaj i usuwaj klucze i przeglądaj klucze, wartości i pary.
+de: Daten als Schlüssel-Wert-Paare speichern, Werte sicher lesen, Schlüssel hinzufügen, ändern und entfernen und Schlüssel, Werte und Paare durchgehen.
+es: Guarda datos como pares clave–valor, lee valores sin errores, añade, cambia y quita claves y recorre claves, valores y pares.
+fr: Range des données sous forme de paires clé–valeur, lis les valeurs en toute sécurité, ajoute, modifie et supprime des clés, et parcours clés, valeurs et paires.
+
+@md
+en: ## Keys and values
+A **dictionary** stores pairs: a **key** and its **value**, written `key: value` inside curly braces. You look a value up by its key, not by a position. Keys must be unique and unchangeable – usually strings or numbers – while values can be anything, including lists and other dictionaries.
+pl: ## Klucze i wartości
+**Słownik** (dict) przechowuje pary: **klucz** i jego **wartość**, zapisywane jako `key: value` w nawiasach klamrowych. Wartość odczytuje się po kluczu, nie po pozycji. Klucze muszą być unikalne i niezmienne – zwykle to napisy albo liczby – a wartości mogą być czymkolwiek, także listami i innymi słownikami.
+de: ## Schlüssel und Werte
+Ein **Dictionary** speichert Paare: einen **Schlüssel** und seinen **Wert**, geschrieben als `key: value` in geschweiften Klammern. Einen Wert schlägst du über seinen Schlüssel nach, nicht über eine Position. Schlüssel müssen eindeutig und unveränderlich sein – meist Zeichenketten oder Zahlen –, Werte dürfen alles sein, auch Listen und andere Dictionaries.
+es: ## Claves y valores
+Un **diccionario** guarda pares: una **clave** y su **valor**, escritos `key: value` entre llaves. Un valor se busca por su clave, no por su posición. Las claves deben ser únicas e inmutables (normalmente cadenas o números), y los valores pueden ser cualquier cosa, incluso listas y otros diccionarios.
+fr: ## Clés et valeurs
+Un **dictionnaire** range des paires : une **clé** et sa **valeur**, écrites `key: value` entre accolades. On retrouve une valeur par sa clé, pas par une position. Les clés doivent être uniques et non modifiables – en général des chaînes ou des nombres –, tandis que les valeurs peuvent être n'importe quoi, y compris des listes et d'autres dictionnaires.
+
+@code
+person = {
+    'first_name': 'Asabeneh',
+    'last_name': 'Yetayeh',
+    'age': 250,
+    'country': 'Finland',
+    'skills': ['JavaScript', 'React', 'Python'],
+    'address': {'street': 'Space street', 'zipcode': '02210'},
+}
+print(len(person))
+print(person['first_name'])
+print(person['skills'][0])
+print(person['address']['street'])
+@end
+
+@md
+en: ## Reading values safely
+`person['city']` raises a `KeyError` when the key is missing. `get()` returns `None` instead – or a default you give it. `in` checks whether a key exists.
+pl: ## Bezpieczne odczytywanie wartości
+`person['city']` zgłasza `KeyError`, gdy klucza nie ma. `get()` zwraca wtedy `None` – albo wartość domyślną, którą podasz. `in` sprawdza, czy klucz istnieje.
+de: ## Werte sicher lesen
+`person['city']` löst einen `KeyError` aus, wenn der Schlüssel fehlt. `get()` liefert stattdessen `None` – oder einen Standardwert, den du angibst. `in` prüft, ob ein Schlüssel existiert.
+es: ## Leer valores sin errores
+`person['city']` lanza un `KeyError` si la clave no existe. `get()` devuelve `None` en su lugar, o el valor por defecto que le indiques. `in` comprueba si una clave existe.
+fr: ## Lire les valeurs en toute sécurité
+`person['city']` lève une `KeyError` quand la clé n'existe pas. `get()` renvoie `None` à la place – ou une valeur par défaut que tu lui donnes. `in` vérifie si une clé existe.
+
+@code
+person = {'first_name': 'Asabeneh', 'country': 'Finland'}
+print(person.get('country'))           # Finland
+print(person.get('city'))              # None
+print(person.get('city', 'unknown'))   # unknown
+print('country' in person, 'city' in person)
+@end
+
+@code error
+person = {'first_name': 'Asabeneh'}
+print(person['city'])
+@end
+
+@md
+en: ## Adding, changing and removing
+Assigning to a key adds it, or replaces its value if it already exists. `update(other)` copies in several pairs at once. To remove: `pop(key)` deletes a key and returns its value, `popitem()` removes the last pair added, `del d[key]` deletes a key, and `clear()` empties the dictionary.
+pl: ## Dodawanie, zmiana i usuwanie
+Przypisanie do klucza dodaje go albo podmienia wartość, jeśli już istnieje. `update(other)` wstawia kilka par naraz. Do usuwania: `pop(key)` usuwa klucz i zwraca jego wartość, `popitem()` usuwa ostatnio dodaną parę, `del d[key]` usuwa klucz, a `clear()` opróżnia słownik.
+de: ## Hinzufügen, ändern und entfernen
+Eine Zuweisung an einen Schlüssel fügt ihn hinzu oder ersetzt seinen Wert, wenn es ihn schon gibt. `update(other)` übernimmt mehrere Paare auf einmal. Zum Entfernen: `pop(key)` löscht einen Schlüssel und gibt seinen Wert zurück, `popitem()` entfernt das zuletzt hinzugefügte Paar, `del d[key]` löscht einen Schlüssel und `clear()` leert das Dictionary.
+es: ## Añadir, cambiar y quitar
+Asignar a una clave la añade, o reemplaza su valor si ya existe. `update(other)` copia varios pares a la vez. Para quitar: `pop(key)` borra una clave y devuelve su valor, `popitem()` quita el último par añadido, `del d[key]` borra una clave y `clear()` vacía el diccionario.
+fr: ## Ajouter, modifier et supprimer
+Affecter une valeur à une clé l'ajoute, ou remplace sa valeur si elle existe déjà. `update(other)` copie plusieurs paires d'un coup. Pour supprimer : `pop(key)` retire une clé et renvoie sa valeur, `popitem()` retire la dernière paire ajoutée, `del d[key]` supprime une clé et `clear()` vide le dictionnaire.
+
+@code
+person = {'first_name': 'Asabeneh', 'age': 250}
+person['country'] = 'Finland'      # add
+person['age'] = 251                # change
+person.update({'job': 'teacher', 'city': 'Helsinki'})
+age = person.pop('age')
+del person['city']
+print(age, person)
+@end
+
+@md
+en: ## Keys, values and items
+`keys()`, `values()` and `items()` give views of the dictionary that you can loop over or turn into lists. `items()` gives `(key, value)` tuples. You will use `for` loops properly on day 10 – here is a first taste.
+
+`copy()` makes a copy; as with lists, `b = a` only gives a second name for the same dictionary.
+pl: ## Klucze, wartości i pary
+`keys()`, `values()` i `items()` dają widoki słownika, po których można iterować albo zamienić je na listy. `items()` daje krotki `(key, value)`. Pętle `for` poznasz porządnie w dniu 10 – tu jest przedsmak.
+
+`copy()` robi kopię; tak jak w listach, `b = a` daje tylko drugą nazwę tego samego słownika.
+de: ## Schlüssel, Werte und Paare
+`keys()`, `values()` und `items()` liefern Ansichten des Dictionarys, die du durchlaufen oder in Listen umwandeln kannst. `items()` liefert `(key, value)`-Tupel. `for`-Schleifen lernst du an Tag 10 richtig kennen – hier ein erster Vorgeschmack.
+
+`copy()` macht eine Kopie; wie bei Listen gibt `b = a` nur einen zweiten Namen für dasselbe Dictionary.
+es: ## Claves, valores y pares
+`keys()`, `values()` e `items()` dan vistas del diccionario que puedes recorrer o convertir en listas. `items()` da tuplas `(key, value)`. Los bucles `for` los verás a fondo el día 10; aquí tienes un adelanto.
+
+`copy()` hace una copia; igual que con las listas, `b = a` solo da un segundo nombre al mismo diccionario.
+fr: ## Clés, valeurs et paires
+`keys()`, `values()` et `items()` donnent des vues du dictionnaire que l'on peut parcourir ou transformer en listes. `items()` donne des tuples `(key, value)`. Tu verras les boucles `for` en détail le jour 10 – voici un avant-goût.
+
+`copy()` fait une copie ; comme pour les listes, `b = a` ne donne qu'un deuxième nom au même dictionnaire.
+
+@code
+scores = {'Anna': 92, 'Tom': 78, 'Maria': 85}
+print(list(scores.keys()))
+print(list(scores.values()))
+for name, score in scores.items():
+    print(f'{name}: {score}')
+@end
+
+@exercise dog
+@title
+en: A dog
+pl: Pies
+de: Ein Hund
+es: Un perro
+fr: Un chien
+@text
+en: Create the dictionary `dog` with the keys `'name'`, `'color'`, `'breed'`, `'legs'` and `'age'`. Give `'legs'` the value `4` and fill in the rest as you like (strings for the text fields, a number for the age).
+pl: Utwórz słownik `dog` z kluczami `'name'`, `'color'`, `'breed'`, `'legs'` i `'age'`. Kluczowi `'legs'` daj wartość `4`, resztę uzupełnij po swojemu (napisy w polach tekstowych, liczba w wieku).
+de: Erzeuge das Dictionary `dog` mit den Schlüsseln `'name'`, `'color'`, `'breed'`, `'legs'` und `'age'`. Gib `'legs'` den Wert `4` und fülle den Rest nach Belieben (Zeichenketten für die Textfelder, eine Zahl für das Alter).
+es: Crea el diccionario `dog` con las claves `'name'`, `'color'`, `'breed'`, `'legs'` y `'age'`. Dale a `'legs'` el valor `4` y rellena el resto como quieras (cadenas para los campos de texto y un número para la edad).
+fr: Crée le dictionnaire `dog` avec les clés `'name'`, `'color'`, `'breed'`, `'legs'` et `'age'`. Donne à `'legs'` la valeur `4` et remplis le reste comme tu veux (des chaînes pour les champs texte, un nombre pour l'âge).
+@hint
+en: `dog = {'name': 'Rex', ...}`
+pl: `dog = {'name': 'Rex', ...}`
+de: `dog = {'name': 'Rex', ...}`
+es: `dog = {'name': 'Rex', ...}`
+fr: `dog = {'name': 'Rex', ...}`
+@starter
+dog = {}
+@end
+@solution
+dog = {'name': 'Rex', 'color': 'brown', 'breed': 'beagle', 'legs': 4, 'age': 3}
+print(dog)
+@end
+@case
+expr: set(dog) == {'name', 'color', 'breed', 'legs', 'age'}
+expr: dog['legs'] == 4
+expr: all(isinstance(dog[k], str) for k in ('name', 'color', 'breed'))
+expr: isinstance(dog['age'], (int, float))
+
+@exercise student
+@title
+en: A student
+pl: Student
+de: Eine Studentin
+es: Una estudiante
+fr: Une étudiante
+@text
+en: In `student`, add `'Python'` to the list under `'skills'`, change `'country'` to `'Poland'`, add the key `'is_married'` with the value `False`, and store `skills_count` – the number of skills.
+pl: W słowniku `student` dopisz `'Python'` do listy pod `'skills'`, zmień `'country'` na `'Poland'`, dodaj klucz `'is_married'` z wartością `False` i zapisz `skills_count` – liczbę umiejętności.
+de: Hänge in `student` `'Python'` an die Liste unter `'skills'` an, ändere `'country'` in `'Poland'`, füge den Schlüssel `'is_married'` mit dem Wert `False` hinzu und speichere `skills_count` – die Anzahl der Fähigkeiten.
+es: En `student`, añade `'Python'` a la lista de `'skills'`, cambia `'country'` a `'Poland'`, añade la clave `'is_married'` con el valor `False` y guarda `skills_count`, el número de habilidades.
+fr: Dans `student`, ajoute `'Python'` à la liste sous `'skills'`, change `'country'` en `'Poland'`, ajoute la clé `'is_married'` avec la valeur `False` et range `skills_count` – le nombre de compétences.
+@hint
+en: `student['skills'].append('Python')` changes the list inside the dictionary.
+pl: `student['skills'].append('Python')` zmienia listę w środku słownika.
+de: `student['skills'].append('Python')` ändert die Liste im Dictionary.
+es: `student['skills'].append('Python')` cambia la lista dentro del diccionario.
+fr: `student['skills'].append('Python')` modifie la liste à l'intérieur du dictionnaire.
+@starter
+student = {
+    'first_name': 'Ada',
+    'last_name': 'Nowak',
+    'country': 'Finland',
+    'skills': ['HTML', 'CSS'],
+}
+@end
+@solution
+student = {
+    'first_name': 'Ada',
+    'last_name': 'Nowak',
+    'country': 'Finland',
+    'skills': ['HTML', 'CSS'],
+}
+student['skills'].append('Python')
+student['country'] = 'Poland'
+student['is_married'] = False
+skills_count = len(student['skills'])
+print(student, skills_count)
+@end
+@case
+expr: student['skills'] == ['HTML', 'CSS', 'Python']
+expr: student['country'] == 'Poland'
+expr: student.get('is_married', None) is False
+expr: skills_count == 3
+
+@exercise inventory
+@title
+en: Keys, values, items
+pl: Klucze, wartości, pary
+de: Schlüssel, Werte, Paare
+es: Claves, valores, pares
+fr: Clés, valeurs, paires
+@text
+en: For `stock`, store `names` – a list of its keys, `total` – the sum of its values, and `pairs` – a list of its items. Then remove `'pears'` with `del`.
+pl: Dla `stock` zapisz `names` – listę kluczy, `total` – sumę wartości i `pairs` – listę par. Potem usuń `'pears'` przez `del`.
+de: Speichere für `stock` die Werte `names` – eine Liste der Schlüssel, `total` – die Summe der Werte, und `pairs` – eine Liste der Paare. Entferne dann `'pears'` mit `del`.
+es: Para `stock`, guarda `names`, una lista de sus claves; `total`, la suma de sus valores, y `pairs`, una lista de sus pares. Después quita `'pears'` con `del`.
+fr: Pour `stock`, range `names` – une liste de ses clés, `total` – la somme de ses valeurs, et `pairs` – une liste de ses paires. Supprime ensuite `'pears'` avec `del`.
+@hint
+en: `list(stock.keys())`, `sum(stock.values())`, `list(stock.items())` – all before the `del`.
+pl: `list(stock.keys())`, `sum(stock.values())`, `list(stock.items())` – wszystko przed `del`.
+de: `list(stock.keys())`, `sum(stock.values())`, `list(stock.items())` – alles vor dem `del`.
+es: `list(stock.keys())`, `sum(stock.values())`, `list(stock.items())`, todo antes del `del`.
+fr: `list(stock.keys())`, `sum(stock.values())`, `list(stock.items())` – le tout avant le `del`.
+@starter
+stock = {'apples': 12, 'pears': 5, 'plums': 30}
+@end
+@solution
+stock = {'apples': 12, 'pears': 5, 'plums': 30}
+names = list(stock.keys())
+total = sum(stock.values())
+pairs = list(stock.items())
+del stock['pears']
+print(names, total, pairs, stock)
+@end
+@case
+expr: names == ['apples', 'pears', 'plums']
+expr: total == 47
+expr: pairs == [('apples', 12), ('pears', 5), ('plums', 30)]
+expr: stock == {'apples': 12, 'plums': 30}
+
+@exercise lookup
+@title
+en: Capital cities
+pl: Stolice
+de: Hauptstädte
+es: Capitales
+fr: Capitales
+@text
+en: Read a country with `input()` and print its capital from `capitals`. If the country is not in the dictionary, print `unknown` – without an error.
+pl: Wczytaj kraj przez `input()` i wypisz jego stolicę ze słownika `capitals`. Jeśli kraju nie ma w słowniku, wypisz `unknown` – bez błędu.
+de: Lies mit `input()` ein Land ein und gib seine Hauptstadt aus `capitals` aus. Steht das Land nicht im Dictionary, gib `unknown` aus – ohne Fehler.
+es: Lee un país con `input()` e imprime su capital a partir de `capitals`. Si el país no está en el diccionario, imprime `unknown`, sin errores.
+fr: Lis un pays avec `input()` et affiche sa capitale d'après `capitals`. Si le pays n'est pas dans le dictionnaire, affiche `unknown` – sans erreur.
+@hint
+en: `capitals.get(country, 'unknown')`
+pl: `capitals.get(country, 'unknown')`
+de: `capitals.get(country, 'unknown')`
+es: `capitals.get(country, 'unknown')`
+fr: `capitals.get(country, 'unknown')`
+@starter
+capitals = {'Poland': 'Warsaw', 'Germany': 'Berlin', 'Spain': 'Madrid', 'France': 'Paris'}
+country = input('Country: ')
+print(capitals[country])
+@end
+@solution
+capitals = {'Poland': 'Warsaw', 'Germany': 'Berlin', 'Spain': 'Madrid', 'France': 'Paris'}
+country = input('Country: ')
+print(capitals.get(country, 'unknown'))
+@end
+@case stdin="Poland\n"
+out: Warsaw
+@case stdin="Spain\n"
+out: Madrid
+@case stdin="Peru\n"
+out: unknown

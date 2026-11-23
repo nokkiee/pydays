@@ -1,0 +1,353 @@
+@day 10
+@source 10_Day_Loops/10_loops.md
+
+@title
+en: Loops
+pl: Pętle
+de: Schleifen
+es: Bucles
+fr: Boucles
+
+@summary
+en: Repeat work with while and for loops, count with range, stop or skip with break and continue, and nest loops.
+pl: Powtarzaj pracę pętlami while i for, licz z range, przerywaj i pomijaj przez break i continue i zagnieżdżaj pętle.
+de: Arbeit mit while- und for-Schleifen wiederholen, mit range zählen, mit break und continue abbrechen oder überspringen und Schleifen verschachteln.
+es: Repite trabajo con bucles while y for, cuenta con range, para o salta con break y continue y anida bucles.
+fr: Répète un travail avec les boucles while et for, compte avec range, arrête ou saute avec break et continue, et imbrique des boucles.
+
+@md
+en: ## The while loop
+A `while` loop repeats its block as long as its condition is true. Something inside the loop must change the condition – otherwise the loop never ends. (If that happens, press **Stop** or Ctrl+C in the terminal.)
+
+An `else` block after a loop runs once the condition becomes false.
+pl: ## Pętla while
+Pętla `while` powtarza swój blok, dopóki warunek jest prawdziwy. Coś w pętli musi ten warunek zmieniać – inaczej pętla nigdy się nie skończy. (Jeśli tak się stanie, naciśnij **Zatrzymaj** albo Ctrl+C w terminalu.)
+
+Blok `else` po pętli wykonuje się raz, gdy warunek przestanie być prawdziwy.
+de: ## Die while-Schleife
+Eine `while`-Schleife wiederholt ihren Block, solange ihre Bedingung wahr ist. Irgendetwas in der Schleife muss die Bedingung ändern – sonst endet sie nie. (Passiert das, drück **Stopp** oder Strg+C im Terminal.)
+
+Ein `else`-Block nach einer Schleife läuft einmal, sobald die Bedingung falsch wird.
+es: ## El bucle while
+Un bucle `while` repite su bloque mientras su condición sea verdadera. Algo dentro del bucle tiene que cambiar la condición; si no, el bucle no termina nunca. (Si pasa, pulsa **Detener** o Ctrl+C en la terminal.)
+
+Un bloque `else` después del bucle se ejecuta una vez cuando la condición deja de cumplirse.
+fr: ## La boucle while
+Une boucle `while` répète son bloc tant que sa condition est vraie. Quelque chose dans la boucle doit modifier la condition – sinon la boucle ne s'arrête jamais. (Si cela arrive, appuie sur **Arrêter** ou Ctrl+C dans le terminal.)
+
+Un bloc `else` après une boucle s'exécute une fois, quand la condition devient fausse.
+
+@code
+count = 0
+while count < 5:
+    print(count)
+    count = count + 1
+else:
+    print('count is', count)
+@end
+
+@md
+en: ## break and continue
+`break` leaves the loop at once. `continue` skips the rest of this round and goes on with the next one. Both work in `while` and `for` loops.
+pl: ## break i continue
+`break` natychmiast wychodzi z pętli. `continue` pomija resztę bieżącego obrotu i przechodzi do następnego. Oba działają w pętlach `while` i `for`.
+de: ## break und continue
+`break` verlässt die Schleife sofort. `continue` überspringt den Rest dieser Runde und macht mit der nächsten weiter. Beide funktionieren in `while`- und `for`-Schleifen.
+es: ## break y continue
+`break` sale del bucle en el acto. `continue` se salta el resto de esta vuelta y pasa a la siguiente. Los dos funcionan en bucles `while` y `for`.
+fr: ## break et continue
+`break` quitte la boucle immédiatement. `continue` saute le reste du tour en cours et passe au suivant. Les deux fonctionnent dans les boucles `while` et `for`.
+
+@code
+count = 0
+while count < 10:
+    count += 1
+    if count == 3:
+        continue      # 3 is skipped
+    if count == 6:
+        break         # the loop stops at 6
+    print(count)
+@end
+
+@md
+en: ## The for loop
+A `for` loop goes through the items of a sequence one by one: a list, a tuple, a string, a set or a dictionary (which gives its keys). Each round, the loop variable holds the next item.
+pl: ## Pętla for
+Pętla `for` przechodzi po elementach ciągu jeden po drugim: liście, krotce, napisie, zbiorze albo słowniku (który daje swoje klucze). W każdym obrocie zmienna pętli zawiera kolejny element.
+de: ## Die for-Schleife
+Eine `for`-Schleife geht die Elemente einer Folge nacheinander durch: eine Liste, ein Tupel, eine Zeichenkette, eine Menge oder ein Dictionary (das seine Schlüssel liefert). In jeder Runde enthält die Schleifenvariable das nächste Element.
+es: ## El bucle for
+Un bucle `for` recorre uno a uno los elementos de una secuencia: una lista, una tupla, una cadena, un conjunto o un diccionario (que da sus claves). En cada vuelta, la variable del bucle contiene el siguiente elemento.
+fr: ## La boucle for
+Une boucle `for` parcourt un à un les éléments d'une séquence : une liste, un tuple, une chaîne, un ensemble ou un dictionnaire (qui donne ses clés). À chaque tour, la variable de boucle contient l'élément suivant.
+
+@code
+for number in [0, 1, 2, 3]:
+    print(number)
+for letter in 'Python':
+    print(letter, end=' ')
+print()
+person = {'first_name': 'Asabeneh', 'country': 'Finland'}
+for key, value in person.items():
+    print(key, '->', value)
+@end
+
+@md
+en: ## Counting with range
+`range()` produces numbers to loop over without building a list: `range(5)` gives 0 to 4, `range(2, 6)` gives 2 to 5, and `range(10, 0, -2)` counts down in steps of 2. As with slices, the end is never included.
+
+Loops can be nested: the inner loop runs completely for every round of the outer one. `pass` is a placeholder for a block you have not written yet.
+pl: ## Liczenie z range
+`range()` daje liczby do przejścia pętlą bez budowania listy: `range(5)` daje od 0 do 4, `range(2, 6)` od 2 do 5, a `range(10, 0, -2)` odlicza w dół co 2. Tak jak w wycinkach, koniec nigdy nie jest wliczany.
+
+Pętle można zagnieżdżać: wewnętrzna pętla wykonuje się w całości przy każdym obrocie zewnętrznej. `pass` to zaślepka dla bloku, którego jeszcze nie napisałeś.
+de: ## Zählen mit range
+`range()` liefert Zahlen zum Durchlaufen, ohne eine Liste zu bauen: `range(5)` ergibt 0 bis 4, `range(2, 6)` ergibt 2 bis 5, und `range(10, 0, -2)` zählt in Zweierschritten rückwärts. Wie bei Slices ist das Ende nie enthalten.
+
+Schleifen lassen sich verschachteln: Die innere Schleife läuft bei jeder Runde der äußeren komplett durch. `pass` ist ein Platzhalter für einen Block, den du noch nicht geschrieben hast.
+es: ## Contar con range
+`range()` produce números para recorrer sin crear una lista: `range(5)` da de 0 a 4, `range(2, 6)` de 2 a 5, y `range(10, 0, -2)` cuenta hacia atrás de 2 en 2. Igual que en las porciones, el final nunca se incluye.
+
+Los bucles se pueden anidar: el bucle interior se ejecuta entero en cada vuelta del exterior. `pass` es un marcador para un bloque que aún no has escrito.
+fr: ## Compter avec range
+`range()` produit des nombres à parcourir sans construire de liste : `range(5)` donne de 0 à 4, `range(2, 6)` de 2 à 5, et `range(10, 0, -2)` compte à rebours de 2 en 2. Comme pour les tranches, la fin n'est jamais incluse.
+
+Les boucles peuvent s'imbriquer : la boucle intérieure s'exécute entièrement à chaque tour de la boucle extérieure. `pass` est un bouche-trou pour un bloc que tu n'as pas encore écrit.
+
+@code
+print(list(range(5)))
+print(list(range(2, 6)))
+print(list(range(10, 0, -2)))
+total = 0
+for n in range(1, 101):
+    total += n
+print('Sum of 1..100:', total)
+for row in range(1, 4):
+    for col in range(1, 4):
+        print(row * col, end='\t')
+    print()
+@end
+
+@exercise count
+@title
+en: Up and down
+pl: W górę i w dół
+de: Hoch und runter
+es: Arriba y abajo
+fr: Monter et descendre
+@text
+en: Print the numbers from 0 to 10, one per line, with a `for` loop. Then print them from 10 down to 0 with a `while` loop.
+pl: Wypisz liczby od 0 do 10, każdą w osobnym wierszu, pętlą `for`. Potem wypisz je od 10 do 0 pętlą `while`.
+de: Gib mit einer `for`-Schleife die Zahlen von 0 bis 10 aus, eine pro Zeile. Gib sie dann mit einer `while`-Schleife von 10 bis 0 aus.
+es: Imprime los números del 0 al 10, uno por línea, con un bucle `for`. Después imprímelos del 10 al 0 con un bucle `while`.
+fr: Affiche les nombres de 0 à 10, un par ligne, avec une boucle `for`. Affiche-les ensuite de 10 à 0 avec une boucle `while`.
+@hint
+en: `range(11)` ends at 10. For the `while` loop, start with `n = 10` and subtract 1 each round.
+pl: `range(11)` kończy się na 10. W pętli `while` zacznij od `n = 10` i odejmuj 1 w każdym obrocie.
+de: `range(11)` endet bei 10. Beginne die `while`-Schleife mit `n = 10` und zieh jede Runde 1 ab.
+es: `range(11)` termina en 10. En el bucle `while`, empieza con `n = 10` y resta 1 en cada vuelta.
+fr: `range(11)` s'arrête à 10. Pour la boucle `while`, commence avec `n = 10` et retire 1 à chaque tour.
+@starter
+# 0 .. 10 with for
+
+# 10 .. 0 with while
+@end
+@solution
+for i in range(11):
+    print(i)
+n = 10
+while n >= 0:
+    print(n)
+    n -= 1
+@end
+@case
+expr: _lines == [str(i) for i in range(11)] + [str(i) for i in range(10, -1, -1)]
+expr: 'for ' in open(__file__).read() and 'while ' in open(__file__).read()
+
+@exercise triangle
+@title
+en: A triangle of hashes
+pl: Trójkąt z krzyżyków
+de: Ein Dreieck aus Rauten
+es: Un triángulo de almohadillas
+fr: Un triangle de dièses
+@text
+en: Print this triangle with a loop – seven rows, the first with one `#`, the last with seven:
+
+```
+#
+##
+###
+####
+#####
+######
+#######
+```
+pl: Wypisz ten trójkąt pętlą – siedem wierszy, w pierwszym jeden `#`, w ostatnim siedem:
+
+```
+#
+##
+###
+####
+#####
+######
+#######
+```
+de: Gib dieses Dreieck mit einer Schleife aus – sieben Zeilen, die erste mit einer `#`, die letzte mit sieben:
+
+```
+#
+##
+###
+####
+#####
+######
+#######
+```
+es: Imprime este triángulo con un bucle: siete filas, la primera con un `#` y la última con siete:
+
+```
+#
+##
+###
+####
+#####
+######
+#######
+```
+fr: Affiche ce triangle avec une boucle – sept lignes, la première avec un `#`, la dernière avec sept :
+
+```
+#
+##
+###
+####
+#####
+######
+#######
+```
+@hint
+en: A string times a number repeats it: `'#' * 3` is `###`.
+pl: Napis razy liczba powtarza napis: `'#' * 3` to `###`.
+de: Eine Zeichenkette mal eine Zahl wiederholt sie: `'#' * 3` ist `###`.
+es: Una cadena por un número la repite: `'#' * 3` es `###`.
+fr: Une chaîne multipliée par un nombre se répète : `'#' * 3` donne `###`.
+@starter
+for i in range(1, 8):
+    pass
+@end
+@solution
+for i in range(1, 8):
+    print('#' * i)
+@end
+@case
+expr: _lines == ['#' * i for i in range(1, 8)]
+
+@exercise sums
+@title
+en: Sums of numbers
+pl: Sumy liczb
+de: Summen von Zahlen
+es: Sumas de números
+fr: Sommes de nombres
+@text
+en: With a loop over `range`, store in `total` the sum of all numbers from 0 to 100, in `evens` the sum of the even ones and in `odds` the sum of the odd ones.
+pl: Pętlą po `range` zapisz w `total` sumę wszystkich liczb od 0 do 100, w `evens` sumę parzystych, a w `odds` sumę nieparzystych.
+de: Speichere mit einer Schleife über `range` in `total` die Summe aller Zahlen von 0 bis 100, in `evens` die Summe der geraden und in `odds` die der ungeraden.
+es: Con un bucle sobre `range`, guarda en `total` la suma de todos los números del 0 al 100, en `evens` la de los pares y en `odds` la de los impares.
+fr: Avec une boucle sur `range`, range dans `total` la somme de tous les nombres de 0 à 100, dans `evens` celle des nombres pairs et dans `odds` celle des impairs.
+@hint
+en: Start all three at `0`. Inside the loop, `n % 2 == 0` tells you whether `n` is even.
+pl: Zacznij wszystkie trzy od `0`. W pętli `n % 2 == 0` mówi, czy `n` jest parzyste.
+de: Starte alle drei bei `0`. In der Schleife sagt dir `n % 2 == 0`, ob `n` gerade ist.
+es: Empieza las tres en `0`. Dentro del bucle, `n % 2 == 0` te dice si `n` es par.
+fr: Démarre les trois à `0`. Dans la boucle, `n % 2 == 0` indique si `n` est pair.
+@starter
+total = 0
+evens = 0
+odds = 0
+@end
+@solution
+total = 0
+evens = 0
+odds = 0
+for n in range(101):
+    total += n
+    if n % 2 == 0:
+        evens += n
+    else:
+        odds += n
+print(total, evens, odds)
+@end
+@case
+expr: total == 5050
+expr: evens == 2550
+expr: odds == 2500
+
+@exercise table
+@title
+en: Squares table
+pl: Tabela kwadratów
+de: Quadrattabelle
+es: Tabla de cuadrados
+fr: Table des carrés
+@text
+en: Print the lines `0 x 0 = 0` up to `10 x 10 = 100`, one for each number from 0 to 10.
+pl: Wypisz wiersze od `0 x 0 = 0` do `10 x 10 = 100`, po jednym dla każdej liczby od 0 do 10.
+de: Gib die Zeilen von `0 x 0 = 0` bis `10 x 10 = 100` aus, eine für jede Zahl von 0 bis 10.
+es: Imprime las líneas de `0 x 0 = 0` a `10 x 10 = 100`, una por cada número del 0 al 10.
+fr: Affiche les lignes de `0 x 0 = 0` à `10 x 10 = 100`, une pour chaque nombre de 0 à 10.
+@hint
+en: `print(f'{i} x {i} = {i * i}')`
+pl: `print(f'{i} x {i} = {i * i}')`
+de: `print(f'{i} x {i} = {i * i}')`
+es: `print(f'{i} x {i} = {i * i}')`
+fr: `print(f'{i} x {i} = {i * i}')`
+@starter
+for i in range(11):
+    pass
+@end
+@solution
+for i in range(11):
+    print(f'{i} x {i} = {i * i}')
+@end
+@case
+expr: _lines == [f'{i} x {i} = {i * i}' for i in range(11)]
+
+@exercise languages
+@title
+en: Count and stop
+pl: Licz i przerwij
+de: Zählen und stoppen
+es: Contar y parar
+fr: Compter et s'arrêter
+@text
+en: Go through `languages` with a `for` loop and print each one. When you reach `'Python'`, print `I found Python!` and stop the loop with `break`. Store in `seen` how many languages you printed before stopping, including Python.
+pl: Przejdź pętlą `for` po `languages` i wypisz każdy język. Gdy dojdziesz do `'Python'`, wypisz `I found Python!` i przerwij pętlę przez `break`. W `seen` zapisz, ile języków wypisałeś przed przerwaniem, łącznie z Pythonem.
+de: Geh mit einer `for`-Schleife durch `languages` und gib jede Sprache aus. Bei `'Python'` gibst du `I found Python!` aus und beendest die Schleife mit `break`. Speichere in `seen`, wie viele Sprachen du bis dahin ausgegeben hast, Python eingeschlossen.
+es: Recorre `languages` con un bucle `for` e imprime cada lenguaje. Cuando llegues a `'Python'`, imprime `I found Python!` y para el bucle con `break`. Guarda en `seen` cuántos lenguajes imprimiste antes de parar, Python incluido.
+fr: Parcours `languages` avec une boucle `for` et affiche chaque langage. Quand tu arrives à `'Python'`, affiche `I found Python!` et arrête la boucle avec `break`. Range dans `seen` le nombre de langages affichés avant l'arrêt, Python compris.
+@hint
+en: Print and count first, then check with `if lang == 'Python':`.
+pl: Najpierw wypisz i policz, potem sprawdź `if lang == 'Python':`.
+de: Erst ausgeben und zählen, dann mit `if lang == 'Python':` prüfen.
+es: Primero imprime y cuenta; después comprueba `if lang == 'Python':`.
+fr: Affiche et compte d'abord, puis vérifie avec `if lang == 'Python':`.
+@starter
+languages = ['JavaScript', 'Go', 'Python', 'Rust', 'C']
+seen = 0
+@end
+@solution
+languages = ['JavaScript', 'Go', 'Python', 'Rust', 'C']
+seen = 0
+for lang in languages:
+    print(lang)
+    seen += 1
+    if lang == 'Python':
+        print('I found Python!')
+        break
+@end
+@case
+expr: _lines == ['JavaScript', 'Go', 'Python', 'I found Python!']
+expr: seen == 3
