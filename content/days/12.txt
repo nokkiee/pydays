@@ -1,0 +1,318 @@
+@day 12
+@source 12_Day_Modules/12_modules.md
+
+@title
+en: Modules
+pl: Moduły
+de: Module
+es: Módulos
+fr: Modules
+
+@summary
+en: Split code into modules, import your own files and the standard library, and generate random values with the random module.
+pl: Dziel kod na moduły, importuj własne pliki i bibliotekę standardową i losuj wartości modułem random.
+de: Code in Module aufteilen, eigene Dateien und die Standardbibliothek importieren und mit dem Modul random Zufallswerte erzeugen.
+es: Divide el código en módulos, importa tus propios archivos y la biblioteca estándar y genera valores aleatorios con el módulo random.
+fr: Découpe le code en modules, importe tes propres fichiers et la bibliothèque standard, et génère des valeurs aléatoires avec le module random.
+
+@md
+en: ## What is a module?
+A **module** is simply a Python file whose functions and variables you use in another file. Any `.py` file can be a module: if there is a file `mymodule.py` next to your program, `import mymodule` makes everything in it available as `mymodule.name`.
+
+This lesson comes with the file `mymodule.py`, shown below. It is saved next to your program, so the examples and exercises can import it.
+pl: ## Czym jest moduł?
+**Moduł** to po prostu plik Pythona, z którego funkcji i zmiennych korzystasz w innym pliku. Modułem może być każdy plik `.py`: jeśli obok twojego programu leży plik `mymodule.py`, `import mymodule` udostępnia wszystko, co w nim jest, jako `mymodule.name`.
+
+Do tej lekcji należy plik `mymodule.py`, pokazany poniżej. Jest zapisany obok twojego programu, więc przykłady i ćwiczenia mogą go zaimportować.
+de: ## Was ist ein Modul?
+Ein **Modul** ist einfach eine Python-Datei, deren Funktionen und Variablen du in einer anderen Datei verwendest. Jede `.py`-Datei kann ein Modul sein: Liegt eine Datei `mymodule.py` neben deinem Programm, macht `import mymodule` alles darin als `mymodule.name` verfügbar.
+
+Zu dieser Lektion gehört die Datei `mymodule.py`, die du unten siehst. Sie liegt neben deinem Programm, sodass Beispiele und Übungen sie importieren können.
+es: ## ¿Qué es un módulo?
+Un **módulo** es simplemente un archivo de Python cuyas funciones y variables usas en otro archivo. Cualquier archivo `.py` puede ser un módulo: si junto a tu programa hay un archivo `mymodule.py`, `import mymodule` pone todo su contenido a tu disposición como `mymodule.name`.
+
+Esta lección incluye el archivo `mymodule.py`, que ves abajo. Está guardado junto a tu programa, así que los ejemplos y los ejercicios pueden importarlo.
+fr: ## Qu'est-ce qu'un module ?
+Un **module** est tout simplement un fichier Python dont tu utilises les fonctions et les variables dans un autre fichier. N'importe quel fichier `.py` peut être un module : si un fichier `mymodule.py` se trouve à côté de ton programme, `import mymodule` rend tout son contenu disponible sous la forme `mymodule.name`.
+
+Cette leçon est accompagnée du fichier `mymodule.py`, affiché ci-dessous. Il est enregistré à côté de ton programme, donc les exemples et les exercices peuvent l'importer.
+
+@file mymodule.py
+def generate_full_name(first_name, last_name):
+    return first_name + ' ' + last_name
+
+
+def sum_two_nums(a, b):
+    return a + b
+
+
+gravity = 9.81
+person = {'first_name': 'Asabeneh', 'age': 250, 'country': 'Finland'}
+@end
+
+@code
+import mymodule
+print(mymodule.generate_full_name('Asabeneh', 'Yetayeh'))
+print(mymodule.sum_two_nums(1, 9))
+print(mymodule.gravity)
+@end
+
+@md
+en: ## Ways to import
+You can import single names with `from module import name` and then use them without the prefix. `as` gives a module or a name a shorter alias. `from module import *` imports everything, but it makes it hard to see where a name came from – better avoid it.
+pl: ## Sposoby importowania
+Pojedyncze nazwy importuje się przez `from module import name` i potem używa ich bez przedrostka. `as` nadaje modułowi albo nazwie krótszy alias. `from module import *` importuje wszystko, ale wtedy trudno zobaczyć, skąd pochodzi dana nazwa – lepiej tego unikać.
+de: ## Arten zu importieren
+Einzelne Namen importierst du mit `from module import name` und nutzt sie dann ohne Präfix. `as` gibt einem Modul oder einem Namen einen kürzeren Alias. `from module import *` importiert alles, macht aber schwer erkennbar, woher ein Name kommt – lieber vermeiden.
+es: ## Formas de importar
+Puedes importar nombres sueltos con `from module import name` y usarlos después sin prefijo. `as` da a un módulo o a un nombre un alias más corto. `from module import *` lo importa todo, pero así cuesta ver de dónde viene cada nombre; mejor evitarlo.
+fr: ## Les façons d'importer
+On peut importer des noms isolés avec `from module import name` et les utiliser ensuite sans préfixe. `as` donne à un module ou à un nom un alias plus court. `from module import *` importe tout, mais on ne voit plus d'où vient chaque nom – mieux vaut l'éviter.
+
+@code
+from mymodule import generate_full_name, gravity
+print(generate_full_name('Ada', 'Lovelace'), gravity)
+
+from mymodule import person as p
+print(p['country'])
+
+import math as m
+print(m.pi, m.sqrt(16), m.floor(9.81), m.ceil(9.81))
+@end
+
+@md
+en: ## The standard library
+Python comes with a large **standard library** – modules you can import without installing anything. A few you will use often:
+
+| Module | For |
+|---|---|
+| `math` | square roots, rounding, `pi`, logarithms |
+| `random` | random numbers and choices |
+| `string` | ready-made sets of characters |
+| `statistics` | mean, median, mode |
+| `os`, `sys` | the operating system and the interpreter |
+| `datetime` | dates and times (day 16) |
+pl: ## Biblioteka standardowa
+Python ma dużą **bibliotekę standardową** – moduły, które importuje się bez instalowania czegokolwiek. Kilka z nich przyda się często:
+
+| Moduł | Do czego |
+|---|---|
+| `math` | pierwiastki, zaokrąglanie, `pi`, logarytmy |
+| `random` | losowe liczby i wybory |
+| `string` | gotowe zestawy znaków |
+| `statistics` | średnia, mediana, dominanta |
+| `os`, `sys` | system operacyjny i interpreter |
+| `datetime` | daty i godziny (dzień 16) |
+de: ## Die Standardbibliothek
+Python bringt eine große **Standardbibliothek** mit – Module, die du ohne Installation importieren kannst. Einige wirst du oft brauchen:
+
+| Modul | Wofür |
+|---|---|
+| `math` | Wurzeln, Runden, `pi`, Logarithmen |
+| `random` | Zufallszahlen und Zufallsauswahl |
+| `string` | fertige Zeichensätze |
+| `statistics` | Mittelwert, Median, Modus |
+| `os`, `sys` | das Betriebssystem und der Interpreter |
+| `datetime` | Datum und Uhrzeit (Tag 16) |
+es: ## La biblioteca estándar
+Python incluye una gran **biblioteca estándar**: módulos que puedes importar sin instalar nada. Algunos los usarás a menudo:
+
+| Módulo | Para |
+|---|---|
+| `math` | raíces, redondeo, `pi`, logaritmos |
+| `random` | números y elecciones al azar |
+| `string` | conjuntos de caracteres ya hechos |
+| `statistics` | media, mediana, moda |
+| `os`, `sys` | el sistema operativo y el intérprete |
+| `datetime` | fechas y horas (día 16) |
+fr: ## La bibliothèque standard
+Python est livré avec une grande **bibliothèque standard** – des modules que l'on importe sans rien installer. Tu en utiliseras souvent quelques-uns :
+
+| Module | Pour |
+|---|---|
+| `math` | racines, arrondis, `pi`, logarithmes |
+| `random` | nombres et choix aléatoires |
+| `string` | des jeux de caractères tout prêts |
+| `statistics` | moyenne, médiane, mode |
+| `os`, `sys` | le système d'exploitation et l'interpréteur |
+| `datetime` | dates et heures (jour 16) |
+
+@code
+import random
+import string
+print(random.randint(1, 6))           # a dice roll
+print(random.random())                # a float from 0 to 1
+print(random.choice(['rock', 'paper', 'scissors']))
+print(string.ascii_lowercase)
+print(string.digits)
+random.seed(42)                       # the same "random" values every run
+print(random.randint(1, 100), random.randint(1, 100))
+@end
+
+@exercise use-module
+@title
+en: Use the module
+pl: Użyj modułu
+de: Das Modul nutzen
+es: Usa el módulo
+fr: Utilise le module
+@text
+en: Import `mymodule` and use its functions: store `full` – the result of `generate_full_name('Ada', 'Lovelace')` – and `total` – the result of `sum_two_nums(17, 25)`. Store the person's country from `mymodule.person` in `country`.
+pl: Zaimportuj `mymodule` i użyj jego funkcji: zapisz `full` – wynik `generate_full_name('Ada', 'Lovelace')` – i `total` – wynik `sum_two_nums(17, 25)`. Kraj osoby z `mymodule.person` zapisz w `country`.
+de: Importiere `mymodule` und nutze seine Funktionen: Speichere `full` – das Ergebnis von `generate_full_name('Ada', 'Lovelace')` – und `total` – das Ergebnis von `sum_two_nums(17, 25)`. Speichere das Land der Person aus `mymodule.person` in `country`.
+es: Importa `mymodule` y usa sus funciones: guarda `full`, el resultado de `generate_full_name('Ada', 'Lovelace')`, y `total`, el resultado de `sum_two_nums(17, 25)`. Guarda el país de la persona de `mymodule.person` en `country`.
+fr: Importe `mymodule` et utilise ses fonctions : range `full` – le résultat de `generate_full_name('Ada', 'Lovelace')` – et `total` – le résultat de `sum_two_nums(17, 25)`. Range le pays de la personne de `mymodule.person` dans `country`.
+@hint
+en: `import mymodule`, then `mymodule.person['country']`.
+pl: `import mymodule`, potem `mymodule.person['country']`.
+de: `import mymodule`, dann `mymodule.person['country']`.
+es: `import mymodule`, luego `mymodule.person['country']`.
+fr: `import mymodule`, puis `mymodule.person['country']`.
+@starter
+# import mymodule
+@end
+@solution
+import mymodule
+
+full = mymodule.generate_full_name('Ada', 'Lovelace')
+total = mymodule.sum_two_nums(17, 25)
+country = mymodule.person['country']
+print(full, total, country)
+@end
+@case
+expr: full == 'Ada Lovelace'
+expr: total == 42
+expr: country == 'Finland'
+
+@exercise user-id
+@title
+en: Random user ID
+pl: Losowy identyfikator
+de: Zufällige Benutzer-ID
+es: ID de usuario aleatorio
+fr: Identifiant aléatoire
+@text
+en: Write `random_user_id()` that returns a random string of 6 characters, each a lower-case letter or a digit. Every call should give a new ID.
+pl: Napisz `random_user_id()`, która zwraca losowy napis z 6 znaków – każdy to mała litera albo cyfra. Każde wywołanie powinno dawać nowy identyfikator.
+de: Schreib `random_user_id()`, die eine zufällige Zeichenkette aus 6 Zeichen zurückgibt – jedes ein Kleinbuchstabe oder eine Ziffer. Jeder Aufruf soll eine neue ID liefern.
+es: Escribe `random_user_id()`, que devuelve una cadena aleatoria de 6 caracteres, cada uno una letra minúscula o una cifra. Cada llamada debe dar un ID nuevo.
+fr: Écris `random_user_id()` qui renvoie une chaîne aléatoire de 6 caractères, chacun étant une lettre minuscule ou un chiffre. Chaque appel doit donner un nouvel identifiant.
+@hint
+en: `chars = string.ascii_lowercase + string.digits`, then `random.choice(chars)` six times and `''.join(...)`.
+pl: `chars = string.ascii_lowercase + string.digits`, potem sześć razy `random.choice(chars)` i `''.join(...)`.
+de: `chars = string.ascii_lowercase + string.digits`, dann sechsmal `random.choice(chars)` und `''.join(...)`.
+es: `chars = string.ascii_lowercase + string.digits`, luego seis veces `random.choice(chars)` y `''.join(...)`.
+fr: `chars = string.ascii_lowercase + string.digits`, puis six fois `random.choice(chars)` et `''.join(...)`.
+@starter
+import random
+import string
+
+
+def random_user_id():
+    pass
+@end
+@solution
+import random
+import string
+
+
+def random_user_id():
+    chars = string.ascii_lowercase + string.digits
+    result = ''
+    for _ in range(6):
+        result += random.choice(chars)
+    return result
+
+
+print(random_user_id())
+@end
+@case
+expr: all(isinstance(random_user_id(), str) and len(random_user_id()) == 6 for _ in range(20))
+expr: all(c.islower() or c.isdigit() for _ in range(50) for c in random_user_id())
+expr: len({random_user_id() for _ in range(50)}) > 45
+
+@exercise rgb
+@title
+en: Random colour
+pl: Losowy kolor
+de: Zufällige Farbe
+es: Color aleatorio
+fr: Couleur aléatoire
+@text
+en: Write `rgb_color_gen()` that returns a string like `'rgb(12,255,0)'` – three random whole numbers from 0 to 255, without spaces.
+pl: Napisz `rgb_color_gen()`, która zwraca napis w rodzaju `'rgb(12,255,0)'` – trzy losowe liczby całkowite od 0 do 255, bez spacji.
+de: Schreib `rgb_color_gen()`, die eine Zeichenkette wie `'rgb(12,255,0)'` zurückgibt – drei zufällige ganze Zahlen von 0 bis 255, ohne Leerzeichen.
+es: Escribe `rgb_color_gen()`, que devuelve una cadena como `'rgb(12,255,0)'`: tres números enteros aleatorios del 0 al 255, sin espacios.
+fr: Écris `rgb_color_gen()` qui renvoie une chaîne comme `'rgb(12,255,0)'` – trois nombres entiers aléatoires de 0 à 255, sans espaces.
+@hint
+en: `random.randint(0, 255)` includes both ends.
+pl: `random.randint(0, 255)` obejmuje oba końce.
+de: `random.randint(0, 255)` schließt beide Enden ein.
+es: `random.randint(0, 255)` incluye los dos extremos.
+fr: `random.randint(0, 255)` inclut les deux bornes.
+@starter
+import random
+
+
+def rgb_color_gen():
+    pass
+@end
+@solution
+import random
+
+
+def rgb_color_gen():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    return f'rgb({r},{g},{b})'
+
+
+print(rgb_color_gen())
+@end
+@case
+expr: __import__('re').fullmatch(r'rgb\(\d{1,3},\d{1,3},\d{1,3}\)', rgb_color_gen()) is not None
+expr: all(0 <= int(x) <= 255 for _ in range(100) for x in rgb_color_gen()[4:-1].split(','))
+expr: len({rgb_color_gen() for _ in range(30)}) > 25
+
+@exercise shuffle
+@title
+en: Shuffled digits
+pl: Potasowane cyfry
+de: Gemischte Ziffern
+es: Cifras barajadas
+fr: Chiffres mélangés
+@text
+en: Write `shuffled_digits()` that returns a list of the ten digits 0 to 9 in a random order, each exactly once.
+pl: Napisz `shuffled_digits()`, która zwraca listę dziesięciu cyfr od 0 do 9 w losowej kolejności, każdą dokładnie raz.
+de: Schreib `shuffled_digits()`, die eine Liste der zehn Ziffern 0 bis 9 in zufälliger Reihenfolge zurückgibt, jede genau einmal.
+es: Escribe `shuffled_digits()`, que devuelve una lista con las diez cifras del 0 al 9 en orden aleatorio, cada una exactamente una vez.
+fr: Écris `shuffled_digits()` qui renvoie une liste des dix chiffres de 0 à 9 dans un ordre aléatoire, chacun exactement une fois.
+@hint
+en: `random.shuffle(items)` mixes a list in place; `random.sample(range(10), 10)` gives a new mixed list.
+pl: `random.shuffle(items)` miesza listę w miejscu; `random.sample(range(10), 10)` daje nową, wymieszaną listę.
+de: `random.shuffle(items)` mischt eine Liste an Ort und Stelle; `random.sample(range(10), 10)` liefert eine neue gemischte Liste.
+es: `random.shuffle(items)` baraja una lista en su sitio; `random.sample(range(10), 10)` da una lista nueva barajada.
+fr: `random.shuffle(items)` mélange une liste sur place ; `random.sample(range(10), 10)` donne une nouvelle liste mélangée.
+@starter
+import random
+
+
+def shuffled_digits():
+    return list(range(10))
+@end
+@solution
+import random
+
+
+def shuffled_digits():
+    digits = list(range(10))
+    random.shuffle(digits)
+    return digits
+
+
+print(shuffled_digits())
+@end
+@case
+expr: all(sorted(shuffled_digits()) == list(range(10)) for _ in range(20))
+expr: len({tuple(shuffled_digits()) for _ in range(20)}) > 15

@@ -98,6 +98,7 @@ export function render(root, params) {
     const box = h('div');
     for (const b of d.blocks) {
       if (b.type === 'md') box.appendChild(h('div', { class: 'prose' }, ...md(pick(b.text)).childNodes));
+      else if (b.type === 'file') box.appendChild(fileBlock(b));
       else box.appendChild(snippet(b));
     }
     const n = d.exercises.length;
@@ -133,6 +134,14 @@ export function render(root, params) {
     );
     if (!b.opts.norun) bar.appendChild(btn(t('ide.run'), { small: true, kind: 'ghost', icon: 'play', onClick: () => ide?.runSnippet(b.code) }));
     return h('div', { class: `snippet ${b.opts.error ? 'error' : ''}` }, bar, pre);
+  }
+
+  // a data file or module that the lesson's programs can open or import
+  function fileBlock(b) {
+    const pre = h('pre', null, b.code);
+    if (/\.py$/.test(b.name)) colorize(b.code).then((html) => !destroyed && (pre.innerHTML = html));
+    const bar = h('div', { class: 'snippet-bar' }, icon('file', 13), h('span', { class: 'lang' }, b.name), h('span', { class: 'note' }, '· ' + t('day.fileNote')));
+    return h('div', { class: 'snippet file' }, bar, pre);
   }
 
   function dayNav() {

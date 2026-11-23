@@ -95,6 +95,7 @@ export default {
   'day.completedOn': 'Ukończony {date}',
   'day.undo': 'Cofnij',
   'day.raisesError': 'zgłasza błąd',
+  'day.fileNote': 'zapisany obok twojego programu',
   'day.copyToEditor': 'Edytuj',
   'day.copyToEditorTitle': 'Wstaw ten przykład do {file}, żeby go zmienić i uruchomić',
   'day.copied': 'Przykład jest w {file}. Ctrl+Z przywraca Twój kod.',

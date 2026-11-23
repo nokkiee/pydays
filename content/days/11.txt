@@ -1,0 +1,316 @@
+@day 11
+@source 11_Day_Functions/11_functions.md
+
+@title
+en: Functions
+pl: Funkcje
+de: Funktionen
+es: Funciones
+fr: Fonctions
+
+@summary
+en: Package reusable code in functions, pass parameters, return values, and use default, keyword and arbitrary arguments.
+pl: Zamykaj kod wielokrotnego użytku w funkcjach, przekazuj parametry, zwracaj wartości i korzystaj z argumentów domyślnych, nazwanych i dowolnej liczby argumentów.
+de: Wiederverwendbaren Code in Funktionen packen, Parameter übergeben, Werte zurückgeben und Standard-, Schlüsselwort- und beliebig viele Argumente nutzen.
+es: Empaqueta código reutilizable en funciones, pasa parámetros, devuelve valores y usa argumentos por defecto, con nombre y en número variable.
+fr: Regroupe du code réutilisable dans des fonctions, passe des paramètres, renvoie des valeurs et utilise des arguments par défaut, nommés et en nombre variable.
+
+@md
+en: ## Defining a function
+A **function** is a named block of code that you can run whenever you need it. You define it with `def`, a name, brackets and a colon; the indented body follows. Defining a function does not run it – **calling** it by name with brackets does.
+pl: ## Definiowanie funkcji
+**Funkcja** to nazwany blok kodu, który można uruchomić, kiedy tylko trzeba. Definiuje się ją słowem `def`, nazwą, nawiasami i dwukropkiem; dalej idzie wcięte ciało. Samo zdefiniowanie funkcji jej nie uruchamia – robi to **wywołanie** po nazwie z nawiasami.
+de: ## Eine Funktion definieren
+Eine **Funktion** ist ein benannter Codeblock, den du ausführen kannst, wann immer du ihn brauchst. Du definierst sie mit `def`, einem Namen, Klammern und einem Doppelpunkt; danach folgt der eingerückte Rumpf. Das Definieren führt die Funktion nicht aus – das macht erst der **Aufruf** mit Namen und Klammern.
+es: ## Definir una función
+Una **función** es un bloque de código con nombre que puedes ejecutar siempre que lo necesites. Se define con `def`, un nombre, paréntesis y dos puntos; después va el cuerpo sangrado. Definir una función no la ejecuta: lo hace la **llamada**, con su nombre y paréntesis.
+fr: ## Définir une fonction
+Une **fonction** est un bloc de code nommé que tu peux exécuter chaque fois que tu en as besoin. On la définit avec `def`, un nom, des parenthèses et deux-points ; le corps indenté suit. Définir une fonction ne l'exécute pas – c'est l'**appel**, par son nom suivi de parenthèses, qui le fait.
+
+@code
+def generate_full_name():
+    first_name = 'Asabeneh'
+    last_name = 'Yetayeh'
+    print(first_name + ' ' + last_name)
+
+generate_full_name()
+generate_full_name()
+@end
+
+@md
+en: ## Parameters and return values
+**Parameters** are the names in the brackets; the values you pass in a call are the **arguments**. `return` sends a result back to the caller and ends the function. A function without `return` gives back `None`.
+
+Printing and returning are different: `print` only shows a value, `return` hands it over so the rest of the program can use it.
+pl: ## Parametry i wartości zwracane
+**Parametry** to nazwy w nawiasach; wartości podane przy wywołaniu to **argumenty**. `return` odsyła wynik do miejsca wywołania i kończy funkcję. Funkcja bez `return` zwraca `None`.
+
+Wypisanie i zwrócenie to co innego: `print` tylko pokazuje wartość, a `return` ją oddaje, żeby reszta programu mogła z niej skorzystać.
+de: ## Parameter und Rückgabewerte
+**Parameter** sind die Namen in den Klammern; die Werte, die du beim Aufruf übergibst, sind die **Argumente**. `return` gibt ein Ergebnis an den Aufrufer zurück und beendet die Funktion. Eine Funktion ohne `return` liefert `None`.
+
+Ausgeben und Zurückgeben sind verschieden: `print` zeigt einen Wert nur an, `return` reicht ihn weiter, damit der Rest des Programms ihn nutzen kann.
+es: ## Parámetros y valores devueltos
+Los **parámetros** son los nombres entre paréntesis; los valores que pasas al llamar son los **argumentos**. `return` devuelve un resultado a quien llamó y termina la función. Una función sin `return` devuelve `None`.
+
+Imprimir y devolver no es lo mismo: `print` solo muestra un valor, `return` lo entrega para que el resto del programa pueda usarlo.
+fr: ## Paramètres et valeurs de retour
+Les **paramètres** sont les noms entre parenthèses ; les valeurs passées lors de l'appel sont les **arguments**. `return` renvoie un résultat à l'appelant et termine la fonction. Une fonction sans `return` renvoie `None`.
+
+Afficher et renvoyer, ce n'est pas pareil : `print` ne fait que montrer une valeur, `return` la transmet pour que le reste du programme puisse s'en servir.
+
+@code
+def square(x):
+    return x * x
+
+def area_of_rectangle(width, height):
+    return width * height
+
+result = square(4) + area_of_rectangle(2, 3)
+print(result)      # 22
+
+def no_return():
+    print('Hi')
+
+print(no_return())  # Hi, then None
+@end
+
+@md
+en: ## Keyword and default arguments
+Arguments can be passed by name – then their order does not matter: `greet(name='Anna', greeting='Hi')`. A parameter can have a **default value**, used when the caller leaves it out. Parameters with defaults go after those without.
+pl: ## Argumenty nazwane i domyślne
+Argumenty można przekazywać po nazwie – wtedy kolejność nie ma znaczenia: `greet(name='Anna', greeting='Hi')`. Parametr może mieć **wartość domyślną**, używaną, gdy wywołujący go pominie. Parametry z wartościami domyślnymi idą po tych bez nich.
+de: ## Schlüsselwort- und Standardargumente
+Argumente kannst du mit Namen übergeben – dann ist die Reihenfolge egal: `greet(name='Anna', greeting='Hi')`. Ein Parameter kann einen **Standardwert** haben, der gilt, wenn der Aufrufer ihn weglässt. Parameter mit Standardwert stehen hinter denen ohne.
+es: ## Argumentos con nombre y por defecto
+Los argumentos se pueden pasar por nombre, y entonces el orden da igual: `greet(name='Anna', greeting='Hi')`. Un parámetro puede tener un **valor por defecto**, que se usa cuando quien llama lo omite. Los parámetros con valor por defecto van detrás de los que no lo tienen.
+fr: ## Arguments nommés et valeurs par défaut
+Les arguments peuvent être passés par leur nom – leur ordre n'a alors plus d'importance : `greet(name='Anna', greeting='Hi')`. Un paramètre peut avoir une **valeur par défaut**, utilisée quand l'appelant l'omet. Les paramètres avec valeur par défaut viennent après ceux qui n'en ont pas.
+
+@code
+def greet(name, greeting='Hello'):
+    return f'{greeting}, {name}!'
+
+print(greet('Anna'))
+print(greet('Tom', 'Good morning'))
+print(greet(greeting='Hi', name='Maria'))
+
+def weight_of_object(mass, gravity=9.81):
+    return f'{mass * gravity:.2f} N'
+
+print(weight_of_object(100))
+print(weight_of_object(100, 1.62))   # on the Moon
+@end
+
+@md
+en: ## Any number of arguments
+A parameter with a star, `*args`, collects any number of positional arguments into a tuple. With two stars, `**kwargs` collects keyword arguments into a dictionary. Functions can also be passed to other functions like any other value – more about that on day 14.
+pl: ## Dowolna liczba argumentów
+Parametr z gwiazdką, `*args`, zbiera dowolną liczbę argumentów pozycyjnych w krotkę. Z dwiema gwiazdkami, `**kwargs`, zbiera argumenty nazwane w słownik. Funkcje można też przekazywać do innych funkcji jak każdą inną wartość – więcej o tym w dniu 14.
+de: ## Beliebig viele Argumente
+Ein Parameter mit Stern, `*args`, sammelt beliebig viele Positionsargumente in einem Tupel. Mit zwei Sternen sammelt `**kwargs` Schlüsselwortargumente in einem Dictionary. Funktionen kannst du außerdem wie jeden anderen Wert an andere Funktionen übergeben – mehr dazu an Tag 14.
+es: ## Cualquier número de argumentos
+Un parámetro con asterisco, `*args`, recoge cualquier número de argumentos posicionales en una tupla. Con dos asteriscos, `**kwargs` recoge los argumentos con nombre en un diccionario. Las funciones también se pueden pasar a otras funciones como cualquier otro valor; más sobre esto el día 14.
+fr: ## Un nombre quelconque d'arguments
+Un paramètre étoilé, `*args`, rassemble un nombre quelconque d'arguments positionnels dans un tuple. Avec deux étoiles, `**kwargs` rassemble les arguments nommés dans un dictionnaire. On peut aussi passer des fonctions à d'autres fonctions, comme n'importe quelle valeur – on en reparle le jour 14.
+
+@code
+def sum_all_nums(*nums):
+    total = 0
+    for num in nums:
+        total += num
+    return total
+
+print(sum_all_nums(2, 3, 5))        # 10
+
+def describe(**info):
+    for key, value in info.items():
+        print(key, '=', value)
+
+describe(name='Anna', age=30)
+
+def apply(func, value):
+    return func(value)
+
+print(apply(len, 'Python'))         # 6
+@end
+
+@exercise add
+@title
+en: Add two numbers
+pl: Dodaj dwie liczby
+de: Zwei Zahlen addieren
+es: Sumar dos números
+fr: Additionner deux nombres
+@text
+en: Write the function `add_two_numbers(a, b)` that **returns** the sum of its two parameters, and `area_of_circle(r)` that returns `3.14 * r ** 2`.
+pl: Napisz funkcję `add_two_numbers(a, b)`, która **zwraca** sumę swoich dwóch parametrów, oraz `area_of_circle(r)`, która zwraca `3.14 * r ** 2`.
+de: Schreib die Funktion `add_two_numbers(a, b)`, die die Summe ihrer beiden Parameter **zurückgibt**, und `area_of_circle(r)`, die `3.14 * r ** 2` zurückgibt.
+es: Escribe la función `add_two_numbers(a, b)`, que **devuelve** la suma de sus dos parámetros, y `area_of_circle(r)`, que devuelve `3.14 * r ** 2`.
+fr: Écris la fonction `add_two_numbers(a, b)` qui **renvoie** la somme de ses deux paramètres, et `area_of_circle(r)` qui renvoie `3.14 * r ** 2`.
+@hint
+en: Use `return`, not `print` – the checks call your functions and look at what they give back.
+pl: Użyj `return`, nie `print` – sprawdzanie wywołuje twoje funkcje i patrzy, co zwracają.
+de: Nimm `return`, nicht `print` – die Prüfung ruft deine Funktionen auf und schaut, was sie zurückgeben.
+es: Usa `return`, no `print`: las comprobaciones llaman a tus funciones y miran lo que devuelven.
+fr: Utilise `return`, pas `print` – la vérification appelle tes fonctions et regarde ce qu'elles renvoient.
+@starter
+def add_two_numbers(a, b):
+    pass
+
+
+def area_of_circle(r):
+    pass
+@end
+@solution
+def add_two_numbers(a, b):
+    return a + b
+
+
+def area_of_circle(r):
+    return 3.14 * r ** 2
+
+
+print(add_two_numbers(2, 3), area_of_circle(10))
+@end
+@case
+expr: add_two_numbers(2, 3) == 5
+expr: add_two_numbers(-1, 1) == 0
+expr: abs(area_of_circle(10) - 314.0) < 1e-9
+expr: abs(area_of_circle(1) - 3.14) < 1e-9
+
+@exercise celsius
+@title
+en: Celsius to Fahrenheit
+pl: Celsjusze na Fahrenheity
+de: Celsius in Fahrenheit
+es: Celsius a Fahrenheit
+fr: Celsius en Fahrenheit
+@text
+en: Write `convert_celsius_to_fahrenheit(c)` that returns `c * 9 / 5 + 32`. Then write `check_season(month)` that takes a month name in English and returns `'Autumn'`, `'Winter'`, `'Spring'` or `'Summer'` – as on day 9, but as a function.
+pl: Napisz `convert_celsius_to_fahrenheit(c)`, która zwraca `c * 9 / 5 + 32`. Potem napisz `check_season(month)`, która dostaje angielską nazwę miesiąca i zwraca `'Autumn'`, `'Winter'`, `'Spring'` albo `'Summer'` – jak w dniu 9, tylko jako funkcja.
+de: Schreib `convert_celsius_to_fahrenheit(c)`, die `c * 9 / 5 + 32` zurückgibt. Schreib dann `check_season(month)`, die einen englischen Monatsnamen bekommt und `'Autumn'`, `'Winter'`, `'Spring'` oder `'Summer'` zurückgibt – wie an Tag 9, nur als Funktion.
+es: Escribe `convert_celsius_to_fahrenheit(c)`, que devuelve `c * 9 / 5 + 32`. Después escribe `check_season(month)`, que recibe el nombre de un mes en inglés y devuelve `'Autumn'`, `'Winter'`, `'Spring'` o `'Summer'`, como el día 9 pero en forma de función.
+fr: Écris `convert_celsius_to_fahrenheit(c)` qui renvoie `c * 9 / 5 + 32`. Écris ensuite `check_season(month)` qui reçoit un nom de mois en anglais et renvoie `'Autumn'`, `'Winter'`, `'Spring'` ou `'Summer'` – comme le jour 9, mais sous forme de fonction.
+@hint
+en: Inside a function, `return` can stand in each branch: `if month in [...]: return 'Autumn'`.
+pl: W funkcji `return` może stać w każdej gałęzi: `if month in [...]: return 'Autumn'`.
+de: In einer Funktion darf in jedem Zweig ein `return` stehen: `if month in [...]: return 'Autumn'`.
+es: Dentro de una función, puede haber un `return` en cada rama: `if month in [...]: return 'Autumn'`.
+fr: Dans une fonction, chaque branche peut avoir son `return` : `if month in [...]: return 'Autumn'`.
+@starter
+def convert_celsius_to_fahrenheit(c):
+    pass
+
+
+def check_season(month):
+    pass
+@end
+@solution
+def convert_celsius_to_fahrenheit(c):
+    return c * 9 / 5 + 32
+
+
+def check_season(month):
+    month = month.strip().title()
+    if month in ['September', 'October', 'November']:
+        return 'Autumn'
+    if month in ['December', 'January', 'February']:
+        return 'Winter'
+    if month in ['March', 'April', 'May']:
+        return 'Spring'
+    return 'Summer'
+
+
+print(convert_celsius_to_fahrenheit(100), check_season('May'))
+@end
+@case
+expr: convert_celsius_to_fahrenheit(0) == 32
+expr: convert_celsius_to_fahrenheit(100) == 212
+expr: convert_celsius_to_fahrenheit(-40) == -40
+expr: [check_season(m) for m in ['October', 'January', 'April', 'August']] == ['Autumn', 'Winter', 'Spring', 'Summer']
+
+@exercise reverse
+@title
+en: Reverse a list
+pl: Odwróć listę
+de: Eine Liste umdrehen
+es: Invertir una lista
+fr: Inverser une liste
+@text
+en: Write `reverse_list(items)` that returns a **new** list with the items in reverse order, without using `reverse()` or `[::-1]`. The original list must not change.
+pl: Napisz `reverse_list(items)`, która zwraca **nową** listę z elementami w odwrotnej kolejności, bez używania `reverse()` ani `[::-1]`. Oryginalna lista nie może się zmienić.
+de: Schreib `reverse_list(items)`, die eine **neue** Liste mit den Elementen in umgekehrter Reihenfolge zurückgibt – ohne `reverse()` oder `[::-1]`. Die ursprüngliche Liste darf sich nicht ändern.
+es: Escribe `reverse_list(items)`, que devuelve una lista **nueva** con los elementos en orden inverso, sin usar `reverse()` ni `[::-1]`. La lista original no debe cambiar.
+fr: Écris `reverse_list(items)` qui renvoie une **nouvelle** liste avec les éléments dans l'ordre inverse, sans utiliser `reverse()` ni `[::-1]`. La liste d'origine ne doit pas changer.
+@hint
+en: Start with `result = []` and use `result.insert(0, item)` for each item.
+pl: Zacznij od `result = []` i dla każdego elementu użyj `result.insert(0, item)`.
+de: Beginne mit `result = []` und nimm `result.insert(0, item)` für jedes Element.
+es: Empieza con `result = []` y usa `result.insert(0, item)` para cada elemento.
+fr: Commence avec `result = []` et utilise `result.insert(0, item)` pour chaque élément.
+@starter
+def reverse_list(items):
+    pass
+@end
+@solution
+def reverse_list(items):
+    result = []
+    for item in items:
+        result.insert(0, item)
+    return result
+
+
+print(reverse_list([1, 2, 3, 4, 5]))
+@end
+@case
+expr: reverse_list([1, 2, 3, 4, 5]) == [5, 4, 3, 2, 1]
+expr: reverse_list(['A', 'B', 'C']) == ['C', 'B', 'A']
+expr: reverse_list([]) == []
+expr: (lambda xs: (reverse_list(xs), xs)[1])([1, 2, 3]) == [1, 2, 3]
+expr: '[::-1]' not in open(__file__).read() and '.reverse(' not in open(__file__).read()
+
+@exercise stats
+@title
+en: Many arguments
+pl: Wiele argumentów
+de: Viele Argumente
+es: Muchos argumentos
+fr: Plusieurs arguments
+@text
+en: Write `calculate_mean(*nums)` that returns the average of any number of arguments, and `greet(name, greeting='Hello')` that returns `'Hello, Anna!'` for `greet('Anna')` and `'Hi, Tom!'` for `greet('Tom', 'Hi')`.
+pl: Napisz `calculate_mean(*nums)`, która zwraca średnią dowolnej liczby argumentów, oraz `greet(name, greeting='Hello')`, która dla `greet('Anna')` zwraca `'Hello, Anna!'`, a dla `greet('Tom', 'Hi')` – `'Hi, Tom!'`.
+de: Schreib `calculate_mean(*nums)`, die den Mittelwert beliebig vieler Argumente zurückgibt, und `greet(name, greeting='Hello')`, die für `greet('Anna')` `'Hello, Anna!'` und für `greet('Tom', 'Hi')` `'Hi, Tom!'` zurückgibt.
+es: Escribe `calculate_mean(*nums)`, que devuelve la media de cualquier número de argumentos, y `greet(name, greeting='Hello')`, que devuelve `'Hello, Anna!'` para `greet('Anna')` y `'Hi, Tom!'` para `greet('Tom', 'Hi')`.
+fr: Écris `calculate_mean(*nums)` qui renvoie la moyenne d'un nombre quelconque d'arguments, et `greet(name, greeting='Hello')` qui renvoie `'Hello, Anna!'` pour `greet('Anna')` et `'Hi, Tom!'` pour `greet('Tom', 'Hi')`.
+@hint
+en: `nums` is a tuple, so `sum(nums) / len(nums)` works.
+pl: `nums` to krotka, więc działa `sum(nums) / len(nums)`.
+de: `nums` ist ein Tupel, also funktioniert `sum(nums) / len(nums)`.
+es: `nums` es una tupla, así que funciona `sum(nums) / len(nums)`.
+fr: `nums` est un tuple, donc `sum(nums) / len(nums)` fonctionne.
+@starter
+def calculate_mean(*nums):
+    pass
+
+
+def greet(name, greeting='Hello'):
+    pass
+@end
+@solution
+def calculate_mean(*nums):
+    return sum(nums) / len(nums)
+
+
+def greet(name, greeting='Hello'):
+    return f'{greeting}, {name}!'
+
+
+print(calculate_mean(1, 2, 3, 4), greet('Anna'))
+@end
+@case
+expr: calculate_mean(1, 2, 3, 4) == 2.5
+expr: calculate_mean(10) == 10
+expr: greet('Anna') == 'Hello, Anna!'
+expr: greet('Tom', 'Hi') == 'Hi, Tom!'
+expr: greet(greeting='Hey', name='Maria') == 'Hey, Maria!'

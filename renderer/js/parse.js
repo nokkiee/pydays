@@ -126,6 +126,8 @@ export function parseDay(text, name = 'day') {
         day.blocks.push({ type: 'code', code: body, opts });
       } else if (kind === 'file') {
         day.files.push({ name: rest.trim(), text: body + '\n' });
+        // shown in the lesson where it is defined (files defined among the exercises stay hidden)
+        if (!ex) day.blocks.push({ type: 'file', name: rest.trim(), code: body });
       } else if (!ex) err(`@${kind} outside an exercise`);
       else ex[kind] = body;
     }

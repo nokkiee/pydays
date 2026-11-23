@@ -95,6 +95,7 @@ export default {
   'day.completedOn': 'Completado el {date}',
   'day.undo': 'Deshacer',
   'day.raisesError': 'lanza un error',
+  'day.fileNote': 'guardado junto a tu programa',
   'day.copyToEditor': 'Editar',
   'day.copyToEditorTitle': 'Poner este ejemplo en {file} para cambiarlo y ejecutarlo',
   'day.copied': 'El ejemplo está en {file}. Ctrl+Z recupera tu código.',

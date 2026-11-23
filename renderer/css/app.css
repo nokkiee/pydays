@@ -1187,6 +1187,16 @@ body.side-collapsed .side-spacer {
   color: #d8d5cb;
   tab-size: 4;
 }
+.snippet.file .snippet-bar {
+  gap: 6px;
+}
+.snippet.file .snippet-bar .lang {
+  color: var(--text-2);
+}
+.snippet.file pre {
+  max-height: 320px;
+  overflow: auto;
+}
 .snippet.error .snippet-bar .lang::after {
   content: ' · ' attr(data-note);
   color: var(--err);
