@@ -1,0 +1,444 @@
+@day 26
+@source 26_Day_Python_web/26_python_web.md
+
+@title
+en: Python for the web
+pl: Python w sieci
+de: Python im Web
+es: Python para la web
+fr: Python pour le web
+
+@summary
+en: Build a small website with Flask – routes, templates and static files – and see how routing and templating work by writing simple versions yourself.
+pl: Zbuduj małą stronę we Flasku – trasy, szablony i pliki statyczne – i zobacz, jak działa routing i szablony, pisząc ich proste wersje samodzielnie.
+de: Eine kleine Website mit Flask bauen – Routen, Templates und statische Dateien – und verstehen, wie Routing und Templates funktionieren, indem du einfache Versionen selbst schreibst.
+es: Crea un sitio web pequeño con Flask (rutas, plantillas y archivos estáticos) y entiende cómo funcionan el enrutado y las plantillas escribiendo tú mismo versiones sencillas.
+fr: Construis un petit site web avec Flask – routes, gabarits et fichiers statiques – et comprends le routage et les gabarits en écrivant toi-même des versions simples.
+
+@md
+en: ## How a web application works
+When you open a page, the browser sends an **HTTP request** for a path such as `/about` to a server. The server runs code that decides what to send back – usually HTML – and replies with a **response**. A **web framework** does the plumbing: it receives requests, calls the function you wrote for that path, and sends what the function returns.
+
+Python has several frameworks; **Flask** is small and easy to start with, **Django** is larger and comes with much more built in. Install Flask with `python -m pip install flask`.
+pl: ## Jak działa aplikacja WWW
+Gdy otwierasz stronę, przeglądarka wysyła do serwera **żądanie HTTP** o ścieżkę, na przykład `/about`. Serwer uruchamia kod, który decyduje, co odesłać – zwykle HTML – i odpowiada **odpowiedzią**. **Framework webowy** zajmuje się całą instalacją rurową: odbiera żądania, wywołuje funkcję, którą napisałeś dla danej ścieżki, i odsyła to, co ona zwróci.
+
+Python ma kilka frameworków; **Flask** jest mały i łatwy na początek, **Django** jest większy i ma znacznie więcej wbudowanych funkcji. Flaska zainstalujesz przez `python -m pip install flask`.
+de: ## Wie eine Webanwendung funktioniert
+Wenn du eine Seite öffnest, schickt der Browser eine **HTTP-Anfrage** für einen Pfad wie `/about` an einen Server. Der Server führt Code aus, der entscheidet, was zurückgeht – meist HTML –, und antwortet mit einer **Antwort** (Response). Ein **Web-Framework** übernimmt die Leitungsarbeit: Es nimmt Anfragen entgegen, ruft die Funktion auf, die du für diesen Pfad geschrieben hast, und schickt zurück, was sie liefert.
+
+Python hat mehrere Frameworks; **Flask** ist klein und einfach für den Einstieg, **Django** ist größer und bringt viel mehr mit. Installiere Flask mit `python -m pip install flask`.
+es: ## Cómo funciona una aplicación web
+Cuando abres una página, el navegador envía a un servidor una **petición HTTP** de una ruta como `/about`. El servidor ejecuta código que decide qué devolver (normalmente HTML) y contesta con una **respuesta**. Un **framework web** se encarga de la fontanería: recibe las peticiones, llama a la función que escribiste para esa ruta y envía lo que devuelve.
+
+Python tiene varios frameworks; **Flask** es pequeño y fácil para empezar, y **Django** es más grande y trae mucho más incluido. Instala Flask con `python -m pip install flask`.
+fr: ## Comment fonctionne une application web
+Quand tu ouvres une page, le navigateur envoie à un serveur une **requête HTTP** pour un chemin comme `/about`. Le serveur exécute du code qui décide quoi renvoyer – en général du HTML – et répond par une **réponse**. Un **framework web** s'occupe de la plomberie : il reçoit les requêtes, appelle la fonction que tu as écrite pour ce chemin et renvoie ce qu'elle retourne.
+
+Python a plusieurs frameworks ; **Flask** est petit et facile pour débuter, **Django** est plus gros et intègre beaucoup plus de choses. Installe Flask avec `python -m pip install flask`.
+
+@md
+en: ## A first Flask app
+Each `@app.route(path)` decorator (day 14) connects a path to a function. `app.run()` starts a development server; while it runs, open `http://127.0.0.1:5000` in your browser, and stop it with **Stop** in the editor. This example is not run from the lesson – copy it into the editor with **Edit** and run it there.
+pl: ## Pierwsza aplikacja we Flasku
+Każdy dekorator `@app.route(path)` (dzień 14) łączy ścieżkę z funkcją. `app.run()` uruchamia serwer deweloperski; gdy działa, otwórz w przeglądarce `http://127.0.0.1:5000`, a zatrzymaj go przyciskiem **Zatrzymaj** w edytorze. Tego przykładu nie uruchamia się z lekcji – skopiuj go do edytora przyciskiem **Edytuj** i tam uruchom.
+de: ## Eine erste Flask-App
+Jeder Dekorator `@app.route(path)` (Tag 14) verbindet einen Pfad mit einer Funktion. `app.run()` startet einen Entwicklungsserver; solange er läuft, öffne `http://127.0.0.1:5000` im Browser, und beende ihn mit **Stopp** im Editor. Dieses Beispiel startet nicht aus der Lektion – kopier es mit **Bearbeiten** in den Editor und führ es dort aus.
+es: ## Una primera aplicación Flask
+Cada decorador `@app.route(path)` (día 14) conecta una ruta con una función. `app.run()` arranca un servidor de desarrollo; mientras está en marcha, abre `http://127.0.0.1:5000` en el navegador, y detenlo con **Detener** en el editor. Este ejemplo no se ejecuta desde la lección: cópialo al editor con **Editar** y ejecútalo allí.
+fr: ## Une première application Flask
+Chaque décorateur `@app.route(path)` (jour 14) relie un chemin à une fonction. `app.run()` démarre un serveur de développement ; pendant qu'il tourne, ouvre `http://127.0.0.1:5000` dans ton navigateur, et arrête-le avec **Arrêter** dans l'éditeur. Cet exemple ne se lance pas depuis la leçon – copie-le dans l'éditeur avec **Modifier** et exécute-le là.
+
+@code norun needs=flask
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return '<h1>Welcome</h1><p>This is the home page.</p>'
+
+
+@app.route('/about')
+def about():
+    return '<h1>About us</h1>'
+
+
+@app.route('/hello/<name>')
+def hello(name):
+    return f'<p>Hello, {name}!</p>'
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+@end
+
+@md
+en: ## Templates and static files
+Writing HTML inside Python strings gets messy fast. Flask keeps pages in **templates** – HTML files in a folder called `templates`, written in the **Jinja** language. `{{ name }}` inserts a value, `{% for %}` and `{% if %}` add loops and conditions, and `render_template('home.html', name='Anna')` fills a template in. CSS, images and JavaScript go into a folder called `static`.
+
+A typical project looks like this:
+
+```
+my_site/
+├── app.py
+├── requirements.txt
+├── templates/
+│   ├── layout.html
+│   └── home.html
+└── static/
+    └── css/
+        └── main.css
+```
+pl: ## Szablony i pliki statyczne
+Pisanie HTML w napisach Pythona szybko robi się nieczytelne. Flask trzyma strony w **szablonach** – plikach HTML w folderze `templates`, pisanych w języku **Jinja**. `{{ name }}` wstawia wartość, `{% for %}` i `{% if %}` dodają pętle i warunki, a `render_template('home.html', name='Anna')` wypełnia szablon. CSS, obrazki i JavaScript trafiają do folderu `static`.
+
+Typowy projekt wygląda tak:
+
+```
+my_site/
+├── app.py
+├── requirements.txt
+├── templates/
+│   ├── layout.html
+│   └── home.html
+└── static/
+    └── css/
+        └── main.css
+```
+de: ## Templates und statische Dateien
+HTML in Python-Zeichenketten zu schreiben wird schnell unübersichtlich. Flask legt Seiten in **Templates** ab – HTML-Dateien in einem Ordner namens `templates`, geschrieben in der Sprache **Jinja**. `{{ name }}` setzt einen Wert ein, `{% for %}` und `{% if %}` fügen Schleifen und Bedingungen hinzu, und `render_template('home.html', name='Anna')` füllt ein Template aus. CSS, Bilder und JavaScript kommen in einen Ordner namens `static`.
+
+Ein typisches Projekt sieht so aus:
+
+```
+my_site/
+├── app.py
+├── requirements.txt
+├── templates/
+│   ├── layout.html
+│   └── home.html
+└── static/
+    └── css/
+        └── main.css
+```
+es: ## Plantillas y archivos estáticos
+Escribir HTML dentro de cadenas de Python se complica enseguida. Flask guarda las páginas en **plantillas**: archivos HTML en una carpeta llamada `templates`, escritos en el lenguaje **Jinja**. `{{ name }}` inserta un valor, `{% for %}` y `{% if %}` añaden bucles y condiciones, y `render_template('home.html', name='Anna')` rellena una plantilla. El CSS, las imágenes y el JavaScript van en una carpeta llamada `static`.
+
+Un proyecto típico tiene este aspecto:
+
+```
+my_site/
+├── app.py
+├── requirements.txt
+├── templates/
+│   ├── layout.html
+│   └── home.html
+└── static/
+    └── css/
+        └── main.css
+```
+fr: ## Gabarits et fichiers statiques
+Écrire du HTML dans des chaînes Python devient vite confus. Flask range les pages dans des **gabarits** (templates) – des fichiers HTML d'un dossier nommé `templates`, écrits dans le langage **Jinja**. `{{ name }}` insère une valeur, `{% for %}` et `{% if %}` ajoutent boucles et conditions, et `render_template('home.html', name='Anna')` remplit un gabarit. Le CSS, les images et le JavaScript vont dans un dossier nommé `static`.
+
+Un projet typique ressemble à ceci :
+
+```
+my_site/
+├── app.py
+├── requirements.txt
+├── templates/
+│   ├── layout.html
+│   └── home.html
+└── static/
+    └── css/
+        └── main.css
+```
+
+@code norun needs=flask
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    techs = ['HTML', 'CSS', 'Flask', 'Python']
+    return render_template('home.html', name='30 Days Of Python', techs=techs)
+
+# templates/home.html:
+# <h1>Welcome to {{ name }}</h1>
+# <ul>
+#   {% for tech in techs %}
+#     <li>{{ tech }}</li>
+#   {% endfor %}
+# </ul>
+@end
+
+@md
+en: ## Deploying
+A development server is for your own computer only. To put a site online, it is run by a production server such as **gunicorn** on a hosting service – for example Render, PythonAnywhere or Fly.io. You usually push the project with git, list its packages in `requirements.txt`, and tell the service the start command, e.g. `gunicorn app:app`.
+pl: ## Wdrożenie
+Serwer deweloperski służy tylko na twoim komputerze. Żeby wystawić stronę w internecie, uruchamia się ją na serwerze produkcyjnym, takim jak **gunicorn**, w usłudze hostingowej – na przykład Render, PythonAnywhere czy Fly.io. Zwykle wysyła się projekt przez git, wymienia jego pakiety w `requirements.txt` i podaje usłudze polecenie startowe, np. `gunicorn app:app`.
+de: ## Veröffentlichen
+Ein Entwicklungsserver ist nur für deinen eigenen Computer gedacht. Um eine Seite online zu stellen, läuft sie auf einem Produktionsserver wie **gunicorn** bei einem Hosting-Dienst – zum Beispiel Render, PythonAnywhere oder Fly.io. Meist überträgst du das Projekt mit git, listest seine Pakete in `requirements.txt` und gibst dem Dienst den Startbefehl an, z. B. `gunicorn app:app`.
+es: ## Publicar
+Un servidor de desarrollo es solo para tu propio ordenador. Para poner un sitio en línea, se ejecuta con un servidor de producción como **gunicorn** en un servicio de alojamiento, por ejemplo Render, PythonAnywhere o Fly.io. Normalmente subes el proyecto con git, listas sus paquetes en `requirements.txt` e indicas al servicio el comando de arranque, p. ej. `gunicorn app:app`.
+fr: ## Mettre en ligne
+Un serveur de développement ne sert que sur ton propre ordinateur. Pour mettre un site en ligne, on le fait tourner avec un serveur de production comme **gunicorn** chez un hébergeur – par exemple Render, PythonAnywhere ou Fly.io. En général, tu envoies le projet avec git, tu listes ses paquets dans `requirements.txt` et tu donnes au service la commande de démarrage, par exemple `gunicorn app:app`.
+
+@md
+en: ## How routing works inside
+A framework is ordinary Python. The core of routing is a dictionary from paths to functions, filled by a decorator – the exercises build exactly that, then a tiny template engine.
+pl: ## Jak działa routing od środka
+Framework to zwykły Python. Sercem routingu jest słownik ze ścieżek na funkcje, wypełniany przez dekorator – ćwiczenia budują dokładnie to, a potem malutki silnik szablonów.
+de: ## Wie Routing von innen funktioniert
+Ein Framework ist ganz normales Python. Der Kern des Routings ist ein Dictionary von Pfaden zu Funktionen, das ein Dekorator füllt – genau das bauen die Übungen, danach eine winzige Template-Engine.
+es: ## Cómo funciona el enrutado por dentro
+Un framework es Python normal y corriente. El núcleo del enrutado es un diccionario de rutas a funciones que rellena un decorador; los ejercicios construyen exactamente eso y después un minúsculo motor de plantillas.
+fr: ## Comment fonctionne le routage de l'intérieur
+Un framework, c'est du Python ordinaire. Le cœur du routage est un dictionnaire qui associe des chemins à des fonctions, rempli par un décorateur – les exercices construisent exactement cela, puis un minuscule moteur de gabarits.
+
+@code
+routes = {}
+
+def route(path):
+    def register(func):
+        routes[path] = func
+        return func
+    return register
+
+@route('/')
+def home():
+    return 'Home page'
+
+@route('/about')
+def about():
+    return 'About us'
+
+for path in ['/', '/about', '/contact']:
+    view = routes.get(path)
+    print(path, '->', view() if view else '404 Not Found')
+@end
+
+@exercise router
+@title
+en: A tiny router
+pl: Malutki router
+de: Ein winziger Router
+es: Un router diminuto
+fr: Un tout petit routeur
+@text
+en: Complete the decorator `route(path)` so that it stores the decorated function in `routes` under `path`, and write `handle(path)` that calls the function for `path` and returns its result – or `'404 Not Found'` if there is none. The three routes in the starter must work.
+pl: Dokończ dekorator `route(path)` tak, żeby zapisywał udekorowaną funkcję w `routes` pod kluczem `path`, i napisz `handle(path)`, która wywołuje funkcję dla `path` i zwraca jej wynik – albo `'404 Not Found'`, jeśli takiej nie ma. Trzy trasy ze startera muszą działać.
+de: Vervollständige den Dekorator `route(path)`, sodass er die dekorierte Funktion unter `path` in `routes` ablegt, und schreib `handle(path)`, die die Funktion für `path` aufruft und ihr Ergebnis zurückgibt – oder `'404 Not Found'`, wenn es keine gibt. Die drei Routen im Starter müssen funktionieren.
+es: Completa el decorador `route(path)` para que guarde la función decorada en `routes` bajo `path`, y escribe `handle(path)`, que llama a la función de `path` y devuelve su resultado, o `'404 Not Found'` si no hay ninguna. Las tres rutas del código inicial deben funcionar.
+fr: Complète le décorateur `route(path)` pour qu'il range la fonction décorée dans `routes` sous `path`, et écris `handle(path)` qui appelle la fonction associée à `path` et renvoie son résultat – ou `'404 Not Found'` s'il n'y en a pas. Les trois routes du code de départ doivent fonctionner.
+@hint
+en: Like the example above: `route` returns an inner function `register(func)` that stores `func` and returns it.
+pl: Jak w przykładzie wyżej: `route` zwraca wewnętrzną funkcję `register(func)`, która zapisuje `func` i ją zwraca.
+de: Wie im Beispiel oben: `route` gibt eine innere Funktion `register(func)` zurück, die `func` ablegt und zurückgibt.
+es: Como en el ejemplo de arriba: `route` devuelve una función interior `register(func)` que guarda `func` y la devuelve.
+fr: Comme dans l'exemple ci-dessus : `route` renvoie une fonction intérieure `register(func)` qui range `func` et la renvoie.
+@starter
+routes = {}
+
+
+def route(path):
+    def register(func):
+        return func
+    return register
+
+
+def handle(path):
+    pass
+
+
+@route('/')
+def home():
+    return '<h1>Home</h1>'
+
+
+@route('/about')
+def about():
+    return '<h1>About</h1>'
+
+
+@route('/contact')
+def contact():
+    return '<h1>Contact</h1>'
+@end
+@solution
+routes = {}
+
+
+def route(path):
+    def register(func):
+        routes[path] = func
+        return func
+    return register
+
+
+def handle(path):
+    view = routes.get(path)
+    if view is None:
+        return '404 Not Found'
+    return view()
+
+
+@route('/')
+def home():
+    return '<h1>Home</h1>'
+
+
+@route('/about')
+def about():
+    return '<h1>About</h1>'
+
+
+@route('/contact')
+def contact():
+    return '<h1>Contact</h1>'
+
+
+for p in ['/', '/about', '/nothing']:
+    print(p, handle(p))
+@end
+@case
+expr: set(routes) == {'/', '/about', '/contact'}
+expr: handle('/') == '<h1>Home</h1>' and handle('/contact') == '<h1>Contact</h1>'
+expr: handle('/missing') == '404 Not Found'
+expr: home() == '<h1>Home</h1>'
+
+@exercise template
+@title
+en: A tiny template engine
+pl: Malutki silnik szablonów
+de: Eine winzige Template-Engine
+es: Un motor de plantillas diminuto
+fr: Un tout petit moteur de gabarits
+@text
+en: Write `render(template, **values)` that replaces every `{{ name }}` in the template with the value of `name` – with or without spaces inside the braces. A name that is not given becomes an empty string. For example `render('<h1>{{ title }}</h1>', title='Hi')` returns `'<h1>Hi</h1>'`.
+pl: Napisz `render(template, **values)`, która zamienia każde `{{ name }}` w szablonie na wartość `name` – ze spacjami w nawiasach albo bez nich. Nazwa, której nie podano, zamienia się w pusty napis. Na przykład `render('<h1>{{ title }}</h1>', title='Hi')` zwraca `'<h1>Hi</h1>'`.
+de: Schreib `render(template, **values)`, die jedes `{{ name }}` im Template durch den Wert von `name` ersetzt – mit oder ohne Leerzeichen in den Klammern. Ein Name, der nicht übergeben wurde, wird zu einer leeren Zeichenkette. Zum Beispiel liefert `render('<h1>{{ title }}</h1>', title='Hi')` `'<h1>Hi</h1>'`.
+es: Escribe `render(template, **values)`, que reemplaza cada `{{ name }}` de la plantilla por el valor de `name`, con o sin espacios dentro de las llaves. Un nombre que no se ha pasado se convierte en una cadena vacía. Por ejemplo, `render('<h1>{{ title }}</h1>', title='Hi')` devuelve `'<h1>Hi</h1>'`.
+fr: Écris `render(template, **values)` qui remplace chaque `{{ name }}` du gabarit par la valeur de `name` – avec ou sans espaces entre les accolades. Un nom non fourni devient une chaîne vide. Par exemple, `render('<h1>{{ title }}</h1>', title='Hi')` renvoie `'<h1>Hi</h1>'`.
+@hint
+en: `re.sub` accepts a function instead of a replacement text: `re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)`.
+pl: `re.sub` przyjmuje funkcję zamiast tekstu zastępczego: `re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)`.
+de: `re.sub` akzeptiert statt eines Ersatztexts eine Funktion: `re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)`.
+es: `re.sub` acepta una función en lugar de un texto de reemplazo: `re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)`.
+fr: `re.sub` accepte une fonction à la place d'un texte de remplacement : `re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)`.
+@starter
+import re
+
+
+def render(template, **values):
+    return template
+@end
+@solution
+import re
+
+
+def render(template, **values):
+    return re.sub(r'\{\{\s*(\w+)\s*\}\}', lambda m: str(values.get(m.group(1), '')), template)
+
+
+print(render('<h1>{{ title }}</h1><p>{{text}}</p>', title='PyDays', text='Day 26'))
+@end
+@case
+expr: render('<h1>{{ title }}</h1>', title='Hi') == '<h1>Hi</h1>'
+expr: render('{{a}}+{{ b }}={{  c  }}', a=1, b=2, c=3) == '1+2=3'
+expr: render('Hello, {{ name }}!') == 'Hello, !'
+expr: render('no placeholders') == 'no placeholders'
+
+@exercise html-list
+@title
+en: Safe HTML
+pl: Bezpieczny HTML
+de: Sicheres HTML
+es: HTML seguro
+fr: Du HTML sûr
+@text
+en: Write `html_list(items)` that returns an HTML list: `html_list(['a', 'b'])` gives `'<ul><li>a</li><li>b</li></ul>'`. Text from users can contain `<` or `&`, so escape every item with `html.escape` – otherwise someone could inject their own HTML into your page.
+pl: Napisz `html_list(items)`, która zwraca listę HTML: `html_list(['a', 'b'])` daje `'<ul><li>a</li><li>b</li></ul>'`. Tekst od użytkowników może zawierać `<` albo `&`, więc każdy element zabezpiecz przez `html.escape` – inaczej ktoś mógłby wstrzyknąć do twojej strony własny HTML.
+de: Schreib `html_list(items)`, die eine HTML-Liste zurückgibt: `html_list(['a', 'b'])` ergibt `'<ul><li>a</li><li>b</li></ul>'`. Text von Nutzern kann `<` oder `&` enthalten, also maskiere jedes Element mit `html.escape` – sonst könnte jemand eigenes HTML in deine Seite einschleusen.
+es: Escribe `html_list(items)`, que devuelve una lista HTML: `html_list(['a', 'b'])` da `'<ul><li>a</li><li>b</li></ul>'`. El texto de los usuarios puede contener `<` o `&`, así que escapa cada elemento con `html.escape`; si no, alguien podría inyectar su propio HTML en tu página.
+fr: Écris `html_list(items)` qui renvoie une liste HTML : `html_list(['a', 'b'])` donne `'<ul><li>a</li><li>b</li></ul>'`. Le texte des utilisateurs peut contenir `<` ou `&` : échappe donc chaque élément avec `html.escape` – sinon quelqu'un pourrait injecter son propre HTML dans ta page.
+@hint
+en: `'<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'`
+pl: `'<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'`
+de: `'<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'`
+es: `'<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'`
+fr: `'<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'`
+@starter
+import html
+
+
+def html_list(items):
+    pass
+@end
+@solution
+import html
+
+
+def html_list(items):
+    return '<ul>' + ''.join(f'<li>{html.escape(str(item))}</li>' for item in items) + '</ul>'
+
+
+print(html_list(['HTML', 'CSS', '<script>']))
+@end
+@case
+expr: html_list(['a', 'b']) == '<ul><li>a</li><li>b</li></ul>'
+expr: html_list([]) == '<ul></ul>'
+expr: html_list(['<b>bold</b>', 'Tom & Jerry']) == '<ul><li>&lt;b&gt;bold&lt;/b&gt;</li><li>Tom &amp; Jerry</li></ul>'
+expr: html_list([1, 2]) == '<ul><li>1</li><li>2</li></ul>'
+
+@exercise params
+@title
+en: Routes with parameters
+pl: Trasy z parametrami
+de: Routen mit Parametern
+es: Rutas con parámetros
+fr: Routes avec paramètres
+@text
+en: Flask turns `/hello/<name>` into a pattern. Write `match_route(pattern, path)` that does the same: it returns a dictionary of the parameters if `path` fits `pattern`, or `None` if it does not. `match_route('/hello/<name>', '/hello/Anna')` returns `{'name': 'Anna'}`, and `match_route('/', '/')` returns `{}`.
+pl: Flask zamienia `/hello/<name>` we wzorzec. Napisz `match_route(pattern, path)`, która robi to samo: zwraca słownik parametrów, jeśli `path` pasuje do `pattern`, albo `None`, jeśli nie. `match_route('/hello/<name>', '/hello/Anna')` zwraca `{'name': 'Anna'}`, a `match_route('/', '/')` zwraca `{}`.
+de: Flask macht aus `/hello/<name>` ein Muster. Schreib `match_route(pattern, path)`, die dasselbe tut: Sie gibt ein Dictionary der Parameter zurück, wenn `path` zu `pattern` passt, sonst `None`. `match_route('/hello/<name>', '/hello/Anna')` liefert `{'name': 'Anna'}`, und `match_route('/', '/')` liefert `{}`.
+es: Flask convierte `/hello/<name>` en un patrón. Escribe `match_route(pattern, path)`, que hace lo mismo: devuelve un diccionario con los parámetros si `path` encaja con `pattern`, o `None` si no. `match_route('/hello/<name>', '/hello/Anna')` devuelve `{'name': 'Anna'}`, y `match_route('/', '/')` devuelve `{}`.
+fr: Flask transforme `/hello/<name>` en motif. Écris `match_route(pattern, path)` qui fait la même chose : elle renvoie un dictionnaire des paramètres si `path` correspond à `pattern`, ou `None` sinon. `match_route('/hello/<name>', '/hello/Anna')` renvoie `{'name': 'Anna'}`, et `match_route('/', '/')` renvoie `{}`.
+@hint
+en: Split both on `'/'`. They must have the same number of parts; a part like `<name>` takes any value, every other part must be equal.
+pl: Podziel oba po `'/'`. Muszą mieć tyle samo części; część w rodzaju `<name>` przyjmuje dowolną wartość, każda inna musi być równa.
+de: Zerleg beide an `'/'`. Sie müssen gleich viele Teile haben; ein Teil wie `<name>` nimmt jeden Wert, alle anderen müssen gleich sein.
+es: Divide los dos por `'/'`. Deben tener el mismo número de partes; una parte como `<name>` acepta cualquier valor y las demás deben ser iguales.
+fr: Découpe les deux sur `'/'`. Ils doivent avoir le même nombre de parties ; une partie comme `<name>` accepte n'importe quelle valeur, toutes les autres doivent être identiques.
+@starter
+def match_route(pattern, path):
+    pass
+@end
+@solution
+def match_route(pattern, path):
+    p_parts = pattern.split('/')
+    parts = path.split('/')
+    if len(p_parts) != len(parts):
+        return None
+    params = {}
+    for p, part in zip(p_parts, parts):
+        if p.startswith('<') and p.endswith('>'):
+            if not part:
+                return None
+            params[p[1:-1]] = part
+        elif p != part:
+            return None
+    return params
+
+
+print(match_route('/hello/<name>', '/hello/Anna'))
+@end
+@case
+expr: match_route('/hello/<name>', '/hello/Anna') == {'name': 'Anna'}
+expr: match_route('/', '/') == {}
+expr: match_route('/users/<id>/posts/<post>', '/users/7/posts/42') == {'id': '7', 'post': '42'}
+expr: match_route('/hello/<name>', '/bye/Anna') is None and match_route('/hello/<name>', '/hello/a/b') is None
