@@ -1,0 +1,319 @@
+@day 24
+@source 24_Day_Statistics/24_statistics.md
+
+@title
+en: Statistics
+pl: Statystyka
+de: Statistik
+es: Estadística
+fr: Statistiques
+
+@summary
+en: Describe data with the mean, median, mode, spread and quartiles using the statistics module, build a frequency distribution, and meet NumPy arrays.
+pl: Opisuj dane średnią, medianą, dominantą, rozrzutem i kwartylami za pomocą modułu statistics, buduj rozkład częstości i poznaj tablice NumPy.
+de: Daten mit Mittelwert, Median, Modus, Streuung und Quartilen über das Modul statistics beschreiben, eine Häufigkeitsverteilung bauen und NumPy-Arrays kennenlernen.
+es: Describe datos con la media, la mediana, la moda, la dispersión y los cuartiles usando el módulo statistics, construye una distribución de frecuencias y conoce los arrays de NumPy.
+fr: Décris des données avec la moyenne, la médiane, le mode, la dispersion et les quartiles grâce au module statistics, construis une distribution de fréquences et découvre les tableaux NumPy.
+
+@md
+en: ## Describing data
+**Statistics** turns a pile of numbers into a few that describe it. The most common ones:
+
+| Measure | Meaning |
+|---|---|
+| mean | the average: the sum divided by the count |
+| median | the middle value of the sorted data – not pulled by extreme values |
+| mode | the most frequent value |
+| range | the largest value minus the smallest |
+| variance, standard deviation | how far the values typically are from the mean |
+| quartiles | the values that cut the sorted data into four equal parts |
+
+Python's `statistics` module computes all of these.
+pl: ## Opisywanie danych
+**Statystyka** zamienia stos liczb w kilka, które go opisują. Najczęstsze z nich:
+
+| Miara | Znaczenie |
+|---|---|
+| średnia | suma podzielona przez liczbę wartości |
+| mediana | środkowa wartość posortowanych danych – skrajne wartości jej nie przesuwają |
+| dominanta | najczęstsza wartość |
+| rozstęp | największa wartość minus najmniejsza |
+| wariancja, odchylenie standardowe | jak daleko od średniej leżą zwykle wartości |
+| kwartyle | wartości, które dzielą posortowane dane na cztery równe części |
+
+Moduł `statistics` w Pythonie oblicza je wszystkie.
+de: ## Daten beschreiben
+**Statistik** macht aus einem Haufen Zahlen einige wenige, die ihn beschreiben. Die gängigsten:
+
+| Maß | Bedeutung |
+|---|---|
+| Mittelwert | der Durchschnitt: Summe geteilt durch Anzahl |
+| Median | der mittlere Wert der sortierten Daten – Ausreißer verschieben ihn nicht |
+| Modus | der häufigste Wert |
+| Spannweite | größter Wert minus kleinster |
+| Varianz, Standardabweichung | wie weit die Werte typischerweise vom Mittelwert entfernt sind |
+| Quartile | die Werte, die die sortierten Daten in vier gleiche Teile schneiden |
+
+Das Python-Modul `statistics` berechnet all das.
+es: ## Describir datos
+La **estadística** convierte un montón de números en unos pocos que lo describen. Los más habituales:
+
+| Medida | Significado |
+|---|---|
+| media | el promedio: la suma dividida entre la cantidad |
+| mediana | el valor central de los datos ordenados; los valores extremos no la desplazan |
+| moda | el valor más frecuente |
+| rango | el valor mayor menos el menor |
+| varianza, desviación típica | lo lejos que suelen estar los valores de la media |
+| cuartiles | los valores que dividen los datos ordenados en cuatro partes iguales |
+
+El módulo `statistics` de Python los calcula todos.
+fr: ## Décrire des données
+Les **statistiques** transforment un tas de nombres en quelques-uns qui le décrivent. Les plus courants :
+
+| Mesure | Signification |
+|---|---|
+| moyenne | la somme divisée par le nombre de valeurs |
+| médiane | la valeur du milieu des données triées – les valeurs extrêmes ne la déplacent pas |
+| mode | la valeur la plus fréquente |
+| étendue | la plus grande valeur moins la plus petite |
+| variance, écart type | à quelle distance de la moyenne se trouvent généralement les valeurs |
+| quartiles | les valeurs qui coupent les données triées en quatre parts égales |
+
+Le module `statistics` de Python les calcule tous.
+
+@code
+import statistics as st
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+print('count:   ', len(ages))
+print('mean:    ', st.mean(ages))
+print('median:  ', st.median(ages))
+print('mode:    ', st.mode(ages))
+print('range:   ', max(ages) - min(ages))
+print('variance:', round(st.variance(ages), 2))
+print('st. dev.:', round(st.stdev(ages), 2))
+print('quartiles:', st.quantiles(ages, n=4))
+@end
+
+@md
+en: ## Frequency
+How often each value occurs is its **frequency**. `collections.Counter` counts the items of a list in one step, and `most_common()` returns them from the most frequent. Dividing by the number of values gives each value's share as a percentage.
+pl: ## Częstość
+To, jak często występuje dana wartość, to jej **częstość**. `collections.Counter` liczy elementy listy w jednym kroku, a `most_common()` zwraca je od najczęstszego. Dzielenie przez liczbę wartości daje udział każdej wartości w procentach.
+de: ## Häufigkeit
+Wie oft ein Wert vorkommt, ist seine **Häufigkeit**. `collections.Counter` zählt die Elemente einer Liste in einem Schritt, und `most_common()` gibt sie vom häufigsten an zurück. Teilt man durch die Anzahl der Werte, erhält man den Anteil jedes Werts in Prozent.
+es: ## Frecuencia
+Las veces que aparece un valor son su **frecuencia**. `collections.Counter` cuenta los elementos de una lista de una vez, y `most_common()` los devuelve empezando por el más frecuente. Dividir entre el número de valores da la proporción de cada valor en porcentaje.
+fr: ## Fréquence
+Le nombre de fois qu'une valeur apparaît est sa **fréquence**. `collections.Counter` compte les éléments d'une liste en une seule étape, et `most_common()` les renvoie du plus fréquent au moins fréquent. Diviser par le nombre de valeurs donne la part de chaque valeur en pourcentage.
+
+@code
+from collections import Counter
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+counts = Counter(ages)
+for age, n in counts.most_common(3):
+    print(age, n, f'{n / len(ages) * 100:.0f}%')
+for age in sorted(counts):
+    print(f'{age}: {"#" * counts[age]}')
+@end
+
+@md
+en: ## NumPy
+For large amounts of numbers, data scientists use **NumPy**. Its **arrays** apply an operation to every element at once – no loop needed – and are much faster than lists. NumPy is a separate package (`python -m pip install numpy`); the example below runs once it is installed.
+pl: ## NumPy
+Do dużych ilości liczb analitycy danych używają **NumPy**. Jego **tablice** stosują działanie do wszystkich elementów naraz – bez pętli – i są znacznie szybsze od list. NumPy to osobny pakiet (`python -m pip install numpy`); poniższy przykład zadziała po jego zainstalowaniu.
+de: ## NumPy
+Für große Zahlenmengen nehmen Data Scientists **NumPy**. Seine **Arrays** wenden eine Operation auf alle Elemente gleichzeitig an – ohne Schleife – und sind viel schneller als Listen. NumPy ist ein eigenes Paket (`python -m pip install numpy`); das Beispiel unten läuft, sobald es installiert ist.
+es: ## NumPy
+Para grandes cantidades de números, los científicos de datos usan **NumPy**. Sus **arrays** aplican una operación a todos los elementos a la vez, sin bucles, y son mucho más rápidos que las listas. NumPy es un paquete aparte (`python -m pip install numpy`); el ejemplo de abajo funciona en cuanto lo instales.
+fr: ## NumPy
+Pour de grandes quantités de nombres, les data scientists utilisent **NumPy**. Ses **tableaux** (arrays) appliquent une opération à tous les éléments d'un coup – sans boucle – et sont bien plus rapides que les listes. NumPy est un paquet à part (`python -m pip install numpy`) ; l'exemple ci-dessous fonctionne une fois qu'il est installé.
+
+@code needs=numpy
+import numpy as np
+
+a = np.array([1, 2, 3, 4, 5])
+print(a * 2)                  # [ 2  4  6  8 10]
+print(a ** 2, a.sum(), a.mean())
+print(a[a > 2])               # [3 4 5]
+m = np.array([[1, 2], [3, 4]])
+print(m.shape, m.T)
+@end
+
+@exercise describe
+@title
+en: Describe the ages
+pl: Opisz wiek
+de: Das Alter beschreiben
+es: Describe las edades
+fr: Décris les âges
+@text
+en: Using the `statistics` module, store for `ages`: `mean`, `median`, `mode`, `spread` (the range) and `stdev` – the sample standard deviation rounded to 2 decimal places.
+pl: Używając modułu `statistics`, zapisz dla `ages`: `mean`, `median`, `mode`, `spread` (rozstęp) i `stdev` – odchylenie standardowe z próby zaokrąglone do 2 miejsc po przecinku.
+de: Speichere für `ages` mit dem Modul `statistics`: `mean`, `median`, `mode`, `spread` (die Spannweite) und `stdev` – die Stichproben-Standardabweichung, auf 2 Nachkommastellen gerundet.
+es: Con el módulo `statistics`, guarda para `ages`: `mean`, `median`, `mode`, `spread` (el rango) y `stdev`, la desviación típica muestral redondeada a 2 decimales.
+fr: Avec le module `statistics`, range pour `ages` : `mean`, `median`, `mode`, `spread` (l'étendue) et `stdev` – l'écart type d'échantillon arrondi à 2 décimales.
+@hint
+en: `statistics.stdev(ages)` and `round(x, 2)`. The range is `max(ages) - min(ages)`.
+pl: `statistics.stdev(ages)` i `round(x, 2)`. Rozstęp to `max(ages) - min(ages)`.
+de: `statistics.stdev(ages)` und `round(x, 2)`. Die Spannweite ist `max(ages) - min(ages)`.
+es: `statistics.stdev(ages)` y `round(x, 2)`. El rango es `max(ages) - min(ages)`.
+fr: `statistics.stdev(ages)` et `round(x, 2)`. L'étendue vaut `max(ages) - min(ages)`.
+@starter
+import statistics
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+@end
+@solution
+import statistics
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+mean = statistics.mean(ages)
+median = statistics.median(ages)
+mode = statistics.mode(ages)
+spread = max(ages) - min(ages)
+stdev = round(statistics.stdev(ages), 2)
+print(mean, median, mode, spread, stdev)
+@end
+@case
+expr: abs(mean - 29.76) < 1e-9
+expr: median == 29 and mode == 26 and spread == 14
+expr: stdev == 4.27
+
+@exercise frequency
+@title
+en: Frequency distribution
+pl: Rozkład częstości
+de: Häufigkeitsverteilung
+es: Distribución de frecuencias
+fr: Distribution de fréquences
+@text
+en: Write `frequency_distribution(data)` that returns a list of `(percent, value)` tuples – each value's share of the data in percent – sorted from the largest share. Values with the same share come larger value first; `sorted(pairs, reverse=True)` does exactly that. For `ages` the list starts with `(20.0, 26), (16.0, 27), (12.0, 32)`.
+pl: Napisz `frequency_distribution(data)`, która zwraca listę krotek `(percent, value)` – udział każdej wartości w danych w procentach – posortowaną od największego udziału. Wartości o tym samym udziale idą od większej; dokładnie to robi `sorted(pairs, reverse=True)`. Dla `ages` lista zaczyna się od `(20.0, 26), (16.0, 27), (12.0, 32)`.
+de: Schreib `frequency_distribution(data)`, die eine Liste von `(percent, value)`-Tupeln zurückgibt – den Anteil jedes Werts an den Daten in Prozent –, sortiert vom größten Anteil an. Werte mit gleichem Anteil kommen mit dem größeren Wert zuerst; genau das macht `sorted(pairs, reverse=True)`. Für `ages` beginnt die Liste mit `(20.0, 26), (16.0, 27), (12.0, 32)`.
+es: Escribe `frequency_distribution(data)`, que devuelve una lista de tuplas `(percent, value)` (la proporción de cada valor en los datos, en porcentaje) ordenada de mayor a menor proporción. Los valores con la misma proporción van del mayor al menor; `sorted(pairs, reverse=True)` hace justo eso. Para `ages`, la lista empieza por `(20.0, 26), (16.0, 27), (12.0, 32)`.
+fr: Écris `frequency_distribution(data)` qui renvoie une liste de tuples `(percent, value)` – la part de chaque valeur dans les données, en pourcentage – triée de la plus grande part à la plus petite. À part égale, la plus grande valeur vient d'abord ; c'est exactement ce que fait `sorted(pairs, reverse=True)`. Pour `ages`, la liste commence par `(20.0, 26), (16.0, 27), (12.0, 32)`.
+@hint
+en: Count with `Counter(data)`, then build `(n / len(data) * 100, value)` for each value.
+pl: Policz przez `Counter(data)`, potem zbuduj `(n / len(data) * 100, value)` dla każdej wartości.
+de: Zähle mit `Counter(data)` und bau dann `(n / len(data) * 100, value)` für jeden Wert.
+es: Cuenta con `Counter(data)` y después construye `(n / len(data) * 100, value)` para cada valor.
+fr: Compte avec `Counter(data)`, puis construis `(n / len(data) * 100, value)` pour chaque valeur.
+@starter
+from collections import Counter
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+
+
+def frequency_distribution(data):
+    pass
+@end
+@solution
+from collections import Counter
+
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+
+
+def frequency_distribution(data):
+    counts = Counter(data)
+    pairs = [(n / len(data) * 100, value) for value, n in counts.items()]
+    return sorted(pairs, reverse=True)
+
+
+print(frequency_distribution(ages))
+@end
+@case
+expr: frequency_distribution(ages) == [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
+expr: frequency_distribution(['a', 'b', 'a', 'a']) == [(75.0, 'a'), (25.0, 'b')]
+
+@exercise normalize
+@title
+en: Scaling to 0–1
+pl: Skalowanie do 0–1
+de: Auf 0–1 skalieren
+es: Escalar a 0–1
+fr: Mise à l'échelle entre 0 et 1
+@text
+en: Write `normalize(values)` that scales a list of numbers so that the smallest becomes `0`, the largest `1` and the rest lie in between: each `x` becomes `(x - min) / (max - min)`. Round every result to 2 decimal places.
+pl: Napisz `normalize(values)`, która skaluje listę liczb tak, że najmniejsza staje się `0`, największa `1`, a reszta leży pomiędzy: każde `x` zamienia się w `(x - min) / (max - min)`. Zaokrąglij każdy wynik do 2 miejsc po przecinku.
+de: Schreib `normalize(values)`, die eine Zahlenliste so skaliert, dass die kleinste Zahl `0` wird, die größte `1` und der Rest dazwischen liegt: Aus jedem `x` wird `(x - min) / (max - min)`. Runde jedes Ergebnis auf 2 Nachkommastellen.
+es: Escribe `normalize(values)`, que escala una lista de números para que el menor pase a ser `0`, el mayor `1` y el resto quede entre medias: cada `x` se convierte en `(x - min) / (max - min)`. Redondea cada resultado a 2 decimales.
+fr: Écris `normalize(values)` qui met une liste de nombres à l'échelle pour que le plus petit devienne `0`, le plus grand `1` et les autres se placent entre les deux : chaque `x` devient `(x - min) / (max - min)`. Arrondis chaque résultat à 2 décimales.
+@hint
+en: Compute `low = min(values)` and `high = max(values)` once, before the comprehension.
+pl: Policz `low = min(values)` i `high = max(values)` raz, przed wyrażeniem listowym.
+de: Berechne `low = min(values)` und `high = max(values)` einmal vor der Comprehension.
+es: Calcula `low = min(values)` y `high = max(values)` una sola vez, antes de la comprensión.
+fr: Calcule `low = min(values)` et `high = max(values)` une seule fois, avant la compréhension.
+@starter
+heights = [160, 172, 165, 180, 175]
+
+
+def normalize(values):
+    pass
+@end
+@solution
+heights = [160, 172, 165, 180, 175]
+
+
+def normalize(values):
+    low = min(values)
+    high = max(values)
+    return [round((x - low) / (high - low), 2) for x in values]
+
+
+print(normalize(heights))
+@end
+@case
+expr: normalize(heights) == [0.0, 0.6, 0.25, 1.0, 0.75]
+expr: normalize([10, 20]) == [0.0, 1.0]
+
+@exercise quartiles
+@title
+en: Quartiles and outliers
+pl: Kwartyle i wartości odstające
+de: Quartile und Ausreißer
+es: Cuartiles y valores atípicos
+fr: Quartiles et valeurs aberrantes
+@text
+en: Write `outliers(data)` that finds unusual values. Get the quartiles `q1, q2, q3` with `statistics.quantiles(data, n=4)`, compute `iqr = q3 - q1`, and return the sorted list of values that are below `q1 - 1.5 * iqr` or above `q3 + 1.5 * iqr`.
+pl: Napisz `outliers(data)`, która wyszukuje nietypowe wartości. Pobierz kwartyle `q1, q2, q3` przez `statistics.quantiles(data, n=4)`, policz `iqr = q3 - q1` i zwróć posortowaną listę wartości mniejszych niż `q1 - 1.5 * iqr` albo większych niż `q3 + 1.5 * iqr`.
+de: Schreib `outliers(data)`, die ungewöhnliche Werte findet. Hol dir die Quartile `q1, q2, q3` mit `statistics.quantiles(data, n=4)`, berechne `iqr = q3 - q1` und gib die sortierte Liste der Werte zurück, die unter `q1 - 1.5 * iqr` oder über `q3 + 1.5 * iqr` liegen.
+es: Escribe `outliers(data)`, que encuentra los valores inusuales. Obtén los cuartiles `q1, q2, q3` con `statistics.quantiles(data, n=4)`, calcula `iqr = q3 - q1` y devuelve la lista ordenada de los valores menores que `q1 - 1.5 * iqr` o mayores que `q3 + 1.5 * iqr`.
+fr: Écris `outliers(data)` qui repère les valeurs inhabituelles. Obtiens les quartiles `q1, q2, q3` avec `statistics.quantiles(data, n=4)`, calcule `iqr = q3 - q1` et renvoie la liste triée des valeurs inférieures à `q1 - 1.5 * iqr` ou supérieures à `q3 + 1.5 * iqr`.
+@hint
+en: `q1, q2, q3 = statistics.quantiles(data, n=4)` unpacks the three values.
+pl: `q1, q2, q3 = statistics.quantiles(data, n=4)` rozpakowuje trzy wartości.
+de: `q1, q2, q3 = statistics.quantiles(data, n=4)` entpackt die drei Werte.
+es: `q1, q2, q3 = statistics.quantiles(data, n=4)` desempaqueta los tres valores.
+fr: `q1, q2, q3 = statistics.quantiles(data, n=4)` déballe les trois valeurs.
+@starter
+import statistics
+
+salaries = [4100, 3900, 4300, 4000, 4250, 3950, 15000, 4150, 4050, 1200]
+
+
+def outliers(data):
+    pass
+@end
+@solution
+import statistics
+
+salaries = [4100, 3900, 4300, 4000, 4250, 3950, 15000, 4150, 4050, 1200]
+
+
+def outliers(data):
+    q1, q2, q3 = statistics.quantiles(data, n=4)
+    iqr = q3 - q1
+    low = q1 - 1.5 * iqr
+    high = q3 + 1.5 * iqr
+    return sorted(x for x in data if x < low or x > high)
+
+
+print(outliers(salaries))
+@end
+@case
+expr: outliers(salaries) == [1200, 15000]
+expr: outliers([1, 2, 3, 4, 5, 6, 7, 8]) == []

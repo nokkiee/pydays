@@ -1,0 +1,294 @@
+@day 25
+@source 25_Day_Pandas/25_pandas.md
+
+@title
+en: Pandas
+pl: Pandas
+de: Pandas
+es: Pandas
+fr: Pandas
+
+@summary
+en: Meet pandas Series and DataFrames, then do the same table work – reading a CSV, filtering rows, adding columns, grouping – with plain Python.
+pl: Poznaj obiekty Series i DataFrame z pandas, a potem wykonaj tę samą pracę na tabeli – odczyt CSV, filtrowanie wierszy, dodawanie kolumn, grupowanie – w czystym Pythonie.
+de: Pandas-Series und -DataFrames kennenlernen und dann dieselbe Tabellenarbeit – CSV lesen, Zeilen filtern, Spalten hinzufügen, gruppieren – mit reinem Python erledigen.
+es: Conoce las Series y los DataFrames de pandas y después haz el mismo trabajo con tablas (leer un CSV, filtrar filas, añadir columnas, agrupar) con Python puro.
+fr: Découvre les Series et DataFrames de pandas, puis fais le même travail sur un tableau – lire un CSV, filtrer des lignes, ajouter des colonnes, regrouper – en Python pur.
+
+@md
+en: ## What is pandas?
+**pandas** is the most popular Python package for working with tables of data. A **DataFrame** is a table with named columns and numbered rows; each column is a **Series**. pandas reads CSV and Excel files in one line and has methods for nearly everything you would do in a spreadsheet.
+
+pandas is a separate package: `python -m pip install pandas`. The pandas examples below run once it is installed; the exercises use plain Python, so that you see what pandas does for you.
+
+This lesson comes with a small data file, `people.csv`, shown below.
+pl: ## Czym jest pandas?
+**pandas** to najpopularniejszy pakiet Pythona do pracy z tabelami danych. **DataFrame** to tabela z nazwanymi kolumnami i numerowanymi wierszami; każda kolumna to **Series**. pandas wczytuje pliki CSV i Excela w jednym wierszu i ma metody do niemal wszystkiego, co robi się w arkuszu kalkulacyjnym.
+
+pandas to osobny pakiet: `python -m pip install pandas`. Poniższe przykłady z pandas zadziałają po jego zainstalowaniu; ćwiczenia korzystają z czystego Pythona, żebyś zobaczył, co pandas robi za ciebie.
+
+Do tej lekcji należy mały plik z danymi, `people.csv`, pokazany poniżej.
+de: ## Was ist pandas?
+**pandas** ist das beliebteste Python-Paket für die Arbeit mit Datentabellen. Ein **DataFrame** ist eine Tabelle mit benannten Spalten und nummerierten Zeilen; jede Spalte ist eine **Series**. pandas liest CSV- und Excel-Dateien in einer Zeile und hat Methoden für fast alles, was du in einer Tabellenkalkulation tun würdest.
+
+pandas ist ein eigenes Paket: `python -m pip install pandas`. Die pandas-Beispiele unten laufen, sobald es installiert ist; die Übungen nutzen reines Python, damit du siehst, was pandas dir abnimmt.
+
+Zu dieser Lektion gehört eine kleine Datendatei, `people.csv`, die du unten siehst.
+es: ## ¿Qué es pandas?
+**pandas** es el paquete de Python más popular para trabajar con tablas de datos. Un **DataFrame** es una tabla con columnas con nombre y filas numeradas; cada columna es una **Series**. pandas lee archivos CSV y Excel en una línea y tiene métodos para casi todo lo que harías en una hoja de cálculo.
+
+pandas es un paquete aparte: `python -m pip install pandas`. Los ejemplos de pandas de abajo funcionan en cuanto lo instales; los ejercicios usan Python puro, para que veas lo que pandas hace por ti.
+
+Esta lección incluye un pequeño archivo de datos, `people.csv`, que ves abajo.
+fr: ## Qu'est-ce que pandas ?
+**pandas** est le paquet Python le plus populaire pour travailler avec des tableaux de données. Un **DataFrame** est un tableau avec des colonnes nommées et des lignes numérotées ; chaque colonne est une **Series**. pandas lit les fichiers CSV et Excel en une ligne et propose des méthodes pour presque tout ce que l'on fait dans un tableur.
+
+pandas est un paquet à part : `python -m pip install pandas`. Les exemples pandas ci-dessous fonctionnent une fois qu'il est installé ; les exercices utilisent Python pur, pour que tu voies ce que pandas fait pour toi.
+
+Cette leçon est accompagnée d'un petit fichier de données, `people.csv`, affiché ci-dessous.
+
+@file people.csv
+name,country,age,height_cm,weight_kg
+Anna,Poland,28,168,61
+Lukas,Germany,35,182,84
+Lucía,Spain,22,160,55
+Camille,France,41,171,70
+Piotr,Poland,30,178,77
+Sofia,Spain,33,165,59
+Jonas,Germany,26,190,92
+Marie,France,29,163,54
+@end
+
+@code needs=pandas
+import pandas as pd
+
+s = pd.Series([1, 2, 3, 4, 5], index=['a', 'b', 'c', 'd', 'e'])
+print(s)
+print(s.mean(), s['c'])
+
+df = pd.read_csv('people.csv')
+print(df.head())
+print(df.shape, list(df.columns))
+print(df.describe())
+@end
+
+@md
+en: ## Selecting, filtering and new columns
+In pandas, `df['age']` is a column, `df[df['age'] > 30]` keeps only the rows where the condition is true, and assigning to a new column name computes it for every row at once. `groupby` collects rows with the same value and summarises each group.
+pl: ## Wybieranie, filtrowanie i nowe kolumny
+W pandas `df['age']` to kolumna, `df[df['age'] > 30]` zostawia tylko wiersze, dla których warunek jest prawdziwy, a przypisanie do nowej nazwy kolumny oblicza ją od razu dla każdego wiersza. `groupby` zbiera wiersze z tą samą wartością i podsumowuje każdą grupę.
+de: ## Auswählen, filtern und neue Spalten
+In pandas ist `df['age']` eine Spalte, `df[df['age'] > 30]` behält nur die Zeilen, für die die Bedingung wahr ist, und eine Zuweisung an einen neuen Spaltennamen berechnet sie für alle Zeilen auf einmal. `groupby` sammelt Zeilen mit demselben Wert und fasst jede Gruppe zusammen.
+es: ## Seleccionar, filtrar y crear columnas
+En pandas, `df['age']` es una columna, `df[df['age'] > 30]` se queda solo con las filas que cumplen la condición, y asignar a un nombre de columna nuevo la calcula para todas las filas a la vez. `groupby` reúne las filas con el mismo valor y resume cada grupo.
+fr: ## Sélectionner, filtrer et créer des colonnes
+Avec pandas, `df['age']` est une colonne, `df[df['age'] > 30]` ne garde que les lignes où la condition est vraie, et affecter une valeur à un nouveau nom de colonne la calcule pour toutes les lignes d'un coup. `groupby` rassemble les lignes ayant la même valeur et résume chaque groupe.
+
+@code needs=pandas
+import pandas as pd
+
+df = pd.read_csv('people.csv')
+print(df['age'].mean())
+print(df[df['age'] > 30][['name', 'age']])
+df['bmi'] = (df['weight_kg'] / (df['height_cm'] / 100) ** 2).round(1)
+print(df[['name', 'bmi']])
+print(df.groupby('country')['age'].mean())
+@end
+
+@md
+en: ## The same with plain Python
+Without pandas, a table is a list of dictionaries – one per row – which `csv.DictReader` gives you directly. Remember that the csv module reads every value as text, so convert numbers with `int()` or `float()`. The exercises do the pandas operations above this way.
+pl: ## To samo w czystym Pythonie
+Bez pandas tabela to lista słowników – po jednym na wiersz – którą od razu daje `csv.DictReader`. Pamiętaj, że moduł csv czyta każdą wartość jako tekst, więc liczby zamieniaj przez `int()` albo `float()`. W ćwiczeniach wykonasz w ten sposób działania z pandas pokazane wyżej.
+de: ## Dasselbe mit reinem Python
+Ohne pandas ist eine Tabelle eine Liste von Dictionaries – eins pro Zeile –, die dir `csv.DictReader` direkt liefert. Denk daran, dass das csv-Modul jeden Wert als Text liest; wandle Zahlen also mit `int()` oder `float()` um. Die Übungen erledigen die pandas-Operationen von oben auf diese Weise.
+es: ## Lo mismo con Python puro
+Sin pandas, una tabla es una lista de diccionarios, uno por fila, que `csv.DictReader` te da directamente. Recuerda que el módulo csv lee todos los valores como texto, así que convierte los números con `int()` o `float()`. Los ejercicios hacen así las operaciones de pandas de arriba.
+fr: ## La même chose en Python pur
+Sans pandas, un tableau est une liste de dictionnaires – un par ligne – que `csv.DictReader` te donne directement. N'oublie pas que le module csv lit toutes les valeurs comme du texte : convertis donc les nombres avec `int()` ou `float()`. Les exercices refont ainsi les opérations pandas ci-dessus.
+
+@code
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    rows = list(csv.DictReader(f))
+print(len(rows), 'rows, columns:', list(rows[0]))
+print(rows[0])
+ages = [int(r['age']) for r in rows]
+print(sum(ages) / len(ages))
+@end
+
+@exercise load
+@title
+en: Load the table
+pl: Wczytaj tabelę
+de: Die Tabelle laden
+es: Carga la tabla
+fr: Charge le tableau
+@text
+en: Write `load_people(filename)` that reads the CSV file into a list of dictionaries with `age`, `height_cm` and `weight_kg` converted to `int`. Store the result for `people.csv` in `people`, and the average age in `average_age`.
+pl: Napisz `load_people(filename)`, która wczytuje plik CSV do listy słowników z polami `age`, `height_cm` i `weight_kg` zamienionymi na `int`. Wynik dla `people.csv` zapisz w `people`, a średni wiek w `average_age`.
+de: Schreib `load_people(filename)`, die die CSV-Datei in eine Liste von Dictionaries einliest, wobei `age`, `height_cm` und `weight_kg` in `int` umgewandelt sind. Speichere das Ergebnis für `people.csv` in `people` und das Durchschnittsalter in `average_age`.
+es: Escribe `load_people(filename)`, que lee el archivo CSV en una lista de diccionarios con `age`, `height_cm` y `weight_kg` convertidos a `int`. Guarda el resultado para `people.csv` en `people` y la edad media en `average_age`.
+fr: Écris `load_people(filename)` qui lit le fichier CSV dans une liste de dictionnaires, avec `age`, `height_cm` et `weight_kg` convertis en `int`. Range le résultat pour `people.csv` dans `people`, et l'âge moyen dans `average_age`.
+@hint
+en: For each `row` from `csv.DictReader`, set `row['age'] = int(row['age'])` and so on, then append it.
+pl: Dla każdego `row` z `csv.DictReader` ustaw `row['age'] = int(row['age'])` i tak dalej, potem dopisz go do listy.
+de: Setz für jede `row` aus `csv.DictReader` `row['age'] = int(row['age'])` und so weiter und häng sie dann an.
+es: Para cada `row` de `csv.DictReader`, haz `row['age'] = int(row['age'])` y lo mismo con las demás, y después añádela.
+fr: Pour chaque `row` de `csv.DictReader`, fais `row['age'] = int(row['age'])` et ainsi de suite, puis ajoute-la.
+@starter
+import csv
+
+
+def load_people(filename):
+    pass
+@end
+@solution
+import csv
+
+
+def load_people(filename):
+    result = []
+    with open(filename, encoding='utf-8', newline='') as f:
+        for row in csv.DictReader(f):
+            for key in ('age', 'height_cm', 'weight_kg'):
+                row[key] = int(row[key])
+            result.append(row)
+    return result
+
+
+people = load_people('people.csv')
+average_age = sum(p['age'] for p in people) / len(people)
+print(average_age)
+@end
+@case
+expr: len(people) == 8 and people[0] == {'name': 'Anna', 'country': 'Poland', 'age': 28, 'height_cm': 168, 'weight_kg': 61}
+expr: all(isinstance(p['weight_kg'], int) for p in load_people('people.csv'))
+expr: average_age == 30.5
+
+@exercise filter
+@title
+en: Filter rows
+pl: Filtruj wiersze
+de: Zeilen filtern
+es: Filtra filas
+fr: Filtrer des lignes
+@text
+en: Using `people` from the starter, store in `over_30` the names of everyone older than 30, and in `tallest` the name of the tallest person.
+pl: Używając `people` ze startera, zapisz w `over_30` imiona wszystkich starszych niż 30 lat, a w `tallest` imię najwyższej osoby.
+de: Speichere mit `people` aus dem Starter in `over_30` die Namen aller, die älter als 30 sind, und in `tallest` den Namen der größten Person.
+es: Con `people` del código inicial, guarda en `over_30` los nombres de todas las personas mayores de 30 años, y en `tallest` el nombre de la persona más alta.
+fr: Avec `people` du code de départ, range dans `over_30` les noms de toutes les personnes de plus de 30 ans, et dans `tallest` le nom de la personne la plus grande.
+@hint
+en: `[p['name'] for p in people if p['age'] > 30]` and `max(people, key=lambda p: p['height_cm'])`.
+pl: `[p['name'] for p in people if p['age'] > 30]` i `max(people, key=lambda p: p['height_cm'])`.
+de: `[p['name'] for p in people if p['age'] > 30]` und `max(people, key=lambda p: p['height_cm'])`.
+es: `[p['name'] for p in people if p['age'] > 30]` y `max(people, key=lambda p: p['height_cm'])`.
+fr: `[p['name'] for p in people if p['age'] > 30]` et `max(people, key=lambda p: p['height_cm'])`.
+@starter
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+@end
+@solution
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+
+over_30 = [p['name'] for p in people if p['age'] > 30]
+tallest = max(people, key=lambda p: p['height_cm'])['name']
+print(over_30, tallest)
+@end
+@case
+expr: over_30 == ['Lukas', 'Camille', 'Sofia']
+expr: tallest == 'Jonas'
+
+@exercise bmi
+@title
+en: A computed column
+pl: Kolumna obliczana
+de: Eine berechnete Spalte
+es: Una columna calculada
+fr: Une colonne calculée
+@text
+en: Add the key `'bmi'` to every row of `people`: the weight in kilograms divided by the height in metres squared, rounded to 1 decimal place. For Anna (61 kg, 168 cm) it is `21.6`.
+pl: Dodaj klucz `'bmi'` do każdego wiersza `people`: masa w kilogramach podzielona przez kwadrat wzrostu w metrach, zaokrąglona do 1 miejsca po przecinku. Dla Anny (61 kg, 168 cm) to `21.6`.
+de: Füge jeder Zeile von `people` den Schlüssel `'bmi'` hinzu: das Gewicht in Kilogramm geteilt durch das Quadrat der Größe in Metern, auf 1 Nachkommastelle gerundet. Für Anna (61 kg, 168 cm) ist das `21.6`.
+es: Añade la clave `'bmi'` a cada fila de `people`: el peso en kilos dividido entre la altura en metros al cuadrado, redondeado a 1 decimal. Para Anna (61 kg, 168 cm) es `21.6`.
+fr: Ajoute la clé `'bmi'` à chaque ligne de `people` : le poids en kilogrammes divisé par le carré de la taille en mètres, arrondi à 1 décimale. Pour Anna (61 kg, 168 cm), cela donne `21.6`.
+@hint
+en: `round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)` in a loop over the rows.
+pl: `round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)` w pętli po wierszach.
+de: `round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)` in einer Schleife über die Zeilen.
+es: `round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)` en un bucle sobre las filas.
+fr: `round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)` dans une boucle sur les lignes.
+@starter
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+@end
+@solution
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+
+for p in people:
+    p['bmi'] = round(p['weight_kg'] / (p['height_cm'] / 100) ** 2, 1)
+print([(p['name'], p['bmi']) for p in people])
+@end
+@case
+expr: [p['bmi'] for p in people] == [21.6, 25.4, 21.5, 23.9, 24.3, 21.7, 25.5, 20.3]
+
+@exercise groupby
+@title
+en: Group by country
+pl: Grupuj po kraju
+de: Nach Land gruppieren
+es: Agrupa por país
+fr: Regrouper par pays
+@text
+en: Write `average_by(rows, key, value)` that does what `df.groupby(key)[value].mean()` does: it returns a dictionary from each value of the column `key` to the average of the column `value` in that group. For example `average_by(people, 'country', 'age')['Poland']` is `29.0`.
+pl: Napisz `average_by(rows, key, value)`, która robi to co `df.groupby(key)[value].mean()`: zwraca słownik z każdej wartości kolumny `key` na średnią kolumny `value` w tej grupie. Na przykład `average_by(people, 'country', 'age')['Poland']` to `29.0`.
+de: Schreib `average_by(rows, key, value)`, die tut, was `df.groupby(key)[value].mean()` tut: Sie gibt ein Dictionary von jedem Wert der Spalte `key` zum Mittelwert der Spalte `value` in dieser Gruppe zurück. Zum Beispiel ist `average_by(people, 'country', 'age')['Poland']` gleich `29.0`.
+es: Escribe `average_by(rows, key, value)`, que hace lo mismo que `df.groupby(key)[value].mean()`: devuelve un diccionario de cada valor de la columna `key` a la media de la columna `value` en ese grupo. Por ejemplo, `average_by(people, 'country', 'age')['Poland']` es `29.0`.
+fr: Écris `average_by(rows, key, value)` qui fait ce que fait `df.groupby(key)[value].mean()` : elle renvoie un dictionnaire associant chaque valeur de la colonne `key` à la moyenne de la colonne `value` dans ce groupe. Par exemple, `average_by(people, 'country', 'age')['Poland']` vaut `29.0`.
+@hint
+en: First collect the values of each group in a dictionary of lists: `groups.setdefault(row[key], []).append(row[value])`. Then average each list.
+pl: Najpierw zbierz wartości każdej grupy w słowniku list: `groups.setdefault(row[key], []).append(row[value])`. Potem policz średnią każdej listy.
+de: Sammle zuerst die Werte jeder Gruppe in einem Dictionary von Listen: `groups.setdefault(row[key], []).append(row[value])`. Bilde dann den Mittelwert jeder Liste.
+es: Primero reúne los valores de cada grupo en un diccionario de listas: `groups.setdefault(row[key], []).append(row[value])`. Después calcula la media de cada lista.
+fr: Rassemble d'abord les valeurs de chaque groupe dans un dictionnaire de listes : `groups.setdefault(row[key], []).append(row[value])`. Calcule ensuite la moyenne de chaque liste.
+@starter
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+
+
+def average_by(rows, key, value):
+    pass
+@end
+@solution
+import csv
+
+with open('people.csv', encoding='utf-8', newline='') as f:
+    people = [{**r, 'age': int(r['age']), 'height_cm': int(r['height_cm']), 'weight_kg': int(r['weight_kg'])} for r in csv.DictReader(f)]
+
+
+def average_by(rows, key, value):
+    groups = {}
+    for row in rows:
+        groups.setdefault(row[key], []).append(row[value])
+    return {k: sum(v) / len(v) for k, v in groups.items()}
+
+
+print(average_by(people, 'country', 'age'))
+@end
+@case
+expr: average_by(people, 'country', 'age') == {'Poland': 29.0, 'Germany': 30.5, 'Spain': 27.5, 'France': 35.0}
+expr: average_by(people, 'country', 'height_cm')['Germany'] == 186.0
