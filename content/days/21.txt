@@ -1,0 +1,386 @@
+@day 21
+@source 21_Day_Classes_and_objects/21_classes_and_objects.md
+
+@title
+en: Classes and objects
+pl: Klasy i obiekty
+de: Klassen und Objekte
+es: Clases y objetos
+fr: Classes et objets
+
+@summary
+en: Define your own types with classes: give objects data in __init__, add methods, set default values, and reuse code through inheritance.
+pl: Twórz własne typy za pomocą klas: dawaj obiektom dane w __init__, dodawaj metody, ustawiaj wartości domyślne i używaj kodu ponownie dzięki dziedziczeniu.
+de: Eigene Typen mit Klassen definieren: Objekten in __init__ Daten geben, Methoden hinzufügen, Standardwerte setzen und Code durch Vererbung wiederverwenden.
+es: Define tus propios tipos con clases: da datos a los objetos en __init__, añade métodos, pon valores por defecto y reutiliza código mediante la herencia.
+fr: Définis tes propres types avec des classes : donne des données aux objets dans __init__, ajoute des méthodes, fixe des valeurs par défaut et réutilise du code grâce à l'héritage.
+
+@md
+en: ## Classes and objects
+Everything in Python is an **object**: a number, a string, a list. Each object has a type – its **class** – which decides what data it holds and what it can do. With `class` you can make your own types. A class is like a blueprint, and every object made from it is an **instance**.
+
+Class names are written in CamelCase, every word starting with a capital letter: `Person`, `BankAccount`.
+pl: ## Klasy i obiekty
+W Pythonie wszystko jest **obiektem**: liczba, napis, lista. Każdy obiekt ma typ – swoją **klasę** – który decyduje, jakie dane przechowuje i co potrafi. Słowem `class` tworzy się własne typy. Klasa jest jak projekt, a każdy obiekt zbudowany według niego to **instancja**.
+
+Nazwy klas zapisuje się w stylu CamelCase, każde słowo wielką literą: `Person`, `BankAccount`.
+de: ## Klassen und Objekte
+In Python ist alles ein **Objekt**: eine Zahl, eine Zeichenkette, eine Liste. Jedes Objekt hat einen Typ – seine **Klasse** –, der festlegt, welche Daten es enthält und was es kann. Mit `class` baust du eigene Typen. Eine Klasse ist wie ein Bauplan, und jedes daraus erzeugte Objekt ist eine **Instanz**.
+
+Klassennamen schreibt man im CamelCase, jedes Wort mit großem Anfangsbuchstaben: `Person`, `BankAccount`.
+es: ## Clases y objetos
+En Python todo es un **objeto**: un número, una cadena, una lista. Cada objeto tiene un tipo, su **clase**, que decide qué datos guarda y qué puede hacer. Con `class` puedes crear tus propios tipos. Una clase es como un plano, y cada objeto creado a partir de ella es una **instancia**.
+
+Los nombres de clase se escriben en CamelCase, cada palabra con mayúscula inicial: `Person`, `BankAccount`.
+fr: ## Classes et objets
+En Python, tout est **objet** : un nombre, une chaîne, une liste. Chaque objet a un type – sa **classe** – qui détermine les données qu'il contient et ce qu'il sait faire. Avec `class`, tu peux créer tes propres types. Une classe est comme un plan, et chaque objet fabriqué d'après ce plan est une **instance**.
+
+Les noms de classe s'écrivent en CamelCase, chaque mot commençant par une majuscule : `Person`, `BankAccount`.
+
+@code
+print(type(10), type('text'), type([1, 2]))
+
+class Person:
+    pass
+
+p = Person()
+print(p, type(p))
+@end
+
+@md
+en: ## The constructor and methods
+`__init__` is called automatically when an object is created – it is the **constructor**. Its first parameter, `self`, is the new object itself; `self.name = name` stores a value in it as an **attribute**. Functions defined in a class are **methods**. They also take `self` first, and Python passes it for you: `p.person_info()`.
+pl: ## Konstruktor i metody
+`__init__` jest wywoływana automatycznie przy tworzeniu obiektu – to **konstruktor**. Jej pierwszy parametr, `self`, to sam nowy obiekt; `self.name = name` zapisuje w nim wartość jako **atrybut**. Funkcje zdefiniowane w klasie to **metody**. One też przyjmują `self` jako pierwszy parametr, a Python podaje go sam: `p.person_info()`.
+de: ## Der Konstruktor und Methoden
+`__init__` wird beim Erzeugen eines Objekts automatisch aufgerufen – das ist der **Konstruktor**. Sein erster Parameter, `self`, ist das neue Objekt selbst; `self.name = name` speichert darin einen Wert als **Attribut**. Funktionen, die in einer Klasse definiert sind, heißen **Methoden**. Auch sie nehmen zuerst `self`, und Python übergibt es für dich: `p.person_info()`.
+es: ## El constructor y los métodos
+`__init__` se llama automáticamente al crear un objeto: es el **constructor**. Su primer parámetro, `self`, es el propio objeto nuevo; `self.name = name` guarda en él un valor como **atributo**. Las funciones definidas en una clase son **métodos**. También reciben `self` en primer lugar, y Python lo pasa por ti: `p.person_info()`.
+fr: ## Le constructeur et les méthodes
+`__init__` est appelée automatiquement à la création d'un objet – c'est le **constructeur**. Son premier paramètre, `self`, est le nouvel objet lui-même ; `self.name = name` y range une valeur sous forme d'**attribut**. Les fonctions définies dans une classe sont des **méthodes**. Elles reçoivent aussi `self` en premier, et Python le passe pour toi : `p.person_info()`.
+
+@code
+class Person:
+    def __init__(self, firstname, lastname, age, country, city):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.age = age
+        self.country = country
+        self.city = city
+
+    def person_info(self):
+        return f'{self.firstname} {self.lastname} is {self.age} years old. He lives in {self.city}, {self.country}.'
+
+p = Person('Asabeneh', 'Yetayeh', 250, 'Finland', 'Helsinki')
+print(p.firstname, p.age)
+print(p.person_info())
+@end
+
+@md
+en: ## Default values and changing an object
+Constructor parameters can have default values, like any function's. Methods can change the object's attributes – for example add to a list stored in it. Each instance has its own attributes, so changing one object does not touch the others.
+
+`__str__` is a special method that decides what `print(obj)` shows.
+pl: ## Wartości domyślne i zmiana obiektu
+Parametry konstruktora mogą mieć wartości domyślne, jak w każdej funkcji. Metody mogą zmieniać atrybuty obiektu – na przykład dopisywać do przechowywanej w nim listy. Każda instancja ma własne atrybuty, więc zmiana jednego obiektu nie rusza innych.
+
+`__str__` to specjalna metoda, która decyduje, co pokaże `print(obj)`.
+de: ## Standardwerte und ein Objekt ändern
+Konstruktorparameter können Standardwerte haben, wie bei jeder Funktion. Methoden können die Attribute des Objekts ändern – zum Beispiel etwas an eine gespeicherte Liste anhängen. Jede Instanz hat ihre eigenen Attribute, eine Änderung an einem Objekt betrifft also die anderen nicht.
+
+`__str__` ist eine besondere Methode, die festlegt, was `print(obj)` anzeigt.
+es: ## Valores por defecto y cambiar un objeto
+Los parámetros del constructor pueden tener valores por defecto, como en cualquier función. Los métodos pueden cambiar los atributos del objeto, por ejemplo añadir algo a una lista guardada en él. Cada instancia tiene sus propios atributos, así que cambiar un objeto no afecta a los demás.
+
+`__str__` es un método especial que decide lo que muestra `print(obj)`.
+fr: ## Valeurs par défaut et modification d'un objet
+Les paramètres du constructeur peuvent avoir des valeurs par défaut, comme dans toute fonction. Les méthodes peuvent modifier les attributs de l'objet – par exemple ajouter quelque chose à une liste qu'il contient. Chaque instance a ses propres attributs, donc modifier un objet ne touche pas les autres.
+
+`__str__` est une méthode spéciale qui décide de ce qu'affiche `print(obj)`.
+
+@code
+class Person:
+    def __init__(self, firstname='Asabeneh', lastname='Yetayeh', city='Helsinki'):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.city = city
+        self.skills = []
+
+    def add_skill(self, skill):
+        self.skills.append(skill)
+
+    def __str__(self):
+        return f'{self.firstname} {self.lastname} ({", ".join(self.skills) or "no skills yet"})'
+
+p1 = Person()
+p2 = Person('Lidiya', 'Teklemariam', 'Espoo')
+p1.add_skill('Python')
+p1.add_skill('React')
+print(p1)
+print(p2)
+@end
+
+@md
+en: ## Inheritance
+A class can **inherit** from another: `class Student(Person)` gets all of `Person`'s attributes and methods and can add its own. A method with the same name in the child class **overrides** the parent's. `super()` calls the parent's version – most often `super().__init__(...)` in the child's constructor.
+pl: ## Dziedziczenie
+Klasa może **dziedziczyć** po innej: `class Student(Person)` dostaje wszystkie atrybuty i metody klasy `Person` i może dodać własne. Metoda o tej samej nazwie w klasie potomnej **nadpisuje** metodę rodzica. `super()` wywołuje wersję rodzica – najczęściej `super().__init__(...)` w konstruktorze klasy potomnej.
+de: ## Vererbung
+Eine Klasse kann von einer anderen **erben**: `class Student(Person)` bekommt alle Attribute und Methoden von `Person` und kann eigene hinzufügen. Eine Methode mit demselben Namen in der Kindklasse **überschreibt** die der Elternklasse. `super()` ruft die Version der Elternklasse auf – meist `super().__init__(...)` im Konstruktor der Kindklasse.
+es: ## Herencia
+Una clase puede **heredar** de otra: `class Student(Person)` recibe todos los atributos y métodos de `Person` y puede añadir los suyos. Un método con el mismo nombre en la clase hija **sobrescribe** el del padre. `super()` llama a la versión del padre; lo más habitual es `super().__init__(...)` en el constructor de la clase hija.
+fr: ## L'héritage
+Une classe peut **hériter** d'une autre : `class Student(Person)` reçoit tous les attributs et méthodes de `Person` et peut en ajouter. Une méthode de même nom dans la classe enfant **redéfinit** celle du parent. `super()` appelle la version du parent – le plus souvent `super().__init__(...)` dans le constructeur de la classe enfant.
+
+@code
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def describe(self):
+        return f'{self.name}, {self.age}'
+
+class Student(Person):
+    def __init__(self, name, age, school):
+        super().__init__(name, age)
+        self.school = school
+
+    def describe(self):
+        return super().describe() + f', studies at {self.school}'
+
+s = Student('Anna', 20, 'University of Warsaw')
+print(s.describe())
+print(isinstance(s, Student), isinstance(s, Person))
+@end
+
+@exercise statistics
+@title
+en: A Statistics class
+pl: Klasa Statistics
+de: Eine Klasse Statistics
+es: Una clase Statistics
+fr: Une classe Statistics
+@text
+en: Write the class `Statistics`. Its constructor takes a list of numbers; its methods `count()`, `total()`, `min()`, `max()`, `range()` (max minus min), `mean()` and `median()` return what their names say. Use the data in the starter to try it.
+pl: Napisz klasę `Statistics`. Jej konstruktor przyjmuje listę liczb, a metody `count()`, `total()`, `min()`, `max()`, `range()` (maksimum minus minimum), `mean()` i `median()` zwracają to, co mówią ich nazwy. Wypróbuj ją na danych ze startera.
+de: Schreib die Klasse `Statistics`. Ihr Konstruktor nimmt eine Liste von Zahlen; ihre Methoden `count()`, `total()`, `min()`, `max()`, `range()` (Maximum minus Minimum), `mean()` und `median()` geben zurück, was ihr Name sagt. Probier sie mit den Daten im Starter aus.
+es: Escribe la clase `Statistics`. Su constructor recibe una lista de números, y sus métodos `count()`, `total()`, `min()`, `max()`, `range()` (máximo menos mínimo), `mean()` y `median()` devuelven lo que dicen sus nombres. Pruébala con los datos del código inicial.
+fr: Écris la classe `Statistics`. Son constructeur reçoit une liste de nombres ; ses méthodes `count()`, `total()`, `min()`, `max()`, `range()` (maximum moins minimum), `mean()` et `median()` renvoient ce que leur nom indique. Essaie-la avec les données du code de départ.
+@hint
+en: Inside the methods, the built-ins still work: `min(self.data)`. For the median, sort a copy and take the middle item, or the average of the two middle items.
+pl: W metodach nadal działają funkcje wbudowane: `min(self.data)`. Do mediany posortuj kopię i weź środkowy element albo średnią dwóch środkowych.
+de: In den Methoden funktionieren die eingebauten Funktionen weiter: `min(self.data)`. Für den Median sortierst du eine Kopie und nimmst das mittlere Element oder den Mittelwert der beiden mittleren.
+es: Dentro de los métodos siguen funcionando las funciones integradas: `min(self.data)`. Para la mediana, ordena una copia y toma el elemento central, o la media de los dos centrales.
+fr: Dans les méthodes, les fonctions intégrées marchent toujours : `min(self.data)`. Pour la médiane, trie une copie et prends l'élément du milieu, ou la moyenne des deux du milieu.
+@starter
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+
+
+class Statistics:
+    def __init__(self, data):
+        self.data = data
+@end
+@solution
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+
+
+class Statistics:
+    def __init__(self, data):
+        self.data = data
+
+    def count(self):
+        return len(self.data)
+
+    def total(self):
+        return sum(self.data)
+
+    def min(self):
+        return min(self.data)
+
+    def max(self):
+        return max(self.data)
+
+    def range(self):
+        return self.max() - self.min()
+
+    def mean(self):
+        return self.total() / self.count()
+
+    def median(self):
+        s = sorted(self.data)
+        n = len(s)
+        if n % 2:
+            return s[n // 2]
+        return (s[n // 2 - 1] + s[n // 2]) / 2
+
+
+data = Statistics(ages)
+print(data.count(), data.total(), data.min(), data.max(), data.range(), data.mean(), data.median())
+@end
+@case
+expr: (lambda s: (s.count(), s.total(), s.min(), s.max(), s.range()))(Statistics(ages)) == (25, 744, 24, 38, 14)
+expr: abs(Statistics(ages).mean() - 29.76) < 1e-9
+expr: Statistics(ages).median() == 29
+expr: Statistics([4, 1, 3, 2]).median() == 2.5
+
+@exercise account
+@title
+en: A personal account
+pl: Konto osobiste
+de: Ein persönliches Konto
+es: Una cuenta personal
+fr: Un compte personnel
+@text
+en: Write the class `PersonAccount` with the attributes `firstname`, `lastname`, `incomes` and `expenses` – the last two are dictionaries from a description to an amount and start empty. Add the methods `add_income(description, amount)`, `add_expense(description, amount)`, `total_income()`, `total_expense()` and `account_balance()` (incomes minus expenses).
+pl: Napisz klasę `PersonAccount` z atrybutami `firstname`, `lastname`, `incomes` i `expenses` – dwa ostatnie to słowniki z opisu na kwotę, na początku puste. Dodaj metody `add_income(description, amount)`, `add_expense(description, amount)`, `total_income()`, `total_expense()` i `account_balance()` (przychody minus wydatki).
+de: Schreib die Klasse `PersonAccount` mit den Attributen `firstname`, `lastname`, `incomes` und `expenses` – die letzten beiden sind Dictionaries von einer Beschreibung zu einem Betrag und anfangs leer. Füge die Methoden `add_income(description, amount)`, `add_expense(description, amount)`, `total_income()`, `total_expense()` und `account_balance()` (Einnahmen minus Ausgaben) hinzu.
+es: Escribe la clase `PersonAccount` con los atributos `firstname`, `lastname`, `incomes` y `expenses`; los dos últimos son diccionarios de una descripción a un importe y empiezan vacíos. Añade los métodos `add_income(description, amount)`, `add_expense(description, amount)`, `total_income()`, `total_expense()` y `account_balance()` (ingresos menos gastos).
+fr: Écris la classe `PersonAccount` avec les attributs `firstname`, `lastname`, `incomes` et `expenses` – les deux derniers sont des dictionnaires associant une description à un montant, vides au départ. Ajoute les méthodes `add_income(description, amount)`, `add_expense(description, amount)`, `total_income()`, `total_expense()` et `account_balance()` (revenus moins dépenses).
+@hint
+en: Create the empty dictionaries in `__init__`: `self.incomes = {}`. `sum(self.incomes.values())` gives the total.
+pl: Utwórz puste słowniki w `__init__`: `self.incomes = {}`. `sum(self.incomes.values())` daje sumę.
+de: Leg die leeren Dictionaries in `__init__` an: `self.incomes = {}`. `sum(self.incomes.values())` liefert die Summe.
+es: Crea los diccionarios vacíos en `__init__`: `self.incomes = {}`. `sum(self.incomes.values())` da el total.
+fr: Crée les dictionnaires vides dans `__init__` : `self.incomes = {}`. `sum(self.incomes.values())` donne le total.
+@starter
+class PersonAccount:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+@end
+@solution
+class PersonAccount:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.incomes = {}
+        self.expenses = {}
+
+    def add_income(self, description, amount):
+        self.incomes[description] = amount
+
+    def add_expense(self, description, amount):
+        self.expenses[description] = amount
+
+    def total_income(self):
+        return sum(self.incomes.values())
+
+    def total_expense(self):
+        return sum(self.expenses.values())
+
+    def account_balance(self):
+        return self.total_income() - self.total_expense()
+
+
+acc = PersonAccount('Anna', 'Nowak')
+acc.add_income('salary', 5200)
+acc.add_expense('rent', 2100)
+print(acc.account_balance())
+@end
+@case
+expr: (lambda a: (a.incomes, a.expenses, a.firstname))(PersonAccount('Anna', 'Nowak')) == ({}, {}, 'Anna')
+expr: (lambda a: [a.add_income('salary', 5200), a.add_income('bonus', 800), a.add_expense('rent', 2100), a.add_expense('food', 900), (a.total_income(), a.total_expense(), a.account_balance())][-1])(PersonAccount('Anna', 'Nowak')) == (6000, 3000, 3000)
+expr: (lambda a, b: [a.add_income('x', 10), b.incomes][-1])(PersonAccount('A', 'B'), PersonAccount('C', 'D')) == {}
+
+@exercise inheritance
+@title
+en: Students are people too
+pl: Studenci to też ludzie
+de: Auch Studierende sind Menschen
+es: Los estudiantes también son personas
+fr: Les étudiants sont aussi des personnes
+@text
+en: `Person` is given. Write `Student(Person)` whose constructor also takes `school` and stores it, calling `super().__init__` for the rest. Override `greet()` so that a student says the person's greeting followed by ` I study at <school>.` – for example `Hi, I am Anna. I study at Jagiellonian University.`
+pl: `Person` jest gotowa. Napisz `Student(Person)`, której konstruktor przyjmuje też `school` i go zapisuje, a resztę zleca `super().__init__`. Nadpisz `greet()` tak, żeby student mówił powitanie osoby, a po nim ` I study at <school>.` – na przykład `Hi, I am Anna. I study at Jagiellonian University.`
+de: `Person` ist vorgegeben. Schreib `Student(Person)`, deren Konstruktor zusätzlich `school` nimmt und speichert und den Rest `super().__init__` überlässt. Überschreib `greet()` so, dass eine Studentin die Begrüßung der Person sagt, gefolgt von ` I study at <school>.` – zum Beispiel `Hi, I am Anna. I study at Jagiellonian University.`
+es: `Person` ya está hecha. Escribe `Student(Person)`, cuyo constructor recibe además `school` y lo guarda, llamando a `super().__init__` para lo demás. Sobrescribe `greet()` para que un estudiante diga el saludo de la persona seguido de ` I study at <school>.`; por ejemplo, `Hi, I am Anna. I study at Jagiellonian University.`
+fr: `Person` est fournie. Écris `Student(Person)` dont le constructeur reçoit aussi `school` et le range, en appelant `super().__init__` pour le reste. Redéfinis `greet()` pour qu'un étudiant dise la salutation de la personne suivie de ` I study at <school>.` – par exemple `Hi, I am Anna. I study at Jagiellonian University.`
+@hint
+en: `return super().greet() + f' I study at {self.school}.'`
+pl: `return super().greet() + f' I study at {self.school}.'`
+de: `return super().greet() + f' I study at {self.school}.'`
+es: `return super().greet() + f' I study at {self.school}.'`
+fr: `return super().greet() + f' I study at {self.school}.'`
+@starter
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        return f'Hi, I am {self.name}.'
+
+
+class Student(Person):
+    pass
+@end
+@solution
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        return f'Hi, I am {self.name}.'
+
+
+class Student(Person):
+    def __init__(self, name, age, school):
+        super().__init__(name, age)
+        self.school = school
+
+    def greet(self):
+        return super().greet() + f' I study at {self.school}.'
+
+
+print(Student('Anna', 20, 'Jagiellonian University').greet())
+@end
+@case
+expr: (lambda s: (s.name, s.age, s.school))(Student('Anna', 20, 'Jagiellonian University')) == ('Anna', 20, 'Jagiellonian University')
+expr: Student('Anna', 20, 'Jagiellonian University').greet() == 'Hi, I am Anna. I study at Jagiellonian University.'
+expr: issubclass(Student, Person) and Person('Tom', 30).greet() == 'Hi, I am Tom.'
+
+@exercise str
+@title
+en: A printable point
+pl: Punkt do wypisania
+de: Ein druckbarer Punkt
+es: Un punto imprimible
+fr: Un point affichable
+@text
+en: Write the class `Point` with the attributes `x` and `y` (both `0` by default), a method `distance_to(other)` that returns the distance to another point, and `__str__` so that `print(Point(3, 4))` shows `Point(3, 4)`.
+pl: Napisz klasę `Point` z atrybutami `x` i `y` (domyślnie oba `0`), metodą `distance_to(other)`, która zwraca odległość do innego punktu, oraz `__str__`, żeby `print(Point(3, 4))` pokazywało `Point(3, 4)`.
+de: Schreib die Klasse `Point` mit den Attributen `x` und `y` (beide standardmäßig `0`), einer Methode `distance_to(other)`, die den Abstand zu einem anderen Punkt zurückgibt, und `__str__`, damit `print(Point(3, 4))` `Point(3, 4)` anzeigt.
+es: Escribe la clase `Point` con los atributos `x` e `y` (ambos `0` por defecto), un método `distance_to(other)` que devuelve la distancia a otro punto, y `__str__` para que `print(Point(3, 4))` muestre `Point(3, 4)`.
+fr: Écris la classe `Point` avec les attributs `x` et `y` (tous deux `0` par défaut), une méthode `distance_to(other)` qui renvoie la distance à un autre point, et `__str__` pour que `print(Point(3, 4))` affiche `Point(3, 4)`.
+@hint
+en: The distance is `((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5`.
+pl: Odległość to `((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5`.
+de: Der Abstand ist `((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5`.
+es: La distancia es `((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5`.
+fr: La distance vaut `((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5`.
+@starter
+class Point:
+    pass
+@end
+@solution
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def distance_to(self, other):
+        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
+
+    def __str__(self):
+        return f'Point({self.x}, {self.y})'
+
+
+print(Point(3, 4), Point().distance_to(Point(3, 4)))
+@end
+@case
+expr: (Point().x, Point().y) == (0, 0)
+expr: Point(0, 0).distance_to(Point(3, 4)) == 5
+expr: str(Point(3, 4)) == 'Point(3, 4)'
+expr: str(Point(-1, 2.5)) == 'Point(-1, 2.5)'
