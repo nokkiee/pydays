@@ -1,0 +1,333 @@
+@day 14
+@source 14_Day_Higher_order_functions/14_higher_order_functions.md
+
+@title
+en: Higher-order functions
+pl: Funkcje wyższego rzędu
+de: Funktionen höherer Ordnung
+es: Funciones de orden superior
+fr: Fonctions d'ordre supérieur
+
+@summary
+en: Treat functions as values: pass them to other functions, return them, build closures and decorators, and use map, filter and reduce.
+pl: Traktuj funkcje jak wartości: przekazuj je do innych funkcji, zwracaj, buduj domknięcia i dekoratory i korzystaj z map, filter i reduce.
+de: Funktionen als Werte behandeln: an andere Funktionen übergeben, zurückgeben, Closures und Dekoratoren bauen und map, filter und reduce nutzen.
+es: Trata las funciones como valores: pásalas a otras funciones, devuélvelas, crea clausuras y decoradores y usa map, filter y reduce.
+fr: Traite les fonctions comme des valeurs : passe-les à d'autres fonctions, renvoie-les, construis des fermetures et des décorateurs, et utilise map, filter et reduce.
+
+@md
+en: ## Functions are values
+In Python a function is an object like any other. You can store it in a variable, put it in a list, pass it as an argument and return it from another function. A function that takes or returns a function is called a **higher-order function**.
+pl: ## Funkcje są wartościami
+W Pythonie funkcja jest obiektem jak każdy inny. Można ją zapisać w zmiennej, włożyć do listy, przekazać jako argument i zwrócić z innej funkcji. Funkcja, która przyjmuje albo zwraca funkcję, to **funkcja wyższego rzędu**.
+de: ## Funktionen sind Werte
+In Python ist eine Funktion ein Objekt wie jedes andere. Du kannst sie in einer Variable speichern, in eine Liste packen, als Argument übergeben und aus einer anderen Funktion zurückgeben. Eine Funktion, die eine Funktion nimmt oder zurückgibt, heißt **Funktion höherer Ordnung**.
+es: ## Las funciones son valores
+En Python una función es un objeto como cualquier otro. Puedes guardarla en una variable, meterla en una lista, pasarla como argumento y devolverla desde otra función. Una función que recibe o devuelve una función se llama **función de orden superior**.
+fr: ## Les fonctions sont des valeurs
+En Python, une fonction est un objet comme un autre. On peut la ranger dans une variable, la mettre dans une liste, la passer en argument et la renvoyer depuis une autre fonction. Une fonction qui reçoit ou renvoie une fonction s'appelle une **fonction d'ordre supérieur**.
+
+@code
+def sum_numbers(nums):
+    return sum(nums)
+
+def higher_order_function(f, values):
+    return f(values)
+
+print(higher_order_function(sum_numbers, [1, 2, 3, 4, 5]))   # 15
+
+def square(x):
+    return x ** 2
+
+def cube(x):
+    return x ** 3
+
+def pick(kind):
+    return square if kind == 'square' else cube
+
+f = pick('cube')
+print(f(3))      # 27
+@end
+
+@md
+en: ## Closures
+A function defined inside another function can use the variables of the outer one – even after the outer function has returned. Such an inner function is a **closure**: it remembers the values it was created with.
+pl: ## Domknięcia
+Funkcja zdefiniowana w innej funkcji może korzystać ze zmiennych tej zewnętrznej – nawet po tym, jak zewnętrzna funkcja już się zakończyła. Taka wewnętrzna funkcja to **domknięcie** (closure): pamięta wartości, z którymi powstała.
+de: ## Closures
+Eine Funktion, die in einer anderen Funktion definiert ist, kann die Variablen der äußeren verwenden – sogar, nachdem die äußere Funktion schon zurückgekehrt ist. So eine innere Funktion heißt **Closure**: Sie merkt sich die Werte, mit denen sie entstanden ist.
+es: ## Clausuras
+Una función definida dentro de otra puede usar las variables de la exterior, incluso después de que la exterior haya terminado. Esa función interior es una **clausura** (closure): recuerda los valores con los que se creó.
+fr: ## Les fermetures
+Une fonction définie dans une autre fonction peut utiliser les variables de la fonction extérieure – même après que celle-ci a terminé. Une telle fonction intérieure est une **fermeture** (closure) : elle se souvient des valeurs avec lesquelles elle a été créée.
+
+@code
+def make_multiplier(factor):
+    def multiply(x):
+        return x * factor
+    return multiply
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+print(double(5), triple(5))     # 10 15
+@end
+
+@md
+en: ## Decorators
+A **decorator** is a function that takes a function and returns a new one that adds something around it. The `@name` line above a `def` applies it: writing `@uppercase` above `greet` means the same as `greet = uppercase(greet)`. The inner wrapper usually takes `*args, **kwargs` so that it works with any function.
+pl: ## Dekoratory
+**Dekorator** to funkcja, która przyjmuje funkcję i zwraca nową, dokładającą coś wokół niej. Wiersz `@name` nad `def` go stosuje: napisanie `@uppercase` nad `greet` znaczy to samo co `greet = uppercase(greet)`. Wewnętrzna funkcja opakowująca zwykle przyjmuje `*args, **kwargs`, żeby działała z każdą funkcją.
+de: ## Dekoratoren
+Ein **Dekorator** ist eine Funktion, die eine Funktion nimmt und eine neue zurückgibt, die etwas drumherum ergänzt. Die Zeile `@name` über einem `def` wendet ihn an: `@uppercase` über `greet` bedeutet dasselbe wie `greet = uppercase(greet)`. Die innere Hüllfunktion nimmt meist `*args, **kwargs`, damit sie mit jeder Funktion funktioniert.
+es: ## Decoradores
+Un **decorador** es una función que recibe una función y devuelve otra nueva que añade algo a su alrededor. La línea `@name` encima de un `def` lo aplica: escribir `@uppercase` encima de `greet` equivale a `greet = uppercase(greet)`. La función envoltorio interior suele recibir `*args, **kwargs` para funcionar con cualquier función.
+fr: ## Les décorateurs
+Un **décorateur** est une fonction qui reçoit une fonction et en renvoie une nouvelle qui ajoute quelque chose autour. La ligne `@name` au-dessus d'un `def` l'applique : écrire `@uppercase` au-dessus de `greet` revient à écrire `greet = uppercase(greet)`. La fonction enveloppe intérieure prend en général `*args, **kwargs` pour fonctionner avec n'importe quelle fonction.
+
+@code
+def uppercase(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs).upper()
+    return wrapper
+
+def exclaim(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs) + '!'
+    return wrapper
+
+@exclaim
+@uppercase
+def greet(name):
+    return f'welcome, {name}'
+
+print(greet('Anna'))      # WELCOME, ANNA!
+@end
+
+@md
+en: ## map, filter and reduce
+Three classic higher-order functions work on whole sequences:
+
+| Function | What it does |
+|---|---|
+| `map(f, items)` | applies `f` to every item |
+| `filter(f, items)` | keeps the items for which `f` returns true |
+| `reduce(f, items)` | combines the items into one value, two at a time – from the `functools` module |
+
+`map` and `filter` return lazy objects; wrap them in `list()` to see the result. A comprehension often does the same job and is just as fine.
+pl: ## map, filter i reduce
+Trzy klasyczne funkcje wyższego rzędu działają na całych ciągach:
+
+| Funkcja | Co robi |
+|---|---|
+| `map(f, items)` | stosuje `f` do każdego elementu |
+| `filter(f, items)` | zostawia elementy, dla których `f` zwraca prawdę |
+| `reduce(f, items)` | łączy elementy w jedną wartość, po dwa naraz – z modułu `functools` |
+
+`map` i `filter` zwracają leniwe obiekty; żeby zobaczyć wynik, opakuj je w `list()`. Wyrażenie listowe często robi to samo i też jest w porządku.
+de: ## map, filter und reduce
+Drei klassische Funktionen höherer Ordnung arbeiten mit ganzen Folgen:
+
+| Funktion | Was sie macht |
+|---|---|
+| `map(f, items)` | wendet `f` auf jedes Element an |
+| `filter(f, items)` | behält die Elemente, für die `f` wahr liefert |
+| `reduce(f, items)` | fasst die Elemente paarweise zu einem Wert zusammen – aus dem Modul `functools` |
+
+`map` und `filter` liefern träge (lazy) Objekte; pack sie in `list()`, um das Ergebnis zu sehen. Eine Comprehension erledigt oft dasselbe und ist genauso gut.
+es: ## map, filter y reduce
+Tres funciones de orden superior clásicas trabajan con secuencias enteras:
+
+| Función | Qué hace |
+|---|---|
+| `map(f, items)` | aplica `f` a cada elemento |
+| `filter(f, items)` | se queda con los elementos para los que `f` devuelve verdadero |
+| `reduce(f, items)` | combina los elementos en un solo valor, de dos en dos; está en el módulo `functools` |
+
+`map` y `filter` devuelven objetos perezosos; envuélvelos en `list()` para ver el resultado. Una comprensión suele hacer lo mismo y es igual de válida.
+fr: ## map, filter et reduce
+Trois fonctions d'ordre supérieur classiques travaillent sur des séquences entières :
+
+| Fonction | Ce qu'elle fait |
+|---|---|
+| `map(f, items)` | applique `f` à chaque élément |
+| `filter(f, items)` | garde les éléments pour lesquels `f` renvoie vrai |
+| `reduce(f, items)` | combine les éléments en une seule valeur, deux par deux – dans le module `functools` |
+
+`map` et `filter` renvoient des objets paresseux ; entoure-les de `list()` pour voir le résultat. Une compréhension fait souvent la même chose et convient tout aussi bien.
+
+@code
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5]
+print(list(map(lambda x: x ** 2, numbers)))          # [1, 4, 9, 16, 25]
+print(list(map(str.upper, ['asabeneh', 'lidiya'])))
+print(list(filter(lambda x: x % 2 == 0, numbers)))   # [2, 4]
+print(reduce(lambda a, b: a + b, numbers))           # 15
+@end
+
+@exercise map-filter
+@title
+en: map and filter
+pl: map i filter
+de: map und filter
+es: map y filter
+fr: map et filter
+@text
+en: Using `map`, store in `upper_countries` the names from `countries` in upper case. Using `filter`, store in `land_countries` the countries whose name contains `'land'`. Both results must be lists.
+pl: Używając `map`, zapisz w `upper_countries` nazwy z `countries` wielkimi literami. Używając `filter`, zapisz w `land_countries` kraje, których nazwa zawiera `'land'`. Oba wyniki mają być listami.
+de: Speichere mit `map` in `upper_countries` die Namen aus `countries` in Großbuchstaben. Speichere mit `filter` in `land_countries` die Länder, deren Name `'land'` enthält. Beide Ergebnisse müssen Listen sein.
+es: Con `map`, guarda en `upper_countries` los nombres de `countries` en mayúsculas. Con `filter`, guarda en `land_countries` los países cuyo nombre contiene `'land'`. Los dos resultados deben ser listas.
+fr: Avec `map`, range dans `upper_countries` les noms de `countries` en majuscules. Avec `filter`, range dans `land_countries` les pays dont le nom contient `'land'`. Les deux résultats doivent être des listes.
+@hint
+en: `list(map(lambda c: c.upper(), countries))`, `list(filter(lambda c: 'land' in c, countries))`.
+pl: `list(map(lambda c: c.upper(), countries))`, `list(filter(lambda c: 'land' in c, countries))`.
+de: `list(map(lambda c: c.upper(), countries))`, `list(filter(lambda c: 'land' in c, countries))`.
+es: `list(map(lambda c: c.upper(), countries))`, `list(filter(lambda c: 'land' in c, countries))`.
+fr: `list(map(lambda c: c.upper(), countries))`, `list(filter(lambda c: 'land' in c, countries))`.
+@starter
+countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'Iceland', 'Poland']
+@end
+@solution
+countries = ['Estonia', 'Finland', 'Sweden', 'Denmark', 'Norway', 'Iceland', 'Poland']
+upper_countries = list(map(lambda c: c.upper(), countries))
+land_countries = list(filter(lambda c: 'land' in c, countries))
+print(upper_countries, land_countries)
+@end
+@case
+expr: upper_countries == ['ESTONIA', 'FINLAND', 'SWEDEN', 'DENMARK', 'NORWAY', 'ICELAND', 'POLAND']
+expr: land_countries == ['Finland', 'Iceland', 'Poland']
+expr: 'map(' in open(__file__).read() and 'filter(' in open(__file__).read()
+
+@exercise reduce
+@title
+en: reduce
+pl: reduce
+de: reduce
+es: reduce
+fr: reduce
+@text
+en: Using `reduce` from `functools`, store in `total` the sum of `numbers` and in `sentence` the words of `countries` joined into one string: `'Estonia, Finland, Sweden are north European countries'`.
+pl: Używając `reduce` z `functools`, zapisz w `total` sumę `numbers`, a w `sentence` słowa z `countries` połączone w jeden napis: `'Estonia, Finland, Sweden are north European countries'`.
+de: Speichere mit `reduce` aus `functools` in `total` die Summe von `numbers` und in `sentence` die Wörter aus `countries`, verbunden zu einer Zeichenkette: `'Estonia, Finland, Sweden are north European countries'`.
+es: Con `reduce` de `functools`, guarda en `total` la suma de `numbers` y en `sentence` las palabras de `countries` unidas en una sola cadena: `'Estonia, Finland, Sweden are north European countries'`.
+fr: Avec `reduce` de `functools`, range dans `total` la somme de `numbers` et dans `sentence` les mots de `countries` réunis en une seule chaîne : `'Estonia, Finland, Sweden are north European countries'`.
+@hint
+en: For the sentence, use `reduce` with `lambda a, b: a + ', ' + b` and add `' are north European countries'` at the end.
+pl: Do zdania użyj `reduce` z `lambda a, b: a + ', ' + b` i dopisz na końcu `' are north European countries'`.
+de: Für den Satz nimmst du `reduce` mit `lambda a, b: a + ', ' + b` und hängst `' are north European countries'` an.
+es: Para la frase, usa `reduce` con `lambda a, b: a + ', ' + b` y añade `' are north European countries'` al final.
+fr: Pour la phrase, utilise `reduce` avec `lambda a, b: a + ', ' + b` et ajoute `' are north European countries'` à la fin.
+@starter
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+countries = ['Estonia', 'Finland', 'Sweden']
+@end
+@solution
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+countries = ['Estonia', 'Finland', 'Sweden']
+total = reduce(lambda a, b: a + b, numbers)
+sentence = reduce(lambda a, b: a + ', ' + b, countries) + ' are north European countries'
+print(total)
+print(sentence)
+@end
+@case
+expr: total == 55
+expr: sentence == 'Estonia, Finland, Sweden are north European countries'
+expr: 'reduce(' in open(__file__).read().split('import reduce', 1)[-1]
+
+@exercise closure
+@title
+en: A counter that remembers
+pl: Licznik, który pamięta
+de: Ein Zähler, der sich erinnert
+es: Un contador con memoria
+fr: Un compteur qui se souvient
+@text
+en: Write `make_counter()` that returns a function. Each call of that function returns the next number: 1, 2, 3, … Two counters made by `make_counter()` count independently.
+pl: Napisz `make_counter()`, która zwraca funkcję. Każde wywołanie tej funkcji zwraca kolejną liczbę: 1, 2, 3, … Dwa liczniki utworzone przez `make_counter()` liczą niezależnie.
+de: Schreib `make_counter()`, die eine Funktion zurückgibt. Jeder Aufruf dieser Funktion liefert die nächste Zahl: 1, 2, 3, … Zwei Zähler aus `make_counter()` zählen unabhängig voneinander.
+es: Escribe `make_counter()`, que devuelve una función. Cada llamada a esa función devuelve el número siguiente: 1, 2, 3, … Dos contadores creados con `make_counter()` cuentan por separado.
+fr: Écris `make_counter()` qui renvoie une fonction. Chaque appel de cette fonction renvoie le nombre suivant : 1, 2, 3, … Deux compteurs créés par `make_counter()` comptent indépendamment.
+@hint
+en: The inner function changes a variable of the outer one, so it needs `nonlocal count` before `count += 1`.
+pl: Wewnętrzna funkcja zmienia zmienną zewnętrznej, więc przed `count += 1` potrzebuje `nonlocal count`.
+de: Die innere Funktion ändert eine Variable der äußeren, braucht also `nonlocal count` vor `count += 1`.
+es: La función interior cambia una variable de la exterior, así que necesita `nonlocal count` antes de `count += 1`.
+fr: La fonction intérieure modifie une variable de la fonction extérieure, elle a donc besoin de `nonlocal count` avant `count += 1`.
+@starter
+def make_counter():
+    count = 0
+
+    def counter():
+        pass
+
+    return counter
+@end
+@solution
+def make_counter():
+    count = 0
+
+    def counter():
+        nonlocal count
+        count += 1
+        return count
+
+    return counter
+
+
+c = make_counter()
+print(c(), c(), c())
+@end
+@case
+expr: (lambda c: [c(), c(), c()])(make_counter()) == [1, 2, 3]
+expr: (lambda a, b: (a(), a(), b(), a()))(make_counter(), make_counter()) == (1, 2, 1, 3)
+
+@exercise decorator
+@title
+en: Your own decorator
+pl: Własny dekorator
+de: Dein eigener Dekorator
+es: Tu propio decorador
+fr: Ton propre décorateur
+@text
+en: Write the decorator `shout` that makes a function's string result upper case and adds `'!'`. Then use it with `@shout` on `greet`, so that `greet('anna')` returns `'HELLO, ANNA!'`.
+pl: Napisz dekorator `shout`, który zamienia napis zwracany przez funkcję na wielkie litery i dopisuje `'!'`. Potem użyj go przez `@shout` na `greet`, żeby `greet('anna')` zwracało `'HELLO, ANNA!'`.
+de: Schreib den Dekorator `shout`, der das Zeichenketten-Ergebnis einer Funktion in Großbuchstaben umwandelt und `'!'` anhängt. Wende ihn dann mit `@shout` auf `greet` an, sodass `greet('anna')` `'HELLO, ANNA!'` zurückgibt.
+es: Escribe el decorador `shout`, que pasa a mayúsculas la cadena que devuelve una función y le añade `'!'`. Después aplícalo con `@shout` a `greet`, de modo que `greet('anna')` devuelva `'HELLO, ANNA!'`.
+fr: Écris le décorateur `shout` qui met en majuscules la chaîne renvoyée par une fonction et ajoute `'!'`. Applique-le ensuite avec `@shout` à `greet`, pour que `greet('anna')` renvoie `'HELLO, ANNA!'`.
+@hint
+en: Inside `shout`, define `wrapper(*args, **kwargs)` that calls `func(*args, **kwargs)`, changes the result and returns it; `shout` returns `wrapper`.
+pl: W `shout` zdefiniuj `wrapper(*args, **kwargs)`, która wywołuje `func(*args, **kwargs)`, zmienia wynik i go zwraca; `shout` zwraca `wrapper`.
+de: Definiere in `shout` eine Funktion `wrapper(*args, **kwargs)`, die `func(*args, **kwargs)` aufruft, das Ergebnis ändert und zurückgibt; `shout` gibt `wrapper` zurück.
+es: Dentro de `shout`, define `wrapper(*args, **kwargs)`, que llama a `func(*args, **kwargs)`, cambia el resultado y lo devuelve; `shout` devuelve `wrapper`.
+fr: Dans `shout`, définis `wrapper(*args, **kwargs)` qui appelle `func(*args, **kwargs)`, modifie le résultat et le renvoie ; `shout` renvoie `wrapper`.
+@starter
+def shout(func):
+    return func
+
+
+@shout
+def greet(name):
+    return f'hello, {name}'
+@end
+@solution
+def shout(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs).upper() + '!'
+    return wrapper
+
+
+@shout
+def greet(name):
+    return f'hello, {name}'
+
+
+print(greet('anna'))
+@end
+@case
+expr: greet('anna') == 'HELLO, ANNA!'
+expr: shout(lambda: 'ok')() == 'OK!'
+expr: shout(lambda a, b: f'{a}+{b}')(1, b=2) == '1+2!'

@@ -1,0 +1,272 @@
+@day 13
+@source 13_Day_List_comprehension/13_list_comprehension.md
+
+@title
+en: List comprehension and lambda
+pl: Wyrażenia listowe i lambda
+de: List Comprehensions und Lambda
+es: Listas por comprensión y lambda
+fr: Listes en compréhension et lambda
+
+@summary
+en: Build lists in one readable line with comprehensions, filter them with if, flatten nested lists, and write small anonymous functions with lambda.
+pl: Buduj listy w jednym czytelnym wierszu dzięki wyrażeniom listowym, filtruj je przez if, spłaszczaj listy zagnieżdżone i pisz małe anonimowe funkcje lambda.
+de: Listen mit Comprehensions in einer lesbaren Zeile bauen, mit if filtern, verschachtelte Listen abflachen und kleine anonyme Funktionen mit lambda schreiben.
+es: Crea listas en una línea legible con comprensiones, fíltralas con if, aplana listas anidadas y escribe pequeñas funciones anónimas con lambda.
+fr: Construis des listes en une ligne lisible avec les compréhensions, filtre-les avec if, aplatis des listes imbriquées et écris de petites fonctions anonymes avec lambda.
+
+@md
+en: ## List comprehension
+A **list comprehension** builds a new list from another sequence in a single expression: `[expression for item in iterable]`. It does the same as a `for` loop that appends to an empty list, in one line.
+pl: ## Wyrażenia listowe
+**Wyrażenie listowe** (list comprehension) buduje nową listę z innego ciągu w jednym wyrażeniu: `[expression for item in iterable]`. Robi to samo co pętla `for` dopisująca do pustej listy, tylko w jednym wierszu.
+de: ## List Comprehension
+Eine **List Comprehension** baut in einem einzigen Ausdruck eine neue Liste aus einer anderen Folge: `[expression for item in iterable]`. Sie macht dasselbe wie eine `for`-Schleife, die an eine leere Liste anhängt – in einer Zeile.
+es: ## Listas por comprensión
+Una **lista por comprensión** crea una lista nueva a partir de otra secuencia en una sola expresión: `[expression for item in iterable]`. Hace lo mismo que un bucle `for` que va añadiendo a una lista vacía, en una línea.
+fr: ## Les listes en compréhension
+Une **liste en compréhension** construit une nouvelle liste à partir d'une autre séquence en une seule expression : `[expression for item in iterable]`. Elle fait la même chose qu'une boucle `for` qui ajoute à une liste vide, en une ligne.
+
+@code
+# with a loop
+squares = []
+for i in range(6):
+    squares.append(i * i)
+print(squares)
+
+# the same with a comprehension
+squares = [i * i for i in range(6)]
+print(squares)
+
+letters = [ch for ch in 'Python']
+print(letters)
+pairs = [(i, i * i) for i in range(4)]
+print(pairs)
+@end
+
+@md
+en: ## Filtering with if
+An `if` at the end keeps only the items that pass the condition: `[x for x in items if condition]`. To choose between two values instead, put a short condition at the front: `[a if condition else b for x in items]`.
+pl: ## Filtrowanie przez if
+`if` na końcu zostawia tylko te elementy, które spełniają warunek: `[x for x in items if condition]`. Żeby zamiast tego wybierać między dwiema wartościami, wstaw krótki warunek na początek: `[a if condition else b for x in items]`.
+de: ## Filtern mit if
+Ein `if` am Ende behält nur die Elemente, die die Bedingung erfüllen: `[x for x in items if condition]`. Willst du stattdessen zwischen zwei Werten wählen, setz eine kurze Bedingung nach vorn: `[a if condition else b for x in items]`.
+es: ## Filtrar con if
+Un `if` al final se queda solo con los elementos que cumplen la condición: `[x for x in items if condition]`. Para elegir entre dos valores, pon una condición corta al principio: `[a if condition else b for x in items]`.
+fr: ## Filtrer avec if
+Un `if` à la fin ne garde que les éléments qui remplissent la condition : `[x for x in items if condition]`. Pour choisir plutôt entre deux valeurs, place une courte condition au début : `[a if condition else b for x in items]`.
+
+@code
+numbers = [-4, -3, -2, -1, 0, 2, 4, 6]
+evens = [n for n in numbers if n % 2 == 0]
+positives = [n for n in numbers if n > 0]
+signs = ['+' if n > 0 else '-' if n < 0 else '0' for n in numbers]
+print(evens)
+print(positives)
+print(signs)
+@end
+
+@md
+en: ## Nested lists and other comprehensions
+Two `for` parts in one comprehension work like nested loops – the first is the outer one. That is the quickest way to flatten a list of lists. The same syntax with curly braces builds a set or a dictionary.
+pl: ## Listy zagnieżdżone i inne wyrażenia
+Dwie części `for` w jednym wyrażeniu działają jak pętle zagnieżdżone – pierwsza jest zewnętrzna. To najszybszy sposób na spłaszczenie listy list. Ta sama składnia z nawiasami klamrowymi buduje zbiór albo słownik.
+de: ## Verschachtelte Listen und andere Comprehensions
+Zwei `for`-Teile in einer Comprehension wirken wie verschachtelte Schleifen – der erste ist der äußere. So flachst du eine Liste von Listen am schnellsten ab. Dieselbe Schreibweise mit geschweiften Klammern baut eine Menge oder ein Dictionary.
+es: ## Listas anidadas y otras comprensiones
+Dos partes `for` en una misma comprensión funcionan como bucles anidados: la primera es el exterior. Es la forma más rápida de aplanar una lista de listas. La misma sintaxis con llaves crea un conjunto o un diccionario.
+fr: ## Listes imbriquées et autres compréhensions
+Deux parties `for` dans une même compréhension fonctionnent comme des boucles imbriquées – la première est la boucle extérieure. C'est le moyen le plus rapide d'aplatir une liste de listes. La même syntaxe avec des accolades construit un ensemble ou un dictionnaire.
+
+@code
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flat = [n for row in matrix for n in row]
+print(flat)
+lengths = {word: len(word) for word in ['sun', 'moon', 'stars']}
+print(lengths)
+first_letters = {word[0] for word in ['apple', 'avocado', 'banana']}
+print(sorted(first_letters))
+@end
+
+@md
+en: ## Lambda functions
+A **lambda** is a small function without a name, written in one expression: `lambda parameters: expression`. Its result is returned automatically – there is no `return`. Lambdas are handy where a function is needed only once, for example as the `key` for sorting.
+pl: ## Funkcje lambda
+**Lambda** to mała funkcja bez nazwy, zapisana w jednym wyrażeniu: `lambda parameters: expression`. Jej wynik jest zwracany automatycznie – nie ma `return`. Lambdy przydają się tam, gdzie funkcja jest potrzebna tylko raz, na przykład jako `key` przy sortowaniu.
+de: ## Lambda-Funktionen
+Ein **Lambda** ist eine kleine Funktion ohne Namen in einem einzigen Ausdruck: `lambda parameters: expression`. Das Ergebnis wird automatisch zurückgegeben – es gibt kein `return`. Lambdas sind praktisch, wo eine Funktion nur einmal gebraucht wird, zum Beispiel als `key` beim Sortieren.
+es: ## Funciones lambda
+Una **lambda** es una función pequeña sin nombre, escrita en una sola expresión: `lambda parameters: expression`. Su resultado se devuelve automáticamente; no hay `return`. Las lambdas son útiles donde una función solo se necesita una vez, por ejemplo como `key` al ordenar.
+fr: ## Les fonctions lambda
+Une **lambda** est une petite fonction sans nom, écrite en une seule expression : `lambda parameters: expression`. Son résultat est renvoyé automatiquement – il n'y a pas de `return`. Les lambdas sont pratiques là où une fonction ne sert qu'une fois, par exemple comme `key` pour trier.
+
+@code
+add = lambda a, b: a + b
+print(add(2, 3))
+square = lambda x: x ** 2
+print(square(5))
+words = ['banana', 'Kiwi', 'apple', 'Cherry']
+print(sorted(words))                          # upper case first
+print(sorted(words, key=lambda w: w.lower())) # ignore the case
+print(sorted(words, key=lambda w: len(w)))    # by length
+@end
+
+@exercise negatives
+@title
+en: Negatives and zero
+pl: Liczby ujemne i zero
+de: Negative Zahlen und Null
+es: Negativos y cero
+fr: Négatifs et zéro
+@text
+en: With one list comprehension, store in `result` the numbers from `numbers` that are negative or zero.
+pl: Jednym wyrażeniem listowym zapisz w `result` te liczby z `numbers`, które są ujemne albo równe zero.
+de: Speichere mit einer List Comprehension in `result` die Zahlen aus `numbers`, die negativ oder null sind.
+es: Con una sola lista por comprensión, guarda en `result` los números de `numbers` que son negativos o cero.
+fr: Avec une seule liste en compréhension, range dans `result` les nombres de `numbers` qui sont négatifs ou nuls.
+@hint
+en: `[n for n in numbers if n <= 0]`
+pl: `[n for n in numbers if n <= 0]`
+de: `[n for n in numbers if n <= 0]`
+es: `[n for n in numbers if n <= 0]`
+fr: `[n for n in numbers if n <= 0]`
+@starter
+numbers = [-4, -3, -2, -1, 0, 2, 4, 6]
+@end
+@solution
+numbers = [-4, -3, -2, -1, 0, 2, 4, 6]
+result = [n for n in numbers if n <= 0]
+print(result)
+@end
+@case
+expr: result == [-4, -3, -2, -1, 0]
+
+@exercise flatten
+@title
+en: Flatten a list
+pl: Spłaszcz listę
+de: Eine Liste abflachen
+es: Aplanar una lista
+fr: Aplatir une liste
+@text
+en: `list_of_lists` holds lists inside lists. Store all its numbers in one flat list `flat`, in order, using a comprehension.
+pl: `list_of_lists` zawiera listy w listach. Zapisz wszystkie jego liczby po kolei w jednej płaskiej liście `flat`, używając wyrażenia listowego.
+de: `list_of_lists` enthält Listen in Listen. Speichere alle seine Zahlen der Reihe nach in einer flachen Liste `flat` – mit einer Comprehension.
+es: `list_of_lists` contiene listas dentro de listas. Guarda todos sus números en orden en una sola lista plana `flat`, usando una comprensión.
+fr: `list_of_lists` contient des listes dans des listes. Range tous ses nombres dans l'ordre dans une seule liste plate `flat`, à l'aide d'une compréhension.
+@hint
+en: Here there are three levels, so you need three `for` parts: `[n for a in list_of_lists for b in a for n in b]`.
+pl: Tu są trzy poziomy, więc potrzebujesz trzech części `for`: `[n for a in list_of_lists for b in a for n in b]`.
+de: Hier gibt es drei Ebenen, also brauchst du drei `for`-Teile: `[n for a in list_of_lists for b in a for n in b]`.
+es: Aquí hay tres niveles, así que necesitas tres partes `for`: `[n for a in list_of_lists for b in a for n in b]`.
+fr: Il y a ici trois niveaux, il te faut donc trois parties `for` : `[n for a in list_of_lists for b in a for n in b]`.
+@starter
+list_of_lists = [[[1, 2, 3]], [[4, 5, 6]], [[7, 8, 9]]]
+@end
+@solution
+list_of_lists = [[[1, 2, 3]], [[4, 5, 6]], [[7, 8, 9]]]
+flat = [n for a in list_of_lists for b in a for n in b]
+print(flat)
+@end
+@case
+expr: flat == [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+@exercise powers
+@title
+en: Table of powers
+pl: Tabela potęg
+de: Potenztabelle
+es: Tabla de potencias
+fr: Table des puissances
+@text
+en: Build with a comprehension the list `table` of tuples `(n, 1, n, n**2, n**3, n**4, n**5)` for `n` from 0 to 10. The first item is `(0, 1, 0, 0, 0, 0, 0)` and the last `(10, 1, 10, 100, 1000, 10000, 100000)`.
+pl: Zbuduj wyrażeniem listowym listę `table` krotek `(n, 1, n, n**2, n**3, n**4, n**5)` dla `n` od 0 do 10. Pierwszy element to `(0, 1, 0, 0, 0, 0, 0)`, a ostatni `(10, 1, 10, 100, 1000, 10000, 100000)`.
+de: Bau mit einer Comprehension die Liste `table` aus Tupeln `(n, 1, n, n**2, n**3, n**4, n**5)` für `n` von 0 bis 10. Das erste Element ist `(0, 1, 0, 0, 0, 0, 0)`, das letzte `(10, 1, 10, 100, 1000, 10000, 100000)`.
+es: Crea con una comprensión la lista `table` de tuplas `(n, 1, n, n**2, n**3, n**4, n**5)` para `n` de 0 a 10. El primer elemento es `(0, 1, 0, 0, 0, 0, 0)` y el último `(10, 1, 10, 100, 1000, 10000, 100000)`.
+fr: Construis avec une compréhension la liste `table` de tuples `(n, 1, n, n**2, n**3, n**4, n**5)` pour `n` de 0 à 10. Le premier élément est `(0, 1, 0, 0, 0, 0, 0)` et le dernier `(10, 1, 10, 100, 1000, 10000, 100000)`.
+@hint
+en: The tuple is just the expression: `[(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]`.
+pl: Krotka to po prostu wyrażenie: `[(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]`.
+de: Das Tupel ist einfach der Ausdruck: `[(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]`.
+es: La tupla es simplemente la expresión: `[(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]`.
+fr: Le tuple est tout simplement l'expression : `[(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]`.
+@starter
+table = []
+@end
+@solution
+table = [(n, 1, n, n ** 2, n ** 3, n ** 4, n ** 5) for n in range(11)]
+for row in table:
+    print(row)
+@end
+@case
+expr: len(table) == 11
+expr: table[0] == (0, 1, 0, 0, 0, 0, 0)
+expr: table[3] == (3, 1, 3, 9, 27, 81, 243)
+expr: table[-1] == (10, 1, 10, 100, 1000, 10000, 100000)
+
+@exercise countries
+@title
+en: Countries and capitals
+pl: Kraje i stolice
+de: Länder und Hauptstädte
+es: Países y capitales
+fr: Pays et capitales
+@text
+en: From `countries` – a list of `[country, capital]` lists – build with comprehensions: `upper`, the list of tuples with both names in upper case, like `('FINLAND', 'HELSINKI')`, and `by_country`, a dictionary from each country to its capital.
+pl: Z `countries` – listy list `[country, capital]` – zbuduj wyrażeniami: `upper`, listę krotek z obiema nazwami wielkimi literami, np. `('FINLAND', 'HELSINKI')`, oraz `by_country`, słownik z każdego kraju na jego stolicę.
+de: Bau aus `countries` – einer Liste von `[country, capital]`-Listen – mit Comprehensions: `upper`, die Liste von Tupeln mit beiden Namen in Großbuchstaben, etwa `('FINLAND', 'HELSINKI')`, und `by_country`, ein Dictionary von jedem Land zu seiner Hauptstadt.
+es: A partir de `countries`, una lista de listas `[country, capital]`, crea con comprensiones: `upper`, la lista de tuplas con los dos nombres en mayúsculas, como `('FINLAND', 'HELSINKI')`, y `by_country`, un diccionario de cada país a su capital.
+fr: À partir de `countries` – une liste de listes `[country, capital]` –, construis avec des compréhensions : `upper`, la liste de tuples avec les deux noms en majuscules, comme `('FINLAND', 'HELSINKI')`, et `by_country`, un dictionnaire qui associe chaque pays à sa capitale.
+@hint
+en: Unpack in the `for` part: `for country, capital in countries`. A dictionary comprehension looks like `{key: value for ...}`.
+pl: Rozpakuj w części `for`: `for country, capital in countries`. Wyrażenie słownikowe wygląda tak: `{key: value for ...}`.
+de: Entpacke im `for`-Teil: `for country, capital in countries`. Eine Dictionary Comprehension sieht so aus: `{key: value for ...}`.
+es: Desempaqueta en la parte `for`: `for country, capital in countries`. Una comprensión de diccionario tiene esta forma: `{key: value for ...}`.
+fr: Déballe dans la partie `for` : `for country, capital in countries`. Une compréhension de dictionnaire ressemble à `{key: value for ...}`.
+@starter
+countries = [['Finland', 'Helsinki'], ['Sweden', 'Stockholm'], ['Norway', 'Oslo']]
+@end
+@solution
+countries = [['Finland', 'Helsinki'], ['Sweden', 'Stockholm'], ['Norway', 'Oslo']]
+upper = [(country.upper(), capital.upper()) for country, capital in countries]
+by_country = {country: capital for country, capital in countries}
+print(upper)
+print(by_country)
+@end
+@case
+expr: upper == [('FINLAND', 'HELSINKI'), ('SWEDEN', 'STOCKHOLM'), ('NORWAY', 'OSLO')]
+expr: by_country == {'Finland': 'Helsinki', 'Sweden': 'Stockholm', 'Norway': 'Oslo'}
+
+@exercise lambdas
+@title
+en: Lambdas
+pl: Lambdy
+de: Lambdas
+es: Lambdas
+fr: Lambdas
+@text
+en: Store a lambda in `slope` that takes `x1, y1, x2, y2` and returns the slope `(y2 - y1) / (x2 - x1)`. Then sort `people` by age, youngest first, into `by_age` using `sorted` with a lambda as `key`.
+pl: Zapisz w `slope` lambdę, która przyjmuje `x1, y1, x2, y2` i zwraca nachylenie `(y2 - y1) / (x2 - x1)`. Potem posortuj `people` według wieku, od najmłodszego, do `by_age`, używając `sorted` z lambdą jako `key`.
+de: Speichere in `slope` ein Lambda, das `x1, y1, x2, y2` nimmt und die Steigung `(y2 - y1) / (x2 - x1)` zurückgibt. Sortiere dann `people` nach Alter, die Jüngsten zuerst, in `by_age` – mit `sorted` und einem Lambda als `key`.
+es: Guarda en `slope` una lambda que recibe `x1, y1, x2, y2` y devuelve la pendiente `(y2 - y1) / (x2 - x1)`. Después ordena `people` por edad, de menor a mayor, en `by_age` usando `sorted` con una lambda como `key`.
+fr: Range dans `slope` une lambda qui prend `x1, y1, x2, y2` et renvoie la pente `(y2 - y1) / (x2 - x1)`. Trie ensuite `people` par âge, du plus jeune au plus âgé, dans `by_age` en utilisant `sorted` avec une lambda comme `key`.
+@hint
+en: Each person is a tuple `(name, age)`, so the key is `lambda p: p[1]`.
+pl: Każda osoba to krotka `(name, age)`, więc klucz to `lambda p: p[1]`.
+de: Jede Person ist ein Tupel `(name, age)`, also ist der Schlüssel `lambda p: p[1]`.
+es: Cada persona es una tupla `(name, age)`, así que la clave es `lambda p: p[1]`.
+fr: Chaque personne est un tuple `(name, age)`, donc la clé est `lambda p: p[1]`.
+@starter
+people = [('Anna', 34), ('Tom', 19), ('Maria', 27), ('Ola', 45)]
+@end
+@solution
+people = [('Anna', 34), ('Tom', 19), ('Maria', 27), ('Ola', 45)]
+slope = lambda x1, y1, x2, y2: (y2 - y1) / (x2 - x1)
+by_age = sorted(people, key=lambda p: p[1])
+print(slope(0, 0, 2, 4), by_age)
+@end
+@case
+expr: slope.__name__ == '<lambda>'
+expr: slope(0, 0, 2, 4) == 2
+expr: slope(1, 5, 3, 1) == -2
+expr: by_age == [('Tom', 19), ('Maria', 27), ('Anna', 34), ('Ola', 45)]
