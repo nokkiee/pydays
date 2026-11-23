@@ -1,0 +1,346 @@
+@day 17
+@source 17_Day_Exception_handling/17_exception_handling.md
+
+@title
+en: Exception handling
+pl: Obsługa wyjątków
+de: Ausnahmebehandlung
+es: Manejo de excepciones
+fr: Gestion des exceptions
+
+@summary
+en: Catch errors with try and except so that programs survive bad input, raise your own exceptions, and pack and unpack values with *, **, enumerate and zip.
+pl: Łap błędy przez try i except, żeby programy przetrwały złe dane, zgłaszaj własne wyjątki i pakuj i rozpakowuj wartości przez *, **, enumerate i zip.
+de: Fehler mit try und except abfangen, damit Programme schlechte Eingaben überstehen, eigene Ausnahmen auslösen und Werte mit *, **, enumerate und zip packen und entpacken.
+es: Captura errores con try y except para que los programas sobrevivan a datos incorrectos, lanza tus propias excepciones y empaqueta y desempaqueta valores con *, **, enumerate y zip.
+fr: Intercepte les erreurs avec try et except pour que les programmes résistent aux mauvaises entrées, lève tes propres exceptions, et emballe et déballe des valeurs avec *, **, enumerate et zip.
+
+@md
+en: ## try and except
+Yesterday's errors stop a program. With `try` you can **catch** them instead: Python runs the `try` block, and if an error happens there, it jumps to the matching `except` block and carries on after it. Name the error type you expect – a bare `except:` would also hide your own mistakes.
+pl: ## try i except
+Błędy z przedwczoraj zatrzymują program. Dzięki `try` można je zamiast tego **złapać**: Python wykonuje blok `try`, a jeśli wystąpi w nim błąd, przeskakuje do pasującego bloku `except` i działa dalej za nim. Podawaj typ błędu, którego się spodziewasz – gołe `except:` ukryłoby też twoje własne pomyłki.
+de: ## try und except
+Die Fehler von vorgestern halten ein Programm an. Mit `try` kannst du sie stattdessen **abfangen**: Python führt den `try`-Block aus, und tritt dort ein Fehler auf, springt es in den passenden `except`-Block und macht danach weiter. Nenne den Fehlertyp, den du erwartest – ein nacktes `except:` würde auch deine eigenen Fehler verstecken.
+es: ## try y except
+Los errores de anteayer detienen un programa. Con `try` puedes **capturarlos** en su lugar: Python ejecuta el bloque `try` y, si ahí ocurre un error, salta al bloque `except` correspondiente y sigue después de él. Indica el tipo de error que esperas: un `except:` sin más también ocultaría tus propios fallos.
+fr: ## try et except
+Les erreurs d'avant-hier arrêtent un programme. Avec `try`, tu peux les **intercepter** à la place : Python exécute le bloc `try`, et si une erreur s'y produit, il saute au bloc `except` correspondant et continue après lui. Indique le type d'erreur que tu attends – un `except:` tout seul masquerait aussi tes propres fautes.
+
+@code stdin="abc\n"
+try:
+    age = int(input('Age: '))
+    print('Next year you will be', age + 1)
+except ValueError:
+    print('That is not a whole number.')
+print('The program goes on.')
+@end
+
+@md
+en: ## Several errors, else and finally
+One `try` can have several `except` blocks, or one block for a tuple of types. `except ValueError as e` gives you the error object, whose text is the message. An `else` block runs only if no error happened, and `finally` runs **always** – it is the place for clean-up such as closing a file.
+pl: ## Kilka błędów, else i finally
+Jedno `try` może mieć kilka bloków `except` albo jeden blok na krotkę typów. `except ValueError as e` daje dostęp do obiektu błędu, którego tekst to komunikat. Blok `else` wykonuje się tylko wtedy, gdy błędu nie było, a `finally` – **zawsze**; to miejsce na sprzątanie, np. zamknięcie pliku.
+de: ## Mehrere Fehler, else und finally
+Ein `try` kann mehrere `except`-Blöcke haben oder einen Block für ein Tupel von Typen. `except ValueError as e` gibt dir das Fehlerobjekt, dessen Text die Meldung ist. Ein `else`-Block läuft nur, wenn kein Fehler auftrat, und `finally` läuft **immer** – der Ort für Aufräumarbeiten wie das Schließen einer Datei.
+es: ## Varios errores, else y finally
+Un `try` puede tener varios bloques `except`, o un bloque para una tupla de tipos. `except ValueError as e` te da el objeto del error, cuyo texto es el mensaje. Un bloque `else` se ejecuta solo si no hubo error, y `finally` se ejecuta **siempre**: es el lugar para limpiar, por ejemplo cerrar un archivo.
+fr: ## Plusieurs erreurs, else et finally
+Un même `try` peut avoir plusieurs blocs `except`, ou un seul bloc pour un tuple de types. `except ValueError as e` te donne l'objet erreur, dont le texte est le message. Un bloc `else` ne s'exécute que s'il n'y a pas eu d'erreur, et `finally` s'exécute **toujours** – c'est l'endroit pour faire le ménage, comme fermer un fichier.
+
+@code
+def divide(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        print('Cannot divide by zero')
+    except TypeError as e:
+        print('Wrong type:', e)
+    else:
+        print('Result:', result)
+    finally:
+        print('-- done')
+
+divide(10, 4)
+divide(10, 0)
+divide(10, 'two')
+@end
+
+@md
+en: ## Raising exceptions
+Your own functions can report a problem with `raise`, followed by an error type and a message. The caller can then catch it like any built-in error. Choose the type that fits: `ValueError` for a bad value, `TypeError` for a wrong type.
+pl: ## Zgłaszanie wyjątków
+Twoje własne funkcje mogą zgłosić problem przez `raise`, a po nim typ błędu i komunikat. Wywołujący może go potem złapać jak każdy wbudowany błąd. Wybieraj pasujący typ: `ValueError` dla złej wartości, `TypeError` dla złego typu.
+de: ## Ausnahmen auslösen
+Deine eigenen Funktionen können mit `raise` ein Problem melden, gefolgt von einem Fehlertyp und einer Meldung. Der Aufrufer kann ihn dann abfangen wie jeden eingebauten Fehler. Wähle den passenden Typ: `ValueError` für einen falschen Wert, `TypeError` für einen falschen Typ.
+es: ## Lanzar excepciones
+Tus propias funciones pueden avisar de un problema con `raise`, seguido de un tipo de error y un mensaje. Quien llama puede capturarlo como cualquier error integrado. Elige el tipo que encaje: `ValueError` para un valor incorrecto y `TypeError` para un tipo incorrecto.
+fr: ## Lever des exceptions
+Tes propres fonctions peuvent signaler un problème avec `raise`, suivi d'un type d'erreur et d'un message. L'appelant peut ensuite l'intercepter comme n'importe quelle erreur intégrée. Choisis le type adapté : `ValueError` pour une mauvaise valeur, `TypeError` pour un mauvais type.
+
+@code
+def set_age(age):
+    if age < 0:
+        raise ValueError('age cannot be negative')
+    return age
+
+try:
+    set_age(-5)
+except ValueError as e:
+    print('Error:', e)
+@end
+
+@md
+en: ## Packing and unpacking arguments
+A star in a **call** does the opposite of `*args` in a definition: `f(*items)` spreads a list into separate arguments, and `f(**options)` spreads a dictionary into keyword arguments. Stars also merge sequences and dictionaries: `[*a, *b]` and `{**d1, **d2}` – for dictionaries the later values win.
+pl: ## Pakowanie i rozpakowywanie argumentów
+Gwiazdka w **wywołaniu** działa odwrotnie niż `*args` w definicji: `f(*items)` rozkłada listę na osobne argumenty, a `f(**options)` rozkłada słownik na argumenty nazwane. Gwiazdki łączą też ciągi i słowniki: `[*a, *b]` i `{**d1, **d2}` – w słownikach wygrywają późniejsze wartości.
+de: ## Argumente packen und entpacken
+Ein Stern im **Aufruf** macht das Gegenteil von `*args` in einer Definition: `f(*items)` verteilt eine Liste auf einzelne Argumente, `f(**options)` ein Dictionary auf Schlüsselwortargumente. Sterne verbinden auch Folgen und Dictionaries: `[*a, *b]` und `{**d1, **d2}` – bei Dictionaries gewinnen die späteren Werte.
+es: ## Empaquetar y desempaquetar argumentos
+Un asterisco en una **llamada** hace lo contrario que `*args` en una definición: `f(*items)` reparte una lista en argumentos separados, y `f(**options)` reparte un diccionario en argumentos con nombre. Los asteriscos también unen secuencias y diccionarios: `[*a, *b]` y `{**d1, **d2}`; en los diccionarios ganan los valores posteriores.
+fr: ## Emballer et déballer des arguments
+Une étoile dans un **appel** fait l'inverse de `*args` dans une définition : `f(*items)` répartit une liste en arguments séparés, et `f(**options)` répartit un dictionnaire en arguments nommés. Les étoiles fusionnent aussi des séquences et des dictionnaires : `[*a, *b]` et `{**d1, **d2}` – pour les dictionnaires, les valeurs les plus tardives l'emportent.
+
+@code
+def sum_of_five(a, b, c, d, e):
+    return a + b + c + d + e
+
+numbers = [1, 2, 3, 4, 5]
+print(sum_of_five(*numbers))          # 15
+
+def describe(name, country, city):
+    return f'{name} lives in {city}, {country}'
+
+info = {'name': 'Asabeneh', 'country': 'Finland', 'city': 'Helsinki'}
+print(describe(**info))
+
+print([*'abc', *[1, 2]])
+defaults = {'theme': 'dark', 'size': 14}
+mine = {'size': 16}
+print({**defaults, **mine})           # {'theme': 'dark', 'size': 16}
+@end
+
+@md
+en: ## enumerate and zip
+`enumerate(items)` gives pairs of an index and an item, so you do not need a counter variable; `start=1` begins counting at 1. `zip(a, b)` walks through two or more sequences side by side and stops at the shortest one.
+pl: ## enumerate i zip
+`enumerate(items)` daje pary: indeks i element, więc nie potrzebujesz zmiennej-licznika; `start=1` zaczyna liczenie od 1. `zip(a, b)` przechodzi równolegle po dwóch lub więcej ciągach i kończy na najkrótszym.
+de: ## enumerate und zip
+`enumerate(items)` liefert Paare aus Index und Element, du brauchst also keine Zählvariable; `start=1` beginnt bei 1. `zip(a, b)` geht zwei oder mehr Folgen nebeneinander durch und hört bei der kürzesten auf.
+es: ## enumerate y zip
+`enumerate(items)` da pares de índice y elemento, así que no necesitas una variable contador; `start=1` empieza a contar en 1. `zip(a, b)` recorre dos o más secuencias en paralelo y se detiene en la más corta.
+fr: ## enumerate et zip
+`enumerate(items)` donne des paires indice–élément, tu n'as donc pas besoin de variable compteur ; `start=1` commence à compter à 1. `zip(a, b)` parcourt deux séquences ou plus côte à côte et s'arrête à la plus courte.
+
+@code
+countries = ['Finland', 'Sweden', 'Norway']
+for i, country in enumerate(countries, start=1):
+    print(i, country)
+
+fruits = ['banana', 'orange', 'mango']
+vegetables = ['tomato', 'potato', 'cabbage']
+for f, v in zip(fruits, vegetables):
+    print(f, '+', v)
+print(dict(zip(countries, ['Helsinki', 'Stockholm', 'Oslo'])))
+@end
+
+@exercise safe-divide
+@title
+en: Safe division
+pl: Bezpieczne dzielenie
+de: Sichere Division
+es: División segura
+fr: Division sûre
+@text
+en: Write `safe_divide(a, b)` that returns `a / b`, or `None` when `b` is zero. Use `try` and `except`, not an `if`.
+pl: Napisz `safe_divide(a, b)`, która zwraca `a / b` albo `None`, gdy `b` jest zerem. Użyj `try` i `except`, nie `if`.
+de: Schreib `safe_divide(a, b)`, die `a / b` zurückgibt oder `None`, wenn `b` null ist. Nimm `try` und `except`, kein `if`.
+es: Escribe `safe_divide(a, b)`, que devuelve `a / b`, o `None` cuando `b` es cero. Usa `try` y `except`, no un `if`.
+fr: Écris `safe_divide(a, b)` qui renvoie `a / b`, ou `None` quand `b` vaut zéro. Utilise `try` et `except`, pas un `if`.
+@hint
+en: Catch `ZeroDivisionError` and `return None` in the `except` block.
+pl: Złap `ZeroDivisionError` i zrób `return None` w bloku `except`.
+de: Fang `ZeroDivisionError` ab und schreib `return None` in den `except`-Block.
+es: Captura `ZeroDivisionError` y haz `return None` en el bloque `except`.
+fr: Intercepte `ZeroDivisionError` et fais `return None` dans le bloc `except`.
+@starter
+def safe_divide(a, b):
+    return a / b
+@end
+@solution
+def safe_divide(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return None
+
+
+print(safe_divide(10, 4), safe_divide(1, 0))
+@end
+@case
+expr: safe_divide(10, 4) == 2.5
+expr: safe_divide(1, 0) is None
+expr: safe_divide(0, 5) == 0
+expr: 'try' in open(__file__).read() and 'except' in open(__file__).read()
+
+@exercise to-int
+@title
+en: A friendly number reader
+pl: Uprzejmy czytnik liczb
+de: Ein freundlicher Zahlenleser
+es: Un lector de números amable
+fr: Un lecteur de nombres aimable
+@text
+en: Read a line with `input()`. If it is a whole number, print its square as `7 squared is 49`. If it is not, print `Not a number: ` followed by what was typed, e.g. `Not a number: seven`. The program must not stop with an error.
+pl: Wczytaj wiersz przez `input()`. Jeśli to liczba całkowita, wypisz jej kwadrat jako `7 squared is 49`. Jeśli nie, wypisz `Not a number: ` i to, co wpisano, np. `Not a number: seven`. Program nie może zatrzymać się z błędem.
+de: Lies mit `input()` eine Zeile ein. Ist sie eine ganze Zahl, gib ihr Quadrat als `7 squared is 49` aus. Wenn nicht, gib `Not a number: ` gefolgt von der Eingabe aus, z. B. `Not a number: seven`. Das Programm darf nicht mit einem Fehler abbrechen.
+es: Lee una línea con `input()`. Si es un número entero, imprime su cuadrado como `7 squared is 49`. Si no, imprime `Not a number: ` seguido de lo escrito, p. ej. `Not a number: seven`. El programa no debe detenerse con un error.
+fr: Lis une ligne avec `input()`. Si c'est un nombre entier, affiche son carré sous la forme `7 squared is 49`. Sinon, affiche `Not a number: ` suivi de ce qui a été tapé, par exemple `Not a number: seven`. Le programme ne doit pas s'arrêter sur une erreur.
+@hint
+en: Put `int(text)` and the `print` in the `try` block and catch `ValueError`.
+pl: Wstaw `int(text)` i `print` do bloku `try` i złap `ValueError`.
+de: Pack `int(text)` und das `print` in den `try`-Block und fang `ValueError` ab.
+es: Pon `int(text)` y el `print` en el bloque `try` y captura `ValueError`.
+fr: Mets `int(text)` et le `print` dans le bloc `try` et intercepte `ValueError`.
+@starter
+text = input('Number: ')
+n = int(text)
+print(f'{n} squared is {n * n}')
+@end
+@solution
+text = input('Number: ')
+try:
+    n = int(text)
+    print(f'{n} squared is {n * n}')
+except ValueError:
+    print(f'Not a number: {text}')
+@end
+@case stdin="7\n"
+out: 7 squared is 49
+@case stdin="-3\n"
+out: -3 squared is 9
+@case stdin="seven\n"
+out: Not a number: seven
+
+@exercise validate
+@title
+en: Raise your own error
+pl: Zgłoś własny błąd
+de: Einen eigenen Fehler auslösen
+es: Lanza tu propio error
+fr: Lève ta propre erreur
+@text
+en: Write `check_password(password)` that returns `True` when the password is fine. If it is shorter than 8 characters, raise a `ValueError` with the message `too short`; if it has no digit, raise a `ValueError` with the message `no digit`.
+pl: Napisz `check_password(password)`, która zwraca `True`, gdy hasło jest w porządku. Jeśli ma mniej niż 8 znaków, zgłoś `ValueError` z komunikatem `too short`; jeśli nie ma cyfry – `ValueError` z komunikatem `no digit`.
+de: Schreib `check_password(password)`, die `True` zurückgibt, wenn das Passwort in Ordnung ist. Ist es kürzer als 8 Zeichen, löse einen `ValueError` mit der Meldung `too short` aus; enthält es keine Ziffer, einen `ValueError` mit der Meldung `no digit`.
+es: Escribe `check_password(password)`, que devuelve `True` cuando la contraseña es válida. Si tiene menos de 8 caracteres, lanza un `ValueError` con el mensaje `too short`; si no tiene ninguna cifra, un `ValueError` con el mensaje `no digit`.
+fr: Écris `check_password(password)` qui renvoie `True` quand le mot de passe convient. S'il fait moins de 8 caractères, lève une `ValueError` avec le message `too short` ; s'il ne contient aucun chiffre, une `ValueError` avec le message `no digit`.
+@hint
+en: `raise ValueError('too short')`. `any(c.isdigit() for c in password)` checks for a digit.
+pl: `raise ValueError('too short')`. `any(c.isdigit() for c in password)` sprawdza, czy jest cyfra.
+de: `raise ValueError('too short')`. `any(c.isdigit() for c in password)` prüft, ob es eine Ziffer gibt.
+es: `raise ValueError('too short')`. `any(c.isdigit() for c in password)` comprueba si hay una cifra.
+fr: `raise ValueError('too short')`. `any(c.isdigit() for c in password)` vérifie la présence d'un chiffre.
+@starter
+def check_password(password):
+    return True
+@end
+@solution
+def check_password(password):
+    if len(password) < 8:
+        raise ValueError('too short')
+    if not any(c.isdigit() for c in password):
+        raise ValueError('no digit')
+    return True
+
+
+try:
+    check_password('abc')
+except ValueError as e:
+    print('Error:', e)
+@end
+@case
+expr: check_password('secret123') is True
+expr: _catch(check_password, 'abc') == ('ValueError', 'too short')
+expr: _catch(check_password, 'longpassword') == ('ValueError', 'no digit')
+expr: _catch(check_password, 'x1') == ('ValueError', 'too short')
+
+@exercise ranking
+@title
+en: A ranking with enumerate and zip
+pl: Ranking z enumerate i zip
+de: Eine Rangliste mit enumerate und zip
+es: Una clasificación con enumerate y zip
+fr: Un classement avec enumerate et zip
+@text
+en: `names` and `scores` belong together by position. Using `zip` and `enumerate`, print one line per person, numbered from 1: `1. Anna: 92`, `2. Tom: 78`, and so on. Then store the dictionary `by_name` from each name to its score.
+pl: `names` i `scores` są ze sobą powiązane pozycjami. Używając `zip` i `enumerate`, wypisz po jednym wierszu na osobę, numerując od 1: `1. Anna: 92`, `2. Tom: 78` i tak dalej. Potem zapisz słownik `by_name` z każdego imienia na jego wynik.
+de: `names` und `scores` gehören über die Position zusammen. Gib mit `zip` und `enumerate` für jede Person eine Zeile aus, nummeriert ab 1: `1. Anna: 92`, `2. Tom: 78` und so weiter. Speichere dann das Dictionary `by_name` von jedem Namen zu seiner Punktzahl.
+es: `names` y `scores` se corresponden por posición. Con `zip` y `enumerate`, imprime una línea por persona, numerada desde 1: `1. Anna: 92`, `2. Tom: 78`, etc. Después guarda el diccionario `by_name` de cada nombre a su puntuación.
+fr: `names` et `scores` se correspondent par position. Avec `zip` et `enumerate`, affiche une ligne par personne, numérotée à partir de 1 : `1. Anna: 92`, `2. Tom: 78`, et ainsi de suite. Range ensuite le dictionnaire `by_name` qui associe chaque nom à son score.
+@hint
+en: `for i, (name, score) in enumerate(zip(names, scores), start=1):` – and `dict(zip(names, scores))`.
+pl: `for i, (name, score) in enumerate(zip(names, scores), start=1):` – oraz `dict(zip(names, scores))`.
+de: `for i, (name, score) in enumerate(zip(names, scores), start=1):` – und `dict(zip(names, scores))`.
+es: `for i, (name, score) in enumerate(zip(names, scores), start=1):` y `dict(zip(names, scores))`.
+fr: `for i, (name, score) in enumerate(zip(names, scores), start=1):` – et `dict(zip(names, scores))`.
+@starter
+names = ['Anna', 'Tom', 'Maria', 'Ola']
+scores = [92, 78, 85, 64]
+@end
+@solution
+names = ['Anna', 'Tom', 'Maria', 'Ola']
+scores = [92, 78, 85, 64]
+for i, (name, score) in enumerate(zip(names, scores), start=1):
+    print(f'{i}. {name}: {score}')
+by_name = dict(zip(names, scores))
+@end
+@case
+expr: _lines == ['1. Anna: 92', '2. Tom: 78', '3. Maria: 85', '4. Ola: 64']
+expr: by_name == {'Anna': 92, 'Tom': 78, 'Maria': 85, 'Ola': 64}
+
+@exercise merge
+@title
+en: Spreading with stars
+pl: Rozkładanie gwiazdkami
+de: Verteilen mit Sternen
+es: Repartir con asteriscos
+fr: Répartir avec des étoiles
+@text
+en: Call `area(*size)` to store the area in `result`, without writing `size[0]`. Then merge `defaults` and `user_settings` into `settings`, so that the user's values replace the defaults.
+pl: Wywołaj `area(*size)`, żeby zapisać pole w `result`, bez pisania `size[0]`. Potem połącz `defaults` i `user_settings` w `settings` tak, żeby wartości użytkownika zastąpiły domyślne.
+de: Ruf `area(*size)` auf, um die Fläche in `result` zu speichern, ohne `size[0]` zu schreiben. Verbinde dann `defaults` und `user_settings` zu `settings`, sodass die Werte des Nutzers die Standardwerte ersetzen.
+es: Llama a `area(*size)` para guardar el área en `result`, sin escribir `size[0]`. Después une `defaults` y `user_settings` en `settings`, de modo que los valores del usuario sustituyan a los predeterminados.
+fr: Appelle `area(*size)` pour ranger l'aire dans `result`, sans écrire `size[0]`. Fusionne ensuite `defaults` et `user_settings` dans `settings`, pour que les valeurs de l'utilisateur remplacent celles par défaut.
+@hint
+en: `{**defaults, **user_settings}` – the dictionary written last wins.
+pl: `{**defaults, **user_settings}` – wygrywa słownik zapisany jako ostatni.
+de: `{**defaults, **user_settings}` – das zuletzt genannte Dictionary gewinnt.
+es: `{**defaults, **user_settings}`: gana el diccionario escrito en último lugar.
+fr: `{**defaults, **user_settings}` – c'est le dictionnaire écrit en dernier qui l'emporte.
+@starter
+def area(width, height):
+    return width * height
+
+
+size = (3, 4)
+defaults = {'theme': 'dark', 'font_size': 14, 'wrap': False}
+user_settings = {'font_size': 16, 'wrap': True}
+@end
+@solution
+def area(width, height):
+    return width * height
+
+
+size = (3, 4)
+defaults = {'theme': 'dark', 'font_size': 14, 'wrap': False}
+user_settings = {'font_size': 16, 'wrap': True}
+result = area(*size)
+settings = {**defaults, **user_settings}
+print(result, settings)
+@end
+@case
+expr: result == 12
+expr: settings == {'theme': 'dark', 'font_size': 16, 'wrap': True}
+expr: 'area(*size)' in open(__file__).read()

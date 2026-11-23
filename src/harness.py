@@ -5,7 +5,8 @@ evaluates the case's checks:
   out:  the printed output contains this text (whitespace-insensitive)
   re:   the printed output matches this regular expression
   expr: this Python expression is true in the program's namespace
-        (_out holds the printed output, _lines its non-empty lines)
+        (_out holds the printed output, _lines its non-empty lines, and
+        _catch(f, *args) calls f and gives (error type name, message) if it raised, else None)
 The result goes to the real stdout as one JSON line after a marker.
 """
 import builtins
@@ -18,6 +19,15 @@ import sys
 import traceback
 
 MARK = "@@PYDAYS-RESULT@@"
+
+
+def catch(f, *args, **kwargs):
+    """For checks: call f and report the exception it raised as (type name, message), or None."""
+    try:
+        f(*args, **kwargs)
+    except Exception as e:  # noqa: BLE001
+        return (type(e).__name__, str(e))
+    return None
 
 
 def norm(text):
@@ -71,6 +81,7 @@ def main():
     out = captured.getvalue()
     namespace["_out"] = out
     namespace["_lines"] = [line.strip() for line in out.splitlines() if line.strip()]
+    namespace["_catch"] = catch
 
     checks = []
     for c in spec.get("checks", []):
