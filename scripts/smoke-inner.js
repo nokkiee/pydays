@@ -41,7 +41,8 @@ async function run(win, app) {
   const result = {};
   const step = async (name, fn) => {
     try {
-      result[name] = (await fn()) === true;
+      const v = await fn();
+      result[name] = v === true || (typeof v === 'string' ? v : false);
     } catch (e) {
       result[name] = String(e && e.message);
     }
@@ -63,7 +64,8 @@ async function run(win, app) {
   // a lesson example runs in the terminal
   await step('runExample', async () => {
     await js(`[...document.querySelectorAll('.snippet-bar .btn')].find((b) => b.querySelector('.ico') && b.textContent.trim() && b.closest('.snippet') && b === b.parentNode.lastElementChild).click()`);
-    return until(`(${termText}).includes('Welcome to 30 Days Of Python') && /\d+\.\d\d s/.test(${termText})`, 20000);
+    const ok = await until(`(${termText}).includes('Welcome to 30 Days Of Python') && /\\d+\\.\\d\\d s/.test(${termText})`, 20000);
+    return ok || 'terminal: ' + JSON.stringify((await js(termText)).slice(-300));
   });
 
   // a program that reads input(): the terminal's input line sends the answer
@@ -130,6 +132,13 @@ async function run(win, app) {
     return until(`!!document.querySelector('.celebrate') && !!document.querySelector('.lesson-head .pill.ok')`, 5000);
   });
   await js(`document.querySelectorAll('.overlay').forEach((o) => o.remove())`);
+
+  // a later lesson with data files shown next to the examples
+  await js(`location.hash = '#/day/19'`);
+  await step('lessonFiles', () => until(`document.querySelectorAll('.lesson-scroll .snippet.file').length >= 3 && (document.querySelector('.lesson-scroll .snippet.file pre')?.textContent || '').length > 20`));
+  await js(`document.querySelector('.lesson-scroll .snippet.file')?.scrollIntoView({ block: 'center' })`);
+  await wait(300);
+  await shot('02c-files');
 
   await js(`location.hash = '#/calendar'`);
   await step('calendar', () => until(`document.querySelectorAll('.cal-day').length >= 28 && !!document.querySelector('.cal-day.today .cal-chip')`));

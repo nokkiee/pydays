@@ -1,6 +1,6 @@
 // Calendar: which dates you studied, what you completed on them, streaks and milestones.
 import { h, btn, icon, clear } from '../ui.js';
-import { t, pick, weekStart, weekdayNames, fmtDate } from '../i18n.js';
+import { t, pick, weekStart, weekdayNames, fmtDate, capFirst } from '../i18n.js';
 import { progress, onProgress, localDate, parseDate, addDays, studied, intensity, streak, studiedDates, MILESTONES, doneCount } from '../progress.js';
 import { getDay } from '../course.js';
 import { msName, msText } from '../milestones.js';
@@ -62,7 +62,7 @@ export function render(root, params) {
       grid.appendChild(cell);
     }
 
-    const monthName = fmtDate(first, { month: 'long', year: 'numeric' });
+    const monthName = capFirst(fmtDate(first, { month: 'long', year: 'numeric' }));
     const main = h(
       'div',
       { class: 'card' },
@@ -100,7 +100,7 @@ export function render(root, params) {
     const sel = p.activity[selected];
     const selDate = parseDate(selected);
 
-    const detail = h('div', { class: 'card day-detail' }, h('h4', null, fmtDate(selDate, { weekday: 'long', day: 'numeric', month: 'long' })));
+    const detail = h('div', { class: 'card day-detail' }, h('h4', null, capFirst(fmtDate(selDate, { weekday: 'long', day: 'numeric', month: 'long' }))));
     if (!studied(sel)) detail.appendChild(h('p', { class: 'muted small', style: { margin: 0 } }, selected > localDate() ? t('cal.future') : t('cal.nothing')));
     else {
       const ul = h('ul');

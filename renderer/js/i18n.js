@@ -92,6 +92,11 @@ export function fmtDate(date, opts = { day: 'numeric', month: 'long', year: 'num
   return new Intl.DateTimeFormat(locale(), opts).format(date);
 }
 
+/** Upper-case only the first letter: '23 de noviembre' must not become '23 De Noviembre'. */
+export function capFirst(s) {
+  return s ? s.charAt(0).toLocaleUpperCase(locale()) + s.slice(1) : s;
+}
+
 export function weekdayNames(style = 'short') {
   // 2023-01-01 was a Sunday
   return Array.from({ length: 7 }, (_, i) => fmtDate(new Date(2023, 0, 1 + i), { weekday: style }));

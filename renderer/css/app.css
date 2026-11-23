@@ -1778,7 +1778,6 @@ body.side-collapsed .side-spacer {
   font-size: 22px;
   margin: 0 10px 0 0;
   min-width: 210px;
-  text-transform: capitalize;
 }
 .cal-grid {
   display: grid;
@@ -1986,7 +1985,6 @@ body.side-collapsed .side-spacer {
   margin: 0 0 8px;
   font-size: 13.5px;
   font-weight: 600;
-  text-transform: capitalize;
 }
 .day-detail ul {
   margin: 0;
