@@ -1,0 +1,373 @@
+@day 15
+@source 15_Day_Python_type_errors/15_python_type_errors.md
+
+@title
+en: Python errors
+pl: Błędy w Pythonie
+de: Fehler in Python
+es: Errores de Python
+fr: Les erreurs en Python
+
+@summary
+en: Read a traceback, recognise the most common error types – SyntaxError, NameError, TypeError, ValueError and others – and fix the code that causes them.
+pl: Czytaj traceback, rozpoznawaj najczęstsze typy błędów – SyntaxError, NameError, TypeError, ValueError i inne – i poprawiaj kod, który je powoduje.
+de: Einen Traceback lesen, die häufigsten Fehlertypen erkennen – SyntaxError, NameError, TypeError, ValueError und andere – und den Code korrigieren, der sie auslöst.
+es: Lee un traceback, reconoce los tipos de error más comunes (SyntaxError, NameError, TypeError, ValueError y otros) y corrige el código que los provoca.
+fr: Lis un traceback, reconnais les types d'erreurs les plus courants – SyntaxError, NameError, TypeError, ValueError et d'autres – et corrige le code qui les provoque.
+
+@md
+en: ## Reading a traceback
+When Python cannot go on, it stops and prints a **traceback**. Read it from the bottom: the last line names the **error type** and a short message, and the lines above show the file and line number where it happened. In this app the terminal shows the traceback and the editor underlines the line that failed.
+
+Errors are not a sign that you are bad at programming – every programmer sees them all day. They are messages that tell you what to fix.
+pl: ## Czytanie tracebacku
+Gdy Python nie może iść dalej, zatrzymuje się i wypisuje **traceback**. Czytaj go od dołu: ostatni wiersz podaje **typ błędu** i krótki komunikat, a wiersze nad nim pokazują plik i numer wiersza, w którym to się stało. W tej aplikacji terminal pokazuje traceback, a edytor podkreśla wiersz, który zawiódł.
+
+Błędy to nie znak, że programujesz źle – każdy programista widzi je cały dzień. To komunikaty, które mówią, co poprawić.
+de: ## Einen Traceback lesen
+Wenn Python nicht weiterkommt, hält es an und gibt einen **Traceback** aus. Lies ihn von unten: Die letzte Zeile nennt den **Fehlertyp** und eine kurze Meldung, die Zeilen darüber zeigen Datei und Zeilennummer, wo es passiert ist. In dieser App zeigt das Terminal den Traceback, und der Editor unterstreicht die Zeile, die gescheitert ist.
+
+Fehler heißen nicht, dass du schlecht programmierst – jede Programmiererin und jeder Programmierer sieht sie den ganzen Tag. Es sind Nachrichten, die dir sagen, was du korrigieren musst.
+es: ## Leer un traceback
+Cuando Python no puede seguir, se detiene e imprime un **traceback**. Léelo de abajo arriba: la última línea indica el **tipo de error** y un mensaje corto, y las líneas de encima muestran el archivo y el número de línea donde ocurrió. En esta aplicación, la terminal muestra el traceback y el editor subraya la línea que falló.
+
+Los errores no significan que programes mal: todo programador los ve a diario. Son mensajes que te dicen qué corregir.
+fr: ## Lire un traceback
+Quand Python ne peut pas continuer, il s'arrête et affiche un **traceback**. Lis-le en partant du bas : la dernière ligne indique le **type d'erreur** et un court message, et les lignes du dessus montrent le fichier et le numéro de ligne où c'est arrivé. Dans cette application, le terminal affiche le traceback et l'éditeur souligne la ligne fautive.
+
+Les erreurs ne veulent pas dire que tu programmes mal – tous les programmeurs en voient toute la journée. Ce sont des messages qui te disent quoi corriger.
+
+@code error
+def average(numbers):
+    return sum(numbers) / len(numbers)
+
+print(average([1, 2, 3]))
+print(average([]))
+@end
+
+@md
+en: ## Errors before the program runs
+A **SyntaxError** means Python could not even read the code: a missing bracket, quote or colon, or a misspelled keyword. An **IndentationError** is a kind of syntax error – the indentation of a block does not match. Nothing runs until these are fixed; the Problems panel in the editor shows them while you type.
+pl: ## Błędy przed uruchomieniem programu
+**SyntaxError** oznacza, że Python nie umiał nawet przeczytać kodu: brakuje nawiasu, cudzysłowu albo dwukropka, albo słowo kluczowe jest źle napisane. **IndentationError** to rodzaj błędu składni – wcięcie bloku się nie zgadza. Nic się nie wykona, dopóki ich nie poprawisz; panel Problemy w edytorze pokazuje je już podczas pisania.
+de: ## Fehler, bevor das Programm läuft
+Ein **SyntaxError** bedeutet, dass Python den Code nicht einmal lesen konnte: eine fehlende Klammer, ein fehlendes Anführungszeichen oder ein fehlender Doppelpunkt oder ein falsch geschriebenes Schlüsselwort. Ein **IndentationError** ist eine Art Syntaxfehler – die Einrückung eines Blocks passt nicht. Nichts läuft, bevor diese Fehler behoben sind; das Problem-Panel im Editor zeigt sie schon beim Tippen.
+es: ## Errores antes de ejecutar el programa
+Un **SyntaxError** significa que Python ni siquiera pudo leer el código: falta un paréntesis, una comilla o dos puntos, o una palabra clave está mal escrita. Un **IndentationError** es un tipo de error de sintaxis: la sangría de un bloque no cuadra. No se ejecuta nada hasta corregirlos; el panel Problemas del editor los muestra mientras escribes.
+fr: ## Les erreurs avant l'exécution
+Une **SyntaxError** signifie que Python n'a même pas pu lire le code : il manque une parenthèse, un guillemet ou deux-points, ou un mot-clé est mal écrit. Une **IndentationError** est une sorte d'erreur de syntaxe – l'indentation d'un bloc ne correspond pas. Rien ne s'exécute tant qu'elles ne sont pas corrigées ; le panneau Problèmes de l'éditeur les signale pendant que tu tapes.
+
+@code error
+print('Hello, World!'
+@end
+
+@code error
+if True:
+print('indented?')
+@end
+
+@md
+en: ## Errors while the program runs
+These errors appear only when Python reaches the line:
+
+| Error | Typical cause |
+|---|---|
+| `NameError` | a name that was never defined, often a typo: `Age` instead of `age` |
+| `TypeError` | an operation on the wrong type: `'2' + 2` |
+| `ValueError` | the right type with a wrong value: `int('twelve')` |
+| `IndexError` | an index past the end of a list: `[1, 2, 3][3]` |
+| `KeyError` | a dictionary key that is not there |
+| `AttributeError` | a method or attribute the object does not have: `'abc'.push()` |
+| `ZeroDivisionError` | dividing by zero |
+| `ModuleNotFoundError` | importing a module that does not exist or is not installed |
+| `ImportError` | importing a name that the module does not have |
+pl: ## Błędy w trakcie działania programu
+Te błędy pojawiają się dopiero wtedy, gdy Python dojdzie do danego wiersza:
+
+| Błąd | Typowa przyczyna |
+|---|---|
+| `NameError` | nazwa, której nigdy nie zdefiniowano, często literówka: `Age` zamiast `age` |
+| `TypeError` | działanie na złym typie: `'2' + 2` |
+| `ValueError` | dobry typ, ale zła wartość: `int('twelve')` |
+| `IndexError` | indeks za końcem listy: `[1, 2, 3][3]` |
+| `KeyError` | klucz, którego nie ma w słowniku |
+| `AttributeError` | metoda albo atrybut, którego obiekt nie ma: `'abc'.push()` |
+| `ZeroDivisionError` | dzielenie przez zero |
+| `ModuleNotFoundError` | import modułu, który nie istnieje albo nie jest zainstalowany |
+| `ImportError` | import nazwy, której moduł nie ma |
+de: ## Fehler, während das Programm läuft
+Diese Fehler tauchen erst auf, wenn Python die Zeile erreicht:
+
+| Fehler | Typische Ursache |
+|---|---|
+| `NameError` | ein Name, der nie definiert wurde, oft ein Tippfehler: `Age` statt `age` |
+| `TypeError` | eine Operation mit dem falschen Typ: `'2' + 2` |
+| `ValueError` | der richtige Typ mit falschem Wert: `int('twelve')` |
+| `IndexError` | ein Index hinter dem Ende einer Liste: `[1, 2, 3][3]` |
+| `KeyError` | ein Schlüssel, den es im Dictionary nicht gibt |
+| `AttributeError` | eine Methode oder ein Attribut, das das Objekt nicht hat: `'abc'.push()` |
+| `ZeroDivisionError` | Division durch null |
+| `ModuleNotFoundError` | Import eines Moduls, das es nicht gibt oder das nicht installiert ist |
+| `ImportError` | Import eines Namens, den das Modul nicht hat |
+es: ## Errores mientras se ejecuta el programa
+Estos errores solo aparecen cuando Python llega a esa línea:
+
+| Error | Causa típica |
+|---|---|
+| `NameError` | un nombre que nunca se definió, a menudo una errata: `Age` en lugar de `age` |
+| `TypeError` | una operación con el tipo equivocado: `'2' + 2` |
+| `ValueError` | el tipo correcto con un valor erróneo: `int('twelve')` |
+| `IndexError` | un índice más allá del final de una lista: `[1, 2, 3][3]` |
+| `KeyError` | una clave que no está en el diccionario |
+| `AttributeError` | un método o atributo que el objeto no tiene: `'abc'.push()` |
+| `ZeroDivisionError` | dividir entre cero |
+| `ModuleNotFoundError` | importar un módulo que no existe o no está instalado |
+| `ImportError` | importar un nombre que el módulo no tiene |
+fr: ## Les erreurs pendant l'exécution
+Ces erreurs n'apparaissent que lorsque Python atteint la ligne concernée :
+
+| Erreur | Cause typique |
+|---|---|
+| `NameError` | un nom jamais défini, souvent une faute de frappe : `Age` au lieu de `age` |
+| `TypeError` | une opération sur le mauvais type : `'2' + 2` |
+| `ValueError` | le bon type mais une mauvaise valeur : `int('twelve')` |
+| `IndexError` | un indice au-delà de la fin d'une liste : `[1, 2, 3][3]` |
+| `KeyError` | une clé absente du dictionnaire |
+| `AttributeError` | une méthode ou un attribut que l'objet n'a pas : `'abc'.push()` |
+| `ZeroDivisionError` | une division par zéro |
+| `ModuleNotFoundError` | l'import d'un module qui n'existe pas ou n'est pas installé |
+| `ImportError` | l'import d'un nom que le module ne contient pas |
+
+@code error
+age = 25
+print(Age)
+@end
+
+@code error
+print('Age: ' + 25)
+@end
+
+@code error
+from math import square_root
+@end
+
+@md
+en: ## How to fix an error
+1. Read the last line: which error, and what does the message say?
+2. Go to the line it names. The real mistake is often on that line or just above it.
+3. Check the values: `print()` the variables just before the failing line, or try the expression in the Python shell.
+4. Change one thing and run again.
+
+On day 17 you will learn to *catch* errors with `try` and `except`, so that a program can deal with bad input instead of stopping.
+pl: ## Jak poprawić błąd
+1. Przeczytaj ostatni wiersz: jaki to błąd i co mówi komunikat?
+2. Przejdź do wiersza, który wskazuje. Prawdziwa pomyłka jest często w tym wierszu albo tuż nad nim.
+3. Sprawdź wartości: wypisz `print()` zmienne tuż przed wierszem z błędem albo wypróbuj wyrażenie w powłoce Pythona.
+4. Zmień jedną rzecz i uruchom ponownie.
+
+W dniu 17 nauczysz się *łapać* błędy przez `try` i `except`, żeby program umiał poradzić sobie ze złymi danymi, zamiast się zatrzymywać.
+de: ## Wie du einen Fehler behebst
+1. Lies die letzte Zeile: Welcher Fehler, und was sagt die Meldung?
+2. Geh zu der Zeile, die genannt wird. Der eigentliche Fehler steckt oft in dieser Zeile oder direkt darüber.
+3. Prüf die Werte: Gib die Variablen kurz vor der fehlerhaften Zeile mit `print()` aus oder probier den Ausdruck in der Python-Shell.
+4. Ändere eine Sache und starte erneut.
+
+An Tag 17 lernst du, Fehler mit `try` und `except` *abzufangen*, damit ein Programm mit schlechten Eingaben umgehen kann, statt stehen zu bleiben.
+es: ## Cómo corregir un error
+1. Lee la última línea: ¿qué error es y qué dice el mensaje?
+2. Ve a la línea que indica. El fallo real suele estar en esa línea o justo encima.
+3. Comprueba los valores: muestra con `print()` las variables justo antes de la línea que falla, o prueba la expresión en el intérprete de Python.
+4. Cambia una sola cosa y vuelve a ejecutar.
+
+El día 17 aprenderás a *capturar* errores con `try` y `except`, para que un programa pueda manejar datos incorrectos en lugar de detenerse.
+fr: ## Comment corriger une erreur
+1. Lis la dernière ligne : quelle erreur, et que dit le message ?
+2. Va à la ligne indiquée. La vraie faute se trouve souvent sur cette ligne ou juste au-dessus.
+3. Vérifie les valeurs : affiche avec `print()` les variables juste avant la ligne fautive, ou essaie l'expression dans l'interpréteur Python.
+4. Change une seule chose et relance.
+
+Le jour 17, tu apprendras à *intercepter* les erreurs avec `try` et `except`, pour qu'un programme puisse gérer de mauvaises entrées au lieu de s'arrêter.
+
+@exercise name-error
+@title
+en: Fix the NameError
+pl: Popraw NameError
+de: Behebe den NameError
+es: Corrige el NameError
+fr: Corrige la NameError
+@text
+en: This program should print `Hello, Ada! You are 36.` but stops with a `NameError`. Run it, read the traceback and fix it.
+pl: Ten program powinien wypisać `Hello, Ada! You are 36.`, ale zatrzymuje się z błędem `NameError`. Uruchom go, przeczytaj traceback i popraw.
+de: Dieses Programm soll `Hello, Ada! You are 36.` ausgeben, bricht aber mit einem `NameError` ab. Starte es, lies den Traceback und behebe den Fehler.
+es: Este programa debería imprimir `Hello, Ada! You are 36.`, pero se detiene con un `NameError`. Ejecútalo, lee el traceback y corrígelo.
+fr: Ce programme devrait afficher `Hello, Ada! You are 36.` mais s'arrête avec une `NameError`. Lance-le, lis le traceback et corrige-le.
+@hint
+en: Python is case-sensitive: `name` and `Name` are two different names.
+pl: Python rozróżnia wielkość liter: `name` i `Name` to dwie różne nazwy.
+de: Python unterscheidet Groß- und Kleinschreibung: `name` und `Name` sind zwei verschiedene Namen.
+es: Python distingue mayúsculas y minúsculas: `name` y `Name` son dos nombres distintos.
+fr: Python est sensible à la casse : `name` et `Name` sont deux noms différents.
+@starter
+name = 'Ada'
+age = 36
+print(f'Hello, {Name}! You are {age}.')
+@end
+@solution
+name = 'Ada'
+age = 36
+print(f'Hello, {name}! You are {age}.')
+@end
+@case
+out: Hello, Ada! You are 36.
+
+@exercise type-error
+@title
+en: Fix the TypeError
+pl: Popraw TypeError
+de: Behebe den TypeError
+es: Corrige el TypeError
+fr: Corrige la TypeError
+@text
+en: The program reads an age and should print `Next year you will be 21` for the input `20`. It stops with a `TypeError` instead. Fix it.
+pl: Program wczytuje wiek i dla wejścia `20` powinien wypisać `Next year you will be 21`. Zamiast tego zatrzymuje się z błędem `TypeError`. Popraw go.
+de: Das Programm liest ein Alter ein und soll für die Eingabe `20` `Next year you will be 21` ausgeben. Stattdessen bricht es mit einem `TypeError` ab. Behebe den Fehler.
+es: El programa lee una edad y, para la entrada `20`, debería imprimir `Next year you will be 21`. En su lugar se detiene con un `TypeError`. Corrígelo.
+fr: Le programme lit un âge et devrait afficher `Next year you will be 21` pour l'entrée `20`. Il s'arrête à la place avec une `TypeError`. Corrige-le.
+@hint
+en: `input()` always gives a string. Convert it with `int()` before adding 1, and use an f-string for the output.
+pl: `input()` zawsze daje napis. Zamień go przez `int()` przed dodaniem 1, a do wypisania użyj f-stringa.
+de: `input()` liefert immer eine Zeichenkette. Wandle sie mit `int()` um, bevor du 1 addierst, und nimm für die Ausgabe einen f-String.
+es: `input()` siempre da una cadena. Conviértela con `int()` antes de sumar 1 y usa una f-string para la salida.
+fr: `input()` renvoie toujours une chaîne. Convertis-la avec `int()` avant d'ajouter 1, et utilise une f-string pour l'affichage.
+@starter
+age = input('Age: ')
+print('Next year you will be ' + age + 1)
+@end
+@solution
+age = int(input('Age: '))
+print(f'Next year you will be {age + 1}')
+@end
+@case stdin="20\n"
+out: Next year you will be 21
+@case stdin="7\n"
+out: Next year you will be 8
+
+@exercise index-key
+@title
+en: Fix the IndexError and KeyError
+pl: Popraw IndexError i KeyError
+de: Behebe IndexError und KeyError
+es: Corrige el IndexError y el KeyError
+fr: Corrige l'IndexError et la KeyError
+@text
+en: `last` should hold the last number of `numbers` and `city` the city from `user`. The code stops with an `IndexError`, and after you fix that, with a `KeyError`. Fix both.
+pl: `last` ma zawierać ostatnią liczbę z `numbers`, a `city` miasto z `user`. Kod zatrzymuje się z błędem `IndexError`, a gdy go poprawisz – z `KeyError`. Popraw oba.
+de: `last` soll die letzte Zahl aus `numbers` enthalten und `city` die Stadt aus `user`. Der Code bricht mit einem `IndexError` ab, und wenn du den behoben hast, mit einem `KeyError`. Behebe beide.
+es: `last` debe contener el último número de `numbers` y `city` la ciudad de `user`. El código se detiene con un `IndexError` y, cuando lo corrijas, con un `KeyError`. Corrige los dos.
+fr: `last` doit contenir le dernier nombre de `numbers` et `city` la ville de `user`. Le code s'arrête avec une `IndexError`, puis, une fois celle-ci corrigée, avec une `KeyError`. Corrige les deux.
+@hint
+en: A list of 4 items has the indexes 0 to 3 – or use `-1`. Look closely at how the key is spelled in the dictionary.
+pl: Lista 4 elementów ma indeksy od 0 do 3 – albo użyj `-1`. Przyjrzyj się, jak klucz jest zapisany w słowniku.
+de: Eine Liste mit 4 Elementen hat die Indizes 0 bis 3 – oder nimm `-1`. Schau genau, wie der Schlüssel im Dictionary geschrieben ist.
+es: Una lista de 4 elementos tiene los índices del 0 al 3; o usa `-1`. Fíjate bien en cómo está escrita la clave en el diccionario.
+fr: Une liste de 4 éléments a les indices de 0 à 3 – ou utilise `-1`. Regarde bien comment la clé est écrite dans le dictionnaire.
+@starter
+numbers = [4, 8, 15, 16]
+user = {'name': 'Ada', 'city': 'London'}
+last = numbers[4]
+city = user['City']
+print(last, city)
+@end
+@solution
+numbers = [4, 8, 15, 16]
+user = {'name': 'Ada', 'city': 'London'}
+last = numbers[-1]
+city = user['city']
+print(last, city)
+@end
+@case
+expr: last == 16
+expr: city == 'London'
+
+@exercise attribute
+@title
+en: Fix the AttributeError
+pl: Popraw AttributeError
+de: Behebe den AttributeError
+es: Corrige el AttributeError
+fr: Corrige l'AttributeError
+@text
+en: The program should add `'Python'` to `skills` and print `HTML, CSS, PYTHON`. Two method names are wrong. Fix them.
+pl: Program ma dodać `'Python'` do `skills` i wypisać `HTML, CSS, PYTHON`. Dwie nazwy metod są błędne. Popraw je.
+de: Das Programm soll `'Python'` zu `skills` hinzufügen und `HTML, CSS, PYTHON` ausgeben. Zwei Methodennamen sind falsch. Korrigiere sie.
+es: El programa debe añadir `'Python'` a `skills` e imprimir `HTML, CSS, PYTHON`. Hay dos nombres de método incorrectos. Corrígelos.
+fr: Le programme doit ajouter `'Python'` à `skills` et afficher `HTML, CSS, PYTHON`. Deux noms de méthode sont faux. Corrige-les.
+@hint
+en: Lists use `append`, strings use `upper`. `dir([])` in the shell lists all methods of a list.
+pl: Listy mają `append`, napisy – `upper`. `dir([])` w powłoce wypisuje wszystkie metody listy.
+de: Listen haben `append`, Zeichenketten `upper`. `dir([])` in der Shell listet alle Methoden einer Liste auf.
+es: Las listas usan `append` y las cadenas `upper`. `dir([])` en el intérprete muestra todos los métodos de una lista.
+fr: Les listes utilisent `append`, les chaînes `upper`. `dir([])` dans l'interpréteur liste toutes les méthodes d'une liste.
+@starter
+skills = ['HTML', 'CSS']
+skills.push('Python')
+print(', '.join(skills).uppercase())
+@end
+@solution
+skills = ['HTML', 'CSS']
+skills.append('Python')
+print(', '.join(skills).upper())
+@end
+@case
+out: HTML, CSS, PYTHON
+expr: skills == ['HTML', 'CSS', 'Python']
+
+@exercise which-error
+@title
+en: Name that error
+pl: Nazwij ten błąd
+de: Benenne den Fehler
+es: Ponle nombre al error
+fr: Nomme cette erreur
+@text
+en: In `answers`, write next to each piece of code the name of the error it raises, for example `'ZeroDivisionError'`. Try the code in the Python shell if you are not sure.
+pl: W `answers` wpisz przy każdym fragmencie kodu nazwę błędu, który powoduje, np. `'ZeroDivisionError'`. Jeśli nie masz pewności, wypróbuj kod w powłoce Pythona.
+de: Schreib in `answers` zu jedem Codestück den Namen des Fehlers, den es auslöst, zum Beispiel `'ZeroDivisionError'`. Wenn du unsicher bist, probier den Code in der Python-Shell aus.
+es: En `answers`, escribe junto a cada fragmento de código el nombre del error que lanza, por ejemplo `'ZeroDivisionError'`. Si no estás seguro, prueba el código en el intérprete de Python.
+fr: Dans `answers`, écris à côté de chaque morceau de code le nom de l'erreur qu'il lève, par exemple `'ZeroDivisionError'`. Si tu n'es pas sûr, essaie le code dans l'interpréteur Python.
+@hint
+en: Two of them are in the table above with almost the same code. `int('3.5')` is a string that is not a whole number.
+pl: Dwa z nich są w tabeli wyżej, z prawie takim samym kodem. `int('3.5')` to napis, który nie jest liczbą całkowitą.
+de: Zwei davon stehen mit fast gleichem Code in der Tabelle oben. `int('3.5')` ist eine Zeichenkette, die keine ganze Zahl ist.
+es: Dos de ellos están en la tabla de arriba con un código casi igual. `int('3.5')` es una cadena que no es un número entero.
+fr: Deux d'entre eux figurent dans le tableau ci-dessus avec un code presque identique. `int('3.5')` est une chaîne qui n'est pas un nombre entier.
+@starter
+answers = {
+    "10 / 0": '',
+    "int('3.5')": '',
+    "[1, 2, 3][10]": '',
+    "'2' + 2": '',
+    "{'a': 1}['b']": '',
+    "len(5)": '',
+    "import maths": '',
+}
+@end
+@solution
+answers = {
+    "10 / 0": 'ZeroDivisionError',
+    "int('3.5')": 'ValueError',
+    "[1, 2, 3][10]": 'IndexError',
+    "'2' + 2": 'TypeError',
+    "{'a': 1}['b']": 'KeyError',
+    "len(5)": 'TypeError',
+    "import maths": 'ModuleNotFoundError',
+}
+@end
+@case
+expr: answers["10 / 0"].strip() == 'ZeroDivisionError'
+expr: answers["int('3.5')"].strip() == 'ValueError'
+expr: answers["[1, 2, 3][10]"].strip() == 'IndexError'
+expr: answers["'2' + 2"].strip() == 'TypeError'
+expr: answers["{'a': 1}['b']"].strip() == 'KeyError'
+expr: answers["len(5)"].strip() == 'TypeError'
+expr: answers["import maths"].strip() == 'ModuleNotFoundError'

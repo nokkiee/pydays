@@ -1,0 +1,345 @@
+@day 16
+@source 16_Day_Python_date_time/16_python_datetime.md
+
+@title
+en: Date and time
+pl: Data i czas
+de: Datum und Uhrzeit
+es: Fecha y hora
+fr: Date et heure
+
+@summary
+en: Work with dates and times using the datetime module: get the current time, format and parse dates, and calculate with time differences.
+pl: Pracuj z datami i godzinami w module datetime: pobieraj bieżący czas, formatuj i odczytuj daty i licz różnice czasu.
+de: Mit dem Modul datetime arbeiten: die aktuelle Zeit abfragen, Datumsangaben formatieren und einlesen und mit Zeitdifferenzen rechnen.
+es: Trabaja con fechas y horas con el módulo datetime: obtén la hora actual, formatea y lee fechas y calcula con diferencias de tiempo.
+fr: Manipule les dates et les heures avec le module datetime : obtiens l'heure actuelle, formate et analyse des dates et calcule avec des écarts de temps.
+
+@md
+en: ## The datetime module
+The `datetime` module has a few types: `datetime` for a date with a time, `date` for a date only, `time` for a time of day, and `timedelta` for a duration. `datetime.now()` gives the current date and time; its parts are available as attributes like `year`, `month`, `day`, `hour` and `minute`.
+pl: ## Moduł datetime
+Moduł `datetime` ma kilka typów: `datetime` dla daty z godziną, `date` dla samej daty, `time` dla pory dnia i `timedelta` dla odcinka czasu. `datetime.now()` daje bieżącą datę i godzinę; jej części są dostępne jako atrybuty, np. `year`, `month`, `day`, `hour` i `minute`.
+de: ## Das Modul datetime
+Das Modul `datetime` hat einige Typen: `datetime` für ein Datum mit Uhrzeit, `date` nur für ein Datum, `time` für eine Uhrzeit und `timedelta` für eine Dauer. `datetime.now()` liefert das aktuelle Datum mit Uhrzeit; seine Teile gibt es als Attribute wie `year`, `month`, `day`, `hour` und `minute`.
+es: ## El módulo datetime
+El módulo `datetime` tiene varios tipos: `datetime` para una fecha con hora, `date` solo para una fecha, `time` para una hora del día y `timedelta` para una duración. `datetime.now()` da la fecha y hora actuales; sus partes están disponibles como atributos, por ejemplo `year`, `month`, `day`, `hour` y `minute`.
+fr: ## Le module datetime
+Le module `datetime` propose plusieurs types : `datetime` pour une date avec une heure, `date` pour une date seule, `time` pour une heure de la journée et `timedelta` pour une durée. `datetime.now()` donne la date et l'heure actuelles ; ses parties sont accessibles par des attributs comme `year`, `month`, `day`, `hour` et `minute`.
+
+@code
+from datetime import datetime, date
+now = datetime.now()
+print(now)
+print(now.year, now.month, now.day, now.hour, now.minute)
+print(date.today())
+new_year = datetime(2027, 1, 1)
+print(new_year, new_year.weekday())   # 0 is Monday, 6 is Sunday
+@end
+
+@md
+en: ## Formatting with strftime
+`strftime` (“string format time”) turns a date into text in the format you choose. The format is a string with codes that start with `%`:
+
+| Code | Means | Example |
+|---|---|---|
+| `%Y` | year | 2026 |
+| `%m` | month as a number | 11 |
+| `%d` | day of the month | 23 |
+| `%H`, `%M`, `%S` | hour, minute, second | 14, 05, 30 |
+| `%B`, `%b` | month name, short name | November, Nov |
+| `%A`, `%a` | weekday name, short name | Monday, Mon |
+
+The names are English unless you change the locale.
+pl: ## Formatowanie przez strftime
+`strftime` („string format time”) zamienia datę na tekst w wybranym formacie. Format to napis z kodami zaczynającymi się od `%`:
+
+| Kod | Znaczy | Przykład |
+|---|---|---|
+| `%Y` | rok | 2026 |
+| `%m` | miesiąc jako liczba | 11 |
+| `%d` | dzień miesiąca | 23 |
+| `%H`, `%M`, `%S` | godzina, minuta, sekunda | 14, 05, 30 |
+| `%B`, `%b` | nazwa miesiąca, skrót | November, Nov |
+| `%A`, `%a` | nazwa dnia tygodnia, skrót | Monday, Mon |
+
+Nazwy są po angielsku, chyba że zmienisz ustawienia regionalne (locale).
+de: ## Formatieren mit strftime
+`strftime` („string format time“) macht aus einem Datum Text im gewünschten Format. Das Format ist eine Zeichenkette mit Codes, die mit `%` beginnen:
+
+| Code | Bedeutet | Beispiel |
+|---|---|---|
+| `%Y` | Jahr | 2026 |
+| `%m` | Monat als Zahl | 11 |
+| `%d` | Tag des Monats | 23 |
+| `%H`, `%M`, `%S` | Stunde, Minute, Sekunde | 14, 05, 30 |
+| `%B`, `%b` | Monatsname, kurz | November, Nov |
+| `%A`, `%a` | Wochentag, kurz | Monday, Mon |
+
+Die Namen sind englisch, solange du das Gebietsschema (Locale) nicht änderst.
+es: ## Formatear con strftime
+`strftime` («string format time») convierte una fecha en texto con el formato que elijas. El formato es una cadena con códigos que empiezan por `%`:
+
+| Código | Significa | Ejemplo |
+|---|---|---|
+| `%Y` | año | 2026 |
+| `%m` | mes como número | 11 |
+| `%d` | día del mes | 23 |
+| `%H`, `%M`, `%S` | hora, minuto, segundo | 14, 05, 30 |
+| `%B`, `%b` | nombre del mes, abreviado | November, Nov |
+| `%A`, `%a` | día de la semana, abreviado | Monday, Mon |
+
+Los nombres salen en inglés salvo que cambies la configuración regional (locale).
+fr: ## Formater avec strftime
+`strftime` (« string format time ») transforme une date en texte au format de ton choix. Le format est une chaîne contenant des codes qui commencent par `%` :
+
+| Code | Signifie | Exemple |
+|---|---|---|
+| `%Y` | année | 2026 |
+| `%m` | mois en chiffres | 11 |
+| `%d` | jour du mois | 23 |
+| `%H`, `%M`, `%S` | heure, minute, seconde | 14, 05, 30 |
+| `%B`, `%b` | nom du mois, abrégé | November, Nov |
+| `%A`, `%a` | jour de la semaine, abrégé | Monday, Mon |
+
+Les noms sont en anglais, sauf si tu changes les paramètres régionaux (locale).
+
+@code
+from datetime import datetime
+d = datetime(2026, 11, 23, 14, 5, 30)
+print(d.strftime('%d.%m.%Y'))              # 23.11.2026
+print(d.strftime('%Y-%m-%d %H:%M'))        # 2026-11-23 14:05
+print(d.strftime('%A, %d %B %Y'))          # Monday, 23 November 2026
+print(f'{d:%H:%M:%S}')                     # the same codes work in f-strings
+@end
+
+@md
+en: ## Parsing with strptime
+`strptime` (“string parse time”) goes the other way: it reads a date from text. You give it the text and the format the text is written in, using the same codes. If the text does not match the format, it raises a `ValueError`. For the ISO format `YYYY-MM-DD` there is a shortcut, `date.fromisoformat()`.
+pl: ## Odczytywanie przez strptime
+`strptime` („string parse time”) działa w drugą stronę: odczytuje datę z tekstu. Podajesz tekst i format, w jakim jest zapisany, tymi samymi kodami. Jeśli tekst nie pasuje do formatu, zgłaszany jest `ValueError`. Dla formatu ISO `YYYY-MM-DD` jest skrót: `date.fromisoformat()`.
+de: ## Einlesen mit strptime
+`strptime` („string parse time“) geht den umgekehrten Weg: Es liest ein Datum aus Text. Du gibst den Text und sein Format mit denselben Codes an. Passt der Text nicht zum Format, gibt es einen `ValueError`. Für das ISO-Format `YYYY-MM-DD` gibt es eine Abkürzung: `date.fromisoformat()`.
+es: ## Leer fechas con strptime
+`strptime` («string parse time») hace lo contrario: lee una fecha de un texto. Le das el texto y el formato en que está escrito, con los mismos códigos. Si el texto no coincide con el formato, lanza un `ValueError`. Para el formato ISO `YYYY-MM-DD` hay un atajo: `date.fromisoformat()`.
+fr: ## Analyser avec strptime
+`strptime` (« string parse time ») fait l'inverse : il lit une date dans un texte. Tu lui donnes le texte et le format dans lequel il est écrit, avec les mêmes codes. Si le texte ne correspond pas au format, il lève une `ValueError`. Pour le format ISO `YYYY-MM-DD`, il existe un raccourci : `date.fromisoformat()`.
+
+@code
+from datetime import datetime, date
+text = '5 December, 2026'
+d = datetime.strptime(text, '%d %B, %Y')
+print(d, d.month)
+print(date.fromisoformat('2026-07-14'))
+@end
+
+@md
+en: ## Calculating with dates
+Subtracting two dates gives a `timedelta`; its `days` attribute is the number of days between them, and `total_seconds()` the length in seconds. Adding a `timedelta` to a date moves it forward, and subtracting one moves it back. `timedelta` accepts `weeks`, `days`, `hours`, `minutes` and `seconds`.
+pl: ## Obliczenia na datach
+Odjęcie dwóch dat daje `timedelta`; jej atrybut `days` to liczba dni między nimi, a `total_seconds()` – długość w sekundach. Dodanie `timedelta` do daty przesuwa ją do przodu, a odjęcie – do tyłu. `timedelta` przyjmuje `weeks`, `days`, `hours`, `minutes` i `seconds`.
+de: ## Mit Datumsangaben rechnen
+Zieht man zwei Datumsangaben voneinander ab, erhält man ein `timedelta`; sein Attribut `days` ist die Anzahl der Tage dazwischen, `total_seconds()` die Länge in Sekunden. Ein `timedelta` zu einem Datum addiert verschiebt es nach vorn, abgezogen nach hinten. `timedelta` kennt `weeks`, `days`, `hours`, `minutes` und `seconds`.
+es: ## Calcular con fechas
+Restar dos fechas da un `timedelta`; su atributo `days` es el número de días entre ellas, y `total_seconds()` la duración en segundos. Sumar un `timedelta` a una fecha la mueve hacia delante, y restarlo hacia atrás. `timedelta` admite `weeks`, `days`, `hours`, `minutes` y `seconds`.
+fr: ## Calculer avec des dates
+Soustraire deux dates donne un `timedelta` ; son attribut `days` est le nombre de jours qui les séparent, et `total_seconds()` la durée en secondes. Ajouter un `timedelta` à une date l'avance, en soustraire un la recule. `timedelta` accepte `weeks`, `days`, `hours`, `minutes` et `seconds`.
+
+@code
+from datetime import date, datetime, timedelta
+start = date(2026, 11, 23)
+end = date(2027, 1, 1)
+print((end - start).days, 'days until the new year')
+print(start + timedelta(days=30))
+print(start - timedelta(weeks=2))
+t1 = datetime(2026, 11, 23, 9, 0)
+t2 = datetime(2026, 11, 23, 17, 30)
+print((t2 - t1).total_seconds() / 3600, 'hours')
+@end
+
+@exercise parts
+@title
+en: Parts of a date
+pl: Części daty
+de: Teile eines Datums
+es: Partes de una fecha
+fr: Les parties d'une date
+@text
+en: For `d`, store `day`, `month`, `year`, `hour` and `minute` using its attributes, and `weekday_name` – the English name of the day of the week – using `strftime`.
+pl: Dla `d` zapisz `day`, `month`, `year`, `hour` i `minute` z jej atrybutów, a `weekday_name` – angielską nazwę dnia tygodnia – przez `strftime`.
+de: Speichere für `d` die Werte `day`, `month`, `year`, `hour` und `minute` über seine Attribute und `weekday_name` – den englischen Namen des Wochentags – mit `strftime`.
+es: Para `d`, guarda `day`, `month`, `year`, `hour` y `minute` a partir de sus atributos, y `weekday_name`, el nombre en inglés del día de la semana, con `strftime`.
+fr: Pour `d`, range `day`, `month`, `year`, `hour` et `minute` à partir de ses attributs, et `weekday_name` – le nom anglais du jour de la semaine – avec `strftime`.
+@hint
+en: `d.day`, `d.month`, … and `d.strftime('%A')`.
+pl: `d.day`, `d.month`, … i `d.strftime('%A')`.
+de: `d.day`, `d.month`, … und `d.strftime('%A')`.
+es: `d.day`, `d.month`, … y `d.strftime('%A')`.
+fr: `d.day`, `d.month`, … et `d.strftime('%A')`.
+@starter
+from datetime import datetime
+
+d = datetime(2026, 11, 23, 14, 5)
+@end
+@solution
+from datetime import datetime
+
+d = datetime(2026, 11, 23, 14, 5)
+day = d.day
+month = d.month
+year = d.year
+hour = d.hour
+minute = d.minute
+weekday_name = d.strftime('%A')
+print(day, month, year, hour, minute, weekday_name)
+@end
+@case
+expr: (day, month, year, hour, minute) == (23, 11, 2026, 14, 5)
+expr: weekday_name == 'Monday'
+
+@exercise format
+@title
+en: Formatting dates
+pl: Formatowanie dat
+de: Datumsangaben formatieren
+es: Formatear fechas
+fr: Formater des dates
+@text
+en: Format `d` with `strftime` into `us` as `11/23/2026, 14:05` and into `eu` as `23.11.2026`.
+pl: Sformatuj `d` przez `strftime` do `us` jako `11/23/2026, 14:05` i do `eu` jako `23.11.2026`.
+de: Formatiere `d` mit `strftime` in `us` als `11/23/2026, 14:05` und in `eu` als `23.11.2026`.
+es: Formatea `d` con `strftime` en `us` como `11/23/2026, 14:05` y en `eu` como `23.11.2026`.
+fr: Formate `d` avec `strftime` dans `us` sous la forme `11/23/2026, 14:05` et dans `eu` sous la forme `23.11.2026`.
+@hint
+en: `'%m/%d/%Y, %H:%M'` and `'%d.%m.%Y'`.
+pl: `'%m/%d/%Y, %H:%M'` i `'%d.%m.%Y'`.
+de: `'%m/%d/%Y, %H:%M'` und `'%d.%m.%Y'`.
+es: `'%m/%d/%Y, %H:%M'` y `'%d.%m.%Y'`.
+fr: `'%m/%d/%Y, %H:%M'` et `'%d.%m.%Y'`.
+@starter
+from datetime import datetime
+
+d = datetime(2026, 11, 23, 14, 5)
+@end
+@solution
+from datetime import datetime
+
+d = datetime(2026, 11, 23, 14, 5)
+us = d.strftime('%m/%d/%Y, %H:%M')
+eu = d.strftime('%d.%m.%Y')
+print(us)
+print(eu)
+@end
+@case
+expr: us == '11/23/2026, 14:05'
+expr: eu == '23.11.2026'
+
+@exercise parse
+@title
+en: Reading a date from text
+pl: Odczyt daty z tekstu
+de: Ein Datum aus Text lesen
+es: Leer una fecha de un texto
+fr: Lire une date dans un texte
+@text
+en: Turn the text `'5 December, 2026'` into a `datetime` with `strptime` and store it in `d`. Then store in `weekday` the English weekday name of that date.
+pl: Zamień tekst `'5 December, 2026'` na `datetime` przez `strptime` i zapisz w `d`. Potem zapisz w `weekday` angielską nazwę dnia tygodnia tej daty.
+de: Mach aus dem Text `'5 December, 2026'` mit `strptime` ein `datetime` und speichere es in `d`. Speichere dann in `weekday` den englischen Wochentag dieses Datums.
+es: Convierte el texto `'5 December, 2026'` en un `datetime` con `strptime` y guárdalo en `d`. Después guarda en `weekday` el nombre en inglés del día de la semana de esa fecha.
+fr: Transforme le texte `'5 December, 2026'` en `datetime` avec `strptime` et range-le dans `d`. Range ensuite dans `weekday` le nom anglais du jour de la semaine de cette date.
+@hint
+en: The format is `'%d %B, %Y'` – the comma is part of it.
+pl: Format to `'%d %B, %Y'` – przecinek też do niego należy.
+de: Das Format ist `'%d %B, %Y'` – das Komma gehört dazu.
+es: El formato es `'%d %B, %Y'`; la coma también forma parte de él.
+fr: Le format est `'%d %B, %Y'` – la virgule en fait partie.
+@starter
+from datetime import datetime
+
+text = '5 December, 2026'
+@end
+@solution
+from datetime import datetime
+
+text = '5 December, 2026'
+d = datetime.strptime(text, '%d %B, %Y')
+weekday = d.strftime('%A')
+print(d, weekday)
+@end
+@case
+expr: d == datetime(2026, 12, 5)
+expr: weekday == 'Saturday'
+
+@exercise difference
+@title
+en: Counting days
+pl: Liczenie dni
+de: Tage zählen
+es: Contar días
+fr: Compter les jours
+@text
+en: Store in `until_new_year` the number of days from 23 November 2026 to 1 January 2027, and in `plus_100` the date 100 days after 1 January 2026 (as a `date`).
+pl: Zapisz w `until_new_year` liczbę dni od 23 listopada 2026 do 1 stycznia 2027, a w `plus_100` datę 100 dni po 1 stycznia 2026 (jako `date`).
+de: Speichere in `until_new_year` die Anzahl der Tage vom 23. November 2026 bis zum 1. Januar 2027 und in `plus_100` das Datum 100 Tage nach dem 1. Januar 2026 (als `date`).
+es: Guarda en `until_new_year` el número de días del 23 de noviembre de 2026 al 1 de enero de 2027, y en `plus_100` la fecha 100 días después del 1 de enero de 2026 (como `date`).
+fr: Range dans `until_new_year` le nombre de jours du 23 novembre 2026 au 1er janvier 2027, et dans `plus_100` la date 100 jours après le 1er janvier 2026 (sous forme de `date`).
+@hint
+en: `(date(2027, 1, 1) - date(2026, 11, 23)).days` and `date(2026, 1, 1) + timedelta(days=100)`.
+pl: `(date(2027, 1, 1) - date(2026, 11, 23)).days` i `date(2026, 1, 1) + timedelta(days=100)`.
+de: `(date(2027, 1, 1) - date(2026, 11, 23)).days` und `date(2026, 1, 1) + timedelta(days=100)`.
+es: `(date(2027, 1, 1) - date(2026, 11, 23)).days` y `date(2026, 1, 1) + timedelta(days=100)`.
+fr: `(date(2027, 1, 1) - date(2026, 11, 23)).days` et `date(2026, 1, 1) + timedelta(days=100)`.
+@starter
+from datetime import date, timedelta
+@end
+@solution
+from datetime import date, timedelta
+
+until_new_year = (date(2027, 1, 1) - date(2026, 11, 23)).days
+plus_100 = date(2026, 1, 1) + timedelta(days=100)
+print(until_new_year, plus_100)
+@end
+@case
+expr: until_new_year == 39
+expr: plus_100 == date(2026, 4, 11)
+
+@exercise age-days
+@title
+en: How many days old?
+pl: Ile masz dni?
+de: Wie viele Tage alt?
+es: ¿Cuántos días tienes?
+fr: Combien de jours ?
+@text
+en: Write `days_between(start, end)` that takes two dates as text in the format `YYYY-MM-DD` and returns the number of days from `start` to `end`. For example `days_between('2026-01-01', '2026-01-31')` is `30`.
+pl: Napisz `days_between(start, end)`, która przyjmuje dwie daty jako tekst w formacie `YYYY-MM-DD` i zwraca liczbę dni od `start` do `end`. Na przykład `days_between('2026-01-01', '2026-01-31')` to `30`.
+de: Schreib `days_between(start, end)`, die zwei Datumsangaben als Text im Format `YYYY-MM-DD` nimmt und die Anzahl der Tage von `start` bis `end` zurückgibt. Zum Beispiel ist `days_between('2026-01-01', '2026-01-31')` gleich `30`.
+es: Escribe `days_between(start, end)`, que recibe dos fechas como texto en formato `YYYY-MM-DD` y devuelve el número de días de `start` a `end`. Por ejemplo, `days_between('2026-01-01', '2026-01-31')` es `30`.
+fr: Écris `days_between(start, end)` qui reçoit deux dates sous forme de texte au format `YYYY-MM-DD` et renvoie le nombre de jours de `start` à `end`. Par exemple, `days_between('2026-01-01', '2026-01-31')` vaut `30`.
+@hint
+en: `date.fromisoformat(text)` reads this format directly.
+pl: `date.fromisoformat(text)` od razu odczytuje ten format.
+de: `date.fromisoformat(text)` liest dieses Format direkt.
+es: `date.fromisoformat(text)` lee este formato directamente.
+fr: `date.fromisoformat(text)` lit directement ce format.
+@starter
+from datetime import date
+
+
+def days_between(start, end):
+    pass
+@end
+@solution
+from datetime import date
+
+
+def days_between(start, end):
+    return (date.fromisoformat(end) - date.fromisoformat(start)).days
+
+
+print(days_between('2000-02-29', '2026-11-23'))
+@end
+@case
+expr: days_between('2026-01-01', '2026-01-31') == 30
+expr: days_between('2000-02-29', '2026-11-23') == 9764
+expr: days_between('2026-03-01', '2026-02-01') == -28
