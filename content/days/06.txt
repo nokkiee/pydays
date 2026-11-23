@@ -1,0 +1,248 @@
+@day 6
+@source 06_Day_Tuples/06_tuples.md
+
+@title
+en: Tuples
+pl: Krotki
+de: Tupel
+es: Tuplas
+fr: Tuples
+
+@summary
+en: Store fixed groups of values in tuples, read them by index, unpack them, join them and turn them into lists and back.
+pl: Przechowuj stałe grupy wartości w krotkach, odczytuj je po indeksie, rozpakowuj, łącz i zamieniaj na listy i z powrotem.
+de: Feste Gruppen von Werten in Tupeln speichern, über den Index lesen, entpacken, verbinden und in Listen und zurück umwandeln.
+es: Guarda grupos fijos de valores en tuplas, léelos por índice, desempaquétalos, únelos y conviértelos en listas y al revés.
+fr: Range des groupes fixes de valeurs dans des tuples, lis-les par indice, déballe-les, assemble-les et convertis-les en listes et inversement.
+
+@md
+en: ## What is a tuple?
+A **tuple** is like a list in round brackets, with one big difference: once created, it cannot be changed. There is no `append` or `remove`. Use tuples for values that belong together and should stay as they are – coordinates, a date, an RGB colour.
+
+A tuple with one item needs a comma: `('a',)`. Without it, the brackets are just brackets.
+pl: ## Czym jest krotka?
+**Krotka** (tuple) przypomina listę w nawiasach okrągłych, z jedną ważną różnicą: po utworzeniu nie można jej zmienić. Nie ma `append` ani `remove`. Krotki służą do wartości, które należą do siebie i mają zostać takie, jakie są – współrzędnych, daty, koloru RGB.
+
+Krotka z jednym elementem potrzebuje przecinka: `('a',)`. Bez niego nawiasy są zwykłymi nawiasami.
+de: ## Was ist ein Tupel?
+Ein **Tupel** ist wie eine Liste in runden Klammern, mit einem großen Unterschied: Einmal erzeugt, lässt es sich nicht mehr ändern. Es gibt kein `append` und kein `remove`. Tupel nimmst du für Werte, die zusammengehören und so bleiben sollen – Koordinaten, ein Datum, eine RGB-Farbe.
+
+Ein Tupel mit einem Element braucht ein Komma: `('a',)`. Ohne Komma sind die Klammern nur Klammern.
+es: ## ¿Qué es una tupla?
+Una **tupla** es como una lista entre paréntesis, con una gran diferencia: una vez creada, no se puede cambiar. No hay `append` ni `remove`. Las tuplas sirven para valores que van juntos y deben quedarse como están: coordenadas, una fecha, un color RGB.
+
+Una tupla de un solo elemento necesita una coma: `('a',)`. Sin ella, los paréntesis son solo paréntesis.
+fr: ## Qu'est-ce qu'un tuple ?
+Un **tuple** ressemble à une liste entre parenthèses, avec une grande différence : une fois créé, il ne peut plus être modifié. Il n'y a ni `append` ni `remove`. On utilise les tuples pour des valeurs qui vont ensemble et doivent rester telles quelles – des coordonnées, une date, une couleur RGB.
+
+Un tuple d'un seul élément a besoin d'une virgule : `('a',)`. Sans elle, les parenthèses ne sont que des parenthèses.
+
+@code
+empty = ()
+fruits = ('banana', 'orange', 'mango', 'lemon')
+point = (3, 4)
+single = ('a',)
+print(fruits, len(fruits))
+print(type(single), type(('a')))
+@end
+
+@md
+en: ## Reading a tuple
+Indexes, negative indexes, slices and `in` work exactly as with lists. Assigning to an item raises a `TypeError` – that is the point of a tuple.
+pl: ## Odczytywanie krotki
+Indeksy, indeksy ujemne, wycinki i `in` działają dokładnie jak w listach. Przypisanie do elementu kończy się błędem `TypeError` – i właśnie o to w krotce chodzi.
+de: ## Ein Tupel lesen
+Indizes, negative Indizes, Slices und `in` funktionieren genau wie bei Listen. Eine Zuweisung an ein Element löst einen `TypeError` aus – genau dafür gibt es Tupel.
+es: ## Leer una tupla
+Los índices, los índices negativos, las porciones e `in` funcionan igual que en las listas. Asignar a un elemento lanza un `TypeError`, y esa es justo la gracia de una tupla.
+fr: ## Lire un tuple
+Les indices, les indices négatifs, les tranches et `in` fonctionnent exactement comme pour les listes. Affecter une valeur à un élément lève une `TypeError` – c'est tout l'intérêt d'un tuple.
+
+@code
+fruits = ('banana', 'orange', 'mango', 'lemon')
+print(fruits[0], fruits[-1])
+print(fruits[1:3])
+print('mango' in fruits)
+print(fruits.count('banana'), fruits.index('mango'))
+@end
+
+@code error
+fruits = ('banana', 'orange')
+fruits[0] = 'apple'
+@end
+
+@md
+en: ## Changing a tuple anyway
+You cannot change a tuple, but you can build a new one. Turn it into a list with `list()`, change the list and turn it back with `tuple()`. Tuples are joined with `+`, and `del` removes the whole tuple – not single items.
+
+Unpacking works as with lists, which is why functions often return several values as a tuple.
+pl: ## Jak mimo wszystko zmienić krotkę
+Krotki nie da się zmienić, ale można zbudować nową. Zamień ją na listę przez `list()`, zmień listę i zamień z powrotem przez `tuple()`. Krotki łączy się operatorem `+`, a `del` usuwa całą krotkę – nie pojedyncze elementy.
+
+Rozpakowanie działa tak jak w listach, dlatego funkcje często zwracają kilka wartości jako krotkę.
+de: ## Ein Tupel trotzdem ändern
+Ein Tupel kannst du nicht ändern, aber du kannst ein neues bauen. Mach mit `list()` eine Liste daraus, ändere die Liste und wandle sie mit `tuple()` zurück. Tupel verbindest du mit `+`, und `del` löscht das ganze Tupel – nicht einzelne Elemente.
+
+Entpacken funktioniert wie bei Listen, deshalb geben Funktionen mehrere Werte oft als Tupel zurück.
+es: ## Cambiar una tupla de todos modos
+Una tupla no se puede cambiar, pero sí se puede construir otra. Conviértela en lista con `list()`, cambia la lista y vuelve a convertirla con `tuple()`. Las tuplas se unen con `+`, y `del` borra la tupla entera, no elementos sueltos.
+
+El desempaquetado funciona igual que en las listas; por eso las funciones suelen devolver varios valores como una tupla.
+fr: ## Modifier un tuple malgré tout
+On ne peut pas modifier un tuple, mais on peut en construire un nouveau. Transforme-le en liste avec `list()`, modifie la liste et reconvertis-la avec `tuple()`. Les tuples s'assemblent avec `+`, et `del` supprime le tuple entier – pas des éléments isolés.
+
+Le déballage fonctionne comme pour les listes ; c'est pourquoi les fonctions renvoient souvent plusieurs valeurs sous forme de tuple.
+
+@code
+fruits = ('banana', 'orange', 'mango')
+as_list = list(fruits)
+as_list[0] = 'apple'
+fruits = tuple(as_list)
+print(fruits)
+vegetables = ('tomato', 'potato')
+food = fruits + vegetables
+print(food)
+x, y = (3, 4)
+print(x, y)
+@end
+
+@exercise siblings
+@title
+en: Brothers and sisters
+pl: Rodzeństwo
+de: Geschwister
+es: Hermanos y hermanas
+fr: Frères et sœurs
+@text
+en: Create the tuples `sisters` with `'Anna'` and `'Maria'` and `brothers` with `'John'`, `'Peter'` and `'Tom'`. Join them into the tuple `siblings` (sisters first) and store their number in `count`.
+pl: Utwórz krotki `sisters` z `'Anna'` i `'Maria'` oraz `brothers` z `'John'`, `'Peter'` i `'Tom'`. Połącz je w krotkę `siblings` (najpierw siostry) i zapisz liczbę rodzeństwa w `count`.
+de: Erzeuge die Tupel `sisters` mit `'Anna'` und `'Maria'` und `brothers` mit `'John'`, `'Peter'` und `'Tom'`. Verbinde sie zum Tupel `siblings` (Schwestern zuerst) und speichere ihre Anzahl in `count`.
+es: Crea las tuplas `sisters` con `'Anna'` y `'Maria'` y `brothers` con `'John'`, `'Peter'` y `'Tom'`. Únelas en la tupla `siblings` (primero las hermanas) y guarda cuántos son en `count`.
+fr: Crée les tuples `sisters` avec `'Anna'` et `'Maria'` et `brothers` avec `'John'`, `'Peter'` et `'Tom'`. Assemble-les dans le tuple `siblings` (les sœurs d'abord) et range leur nombre dans `count`.
+@hint
+en: `siblings = sisters + brothers`, `count = len(siblings)`.
+pl: `siblings = sisters + brothers`, `count = len(siblings)`.
+de: `siblings = sisters + brothers`, `count = len(siblings)`.
+es: `siblings = sisters + brothers`, `count = len(siblings)`.
+fr: `siblings = sisters + brothers`, `count = len(siblings)`.
+@starter
+# sisters = ...
+@end
+@solution
+sisters = ('Anna', 'Maria')
+brothers = ('John', 'Peter', 'Tom')
+siblings = sisters + brothers
+count = len(siblings)
+print(siblings, count)
+@end
+@case
+expr: isinstance(sisters, tuple) and isinstance(brothers, tuple)
+expr: siblings == ('Anna', 'Maria', 'John', 'Peter', 'Tom')
+expr: count == 5
+
+@exercise family
+@title
+en: The whole family
+pl: Cała rodzina
+de: Die ganze Familie
+es: Toda la familia
+fr: Toute la famille
+@text
+en: Add the parents `'Mum'` and `'Dad'` to the end of `siblings` to make `family_members`. Then unpack `family_members` so that the parents land in `mum` and `dad`, and everyone before them in the list `kids`.
+pl: Dopisz rodziców `'Mum'` i `'Dad'` na końcu `siblings`, tworząc `family_members`. Potem rozpakuj `family_members` tak, żeby rodzice trafili do `mum` i `dad`, a wszyscy przed nimi do listy `kids`.
+de: Hänge die Eltern `'Mum'` und `'Dad'` an `siblings` an, um `family_members` zu erhalten. Entpacke dann `family_members` so, dass die Eltern in `mum` und `dad` landen und alle davor in der Liste `kids`.
+es: Añade a los padres `'Mum'` y `'Dad'` al final de `siblings` para formar `family_members`. Después desempaqueta `family_members` de modo que los padres queden en `mum` y `dad`, y todos los anteriores en la lista `kids`.
+fr: Ajoute les parents `'Mum'` et `'Dad'` à la fin de `siblings` pour obtenir `family_members`. Déballe ensuite `family_members` pour que les parents arrivent dans `mum` et `dad`, et tous ceux d'avant dans la liste `kids`.
+@hint
+en: The starred name can come first: `*kids, mum, dad = family_members`.
+pl: Nazwa z gwiazdką może być na początku: `*kids, mum, dad = family_members`.
+de: Der Name mit Stern darf vorne stehen: `*kids, mum, dad = family_members`.
+es: El nombre con asterisco puede ir primero: `*kids, mum, dad = family_members`.
+fr: Le nom étoilé peut venir en premier : `*kids, mum, dad = family_members`.
+@starter
+siblings = ('Anna', 'Maria', 'John', 'Peter', 'Tom')
+@end
+@solution
+siblings = ('Anna', 'Maria', 'John', 'Peter', 'Tom')
+family_members = siblings + ('Mum', 'Dad')
+*kids, mum, dad = family_members
+print(kids, mum, dad)
+@end
+@case
+expr: family_members == ('Anna', 'Maria', 'John', 'Peter', 'Tom', 'Mum', 'Dad')
+expr: kids == ['Anna', 'Maria', 'John', 'Peter', 'Tom'] and (mum, dad) == ('Mum', 'Dad')
+
+@exercise food
+@title
+en: Food stuff
+pl: Jedzenie
+de: Lebensmittel
+es: Comida
+fr: Nourriture
+@text
+en: Join `fruits`, `vegetables` and `animal_products` into the tuple `food_stuff_tp`. Turn it into the list `food_stuff_lt`, then slice out the middle item, or the two middle items if the length is even, into `middle`.
+pl: Połącz `fruits`, `vegetables` i `animal_products` w krotkę `food_stuff_tp`. Zamień ją na listę `food_stuff_lt`, a potem wytnij środkowy element – albo dwa środkowe, jeśli długość jest parzysta – do `middle`.
+de: Verbinde `fruits`, `vegetables` und `animal_products` zum Tupel `food_stuff_tp`. Mach daraus die Liste `food_stuff_lt` und schneide dann das mittlere Element – bei gerader Länge die beiden mittleren – als `middle` heraus.
+es: Une `fruits`, `vegetables` y `animal_products` en la tupla `food_stuff_tp`. Conviértela en la lista `food_stuff_lt` y después saca con una porción el elemento central, o los dos centrales si la longitud es par, en `middle`.
+fr: Assemble `fruits`, `vegetables` et `animal_products` dans le tuple `food_stuff_tp`. Transforme-le en liste `food_stuff_lt`, puis extrais avec une tranche l'élément du milieu, ou les deux du milieu si la longueur est paire, dans `middle`.
+@hint
+en: With `n = len(food_stuff_lt)`: for an even `n` the slice is `[n // 2 - 1 : n // 2 + 1]`, for an odd one `[n // 2 : n // 2 + 1]`.
+pl: Dla `n = len(food_stuff_lt)`: przy parzystym `n` wycinek to `[n // 2 - 1 : n // 2 + 1]`, przy nieparzystym `[n // 2 : n // 2 + 1]`.
+de: Mit `n = len(food_stuff_lt)`: bei geradem `n` ist der Slice `[n // 2 - 1 : n // 2 + 1]`, bei ungeradem `[n // 2 : n // 2 + 1]`.
+es: Con `n = len(food_stuff_lt)`: si `n` es par, la porción es `[n // 2 - 1 : n // 2 + 1]`; si es impar, `[n // 2 : n // 2 + 1]`.
+fr: Avec `n = len(food_stuff_lt)` : pour un `n` pair, la tranche est `[n // 2 - 1 : n // 2 + 1]`, sinon `[n // 2 : n // 2 + 1]`.
+@starter
+fruits = ('banana', 'orange', 'mango', 'lemon')
+vegetables = ('tomato', 'potato', 'cabbage', 'onion', 'carrot')
+animal_products = ('milk', 'meat', 'butter', 'yoghurt')
+@end
+@solution
+fruits = ('banana', 'orange', 'mango', 'lemon')
+vegetables = ('tomato', 'potato', 'cabbage', 'onion', 'carrot')
+animal_products = ('milk', 'meat', 'butter', 'yoghurt')
+food_stuff_tp = fruits + vegetables + animal_products
+food_stuff_lt = list(food_stuff_tp)
+n = len(food_stuff_lt)
+if n % 2 == 0:
+    middle = food_stuff_lt[n // 2 - 1:n // 2 + 1]
+else:
+    middle = food_stuff_lt[n // 2:n // 2 + 1]
+print(middle)
+@end
+@case
+expr: food_stuff_tp == ('banana', 'orange', 'mango', 'lemon', 'tomato', 'potato', 'cabbage', 'onion', 'carrot', 'milk', 'meat', 'butter', 'yoghurt')
+expr: isinstance(food_stuff_lt, list) and len(food_stuff_lt) == 13
+expr: middle == ['cabbage']
+
+@exercise nordic
+@title
+en: Is it a Nordic country?
+pl: Czy to kraj nordycki?
+de: Ist es ein nordisches Land?
+es: ¿Es un país nórdico?
+fr: Est-ce un pays nordique ?
+@text
+en: Read a country name with `input()` and print `True` if it is in the tuple `nordic_countries`, otherwise `False`.
+pl: Wczytaj nazwę kraju przez `input()` i wypisz `True`, jeśli jest w krotce `nordic_countries`, w przeciwnym razie `False`.
+de: Lies mit `input()` einen Ländernamen ein und gib `True` aus, wenn er im Tupel `nordic_countries` steht, sonst `False`.
+es: Lee el nombre de un país con `input()` e imprime `True` si está en la tupla `nordic_countries` y `False` si no.
+fr: Lis un nom de pays avec `input()` et affiche `True` s'il est dans le tuple `nordic_countries`, sinon `False`.
+@hint
+en: `print(country in nordic_countries)`
+pl: `print(country in nordic_countries)`
+de: `print(country in nordic_countries)`
+es: `print(country in nordic_countries)`
+fr: `print(country in nordic_countries)`
+@starter
+nordic_countries = ('Denmark', 'Finland', 'Iceland', 'Norway', 'Sweden')
+country = input('Country: ')
+@end
+@solution
+nordic_countries = ('Denmark', 'Finland', 'Iceland', 'Norway', 'Sweden')
+country = input('Country: ')
+print(country in nordic_countries)
+@end
+@case stdin="Finland\n"
+re: \bTrue\b
+@case stdin="Estonia\n"
+re: \bFalse\b

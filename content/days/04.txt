@@ -1,0 +1,314 @@
+@day 4
+@source 04_Day_Strings/04_strings.md
+
+@title
+en: Strings
+pl: Napisy
+de: Zeichenketten
+es: Cadenas de texto
+fr: Chaînes de caractères
+
+@summary
+en: Create, join and format text, take strings apart with indexes and slices, and use string methods.
+pl: Twórz, łącz i formatuj tekst, rozbieraj napisy indeksami i wycinkami i korzystaj z metod napisów.
+de: Text erzeugen, verbinden und formatieren, Zeichenketten mit Indizes und Slices zerlegen und String-Methoden nutzen.
+es: Crea, une y formatea texto, separa cadenas con índices y porciones y usa los métodos de las cadenas.
+fr: Crée, assemble et formate du texte, découpe les chaînes avec des indices et des tranches, et utilise leurs méthodes.
+
+@md
+en: ## Creating strings
+A string is text in quotes: single, double, or triple quotes for text that spans several lines. `len()` gives the number of characters.
+pl: ## Tworzenie napisów
+Napis to tekst w cudzysłowie: pojedynczym, podwójnym albo potrójnym – ten ostatni pozwala zapisać tekst w kilku wierszach. `len()` podaje liczbę znaków.
+de: ## Zeichenketten erzeugen
+Eine Zeichenkette (String) ist Text in Anführungszeichen: einfach, doppelt oder dreifach für Text über mehrere Zeilen. `len()` liefert die Anzahl der Zeichen.
+es: ## Crear cadenas
+Una cadena es texto entre comillas: simples, dobles o triples para un texto de varias líneas. `len()` da el número de caracteres.
+fr: ## Créer des chaînes
+Une chaîne est du texte entre guillemets : simples, doubles ou triples pour un texte sur plusieurs lignes. `len()` donne le nombre de caractères.
+
+@code
+letter = 'P'
+greeting = "Hello, World!"
+multiline = '''I am a teacher and enjoy teaching.
+I didn't find anything more rewarding than empowering people.'''
+print(letter, len(letter))
+print(greeting, len(greeting))
+print(multiline)
+@end
+
+@md
+en: ## Joining strings and escape sequences
+`+` joins (concatenates) strings and `*` repeats them. Inside a string, a backslash starts an **escape sequence**: `\n` is a new line, `\t` a tab, `\\` a backslash and `\'` or `\"` a quote.
+pl: ## Łączenie napisów i sekwencje ucieczki
+`+` łączy napisy (konkatenacja), a `*` je powtarza. W napisie ukośnik wsteczny zaczyna **sekwencję ucieczki**: `\n` to nowy wiersz, `\t` tabulator, `\\` ukośnik wsteczny, a `\'` lub `\"` cudzysłów.
+de: ## Zeichenketten verbinden und Escape-Sequenzen
+`+` verbindet (verkettet) Zeichenketten, `*` wiederholt sie. In einer Zeichenkette beginnt ein Backslash eine **Escape-Sequenz**: `\n` ist ein Zeilenumbruch, `\t` ein Tabulator, `\\` ein Backslash und `\'` oder `\"` ein Anführungszeichen.
+es: ## Unir cadenas y secuencias de escape
+`+` une (concatena) cadenas y `*` las repite. Dentro de una cadena, la barra invertida empieza una **secuencia de escape**: `\n` es un salto de línea, `\t` un tabulador, `\\` una barra invertida y `\'` o `\"` una comilla.
+fr: ## Assembler des chaînes et séquences d'échappement
+`+` assemble (concatène) des chaînes et `*` les répète. Dans une chaîne, une barre oblique inverse commence une **séquence d'échappement** : `\n` est un saut de ligne, `\t` une tabulation, `\\` une barre oblique inverse et `\'` ou `\"` un guillemet.
+
+@code
+first_name = 'Asabeneh'
+last_name = 'Yetayeh'
+full_name = first_name + ' ' + last_name
+print(full_name)
+print('-' * 20)
+print('Days\tTopics\nDay 1\tPython\nDay 2\tVariables')
+print('A backslash: \\, a quote: \'')
+@end
+
+@md
+en: ## Formatting strings
+To put values into text, use an **f-string**: write `f` before the quote and the expressions in braces. Inside the braces you can add a format: `{pi:.2f}` shows two decimal places. The older `'{} {}'.format(a, b)` and `'%s' % a` styles still work, and you will see them in other people's code.
+pl: ## Formatowanie napisów
+Do wstawiania wartości w tekst służy **f-string**: przed cudzysłowem pisze się `f`, a wyrażenia w nawiasach klamrowych. W nawiasie można dodać format: `{pi:.2f}` pokazuje dwa miejsca po przecinku. Starsze sposoby, `'{} {}'.format(a, b)` i `'%s' % a`, nadal działają i można je spotkać w cudzym kodzie.
+de: ## Zeichenketten formatieren
+Um Werte in Text einzusetzen, nimmst du einen **f-String**: `f` vor das Anführungszeichen, die Ausdrücke in geschweifte Klammern. In der Klammer kannst du ein Format angeben: `{pi:.2f}` zeigt zwei Nachkommastellen. Die älteren Schreibweisen `'{} {}'.format(a, b)` und `'%s' % a` funktionieren weiterhin, und du siehst sie in fremdem Code.
+es: ## Formatear cadenas
+Para meter valores en un texto se usa una **f-string**: se escribe `f` antes de la comilla y las expresiones entre llaves. Dentro de las llaves puedes añadir un formato: `{pi:.2f}` muestra dos decimales. Los estilos antiguos `'{} {}'.format(a, b)` y `'%s' % a` siguen funcionando y los verás en código ajeno.
+fr: ## Formater des chaînes
+Pour insérer des valeurs dans un texte, utilise une **f-string** : écris `f` avant le guillemet et les expressions entre accolades. Dans les accolades, tu peux ajouter un format : `{pi:.2f}` affiche deux décimales. Les anciens styles `'{} {}'.format(a, b)` et `'%s' % a` fonctionnent encore, et tu les croiseras dans le code des autres.
+
+@code
+name = 'Asabeneh'
+age = 250
+pi = 3.14159
+print(f'{name} is {age} years old.')
+print(f'{age} + 10 = {age + 10}')
+print(f'Pi is about {pi:.2f}')
+print('{} is {} years old.'.format(name, age))
+print('%s is %d years old.' % (name, age))
+@end
+
+@md
+en: ## Indexes and slices
+A string is a sequence of characters, numbered from `0`. Negative indexes count from the end: `-1` is the last character. A **slice** `text[start:end]` takes the characters from `start` up to, but not including, `end`; a third number is the step, so `text[::-1]` reverses a string.
+pl: ## Indeksy i wycinki
+Napis to ciąg znaków numerowanych od `0`. Indeksy ujemne liczą od końca: `-1` to ostatni znak. **Wycinek** `text[start:end]` bierze znaki od `start` aż do `end`, ale bez niego; trzecia liczba to krok, więc `text[::-1]` odwraca napis.
+de: ## Indizes und Slices
+Eine Zeichenkette ist eine Folge von Zeichen, nummeriert ab `0`. Negative Indizes zählen vom Ende: `-1` ist das letzte Zeichen. Ein **Slice** `text[start:end]` nimmt die Zeichen ab `start` bis ausschließlich `end`; eine dritte Zahl ist die Schrittweite, also dreht `text[::-1]` eine Zeichenkette um.
+es: ## Índices y porciones
+Una cadena es una secuencia de caracteres numerados desde `0`. Los índices negativos cuentan desde el final: `-1` es el último carácter. Una **porción** (slice) `text[start:end]` toma los caracteres desde `start` hasta `end`, sin incluirlo; un tercer número es el paso, así que `text[::-1]` invierte una cadena.
+fr: ## Indices et tranches
+Une chaîne est une suite de caractères numérotés à partir de `0`. Les indices négatifs comptent depuis la fin : `-1` est le dernier caractère. Une **tranche** `text[start:end]` prend les caractères de `start` jusqu'à `end` exclu ; un troisième nombre est le pas, donc `text[::-1]` inverse une chaîne.
+
+@code
+language = 'Python'
+print(language[0])      # P
+print(language[-1])     # n
+print(language[0:3])    # Pyt
+print(language[3:])     # hon
+print(language[::2])    # Pto
+print(language[::-1])   # nohtyP
+@end
+
+@md
+en: ## String methods
+Strings have many built-in **methods**, called with a dot: `text.upper()`. Strings never change – a method returns a new string. The most useful ones:
+
+| Method | What it does |
+|---|---|
+| `upper()`, `lower()`, `title()`, `capitalize()` | change the case |
+| `strip()` | remove spaces from both ends |
+| `replace(old, new)` | replace text |
+| `split(sep)` | cut into a list of parts |
+| `'sep'.join(list)` | glue a list of strings together |
+| `count(x)`, `find(x)`, `index(x)` | count, find a position |
+| `startswith(x)`, `endswith(x)` | check the beginning or end |
+| `isdigit()`, `isalpha()`, `isalnum()` | check what the characters are |
+pl: ## Metody napisów
+Napisy mają wiele wbudowanych **metod**, które wywołuje się po kropce: `text.upper()`. Napis nigdy się nie zmienia – metoda zwraca nowy napis. Najprzydatniejsze:
+
+| Metoda | Co robi |
+|---|---|
+| `upper()`, `lower()`, `title()`, `capitalize()` | zmienia wielkość liter |
+| `strip()` | usuwa spacje z obu końców |
+| `replace(old, new)` | zamienia tekst |
+| `split(sep)` | dzieli na listę części |
+| `'sep'.join(list)` | skleja listę napisów |
+| `count(x)`, `find(x)`, `index(x)` | liczy, znajduje pozycję |
+| `startswith(x)`, `endswith(x)` | sprawdza początek albo koniec |
+| `isdigit()`, `isalpha()`, `isalnum()` | sprawdza, jakie to znaki |
+de: ## String-Methoden
+Zeichenketten haben viele eingebaute **Methoden**, die du mit einem Punkt aufrufst: `text.upper()`. Zeichenketten ändern sich nie – eine Methode gibt eine neue Zeichenkette zurück. Die nützlichsten:
+
+| Methode | Was sie macht |
+|---|---|
+| `upper()`, `lower()`, `title()`, `capitalize()` | ändert die Groß-/Kleinschreibung |
+| `strip()` | entfernt Leerzeichen an beiden Enden |
+| `replace(old, new)` | ersetzt Text |
+| `split(sep)` | zerlegt in eine Liste von Teilen |
+| `'sep'.join(list)` | fügt eine Liste von Zeichenketten zusammen |
+| `count(x)`, `find(x)`, `index(x)` | zählt, findet eine Position |
+| `startswith(x)`, `endswith(x)` | prüft Anfang oder Ende |
+| `isdigit()`, `isalpha()`, `isalnum()` | prüft, welche Zeichen es sind |
+es: ## Métodos de las cadenas
+Las cadenas tienen muchos **métodos** integrados que se llaman con un punto: `text.upper()`. Las cadenas nunca cambian: un método devuelve una cadena nueva. Los más útiles:
+
+| Método | Qué hace |
+|---|---|
+| `upper()`, `lower()`, `title()`, `capitalize()` | cambian mayúsculas y minúsculas |
+| `strip()` | quita los espacios de los dos extremos |
+| `replace(old, new)` | reemplaza texto |
+| `split(sep)` | corta en una lista de partes |
+| `'sep'.join(list)` | pega una lista de cadenas |
+| `count(x)`, `find(x)`, `index(x)` | cuentan, buscan una posición |
+| `startswith(x)`, `endswith(x)` | comprueban el principio o el final |
+| `isdigit()`, `isalpha()`, `isalnum()` | comprueban qué caracteres son |
+fr: ## Les méthodes des chaînes
+Les chaînes ont de nombreuses **méthodes** intégrées, appelées avec un point : `text.upper()`. Une chaîne ne change jamais – une méthode renvoie une nouvelle chaîne. Les plus utiles :
+
+| Méthode | Ce qu'elle fait |
+|---|---|
+| `upper()`, `lower()`, `title()`, `capitalize()` | changent la casse |
+| `strip()` | retire les espaces aux deux bouts |
+| `replace(old, new)` | remplace du texte |
+| `split(sep)` | découpe en une liste de morceaux |
+| `'sep'.join(list)` | recolle une liste de chaînes |
+| `count(x)`, `find(x)`, `index(x)` | comptent, trouvent une position |
+| `startswith(x)`, `endswith(x)` | vérifient le début ou la fin |
+| `isdigit()`, `isalpha()`, `isalnum()` | vérifient la nature des caractères |
+
+@code
+challenge = 'thirty days of python'
+print(challenge.upper())              # THIRTY DAYS OF PYTHON
+print(challenge.title())              # Thirty Days Of Python
+print(challenge.count('y'))           # 3
+print(challenge.find('days'))         # 7
+print(challenge.replace('python', 'coding'))
+print(challenge.split())              # ['thirty', 'days', 'of', 'python']
+print('-'.join(['a', 'b', 'c']))      # a-b-c
+print('   padded   '.strip())         # padded
+print('2026'.isdigit(), 'abc'.isalpha())
+@end
+
+@exercise concat
+@title
+en: Thirty Days Of Python
+pl: Thirty Days Of Python
+de: Thirty Days Of Python
+es: Thirty Days Of Python
+fr: Thirty Days Of Python
+@text
+en: Join the words `'Thirty'`, `'Days'`, `'Of'` and `'Python'` into one string `'Thirty Days Of Python'` and store it in `result`. Then store the same text in upper case in `shout`.
+pl: Połącz słowa `'Thirty'`, `'Days'`, `'Of'` i `'Python'` w jeden napis `'Thirty Days Of Python'` i zapisz go w `result`. Potem zapisz ten sam tekst wielkimi literami w `shout`.
+de: Verbinde die Wörter `'Thirty'`, `'Days'`, `'Of'` und `'Python'` zur Zeichenkette `'Thirty Days Of Python'` und speichere sie in `result`. Speichere dann denselben Text in Großbuchstaben in `shout`.
+es: Une las palabras `'Thirty'`, `'Days'`, `'Of'` y `'Python'` en la cadena `'Thirty Days Of Python'` y guárdala en `result`. Después guarda el mismo texto en mayúsculas en `shout`.
+fr: Assemble les mots `'Thirty'`, `'Days'`, `'Of'` et `'Python'` en une seule chaîne `'Thirty Days Of Python'` et range-la dans `result`. Range ensuite le même texte en majuscules dans `shout`.
+@hint
+en: `' '.join([...])` or `+` with spaces; then `result.upper()`.
+pl: `' '.join([...])` albo `+` ze spacjami; potem `result.upper()`.
+de: `' '.join([...])` oder `+` mit Leerzeichen; dann `result.upper()`.
+es: `' '.join([...])` o `+` con espacios; después `result.upper()`.
+fr: `' '.join([...])` ou `+` avec des espaces ; puis `result.upper()`.
+@starter
+words = ['Thirty', 'Days', 'Of', 'Python']
+@end
+@solution
+words = ['Thirty', 'Days', 'Of', 'Python']
+result = ' '.join(words)
+shout = result.upper()
+print(result)
+print(shout)
+@end
+@case
+expr: result == 'Thirty Days Of Python'
+expr: shout == 'THIRTY DAYS OF PYTHON'
+
+@exercise company
+@title
+en: Coding For All
+pl: Coding For All
+de: Coding For All
+es: Coding For All
+fr: Coding For All
+@text
+en: For `company = 'Coding For All'` store: `words` – the list of its words (use `split()`), `first_word` – the slice `'Coding'`, `last_char` – its last character, and `position` – the index where `'For'` starts.
+pl: Dla `company = 'Coding For All'` zapisz: `words` – listę jego słów (użyj `split()`), `first_word` – wycinek `'Coding'`, `last_char` – ostatni znak i `position` – indeks, od którego zaczyna się `'For'`.
+de: Speichere für `company = 'Coding For All'`: `words` – die Liste seiner Wörter (mit `split()`), `first_word` – den Slice `'Coding'`, `last_char` – das letzte Zeichen und `position` – den Index, an dem `'For'` beginnt.
+es: Para `company = 'Coding For All'` guarda: `words`, la lista de sus palabras (usa `split()`); `first_word`, la porción `'Coding'`; `last_char`, su último carácter, y `position`, el índice donde empieza `'For'`.
+fr: Pour `company = 'Coding For All'`, range : `words` – la liste de ses mots (avec `split()`), `first_word` – la tranche `'Coding'`, `last_char` – son dernier caractère, et `position` – l'indice où commence `'For'`.
+@hint
+en: `company[0:6]`, `company[-1]`, `company.find('For')`.
+pl: `company[0:6]`, `company[-1]`, `company.find('For')`.
+de: `company[0:6]`, `company[-1]`, `company.find('For')`.
+es: `company[0:6]`, `company[-1]`, `company.find('For')`.
+fr: `company[0:6]`, `company[-1]`, `company.find('For')`.
+@starter
+company = 'Coding For All'
+@end
+@solution
+company = 'Coding For All'
+words = company.split()
+first_word = company[0:6]
+last_char = company[-1]
+position = company.find('For')
+@end
+@case
+expr: words == ['Coding', 'For', 'All']
+expr: first_word == 'Coding'
+expr: last_char == 'l'
+expr: position == 7
+
+@exercise fstring
+@title
+en: Formatted output
+pl: Sformatowany wynik
+de: Formatierte Ausgabe
+es: Salida con formato
+fr: Sortie formatée
+@text
+en: With `radius = 10`, print exactly: `The area of a circle with radius 10 is 314.00 meters square.` Calculate the area as `3.14 * radius ** 2` inside an f-string and show it with two decimal places.
+pl: Dla `radius = 10` wypisz dokładnie: `The area of a circle with radius 10 is 314.00 meters square.` Pole policz jako `3.14 * radius ** 2` wewnątrz f-stringa i pokaż je z dwoma miejscami po przecinku.
+de: Gib mit `radius = 10` genau aus: `The area of a circle with radius 10 is 314.00 meters square.` Berechne die Fläche als `3.14 * radius ** 2` in einem f-String und zeig sie mit zwei Nachkommastellen.
+es: Con `radius = 10`, imprime exactamente: `The area of a circle with radius 10 is 314.00 meters square.` Calcula el área como `3.14 * radius ** 2` dentro de una f-string y muéstrala con dos decimales.
+fr: Avec `radius = 10`, affiche exactement : `The area of a circle with radius 10 is 314.00 meters square.` Calcule l'aire avec `3.14 * radius ** 2` dans une f-string et affiche-la avec deux décimales.
+@hint
+en: `{3.14 * radius ** 2:.2f}`
+pl: `{3.14 * radius ** 2:.2f}`
+de: `{3.14 * radius ** 2:.2f}`
+es: `{3.14 * radius ** 2:.2f}`
+fr: `{3.14 * radius ** 2:.2f}`
+@starter
+radius = 10
+@end
+@solution
+radius = 10
+print(f'The area of a circle with radius {radius} is {3.14 * radius ** 2:.2f} meters square.')
+@end
+@case
+expr: _lines == ['The area of a circle with radius 10 is 314.00 meters square.']
+expr: "f'" in open(__file__).read() or 'f"' in open(__file__).read()
+
+@exercise reverse
+@title
+en: Backwards
+pl: Wspak
+de: Rückwärts
+es: Al revés
+fr: À l'envers
+@text
+en: Read a word with `input()` and print it backwards in lower case. For `Python` the program prints `nohtyp`.
+pl: Wczytaj słowo przez `input()` i wypisz je wspak małymi literami. Dla `Python` program wypisuje `nohtyp`.
+de: Lies mit `input()` ein Wort ein und gib es rückwärts in Kleinbuchstaben aus. Für `Python` gibt das Programm `nohtyp` aus.
+es: Lee una palabra con `input()` e imprímela al revés en minúsculas. Para `Python`, el programa imprime `nohtyp`.
+fr: Lis un mot avec `input()` et affiche-le à l'envers, en minuscules. Pour `Python`, le programme affiche `nohtyp`.
+@hint
+en: A slice with step `-1` reverses: `word[::-1]`.
+pl: Wycinek z krokiem `-1` odwraca: `word[::-1]`.
+de: Ein Slice mit Schrittweite `-1` dreht um: `word[::-1]`.
+es: Una porción con paso `-1` invierte: `word[::-1]`.
+fr: Une tranche de pas `-1` inverse : `word[::-1]`.
+@starter
+word = input('Word: ')
+@end
+@solution
+word = input('Word: ')
+print(word[::-1].lower())
+@end
+@case stdin="Python\n"
+out: nohtyp
+@case stdin="Level\n"
+out: level

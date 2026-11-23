@@ -1,0 +1,269 @@
+@day 7
+@source 07_Day_Sets/07_sets.md
+
+@title
+en: Sets
+pl: Zbiory
+de: Mengen
+es: Conjuntos
+fr: Ensembles
+
+@summary
+en: Collect unique values in sets, add and remove items, and compare sets with union, intersection and difference.
+pl: Zbieraj unikalne wartości w zbiorach, dodawaj i usuwaj elementy i porównuj zbiory sumą, częścią wspólną i różnicą.
+de: Eindeutige Werte in Mengen sammeln, Elemente hinzufügen und entfernen und Mengen mit Vereinigung, Schnitt und Differenz vergleichen.
+es: Reúne valores únicos en conjuntos, añade y quita elementos y compara conjuntos con la unión, la intersección y la diferencia.
+fr: Rassemble des valeurs uniques dans des ensembles, ajoute et retire des éléments, et compare les ensembles par union, intersection et différence.
+
+@md
+en: ## What is a set?
+A **set** is a collection of **unique** items in curly braces. It has no order and no duplicates: add the same value twice and it is still there once. Because there is no order, there are no indexes either – you check membership with `in`.
+
+An empty set is written `set()`. Plain `{}` is an empty dictionary, which you will meet tomorrow.
+pl: ## Czym jest zbiór?
+**Zbiór** (set) to kolekcja **unikalnych** elementów w nawiasach klamrowych. Nie ma kolejności ani powtórzeń: dodaj tę samą wartość dwa razy, a nadal będzie raz. Skoro nie ma kolejności, nie ma też indeksów – przynależność sprawdza się przez `in`.
+
+Pusty zbiór zapisuje się `set()`. Same `{}` to pusty słownik, który poznasz jutro.
+de: ## Was ist eine Menge?
+Eine **Menge** (Set) ist eine Sammlung **eindeutiger** Elemente in geschweiften Klammern. Sie hat keine Reihenfolge und keine Duplikate: Fügst du denselben Wert zweimal hinzu, ist er trotzdem nur einmal da. Ohne Reihenfolge gibt es auch keine Indizes – ob etwas enthalten ist, prüfst du mit `in`.
+
+Eine leere Menge schreibst du `set()`. Ein einfaches `{}` ist ein leeres Dictionary, das du morgen kennenlernst.
+es: ## ¿Qué es un conjunto?
+Un **conjunto** (set) es una colección de elementos **únicos** entre llaves. No tiene orden ni duplicados: si añades el mismo valor dos veces, sigue estando una sola vez. Como no hay orden, tampoco hay índices; la pertenencia se comprueba con `in`.
+
+Un conjunto vacío se escribe `set()`. Unas llaves vacías `{}` son un diccionario vacío, que conocerás mañana.
+fr: ## Qu'est-ce qu'un ensemble ?
+Un **ensemble** (set) est une collection d'éléments **uniques** entre accolades. Il n'a ni ordre ni doublons : ajoute deux fois la même valeur, elle n'y sera qu'une fois. Comme il n'y a pas d'ordre, il n'y a pas non plus d'indices – on vérifie l'appartenance avec `in`.
+
+Un ensemble vide s'écrit `set()`. De simples `{}` donnent un dictionnaire vide, que tu découvriras demain.
+
+@code
+fruits = {'banana', 'orange', 'mango', 'banana'}
+print(len(fruits))            # 3 – the duplicate is gone
+print('mango' in fruits)      # True
+print(set([1, 2, 2, 3, 3, 3]))
+print(type(set()), type({}))
+@end
+
+@md
+en: ## Adding and removing items
+`add(x)` adds one item and `update(items)` adds several. `remove(x)` deletes an item and raises a `KeyError` if it is missing; `discard(x)` does the same without an error. `pop()` removes some item – you cannot know which one. A set built from a list is the quickest way to drop duplicates.
+pl: ## Dodawanie i usuwanie elementów
+`add(x)` dodaje jeden element, a `update(items)` kilka. `remove(x)` usuwa element i zgłasza `KeyError`, jeśli go nie ma; `discard(x)` robi to samo bez błędu. `pop()` usuwa jakiś element – nie wiadomo który. Zbiór zbudowany z listy to najszybszy sposób na pozbycie się powtórzeń.
+de: ## Elemente hinzufügen und entfernen
+`add(x)` fügt ein Element hinzu, `update(items)` mehrere. `remove(x)` löscht ein Element und löst einen `KeyError` aus, wenn es fehlt; `discard(x)` macht dasselbe ohne Fehler. `pop()` entfernt irgendein Element – welches, weißt du nicht. Eine Menge aus einer Liste ist der schnellste Weg, Duplikate loszuwerden.
+es: ## Añadir y quitar elementos
+`add(x)` añade un elemento y `update(items)` varios. `remove(x)` borra un elemento y lanza un `KeyError` si no está; `discard(x)` hace lo mismo sin error. `pop()` quita algún elemento, sin que sepas cuál. Un conjunto creado a partir de una lista es la forma más rápida de eliminar duplicados.
+fr: ## Ajouter et retirer des éléments
+`add(x)` ajoute un élément et `update(items)` plusieurs. `remove(x)` supprime un élément et lève une `KeyError` s'il manque ; `discard(x)` fait la même chose sans erreur. `pop()` retire un élément au hasard – impossible de savoir lequel. Créer un ensemble à partir d'une liste est le moyen le plus rapide d'éliminer les doublons.
+
+@code
+langs = {'Python', 'JavaScript'}
+langs.add('Go')
+langs.update(['Rust', 'Python'])
+langs.discard('Java')         # no error even though it is not there
+langs.remove('Go')
+print(sorted(langs))
+@end
+
+@md
+en: ## Comparing sets
+Sets know the operations from maths. Each has a method and an operator:
+
+| Operation | Method | Operator | Result |
+|---|---|---|---|
+| union | `a.union(b)` | `a \| b` | everything from both |
+| intersection | `a.intersection(b)` | `a & b` | only what is in both |
+| difference | `a.difference(b)` | `a - b` | in `a` but not in `b` |
+| symmetric difference | `a.symmetric_difference(b)` | `a ^ b` | in exactly one of them |
+
+`a.issubset(b)` checks whether all of `a` is in `b`, `a.issuperset(b)` the other way round, and `a.isdisjoint(b)` whether they have nothing in common.
+pl: ## Porównywanie zbiorów
+Zbiory znają działania z matematyki. Każde ma metodę i operator:
+
+| Działanie | Metoda | Operator | Wynik |
+|---|---|---|---|
+| suma | `a.union(b)` | `a \| b` | wszystko z obu |
+| część wspólna | `a.intersection(b)` | `a & b` | tylko to, co jest w obu |
+| różnica | `a.difference(b)` | `a - b` | w `a`, ale nie w `b` |
+| różnica symetryczna | `a.symmetric_difference(b)` | `a ^ b` | w dokładnie jednym z nich |
+
+`a.issubset(b)` sprawdza, czy całe `a` jest w `b`, `a.issuperset(b)` – odwrotnie, a `a.isdisjoint(b)` – czy nie mają nic wspólnego.
+de: ## Mengen vergleichen
+Mengen kennen die Operationen aus der Mathematik. Jede hat eine Methode und einen Operator:
+
+| Operation | Methode | Operator | Ergebnis |
+|---|---|---|---|
+| Vereinigung | `a.union(b)` | `a \| b` | alles aus beiden |
+| Schnittmenge | `a.intersection(b)` | `a & b` | nur, was in beiden ist |
+| Differenz | `a.difference(b)` | `a - b` | in `a`, aber nicht in `b` |
+| symmetrische Differenz | `a.symmetric_difference(b)` | `a ^ b` | in genau einer von beiden |
+
+`a.issubset(b)` prüft, ob ganz `a` in `b` steckt, `a.issuperset(b)` umgekehrt, und `a.isdisjoint(b)`, ob sie nichts gemeinsam haben.
+es: ## Comparar conjuntos
+Los conjuntos conocen las operaciones de las matemáticas. Cada una tiene un método y un operador:
+
+| Operación | Método | Operador | Resultado |
+|---|---|---|---|
+| unión | `a.union(b)` | `a \| b` | todo lo de ambos |
+| intersección | `a.intersection(b)` | `a & b` | solo lo que está en los dos |
+| diferencia | `a.difference(b)` | `a - b` | en `a` pero no en `b` |
+| diferencia simétrica | `a.symmetric_difference(b)` | `a ^ b` | en exactamente uno de ellos |
+
+`a.issubset(b)` comprueba si todo `a` está en `b`, `a.issuperset(b)` al revés, y `a.isdisjoint(b)` si no tienen nada en común.
+fr: ## Comparer des ensembles
+Les ensembles connaissent les opérations des mathématiques. Chacune a une méthode et un opérateur :
+
+| Opération | Méthode | Opérateur | Résultat |
+|---|---|---|---|
+| union | `a.union(b)` | `a \| b` | tout ce qui est dans l'un ou l'autre |
+| intersection | `a.intersection(b)` | `a & b` | seulement ce qui est dans les deux |
+| différence | `a.difference(b)` | `a - b` | dans `a` mais pas dans `b` |
+| différence symétrique | `a.symmetric_difference(b)` | `a ^ b` | dans un seul des deux |
+
+`a.issubset(b)` vérifie si tout `a` est dans `b`, `a.issuperset(b)` l'inverse, et `a.isdisjoint(b)` s'ils n'ont rien en commun.
+
+@code
+python = {'Python', 'Flask', 'Django'}
+web = {'JavaScript', 'Flask', 'Django', 'React'}
+print(sorted(python | web))
+print(sorted(python & web))     # ['Django', 'Flask']
+print(sorted(python - web))     # ['Python']
+print(sorted(python ^ web))
+print({'Flask'}.issubset(python))
+@end
+
+@exercise companies
+@title
+en: Unique companies
+pl: Unikalne firmy
+de: Eindeutige Firmen
+es: Empresas únicas
+fr: Entreprises uniques
+@text
+en: Add `'Twitter'` to the set `it_companies`, then add `'Nvidia'` and `'Samsung'` in one call, and remove `'IBM'`. Store the final number of companies in `count`.
+pl: Dodaj `'Twitter'` do zbioru `it_companies`, potem dodaj `'Nvidia'` i `'Samsung'` jednym wywołaniem i usuń `'IBM'`. Zapisz końcową liczbę firm w `count`.
+de: Füge `'Twitter'` zur Menge `it_companies` hinzu, dann `'Nvidia'` und `'Samsung'` mit einem Aufruf, und entferne `'IBM'`. Speichere die Anzahl der Firmen am Ende in `count`.
+es: Añade `'Twitter'` al conjunto `it_companies`, después `'Nvidia'` y `'Samsung'` con una sola llamada, y quita `'IBM'`. Guarda el número final de empresas en `count`.
+fr: Ajoute `'Twitter'` à l'ensemble `it_companies`, puis `'Nvidia'` et `'Samsung'` en un seul appel, et retire `'IBM'`. Range le nombre final d'entreprises dans `count`.
+@hint
+en: `add`, `update([...])`, `remove`, `len`.
+pl: `add`, `update([...])`, `remove`, `len`.
+de: `add`, `update([...])`, `remove`, `len`.
+es: `add`, `update([...])`, `remove`, `len`.
+fr: `add`, `update([...])`, `remove`, `len`.
+@starter
+it_companies = {'Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon'}
+@end
+@solution
+it_companies = {'Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon'}
+it_companies.add('Twitter')
+it_companies.update(['Nvidia', 'Samsung'])
+it_companies.remove('IBM')
+count = len(it_companies)
+print(count)
+@end
+@case
+expr: it_companies == {'Facebook', 'Google', 'Microsoft', 'Apple', 'Oracle', 'Amazon', 'Twitter', 'Nvidia', 'Samsung'}
+expr: count == 9
+
+@exercise ab
+@title
+en: Set operations
+pl: Działania na zbiorach
+de: Mengenoperationen
+es: Operaciones con conjuntos
+fr: Opérations sur les ensembles
+@text
+en: For the sets `A` and `B`, store `union`, `common` (the intersection), `only_a` (in `A` but not in `B`) and `subset` – `True` or `False`, whether `A` is a subset of `B`.
+pl: Dla zbiorów `A` i `B` zapisz `union`, `common` (część wspólną), `only_a` (w `A`, ale nie w `B`) i `subset` – `True` albo `False` w zależności od tego, czy `A` jest podzbiorem `B`.
+de: Speichere für die Mengen `A` und `B` die Werte `union`, `common` (die Schnittmenge), `only_a` (in `A`, aber nicht in `B`) und `subset` – `True` oder `False`, je nachdem, ob `A` eine Teilmenge von `B` ist.
+es: Para los conjuntos `A` y `B`, guarda `union`, `common` (la intersección), `only_a` (en `A` pero no en `B`) y `subset`: `True` o `False` según si `A` es subconjunto de `B`.
+fr: Pour les ensembles `A` et `B`, range `union`, `common` (l'intersection), `only_a` (dans `A` mais pas dans `B`) et `subset` – `True` ou `False` selon que `A` est un sous-ensemble de `B`.
+@hint
+en: `A | B`, `A & B`, `A - B`, `A.issubset(B)`.
+pl: `A | B`, `A & B`, `A - B`, `A.issubset(B)`.
+de: `A | B`, `A & B`, `A - B`, `A.issubset(B)`.
+es: `A | B`, `A & B`, `A - B`, `A.issubset(B)`.
+fr: `A | B`, `A & B`, `A - B`, `A.issubset(B)`.
+@starter
+A = {19, 22, 24, 20, 25, 26}
+B = {19, 22, 20, 25, 26, 24, 28, 27}
+@end
+@solution
+A = {19, 22, 24, 20, 25, 26}
+B = {19, 22, 20, 25, 26, 24, 28, 27}
+union = A | B
+common = A & B
+only_a = A - B
+subset = A.issubset(B)
+print(union, common, only_a, subset)
+@end
+@case
+expr: union == {19, 20, 22, 24, 25, 26, 27, 28}
+expr: common == {19, 20, 22, 24, 25, 26}
+expr: only_a == set()
+expr: subset is True
+
+@exercise ages
+@title
+en: List or set?
+pl: Lista czy zbiór?
+de: Liste oder Menge?
+es: ¿Lista o conjunto?
+fr: Liste ou ensemble ?
+@text
+en: Turn `age` into a set `unique_ages`. Store in `difference` how many items the list has more than the set – that is how many duplicates there were.
+pl: Zamień `age` na zbiór `unique_ages`. W `difference` zapisz, o ile więcej elementów ma lista niż zbiór – tyle było powtórzeń.
+de: Mach aus `age` eine Menge `unique_ages`. Speichere in `difference`, wie viele Elemente die Liste mehr hat als die Menge – so viele Duplikate gab es.
+es: Convierte `age` en un conjunto `unique_ages`. Guarda en `difference` cuántos elementos más tiene la lista que el conjunto: esos eran los duplicados.
+fr: Transforme `age` en un ensemble `unique_ages`. Range dans `difference` le nombre d'éléments que la liste a en plus de l'ensemble – c'est le nombre de doublons.
+@hint
+en: `len(age) - len(unique_ages)`
+pl: `len(age) - len(unique_ages)`
+de: `len(age) - len(unique_ages)`
+es: `len(age) - len(unique_ages)`
+fr: `len(age) - len(unique_ages)`
+@starter
+age = [22, 19, 24, 25, 26, 24, 25, 24]
+@end
+@solution
+age = [22, 19, 24, 25, 26, 24, 25, 24]
+unique_ages = set(age)
+difference = len(age) - len(unique_ages)
+print(unique_ages, difference)
+@end
+@case
+expr: unique_ages == {19, 22, 24, 25, 26}
+expr: difference == 3
+
+@exercise words
+@title
+en: Unique words
+pl: Unikalne słowa
+de: Eindeutige Wörter
+es: Palabras únicas
+fr: Mots uniques
+@text
+en: Read a sentence with `input()` and print how many different words it has. Ignore upper and lower case, so `I` and `i` are the same word.
+pl: Wczytaj zdanie przez `input()` i wypisz, ile ma różnych słów. Nie rozróżniaj wielkości liter, więc `I` i `i` to to samo słowo.
+de: Lies mit `input()` einen Satz ein und gib aus, wie viele verschiedene Wörter er hat. Groß- und Kleinschreibung zählen nicht, `I` und `i` sind also dasselbe Wort.
+es: Lee una frase con `input()` e imprime cuántas palabras distintas tiene. No distingas mayúsculas de minúsculas: `I` e `i` son la misma palabra.
+fr: Lis une phrase avec `input()` et affiche combien de mots différents elle contient. Ne tiens pas compte des majuscules : `I` et `i` sont le même mot.
+@hint
+en: `set(sentence.lower().split())`
+pl: `set(sentence.lower().split())`
+de: `set(sentence.lower().split())`
+es: `set(sentence.lower().split())`
+fr: `set(sentence.lower().split())`
+@starter
+sentence = input('Sentence: ')
+@end
+@solution
+sentence = input('Sentence: ')
+print(len(set(sentence.lower().split())))
+@end
+@case stdin="I am a teacher and I love to inspire and teach people\n"
+re: (?<![\d.])10(?![\d.])
+@case stdin="the cat and The dog\n"
+re: (?<![\d.])4(?![\d.])

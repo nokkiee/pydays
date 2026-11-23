@@ -1,0 +1,311 @@
+@day 5
+@source 05_Day_Lists/05_lists.md
+
+@title
+en: Lists
+pl: Listy
+de: Listen
+es: Listas
+fr: Listes
+
+@summary
+en: Keep many values in one list, read and change items, add and remove them, sort, copy and join lists.
+pl: Trzymaj wiele wartości w jednej liście, odczytuj i zmieniaj elementy, dodawaj je i usuwaj, sortuj, kopiuj i łącz listy.
+de: Viele Werte in einer Liste speichern, Elemente lesen und ändern, hinzufügen und entfernen, Listen sortieren, kopieren und verbinden.
+es: Guarda muchos valores en una lista, lee y cambia elementos, añádelos y quítalos, ordena, copia y une listas.
+fr: Range plusieurs valeurs dans une liste, lis et modifie ses éléments, ajoutes-en et retires-en, trie, copie et assemble des listes.
+
+@md
+en: ## Creating a list
+A **list** is an ordered collection of values in square brackets. It can hold any types, even mixed, and it can change: you can add, remove and replace items. `len()` gives the number of items and `list()` turns other sequences into a list.
+pl: ## Tworzenie listy
+**Lista** to uporządkowany zbiór wartości w nawiasach kwadratowych. Może zawierać wartości dowolnych typów, nawet pomieszane, i można ją zmieniać: dodawać, usuwać i podmieniać elementy. `len()` podaje liczbę elementów, a `list()` zamienia inne ciągi na listę.
+de: ## Eine Liste erzeugen
+Eine **Liste** ist eine geordnete Sammlung von Werten in eckigen Klammern. Sie kann beliebige Typen enthalten, auch gemischt, und sie ist veränderbar: Du kannst Elemente hinzufügen, entfernen und ersetzen. `len()` liefert die Anzahl der Elemente, `list()` macht aus anderen Folgen eine Liste.
+es: ## Crear una lista
+Una **lista** es una colección ordenada de valores entre corchetes. Puede contener cualquier tipo, incluso mezclados, y se puede cambiar: añadir, quitar y reemplazar elementos. `len()` da el número de elementos y `list()` convierte otras secuencias en una lista.
+fr: ## Créer une liste
+Une **liste** est une collection ordonnée de valeurs entre crochets. Elle peut contenir n'importe quels types, même mélangés, et elle est modifiable : on peut ajouter, retirer et remplacer des éléments. `len()` donne le nombre d'éléments et `list()` transforme d'autres séquences en liste.
+
+@code
+empty = []
+fruits = ['banana', 'orange', 'mango', 'lemon']
+mixed = ['Asabeneh', 250, True, {'country': 'Finland'}]
+print(fruits, len(fruits))
+print(mixed)
+print(list('abc'))
+@end
+
+@md
+en: ## Reading and changing items
+Items are numbered from `0`, and negative indexes count from the end, as with strings. Slices work too. You can assign to an index to replace an item, and `in` checks whether a value is in the list. **Unpacking** puts the items into separate variables; a starred name collects the rest.
+pl: ## Odczytywanie i zmiana elementów
+Elementy są numerowane od `0`, a indeksy ujemne liczą od końca, tak jak w napisach. Działają też wycinki. Przypisanie do indeksu podmienia element, a `in` sprawdza, czy wartość jest na liście. **Rozpakowanie** wkłada elementy do osobnych zmiennych; nazwa z gwiazdką zbiera resztę.
+de: ## Elemente lesen und ändern
+Die Elemente sind ab `0` nummeriert, negative Indizes zählen vom Ende, wie bei Zeichenketten. Slices funktionieren auch. Eine Zuweisung an einen Index ersetzt ein Element, `in` prüft, ob ein Wert in der Liste ist. **Entpacken** verteilt die Elemente auf einzelne Variablen; ein Name mit Stern sammelt den Rest.
+es: ## Leer y cambiar elementos
+Los elementos se numeran desde `0` y los índices negativos cuentan desde el final, como en las cadenas. También funcionan las porciones. Asignar a un índice reemplaza un elemento, e `in` comprueba si un valor está en la lista. **Desempaquetar** pone los elementos en variables separadas; un nombre con asterisco recoge el resto.
+fr: ## Lire et modifier des éléments
+Les éléments sont numérotés à partir de `0` et les indices négatifs comptent depuis la fin, comme pour les chaînes. Les tranches fonctionnent aussi. Affecter une valeur à un indice remplace l'élément, et `in` vérifie si une valeur est dans la liste. Le **déballage** répartit les éléments dans des variables séparées ; un nom étoilé récupère le reste.
+
+@code
+fruits = ['banana', 'orange', 'mango', 'lemon']
+print(fruits[0], fruits[-1])    # banana lemon
+print(fruits[1:3])              # ['orange', 'mango']
+fruits[0] = 'avocado'
+print(fruits)
+print('mango' in fruits)        # True
+first, second, *rest = fruits
+print(first, second, rest)      # avocado orange ['mango', 'lemon']
+@end
+
+@md
+en: ## Adding and removing items
+These methods change the list itself:
+
+| Method | What it does |
+|---|---|
+| `append(x)` | add `x` at the end |
+| `insert(i, x)` | put `x` at position `i` |
+| `extend(other)` | add all items of another list |
+| `remove(x)` | remove the first `x` |
+| `pop()`, `pop(i)` | remove and return the last item, or item `i` |
+| `clear()` | remove everything |
+
+`del fruits[0]` deletes an item by index. `count(x)` and `index(x)` tell you how many times `x` occurs and where it is first.
+pl: ## Dodawanie i usuwanie elementów
+Te metody zmieniają samą listę:
+
+| Metoda | Co robi |
+|---|---|
+| `append(x)` | dodaje `x` na końcu |
+| `insert(i, x)` | wstawia `x` na pozycję `i` |
+| `extend(other)` | dodaje wszystkie elementy innej listy |
+| `remove(x)` | usuwa pierwsze `x` |
+| `pop()`, `pop(i)` | usuwa i zwraca ostatni element albo element `i` |
+| `clear()` | usuwa wszystko |
+
+`del fruits[0]` usuwa element o danym indeksie. `count(x)` i `index(x)` mówią, ile razy występuje `x` i gdzie jest pierwszy raz.
+de: ## Elemente hinzufügen und entfernen
+Diese Methoden ändern die Liste selbst:
+
+| Methode | Was sie macht |
+|---|---|
+| `append(x)` | hängt `x` ans Ende an |
+| `insert(i, x)` | setzt `x` an Position `i` |
+| `extend(other)` | fügt alle Elemente einer anderen Liste an |
+| `remove(x)` | entfernt das erste `x` |
+| `pop()`, `pop(i)` | entfernt das letzte Element oder Element `i` und gibt es zurück |
+| `clear()` | entfernt alles |
+
+`del fruits[0]` löscht ein Element über seinen Index. `count(x)` und `index(x)` sagen dir, wie oft `x` vorkommt und wo es zuerst steht.
+es: ## Añadir y quitar elementos
+Estos métodos cambian la propia lista:
+
+| Método | Qué hace |
+|---|---|
+| `append(x)` | añade `x` al final |
+| `insert(i, x)` | pone `x` en la posición `i` |
+| `extend(other)` | añade todos los elementos de otra lista |
+| `remove(x)` | quita el primer `x` |
+| `pop()`, `pop(i)` | quita y devuelve el último elemento o el elemento `i` |
+| `clear()` | lo quita todo |
+
+`del fruits[0]` borra un elemento por su índice. `count(x)` e `index(x)` dicen cuántas veces aparece `x` y dónde está la primera vez.
+fr: ## Ajouter et retirer des éléments
+Ces méthodes modifient la liste elle-même :
+
+| Méthode | Ce qu'elle fait |
+|---|---|
+| `append(x)` | ajoute `x` à la fin |
+| `insert(i, x)` | place `x` à la position `i` |
+| `extend(other)` | ajoute tous les éléments d'une autre liste |
+| `remove(x)` | retire le premier `x` |
+| `pop()`, `pop(i)` | retire et renvoie le dernier élément, ou l'élément `i` |
+| `clear()` | retire tout |
+
+`del fruits[0]` supprime un élément par son indice. `count(x)` et `index(x)` indiquent combien de fois `x` apparaît et où il se trouve la première fois.
+
+@code
+fruits = ['banana', 'orange']
+fruits.append('mango')
+fruits.insert(1, 'lemon')
+print(fruits)              # ['banana', 'lemon', 'orange', 'mango']
+fruits.remove('orange')
+last = fruits.pop()
+print(last, fruits)        # mango ['banana', 'lemon']
+fruits.extend(['kiwi', 'banana'])
+print(fruits.count('banana'), fruits.index('kiwi'))   # 2 2
+@end
+
+@md
+en: ## Sorting, copying and joining
+`sort()` sorts the list in place, and `sort(reverse=True)` in descending order; `sorted(list)` returns a new sorted list and leaves the original alone. `reverse()` turns the list around. `min()`, `max()` and `sum()` work on lists of numbers.
+
+Careful with copies: `b = a` does **not** copy – both names point to the same list. Use `a.copy()` or `a[:]`. Two lists are joined with `+`.
+pl: ## Sortowanie, kopiowanie i łączenie
+`sort()` sortuje listę w miejscu, a `sort(reverse=True)` malejąco; `sorted(list)` zwraca nową, posortowaną listę i nie rusza oryginału. `reverse()` odwraca listę. `min()`, `max()` i `sum()` działają na listach liczb.
+
+Uwaga na kopie: `b = a` **nie** kopiuje – obie nazwy wskazują tę samą listę. Użyj `a.copy()` albo `a[:]`. Dwie listy łączy się operatorem `+`.
+de: ## Sortieren, kopieren und verbinden
+`sort()` sortiert die Liste an Ort und Stelle, `sort(reverse=True)` absteigend; `sorted(list)` gibt eine neue sortierte Liste zurück und lässt das Original unverändert. `reverse()` dreht die Liste um. `min()`, `max()` und `sum()` funktionieren mit Zahlenlisten.
+
+Vorsicht beim Kopieren: `b = a` kopiert **nicht** – beide Namen zeigen auf dieselbe Liste. Nimm `a.copy()` oder `a[:]`. Zwei Listen verbindest du mit `+`.
+es: ## Ordenar, copiar y unir
+`sort()` ordena la lista en su sitio, y `sort(reverse=True)` en orden descendente; `sorted(list)` devuelve una lista nueva ordenada y deja intacta la original. `reverse()` le da la vuelta a la lista. `min()`, `max()` y `sum()` funcionan con listas de números.
+
+Cuidado con las copias: `b = a` **no** copia; los dos nombres apuntan a la misma lista. Usa `a.copy()` o `a[:]`. Dos listas se unen con `+`.
+fr: ## Trier, copier et assembler
+`sort()` trie la liste sur place, et `sort(reverse=True)` par ordre décroissant ; `sorted(list)` renvoie une nouvelle liste triée sans toucher à l'originale. `reverse()` retourne la liste. `min()`, `max()` et `sum()` fonctionnent sur des listes de nombres.
+
+Attention aux copies : `b = a` ne copie **pas** – les deux noms désignent la même liste. Utilise `a.copy()` ou `a[:]`. Deux listes s'assemblent avec `+`.
+
+@code
+ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+print(sorted(ages))
+print(min(ages), max(ages), sum(ages) / len(ages))
+a = [1, 2, 3]
+same = a
+copy = a.copy()
+a.append(4)
+print(same, copy)          # [1, 2, 3, 4] [1, 2, 3]
+print([1, 2] + [3, 4])     # [1, 2, 3, 4]
+@end
+
+@exercise companies
+@title
+en: IT companies
+pl: Firmy IT
+de: IT-Firmen
+es: Empresas de TI
+fr: Entreprises tech
+@text
+en: Start from `it_companies`. Add `'Twitter'` at the end, insert `'Nvidia'` at the start, remove `'IBM'`, and finally sort the list alphabetically. Then join the names with `'#;  '` into the string `joined`.
+pl: Zacznij od `it_companies`. Dodaj `'Twitter'` na końcu, wstaw `'Nvidia'` na początek, usuń `'IBM'` i na koniec posortuj listę alfabetycznie. Potem połącz nazwy separatorem `'#;  '` w napis `joined`.
+de: Beginne mit `it_companies`. Hänge `'Twitter'` ans Ende an, füge `'Nvidia'` am Anfang ein, entferne `'IBM'` und sortiere die Liste zum Schluss alphabetisch. Verbinde dann die Namen mit `'#;  '` zur Zeichenkette `joined`.
+es: Parte de `it_companies`. Añade `'Twitter'` al final, inserta `'Nvidia'` al principio, quita `'IBM'` y, por último, ordena la lista alfabéticamente. Después une los nombres con `'#;  '` en la cadena `joined`.
+fr: Pars de `it_companies`. Ajoute `'Twitter'` à la fin, insère `'Nvidia'` au début, retire `'IBM'` et trie enfin la liste par ordre alphabétique. Assemble ensuite les noms avec `'#;  '` dans la chaîne `joined`.
+@hint
+en: `append`, `insert(0, ...)`, `remove`, `sort()`, then `'#;  '.join(it_companies)`.
+pl: `append`, `insert(0, ...)`, `remove`, `sort()`, potem `'#;  '.join(it_companies)`.
+de: `append`, `insert(0, ...)`, `remove`, `sort()`, dann `'#;  '.join(it_companies)`.
+es: `append`, `insert(0, ...)`, `remove`, `sort()`, después `'#;  '.join(it_companies)`.
+fr: `append`, `insert(0, ...)`, `remove`, `sort()`, puis `'#;  '.join(it_companies)`.
+@starter
+it_companies = ['Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon']
+@end
+@solution
+it_companies = ['Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon']
+it_companies.append('Twitter')
+it_companies.insert(0, 'Nvidia')
+it_companies.remove('IBM')
+it_companies.sort()
+joined = '#;  '.join(it_companies)
+print(joined)
+@end
+@case
+expr: it_companies == ['Amazon', 'Apple', 'Facebook', 'Google', 'Microsoft', 'Nvidia', 'Oracle', 'Twitter']
+expr: joined == 'Amazon#;  Apple#;  Facebook#;  Google#;  Microsoft#;  Nvidia#;  Oracle#;  Twitter'
+
+@exercise ages
+@title
+en: Ages
+pl: Wiek
+de: Alter
+es: Edades
+fr: Âges
+@text
+en: For the list `ages`, store `youngest`, `oldest`, `average` (the sum divided by the count) and `median` – the middle value of the sorted list. The list has 10 items, so the median is the average of the two middle ones.
+pl: Dla listy `ages` zapisz `youngest`, `oldest`, `average` (suma podzielona przez liczbę elementów) i `median` – środkową wartość posortowanej listy. Lista ma 10 elementów, więc mediana to średnia dwóch środkowych.
+de: Speichere für die Liste `ages` die Werte `youngest`, `oldest`, `average` (Summe geteilt durch Anzahl) und `median` – den mittleren Wert der sortierten Liste. Die Liste hat 10 Elemente, also ist der Median der Mittelwert der beiden mittleren.
+es: Para la lista `ages`, guarda `youngest`, `oldest`, `average` (la suma dividida entre la cantidad) y `median`, el valor central de la lista ordenada. La lista tiene 10 elementos, así que la mediana es la media de los dos centrales.
+fr: Pour la liste `ages`, range `youngest`, `oldest`, `average` (la somme divisée par le nombre d'éléments) et `median` – la valeur du milieu de la liste triée. La liste a 10 éléments, donc la médiane est la moyenne des deux du milieu.
+@hint
+en: After `s = sorted(ages)`, the middle items are `s[4]` and `s[5]`.
+pl: Po `s = sorted(ages)` środkowe elementy to `s[4]` i `s[5]`.
+de: Nach `s = sorted(ages)` sind die mittleren Elemente `s[4]` und `s[5]`.
+es: Tras `s = sorted(ages)`, los elementos centrales son `s[4]` y `s[5]`.
+fr: Après `s = sorted(ages)`, les éléments du milieu sont `s[4]` et `s[5]`.
+@starter
+ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+@end
+@solution
+ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+s = sorted(ages)
+youngest = s[0]
+oldest = s[-1]
+average = sum(ages) / len(ages)
+median = (s[4] + s[5]) / 2
+print(youngest, oldest, average, median)
+@end
+@case
+expr: youngest == 19 and oldest == 26
+expr: abs(average - 22.8) < 1e-9
+expr: median == 24
+
+@exercise front-back
+@title
+en: Front end and back end
+pl: Frontend i backend
+de: Frontend und Backend
+es: Frontend y backend
+fr: Front-end et back-end
+@text
+en: Join `front_end` and `back_end` into a new list `full_stack`. Then insert `'Python'` and `'SQL'` right after `'Redux'` so the original two lists stay unchanged.
+pl: Połącz `front_end` i `back_end` w nową listę `full_stack`. Potem wstaw `'Python'` i `'SQL'` zaraz po `'Redux'` tak, żeby dwie wyjściowe listy się nie zmieniły.
+de: Verbinde `front_end` und `back_end` zu einer neuen Liste `full_stack`. Füge dann `'Python'` und `'SQL'` direkt nach `'Redux'` ein, sodass die beiden Ausgangslisten unverändert bleiben.
+es: Une `front_end` y `back_end` en una lista nueva `full_stack`. Después inserta `'Python'` y `'SQL'` justo detrás de `'Redux'`, de modo que las dos listas originales no cambien.
+fr: Assemble `front_end` et `back_end` dans une nouvelle liste `full_stack`. Insère ensuite `'Python'` et `'SQL'` juste après `'Redux'`, sans modifier les deux listes de départ.
+@hint
+en: `+` makes a new list. `full_stack.index('Redux') + 1` is where the new items go.
+pl: `+` tworzy nową listę. `full_stack.index('Redux') + 1` to miejsce na nowe elementy.
+de: `+` erzeugt eine neue Liste. Bei `full_stack.index('Redux') + 1` kommen die neuen Elemente hin.
+es: `+` crea una lista nueva. `full_stack.index('Redux') + 1` es donde van los elementos nuevos.
+fr: `+` crée une nouvelle liste. `full_stack.index('Redux') + 1` est l'endroit où vont les nouveaux éléments.
+@starter
+front_end = ['HTML', 'CSS', 'JS', 'React', 'Redux']
+back_end = ['Node', 'Express', 'MongoDB']
+@end
+@solution
+front_end = ['HTML', 'CSS', 'JS', 'React', 'Redux']
+back_end = ['Node', 'Express', 'MongoDB']
+full_stack = front_end + back_end
+i = full_stack.index('Redux') + 1
+full_stack.insert(i, 'Python')
+full_stack.insert(i + 1, 'SQL')
+print(full_stack)
+@end
+@case
+expr: full_stack == ['HTML', 'CSS', 'JS', 'React', 'Redux', 'Python', 'SQL', 'Node', 'Express', 'MongoDB']
+expr: front_end == ['HTML', 'CSS', 'JS', 'React', 'Redux'] and back_end == ['Node', 'Express', 'MongoDB']
+
+@exercise unpack
+@title
+en: Unpacking countries
+pl: Rozpakowanie krajów
+de: Länder entpacken
+es: Desempaquetar países
+fr: Déballer des pays
+@text
+en: Unpack `countries` in one line: the first three into `china`, `russia` and `usa`, and the rest into the list `scandic`.
+pl: Rozpakuj `countries` w jednym wierszu: trzy pierwsze do `china`, `russia` i `usa`, a resztę do listy `scandic`.
+de: Entpacke `countries` in einer Zeile: die ersten drei in `china`, `russia` und `usa`, den Rest in die Liste `scandic`.
+es: Desempaqueta `countries` en una sola línea: los tres primeros en `china`, `russia` y `usa`, y el resto en la lista `scandic`.
+fr: Déballe `countries` en une seule ligne : les trois premiers dans `china`, `russia` et `usa`, et le reste dans la liste `scandic`.
+@hint
+en: A starred name collects the rest: `a, b, *others = items`.
+pl: Nazwa z gwiazdką zbiera resztę: `a, b, *others = items`.
+de: Ein Name mit Stern sammelt den Rest: `a, b, *others = items`.
+es: Un nombre con asterisco recoge el resto: `a, b, *others = items`.
+fr: Un nom étoilé récupère le reste : `a, b, *others = items`.
+@starter
+countries = ['China', 'Russia', 'USA', 'Finland', 'Sweden', 'Norway', 'Denmark']
+@end
+@solution
+countries = ['China', 'Russia', 'USA', 'Finland', 'Sweden', 'Norway', 'Denmark']
+china, russia, usa, *scandic = countries
+print(china, russia, usa, scandic)
+@end
+@case
+expr: (china, russia, usa) == ('China', 'Russia', 'USA')
+expr: scandic == ['Finland', 'Sweden', 'Norway', 'Denmark']
