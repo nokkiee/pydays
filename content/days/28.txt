@@ -1,0 +1,366 @@
+@day 28
+@source 28_Day_API/28_API.md
+
+@title
+en: APIs
+pl: API
+de: APIs
+es: API
+fr: Les API
+
+@summary
+en: Understand how programs talk over HTTP – methods, status codes, headers and JSON bodies – call web APIs, and take requests and responses apart in Python.
+pl: Zrozum, jak programy rozmawiają przez HTTP – metody, kody statusu, nagłówki i treść w JSON – wywołuj webowe API i rozbieraj żądania i odpowiedzi w Pythonie.
+de: Verstehen, wie Programme über HTTP kommunizieren – Methoden, Statuscodes, Header und JSON-Inhalte –, Web-APIs aufrufen und Anfragen und Antworten in Python zerlegen.
+es: Entiende cómo se comunican los programas por HTTP (métodos, códigos de estado, cabeceras y cuerpos en JSON), llama a API web y desmonta peticiones y respuestas en Python.
+fr: Comprends comment les programmes communiquent en HTTP – méthodes, codes d'état, en-têtes et corps en JSON –, appelle des API web et décortique requêtes et réponses en Python.
+
+@md
+en: ## What is an API?
+An **API** (application programming interface) is a way for one program to use another. A **web API** is a server that answers requests from programs instead of people: instead of an HTML page it sends back data, usually as **JSON**. Weather services, maps, payment providers and GitHub all offer APIs.
+pl: ## Czym jest API?
+**API** (application programming interface, interfejs programistyczny aplikacji) to sposób, w jaki jeden program korzysta z drugiego. **Webowe API** to serwer, który odpowiada na żądania programów zamiast ludzi: zamiast strony HTML odsyła dane, zwykle w formacie **JSON**. API oferują serwisy pogodowe, mapy, operatorzy płatności i GitHub.
+de: ## Was ist eine API?
+Eine **API** (application programming interface, Programmierschnittstelle) ist ein Weg, wie ein Programm ein anderes nutzen kann. Eine **Web-API** ist ein Server, der Anfragen von Programmen statt von Menschen beantwortet: Statt einer HTML-Seite schickt er Daten zurück, meist als **JSON**. Wetterdienste, Karten, Zahlungsanbieter und GitHub bieten APIs an.
+es: ## ¿Qué es una API?
+Una **API** (application programming interface, interfaz de programación de aplicaciones) es una forma de que un programa use otro. Una **API web** es un servidor que responde a peticiones de programas en lugar de personas: en vez de una página HTML devuelve datos, normalmente en **JSON**. Los servicios del tiempo, los mapas, las pasarelas de pago y GitHub ofrecen API.
+fr: ## Qu'est-ce qu'une API ?
+Une **API** (application programming interface, interface de programmation) est un moyen pour un programme d'en utiliser un autre. Une **API web** est un serveur qui répond aux requêtes de programmes plutôt que de personnes : au lieu d'une page HTML, il renvoie des données, en général au format **JSON**. Les services météo, les cartes, les prestataires de paiement et GitHub proposent tous des API.
+
+@md
+en: ## HTTP requests and responses
+Every exchange has two parts. The **request** has a **method**, a URL, **headers** (extra information such as the data format) and sometimes a **body**. The **response** has a **status code**, headers and a body. The methods say what you want to do:
+
+| Method | Used to |
+|---|---|
+| `GET` | read data |
+| `POST` | create something new |
+| `PUT`, `PATCH` | replace or change something |
+| `DELETE` | remove something |
+
+The status code says how it went: `2xx` success (`200` OK, `201` Created), `3xx` redirection, `4xx` a mistake in the request (`400` Bad Request, `404` Not Found), `5xx` an error on the server.
+pl: ## Żądania i odpowiedzi HTTP
+Każda wymiana ma dwie części. **Żądanie** ma **metodę**, adres URL, **nagłówki** (dodatkowe informacje, np. format danych) i czasem **treść** (body). **Odpowiedź** ma **kod statusu**, nagłówki i treść. Metody mówią, co chcesz zrobić:
+
+| Metoda | Służy do |
+|---|---|
+| `GET` | odczytu danych |
+| `POST` | utworzenia czegoś nowego |
+| `PUT`, `PATCH` | zastąpienia albo zmiany czegoś |
+| `DELETE` | usunięcia czegoś |
+
+Kod statusu mówi, jak poszło: `2xx` sukces (`200` OK, `201` Created), `3xx` przekierowanie, `4xx` błąd w żądaniu (`400` Bad Request, `404` Not Found), `5xx` błąd po stronie serwera.
+de: ## HTTP-Anfragen und -Antworten
+Jeder Austausch hat zwei Teile. Die **Anfrage** hat eine **Methode**, eine URL, **Header** (Zusatzinformationen wie das Datenformat) und manchmal einen **Body**. Die **Antwort** hat einen **Statuscode**, Header und einen Body. Die Methoden sagen, was du vorhast:
+
+| Methode | Wofür |
+|---|---|
+| `GET` | Daten lesen |
+| `POST` | etwas Neues anlegen |
+| `PUT`, `PATCH` | etwas ersetzen oder ändern |
+| `DELETE` | etwas entfernen |
+
+Der Statuscode sagt, wie es gelaufen ist: `2xx` Erfolg (`200` OK, `201` Created), `3xx` Weiterleitung, `4xx` ein Fehler in der Anfrage (`400` Bad Request, `404` Not Found), `5xx` ein Fehler auf dem Server.
+es: ## Peticiones y respuestas HTTP
+Cada intercambio tiene dos partes. La **petición** tiene un **método**, una URL, **cabeceras** (información extra, como el formato de los datos) y a veces un **cuerpo**. La **respuesta** tiene un **código de estado**, cabeceras y un cuerpo. Los métodos dicen lo que quieres hacer:
+
+| Método | Sirve para |
+|---|---|
+| `GET` | leer datos |
+| `POST` | crear algo nuevo |
+| `PUT`, `PATCH` | sustituir o cambiar algo |
+| `DELETE` | borrar algo |
+
+El código de estado dice cómo ha ido: `2xx` éxito (`200` OK, `201` Created), `3xx` redirección, `4xx` un error en la petición (`400` Bad Request, `404` Not Found), `5xx` un error en el servidor.
+fr: ## Requêtes et réponses HTTP
+Chaque échange a deux parties. La **requête** a une **méthode**, une URL, des **en-têtes** (des informations en plus, comme le format des données) et parfois un **corps**. La **réponse** a un **code d'état**, des en-têtes et un corps. Les méthodes disent ce que tu veux faire :
+
+| Méthode | Sert à |
+|---|---|
+| `GET` | lire des données |
+| `POST` | créer quelque chose |
+| `PUT`, `PATCH` | remplacer ou modifier quelque chose |
+| `DELETE` | supprimer quelque chose |
+
+Le code d'état dit comment ça s'est passé : `2xx` succès (`200` OK, `201` Created), `3xx` redirection, `4xx` une erreur dans la requête (`400` Bad Request, `404` Not Found), `5xx` une erreur côté serveur.
+
+@md
+en: ## Calling an API
+With the `requests` package (day 20), a call is one line, and `response.json()` turns the JSON body into Python lists and dictionaries. The standard library can do it too, with `urllib.request`. Both examples need the internet.
+pl: ## Wywoływanie API
+Z pakietem `requests` (dzień 20) wywołanie to jeden wiersz, a `response.json()` zamienia treść w JSON na listy i słowniki Pythona. Biblioteka standardowa też to potrafi, przez `urllib.request`. Oba przykłady wymagają internetu.
+de: ## Eine API aufrufen
+Mit dem Paket `requests` (Tag 20) ist ein Aufruf eine Zeile, und `response.json()` macht aus dem JSON-Body Python-Listen und -Dictionaries. Die Standardbibliothek kann das auch, mit `urllib.request`. Beide Beispiele brauchen Internet.
+es: ## Llamar a una API
+Con el paquete `requests` (día 20), una llamada es una sola línea, y `response.json()` convierte el cuerpo JSON en listas y diccionarios de Python. La biblioteca estándar también puede hacerlo, con `urllib.request`. Los dos ejemplos necesitan internet.
+fr: ## Appeler une API
+Avec le paquet `requests` (jour 20), un appel tient en une ligne, et `response.json()` transforme le corps JSON en listes et dictionnaires Python. La bibliothèque standard sait le faire aussi, avec `urllib.request`. Les deux exemples ont besoin d'internet.
+
+@code net needs=requests
+import requests
+
+response = requests.get('https://api.github.com/repos/python/cpython')
+print(response.status_code, response.headers['content-type'])
+repo = response.json()
+print(repo['full_name'], repo['stargazers_count'])
+@end
+
+@code net
+import json
+import urllib.request
+
+with urllib.request.urlopen('https://api.github.com/repos/python/cpython') as response:
+    print(response.status)
+    repo = json.load(response)
+print(repo['full_name'], repo['language'])
+@end
+
+@md
+en: ## Query strings
+Many APIs take parameters in the URL after a `?`: `?q=python&page=2`. Spaces and special characters must be encoded; `urllib.parse.urlencode` builds the string from a dictionary, and `urlparse` with `parse_qs` takes a URL apart again.
+pl: ## Parametry w adresie
+Wiele API przyjmuje parametry w adresie po znaku `?`: `?q=python&page=2`. Spacje i znaki specjalne trzeba zakodować; `urllib.parse.urlencode` buduje taki napis ze słownika, a `urlparse` z `parse_qs` rozkłada adres z powrotem na części.
+de: ## Query-Strings
+Viele APIs nehmen Parameter in der URL nach einem `?`: `?q=python&page=2`. Leerzeichen und Sonderzeichen müssen kodiert werden; `urllib.parse.urlencode` baut den String aus einem Dictionary, und `urlparse` mit `parse_qs` zerlegt eine URL wieder.
+es: ## Parámetros en la URL
+Muchas API reciben parámetros en la URL detrás de un `?`: `?q=python&page=2`. Los espacios y los caracteres especiales hay que codificarlos; `urllib.parse.urlencode` construye la cadena a partir de un diccionario, y `urlparse` con `parse_qs` vuelve a descomponer una URL.
+fr: ## Les paramètres d'URL
+Beaucoup d'API prennent des paramètres dans l'URL après un `?` : `?q=python&page=2`. Les espaces et caractères spéciaux doivent être encodés ; `urllib.parse.urlencode` construit la chaîne à partir d'un dictionnaire, et `urlparse` avec `parse_qs` redécoupe une URL.
+
+@code
+from urllib.parse import urlencode, urlparse, parse_qs
+
+params = {'q': 'python books', 'page': 2}
+url = 'https://api.example.com/search?' + urlencode(params)
+print(url)
+parts = urlparse(url)
+print(parts.scheme, parts.netloc, parts.path)
+print(parse_qs(parts.query))
+@end
+
+@md
+en: ## A response from the inside
+Below is what an HTTP response looks like as text: a status line, header lines `Name: value`, an empty line, then the body. This lesson also has a saved API answer, `cats.json`, with data about a few cat breeds.
+pl: ## Odpowiedź od środka
+Poniżej widać, jak wygląda odpowiedź HTTP jako tekst: wiersz statusu, wiersze nagłówków `Name: value`, pusty wiersz, a potem treść. Do tej lekcji należy też zapisana odpowiedź API, `cats.json`, z danymi o kilku rasach kotów.
+de: ## Eine Antwort von innen
+Unten siehst du, wie eine HTTP-Antwort als Text aussieht: eine Statuszeile, Headerzeilen `Name: value`, eine Leerzeile, dann der Body. Zu dieser Lektion gehört außerdem eine gespeicherte API-Antwort, `cats.json`, mit Daten über einige Katzenrassen.
+es: ## Una respuesta por dentro
+Abajo ves cómo es una respuesta HTTP en forma de texto: una línea de estado, líneas de cabecera `Name: value`, una línea vacía y después el cuerpo. Esta lección incluye además una respuesta de API guardada, `cats.json`, con datos de algunas razas de gatos.
+fr: ## Une réponse vue de l'intérieur
+Voici à quoi ressemble une réponse HTTP sous forme de texte : une ligne d'état, des lignes d'en-tête `Name: value`, une ligne vide, puis le corps. Cette leçon contient aussi une réponse d'API enregistrée, `cats.json`, avec des données sur quelques races de chats.
+
+@file response.txt
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 44
+Cache-Control: max-age=60
+
+{"name": "PyDays", "days": 30, "free": true}
+@end
+
+@file cats.json
+[
+  {"name": "Abyssinian", "origin": "Egypt", "weight": {"metric": "3 - 5"}, "life_span": "14 - 15"},
+  {"name": "Bengal", "origin": "United States", "weight": {"metric": "3 - 7"}, "life_span": "12 - 15"},
+  {"name": "Maine Coon", "origin": "United States", "weight": {"metric": "5 - 8"}, "life_span": "12 - 15"},
+  {"name": "Norwegian Forest Cat", "origin": "Norway", "weight": {"metric": "4 - 7"}, "life_span": "12 - 16"},
+  {"name": "Persian", "origin": "Iran (Persia)", "weight": {"metric": "4 - 6"}, "life_span": "14 - 15"},
+  {"name": "Ragdoll", "origin": "United States", "weight": {"metric": "5 - 9"}, "life_span": "12 - 17"},
+  {"name": "Siamese", "origin": "Thailand", "weight": {"metric": "4 - 5"}, "life_span": "12 - 15"},
+  {"name": "Sphynx", "origin": "Canada", "weight": {"metric": "3 - 5"}, "life_span": "12 - 14"}
+]
+@end
+
+@code
+import json
+
+with open('cats.json', encoding='utf-8') as f:
+    cats = json.load(f)
+print(len(cats), 'breeds')
+for cat in cats[:3]:
+    print(cat['name'], cat['origin'], cat['weight']['metric'], 'kg')
+@end
+
+@exercise status
+@title
+en: Status codes
+pl: Kody statusu
+de: Statuscodes
+es: Códigos de estado
+fr: Codes d'état
+@text
+en: Write `status_class(code)` that returns the kind of an HTTP status code: `'informational'` for 100–199, `'success'` for 200–299, `'redirection'` for 300–399, `'client error'` for 400–499, `'server error'` for 500–599, and `'unknown'` for anything else.
+pl: Napisz `status_class(code)`, która zwraca rodzaj kodu statusu HTTP: `'informational'` dla 100–199, `'success'` dla 200–299, `'redirection'` dla 300–399, `'client error'` dla 400–499, `'server error'` dla 500–599 i `'unknown'` dla każdego innego.
+de: Schreib `status_class(code)`, die die Art eines HTTP-Statuscodes zurückgibt: `'informational'` für 100–199, `'success'` für 200–299, `'redirection'` für 300–399, `'client error'` für 400–499, `'server error'` für 500–599 und `'unknown'` für alles andere.
+es: Escribe `status_class(code)`, que devuelve el tipo de un código de estado HTTP: `'informational'` para 100–199, `'success'` para 200–299, `'redirection'` para 300–399, `'client error'` para 400–499, `'server error'` para 500–599 y `'unknown'` para cualquier otro.
+fr: Écris `status_class(code)` qui renvoie la catégorie d'un code d'état HTTP : `'informational'` pour 100–199, `'success'` pour 200–299, `'redirection'` pour 300–399, `'client error'` pour 400–499, `'server error'` pour 500–599 et `'unknown'` pour tout le reste.
+@hint
+en: `code // 100` is the first digit: 2 for every code from 200 to 299.
+pl: `code // 100` to pierwsza cyfra: 2 dla każdego kodu od 200 do 299.
+de: `code // 100` ist die erste Ziffer: 2 für jeden Code von 200 bis 299.
+es: `code // 100` es la primera cifra: 2 para cualquier código del 200 al 299.
+fr: `code // 100` est le premier chiffre : 2 pour tout code de 200 à 299.
+@starter
+def status_class(code):
+    pass
+@end
+@solution
+def status_class(code):
+    kinds = {1: 'informational', 2: 'success', 3: 'redirection', 4: 'client error', 5: 'server error'}
+    return kinds.get(code // 100, 'unknown') if 100 <= code <= 599 else 'unknown'
+
+
+for c in [200, 201, 301, 404, 500, 99, 600]:
+    print(c, status_class(c))
+@end
+@case
+expr: [status_class(c) for c in [100, 200, 201, 299, 301, 404, 418, 500, 503]] == ['informational', 'success', 'success', 'success', 'redirection', 'client error', 'client error', 'server error', 'server error']
+expr: status_class(99) == 'unknown' and status_class(600) == 'unknown'
+
+@exercise parse-response
+@title
+en: Take a response apart
+pl: Rozbierz odpowiedź
+de: Eine Antwort zerlegen
+es: Desmonta una respuesta
+fr: Décortique une réponse
+@text
+en: Write `parse_response(raw)` that takes the text of an HTTP response and returns a tuple `(status, headers, body)`: the status code as an `int`, a dictionary of the headers with **lower-case** names, and the body as a string. Then store the result for `response.txt` in `status`, `headers` and `body`, and the body decoded from JSON in `data`.
+pl: Napisz `parse_response(raw)`, która przyjmuje tekst odpowiedzi HTTP i zwraca krotkę `(status, headers, body)`: kod statusu jako `int`, słownik nagłówków z nazwami **małymi literami** i treść jako napis. Potem zapisz wynik dla `response.txt` w `status`, `headers` i `body`, a treść odczytaną z JSON w `data`.
+de: Schreib `parse_response(raw)`, die den Text einer HTTP-Antwort nimmt und ein Tupel `(status, headers, body)` zurückgibt: den Statuscode als `int`, ein Dictionary der Header mit **kleingeschriebenen** Namen und den Body als Zeichenkette. Speichere dann das Ergebnis für `response.txt` in `status`, `headers` und `body` und den aus JSON gelesenen Body in `data`.
+es: Escribe `parse_response(raw)`, que recibe el texto de una respuesta HTTP y devuelve una tupla `(status, headers, body)`: el código de estado como `int`, un diccionario de cabeceras con los nombres en **minúsculas** y el cuerpo como cadena. Después guarda el resultado para `response.txt` en `status`, `headers` y `body`, y el cuerpo leído como JSON en `data`.
+fr: Écris `parse_response(raw)` qui reçoit le texte d'une réponse HTTP et renvoie un tuple `(status, headers, body)` : le code d'état en `int`, un dictionnaire des en-têtes aux noms en **minuscules**, et le corps sous forme de chaîne. Range ensuite le résultat pour `response.txt` dans `status`, `headers` et `body`, et le corps décodé depuis le JSON dans `data`.
+@hint
+en: `head, body = raw.split('\n\n', 1)` separates the headers from the body. The status code is the second word of the first line; split each header line once at `': '`.
+pl: `head, body = raw.split('\n\n', 1)` oddziela nagłówki od treści. Kod statusu to drugie słowo pierwszego wiersza; każdy wiersz nagłówka podziel raz w miejscu `': '`.
+de: `head, body = raw.split('\n\n', 1)` trennt Header und Body. Der Statuscode ist das zweite Wort der ersten Zeile; teile jede Headerzeile einmal bei `': '`.
+es: `head, body = raw.split('\n\n', 1)` separa las cabeceras del cuerpo. El código de estado es la segunda palabra de la primera línea; divide cada línea de cabecera una vez por `': '`.
+fr: `head, body = raw.split('\n\n', 1)` sépare les en-têtes du corps. Le code d'état est le deuxième mot de la première ligne ; coupe chaque ligne d'en-tête une seule fois sur `': '`.
+@starter
+import json
+
+
+def parse_response(raw):
+    pass
+@end
+@solution
+import json
+
+
+def parse_response(raw):
+    head, body = raw.split('\n\n', 1)
+    lines = head.splitlines()
+    status = int(lines[0].split()[1])
+    headers = {}
+    for line in lines[1:]:
+        name, value = line.split(': ', 1)
+        headers[name.lower()] = value
+    return status, headers, body
+
+
+with open('response.txt', encoding='utf-8') as f:
+    status, headers, body = parse_response(f.read())
+data = json.loads(body)
+print(status, headers['content-type'], data)
+@end
+@case
+expr: status == 200
+expr: headers == {'content-type': 'application/json; charset=utf-8', 'content-length': '44', 'cache-control': 'max-age=60'}
+expr: data == {'name': 'PyDays', 'days': 30, 'free': True}
+expr: parse_response('HTTP/1.1 404 Not Found\nServer: x\n\nnope') == (404, {'server': 'x'}, 'nope')
+
+@exercise build-url
+@title
+en: Build a request URL
+pl: Zbuduj adres żądania
+de: Eine Anfrage-URL bauen
+es: Construye la URL de una petición
+fr: Construis l'URL d'une requête
+@text
+en: Write `build_url(base, params)` that adds the parameters to the URL as a query string. `build_url('https://api.example.com/search', {'q': 'python books', 'page': 2})` returns `'https://api.example.com/search?q=python+books&page=2'`. Parameters with the value `None` are left out, and with no parameters left the URL stays as it is.
+pl: Napisz `build_url(base, params)`, która dodaje parametry do adresu jako query string. `build_url('https://api.example.com/search', {'q': 'python books', 'page': 2})` zwraca `'https://api.example.com/search?q=python+books&page=2'`. Parametry o wartości `None` są pomijane, a gdy nie zostaje żaden parametr, adres pozostaje bez zmian.
+de: Schreib `build_url(base, params)`, die die Parameter als Query-String an die URL anhängt. `build_url('https://api.example.com/search', {'q': 'python books', 'page': 2})` liefert `'https://api.example.com/search?q=python+books&page=2'`. Parameter mit dem Wert `None` werden weggelassen, und wenn keine Parameter übrig bleiben, bleibt die URL, wie sie ist.
+es: Escribe `build_url(base, params)`, que añade los parámetros a la URL como query string. `build_url('https://api.example.com/search', {'q': 'python books', 'page': 2})` devuelve `'https://api.example.com/search?q=python+books&page=2'`. Los parámetros con valor `None` se omiten y, si no queda ninguno, la URL se queda como está.
+fr: Écris `build_url(base, params)` qui ajoute les paramètres à l'URL sous forme de query string. `build_url('https://api.example.com/search', {'q': 'python books', 'page': 2})` renvoie `'https://api.example.com/search?q=python+books&page=2'`. Les paramètres valant `None` sont omis, et s'il ne reste aucun paramètre, l'URL reste telle quelle.
+@hint
+en: Filter first: `{k: v for k, v in params.items() if v is not None}`, then `urlencode` what is left.
+pl: Najpierw odfiltruj: `{k: v for k, v in params.items() if v is not None}`, potem przepuść resztę przez `urlencode`.
+de: Erst filtern: `{k: v for k, v in params.items() if v is not None}`, dann den Rest mit `urlencode` umwandeln.
+es: Filtra primero: `{k: v for k, v in params.items() if v is not None}` y después aplica `urlencode` a lo que quede.
+fr: Filtre d'abord : `{k: v for k, v in params.items() if v is not None}`, puis passe le reste à `urlencode`.
+@starter
+from urllib.parse import urlencode
+
+
+def build_url(base, params):
+    pass
+@end
+@solution
+from urllib.parse import urlencode
+
+
+def build_url(base, params):
+    kept = {k: v for k, v in params.items() if v is not None}
+    if not kept:
+        return base
+    return base + '?' + urlencode(kept)
+
+
+print(build_url('https://api.example.com/search', {'q': 'python books', 'page': 2}))
+@end
+@case
+expr: build_url('https://api.example.com/search', {'q': 'python books', 'page': 2}) == 'https://api.example.com/search?q=python+books&page=2'
+expr: build_url('https://x.org/a', {}) == 'https://x.org/a' and build_url('https://x.org/a', {'k': None}) == 'https://x.org/a'
+expr: build_url('https://x.org/a', {'city': 'Kraków', 'q': 'a&b'}) == 'https://x.org/a?city=Krak%C3%B3w&q=a%26b'
+
+@exercise cats
+@title
+en: Cat statistics
+pl: Kocie statystyki
+de: Katzenstatistik
+es: Estadísticas gatunas
+fr: Statistiques félines
+@text
+en: Read `cats.json`. Each breed's weight is a range like `'3 - 5'`; take the middle of it (`4.0`). Store in `weights` the list of these middle weights in file order, in `heaviest` the name of the breed with the largest one, in `mean_weight` their average, and in `top_origin` the country that most breeds come from.
+pl: Wczytaj `cats.json`. Masa każdej rasy to zakres w rodzaju `'3 - 5'`; weź jego środek (`4.0`). Zapisz w `weights` listę tych środkowych mas w kolejności z pliku, w `heaviest` nazwę rasy z największą z nich, w `mean_weight` ich średnią, a w `top_origin` kraj, z którego pochodzi najwięcej ras.
+de: Lies `cats.json`. Das Gewicht jeder Rasse ist ein Bereich wie `'3 - 5'`; nimm dessen Mitte (`4.0`). Speichere in `weights` die Liste dieser mittleren Gewichte in der Reihenfolge der Datei, in `heaviest` den Namen der Rasse mit dem größten, in `mean_weight` ihren Mittelwert und in `top_origin` das Land, aus dem die meisten Rassen stammen.
+es: Lee `cats.json`. El peso de cada raza es un intervalo como `'3 - 5'`; toma su punto medio (`4.0`). Guarda en `weights` la lista de esos pesos medios en el orden del archivo, en `heaviest` el nombre de la raza con el mayor, en `mean_weight` su media y en `top_origin` el país del que proceden más razas.
+fr: Lis `cats.json`. Le poids de chaque race est un intervalle comme `'3 - 5'` ; prends-en le milieu (`4.0`). Range dans `weights` la liste de ces poids moyens dans l'ordre du fichier, dans `heaviest` le nom de la race qui a le plus grand, dans `mean_weight` leur moyenne, et dans `top_origin` le pays d'où viennent le plus de races.
+@hint
+en: `low, high = cat['weight']['metric'].split(' - ')`, then `(float(low) + float(high)) / 2`. `Counter(...).most_common(1)` finds the top origin.
+pl: `low, high = cat['weight']['metric'].split(' - ')`, potem `(float(low) + float(high)) / 2`. `Counter(...).most_common(1)` znajduje najczęstszy kraj.
+de: `low, high = cat['weight']['metric'].split(' - ')`, dann `(float(low) + float(high)) / 2`. `Counter(...).most_common(1)` findet das häufigste Herkunftsland.
+es: `low, high = cat['weight']['metric'].split(' - ')`, después `(float(low) + float(high)) / 2`. `Counter(...).most_common(1)` encuentra el país más frecuente.
+fr: `low, high = cat['weight']['metric'].split(' - ')`, puis `(float(low) + float(high)) / 2`. `Counter(...).most_common(1)` trouve le pays le plus fréquent.
+@starter
+import json
+from collections import Counter
+
+with open('cats.json', encoding='utf-8') as f:
+    cats = json.load(f)
+@end
+@solution
+import json
+from collections import Counter
+
+with open('cats.json', encoding='utf-8') as f:
+    cats = json.load(f)
+
+
+def middle(text):
+    low, high = text.split(' - ')
+    return (float(low) + float(high)) / 2
+
+
+weights = [middle(cat['weight']['metric']) for cat in cats]
+heaviest = max(cats, key=lambda c: middle(c['weight']['metric']))['name']
+mean_weight = sum(weights) / len(weights)
+top_origin = Counter(cat['origin'] for cat in cats).most_common(1)[0][0]
+print(weights, heaviest, mean_weight, top_origin)
+@end
+@case
+expr: weights == [4.0, 5.0, 6.5, 5.5, 5.0, 7.0, 4.5, 4.0]
+expr: heaviest == 'Ragdoll'
+expr: abs(mean_weight - 5.1875) < 1e-9
+expr: top_origin == 'United States'
