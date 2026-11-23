@@ -1,0 +1,316 @@
+@day 2
+@source 02_Day_Variables_builtin_functions/02_variables_builtin_functions.md
+
+@title
+en: Variables and built-in functions
+pl: Zmienne i funkcje wbudowane
+de: Variablen und eingebaute Funktionen
+es: Variables y funciones integradas
+fr: Variables et fonctions intégrées
+
+@summary
+en: Store values in variables, read what the user types with input() and convert between types.
+pl: Zapisuj wartości w zmiennych, czytaj to, co wpisuje użytkownik, przez input() i zamieniaj typy.
+de: Werte in Variablen speichern, Eingaben mit input() lesen und zwischen Typen umwandeln.
+es: Guarda valores en variables, lee lo que escribe el usuario con input() y convierte entre tipos.
+fr: Range des valeurs dans des variables, lis ce que tape l'utilisateur avec input() et convertis les types.
+
+@md
+en: ## Built-in functions
+Python comes with many functions you can use without importing anything. You already know `print()` and `type()`. A few more you will use every day: `len()` (length), `input()` (read what the user types), `int()`, `float()` and `str()` (convert a value), `min()`, `max()` and `sum()`, `round()` and `abs()`. The full list is in the Python documentation, or type `dir(__builtins__)` in the Python shell.
+pl: ## Funkcje wbudowane
+Python ma wiele funkcji, których można używać bez żadnego importowania. `print()` i `type()` już znasz. Kilka kolejnych, które przydają się codziennie: `len()` (długość), `input()` (wczytanie tego, co wpisze użytkownik), `int()`, `float()` i `str()` (zamiana typu), `min()`, `max()` i `sum()`, `round()` i `abs()`. Pełna lista jest w dokumentacji Pythona – albo wpisz `dir(__builtins__)` w powłoce Pythona.
+de: ## Eingebaute Funktionen
+Python bringt viele Funktionen mit, die du ohne Import benutzen kannst. `print()` und `type()` kennst du schon. Ein paar weitere, die du täglich brauchst: `len()` (Länge), `input()` (liest, was der Benutzer tippt), `int()`, `float()` und `str()` (wandeln einen Wert um), `min()`, `max()` und `sum()`, `round()` und `abs()`. Die vollständige Liste steht in der Python-Dokumentation – oder tipp `dir(__builtins__)` in die Python-Shell.
+es: ## Funciones integradas
+Python trae muchas funciones que puedes usar sin importar nada. Ya conoces `print()` y `type()`. Algunas más que usarás a diario: `len()` (longitud), `input()` (lee lo que escribe el usuario), `int()`, `float()` y `str()` (convierten un valor), `min()`, `max()` y `sum()`, `round()` y `abs()`. La lista completa está en la documentación de Python, o escribe `dir(__builtins__)` en el intérprete.
+fr: ## Les fonctions intégrées
+Python fournit de nombreuses fonctions utilisables sans rien importer. Tu connais déjà `print()` et `type()`. Quelques autres que tu utiliseras tous les jours : `len()` (longueur), `input()` (lit ce que tape l'utilisateur), `int()`, `float()` et `str()` (convertissent une valeur), `min()`, `max()` et `sum()`, `round()` et `abs()`. La liste complète est dans la documentation de Python, ou tape `dir(__builtins__)` dans le shell.
+
+@code
+print(len('Hello'))          # 5
+print(min(3, 8, 1))          # 1
+print(max([20, 30, 40]))     # 40
+print(sum([1, 2, 3, 4]))     # 10
+print(round(3.14159, 2))     # 3.14
+print(abs(-7))               # 7
+@end
+
+@md
+en: ## Variables
+A **variable** is a name for a value stored in the computer's memory. You create it with `=`, the assignment operator: the name on the left, the value on the right. After that you can use the name instead of the value.
+
+Rules for names:
+- they may contain letters, digits and underscores, but can't start with a digit;
+- they are case-sensitive: `age` and `Age` are two different variables;
+- they can't be Python keywords such as `if`, `for` or `class`.
+
+By convention Python uses **snake_case**: lowercase words joined by underscores, like `first_name`.
+pl: ## Zmienne
+**Zmienna** to nazwa wartości zapisanej w pamięci komputera. Tworzy się ją znakiem `=`, czyli operatorem przypisania: nazwa po lewej, wartość po prawej. Potem można używać nazwy zamiast wartości.
+
+Zasady nazywania:
+- nazwa może zawierać litery, cyfry i podkreślenia, ale nie może zaczynać się od cyfry;
+- wielkość liter ma znaczenie: `age` i `Age` to dwie różne zmienne;
+- nazwą nie może być słowo kluczowe Pythona, np. `if`, `for` albo `class`.
+
+Zwyczajowo w Pythonie stosuje się **snake_case**: małe litery i słowa łączone podkreśleniem, np. `first_name`.
+de: ## Variablen
+Eine **Variable** ist ein Name für einen Wert im Speicher des Computers. Du erzeugst sie mit `=`, dem Zuweisungsoperator: links der Name, rechts der Wert. Danach kannst du den Namen statt des Wertes verwenden.
+
+Regeln für Namen:
+- sie dürfen Buchstaben, Ziffern und Unterstriche enthalten, aber nicht mit einer Ziffer beginnen;
+- Groß- und Kleinschreibung zählt: `age` und `Age` sind zwei verschiedene Variablen;
+- sie dürfen keine Python-Schlüsselwörter wie `if`, `for` oder `class` sein.
+
+Üblich ist in Python **snake_case**: kleingeschriebene Wörter, verbunden durch Unterstriche, etwa `first_name`.
+es: ## Variables
+Una **variable** es un nombre para un valor guardado en la memoria del ordenador. Se crea con `=`, el operador de asignación: el nombre a la izquierda y el valor a la derecha. Después puedes usar el nombre en lugar del valor.
+
+Reglas para los nombres:
+- pueden contener letras, dígitos y guiones bajos, pero no pueden empezar por un dígito;
+- distinguen mayúsculas de minúsculas: `age` y `Age` son dos variables distintas;
+- no pueden ser palabras clave de Python como `if`, `for` o `class`.
+
+Por convención, Python usa **snake_case**: palabras en minúsculas unidas por guiones bajos, como `first_name`.
+fr: ## Les variables
+Une **variable** est un nom donné à une valeur stockée dans la mémoire de l'ordinateur. On la crée avec `=`, l'opérateur d'affectation : le nom à gauche, la valeur à droite. Ensuite, on peut utiliser le nom à la place de la valeur.
+
+Règles pour les noms :
+- ils peuvent contenir des lettres, des chiffres et des tirets bas, mais pas commencer par un chiffre ;
+- la casse compte : `age` et `Age` sont deux variables différentes ;
+- ce ne peuvent pas être des mots-clés de Python comme `if`, `for` ou `class`.
+
+Par convention, Python utilise le **snake_case** : des mots en minuscules reliés par des tirets bas, comme `first_name`.
+
+@code
+first_name = 'Asabeneh'
+last_name = 'Yetayeh'
+country = 'Finland'
+age = 250
+is_married = True
+skills = ['HTML', 'CSS', 'JS', 'React', 'Python']
+
+print('First name:', first_name)
+print('Length of the first name:', len(first_name))
+print('Age:', age)
+print('Skills:', skills)
+@end
+
+@md
+en: Several variables can get their values on one line – the names and the values are matched in order:
+pl: Kilku zmiennym można nadać wartości w jednym wierszu – nazwy i wartości są dopasowywane po kolei:
+de: Mehrere Variablen können ihre Werte in einer Zeile bekommen – Namen und Werte werden der Reihe nach zugeordnet:
+es: Varias variables pueden recibir sus valores en una sola línea: los nombres y los valores se emparejan en orden:
+fr: Plusieurs variables peuvent recevoir leurs valeurs sur une seule ligne – les noms et les valeurs sont associés dans l'ordre :
+
+@code
+first_name, last_name, country, age = 'Asabeneh', 'Yetayeh', 'Helsinki', 250
+print(first_name, last_name, country, age)
+
+x = y = 0      # both get the same value
+print(x, y)
+@end
+
+@md
+en: ## Reading input
+`input()` shows a prompt, waits until the user types something and presses Enter, and returns the text. Run the example and type your answers in the terminal.
+
+**Important:** `input()` always returns a **string**, even when the user types a number.
+pl: ## Wczytywanie danych
+`input()` pokazuje komunikat, czeka, aż użytkownik coś wpisze i naciśnie Enter, i zwraca wpisany tekst. Uruchom przykład i wpisz odpowiedzi w terminalu.
+
+**Ważne:** `input()` zawsze zwraca **napis**, nawet gdy użytkownik wpisze liczbę.
+de: ## Eingaben lesen
+`input()` zeigt eine Aufforderung, wartet, bis der Benutzer etwas eintippt und Enter drückt, und gibt den Text zurück. Führ das Beispiel aus und tipp deine Antworten ins Terminal.
+
+**Wichtig:** `input()` gibt immer eine **Zeichenkette** zurück, auch wenn der Benutzer eine Zahl eintippt.
+es: ## Leer datos
+`input()` muestra un mensaje, espera a que el usuario escriba algo y pulse Enter, y devuelve el texto. Ejecuta el ejemplo y escribe tus respuestas en la terminal.
+
+**Importante:** `input()` siempre devuelve una **cadena**, aunque el usuario escriba un número.
+fr: ## Lire une saisie
+`input()` affiche une invite, attend que l'utilisateur tape quelque chose et appuie sur Entrée, puis renvoie le texte. Exécute l'exemple et tape tes réponses dans le terminal.
+
+**Important :** `input()` renvoie toujours une **chaîne**, même quand l'utilisateur tape un nombre.
+
+@code stdin="Ada\n36\n"
+first_name = input('What is your name? ')
+age = input('How old are you? ')
+print(first_name, 'is', age, 'years old')
+print(type(age))   # <class 'str'> – text, not a number!
+@end
+
+@md
+en: ## Converting between types
+To calculate with what the user typed, convert it first: `int()` makes a whole number, `float()` a decimal number and `str()` text. Converting text that isn't a number, like `int('abc')`, raises a `ValueError`.
+pl: ## Zamiana typów
+Żeby liczyć na tym, co wpisał użytkownik, najpierw trzeba to zamienić: `int()` tworzy liczbę całkowitą, `float()` liczbę zmiennoprzecinkową, a `str()` napis. Zamiana tekstu, który nie jest liczbą, np. `int('abc')`, zgłasza błąd `ValueError`.
+de: ## Typen umwandeln
+Um mit dem zu rechnen, was der Benutzer eingetippt hat, wandelst du es zuerst um: `int()` macht eine ganze Zahl, `float()` eine Kommazahl und `str()` einen Text. Text, der keine Zahl ist, umzuwandeln, etwa `int('abc')`, löst einen `ValueError` aus.
+es: ## Convertir entre tipos
+Para calcular con lo que escribió el usuario, primero hay que convertirlo: `int()` crea un número entero, `float()` un número decimal y `str()` un texto. Convertir un texto que no es un número, como `int('abc')`, lanza un `ValueError`.
+fr: ## Convertir les types
+Pour calculer avec ce que l'utilisateur a tapé, il faut d'abord le convertir : `int()` donne un nombre entier, `float()` un nombre décimal et `str()` du texte. Convertir un texte qui n'est pas un nombre, comme `int('abc')`, lève une `ValueError`.
+
+@code
+num_str = '10'
+num_int = int(num_str)
+print(num_int + 5)            # 15
+
+num_float = float('9.81')
+print(num_float * 2)          # 19.62
+
+print(int(9.99))              # 9 – int() cuts off the decimal part
+print(str(250) + ' years')    # '250 years'
+print(list('Python'))         # ['P', 'y', 't', 'h', 'o', 'n']
+@end
+
+@md
+en: ## Numbers
+Python has three kinds of numbers: **integers** (`int`, like `-3`, `0`, `250`), **floating-point numbers** (`float`, like `3.14` or `-0.5`) and **complex numbers** (`complex`, like `1 + 2j`). Dividing with `/` always gives a float, even when the result is whole: `10 / 2` is `5.0`.
+pl: ## Liczby
+Python ma trzy rodzaje liczb: **całkowite** (`int`, np. `-3`, `0`, `250`), **zmiennoprzecinkowe** (`float`, np. `3.14` albo `-0.5`) i **zespolone** (`complex`, np. `1 + 2j`). Dzielenie operatorem `/` zawsze daje liczbę zmiennoprzecinkową, nawet gdy wynik jest całkowity: `10 / 2` to `5.0`.
+de: ## Zahlen
+Python kennt drei Arten von Zahlen: **ganze Zahlen** (`int`, etwa `-3`, `0`, `250`), **Gleitkommazahlen** (`float`, etwa `3.14` oder `-0.5`) und **komplexe Zahlen** (`complex`, etwa `1 + 2j`). Die Division mit `/` ergibt immer eine Gleitkommazahl, auch wenn das Ergebnis ganz ist: `10 / 2` ist `5.0`.
+es: ## Números
+Python tiene tres clases de números: **enteros** (`int`, como `-3`, `0`, `250`), **de coma flotante** (`float`, como `3.14` o `-0.5`) y **complejos** (`complex`, como `1 + 2j`). Dividir con `/` siempre da un float, aunque el resultado sea entero: `10 / 2` es `5.0`.
+fr: ## Les nombres
+Python a trois sortes de nombres : les **entiers** (`int`, comme `-3`, `0`, `250`), les **nombres à virgule flottante** (`float`, comme `3.14` ou `-0.5`) et les **nombres complexes** (`complex`, comme `1 + 2j`). La division avec `/` donne toujours un float, même quand le résultat est entier : `10 / 2` vaut `5.0`.
+
+@exercise about-me
+@title
+en: About you
+pl: O Tobie
+de: Über dich
+es: Sobre ti
+fr: À propos de toi
+@text
+en: Create the variables `first_name`, `last_name`, `country` and `city` (strings), `age` (an integer) and `is_married` (a boolean). Then create `full_name` from the first and last name with a space between them.
+pl: Utwórz zmienne `first_name`, `last_name`, `country` i `city` (napisy), `age` (liczba całkowita) oraz `is_married` (wartość logiczna). Potem utwórz `full_name` z imienia i nazwiska ze spacją pomiędzy.
+de: Lege die Variablen `first_name`, `last_name`, `country` und `city` (Zeichenketten), `age` (ganze Zahl) und `is_married` (Wahrheitswert) an. Bilde dann `full_name` aus Vor- und Nachnamen, mit einem Leerzeichen dazwischen.
+es: Crea las variables `first_name`, `last_name`, `country` y `city` (cadenas), `age` (un entero) e `is_married` (un booleano). Después crea `full_name` con el nombre y el apellido separados por un espacio.
+fr: Crée les variables `first_name`, `last_name`, `country` et `city` (des chaînes), `age` (un entier) et `is_married` (un booléen). Crée ensuite `full_name` à partir du prénom et du nom, avec une espace entre les deux.
+@hint
+en: Strings can be joined with `+`: `first_name + ' ' + last_name`.
+pl: Napisy łączy się znakiem `+`: `first_name + ' ' + last_name`.
+de: Zeichenketten verbindest du mit `+`: `first_name + ' ' + last_name`.
+es: Las cadenas se unen con `+`: `first_name + ' ' + last_name`.
+fr: Les chaînes se joignent avec `+` : `first_name + ' ' + last_name`.
+@starter
+first_name = 'Ada'
+@end
+@solution
+first_name = 'Ada'
+last_name = 'Lovelace'
+country = 'United Kingdom'
+city = 'London'
+age = 36
+is_married = True
+full_name = first_name + ' ' + last_name
+@end
+@case
+expr: all(isinstance(v, str) and v for v in [first_name, last_name, country, city])
+expr: type(age) is int
+expr: type(is_married) is bool
+expr: full_name == first_name + ' ' + last_name
+
+@exercise calculations
+@title
+en: Calculations with variables
+pl: Obliczenia na zmiennych
+de: Rechnen mit Variablen
+es: Cálculos con variables
+fr: Calculs avec des variables
+@text
+en: With `num_one = 5` and `num_two = 4`, create `total` (sum), `diff` (`num_one` minus `num_two`), `product`, `division`, `remainder`, `exp` (`num_one` to the power of `num_two`) and `floor_division`.
+pl: Dla `num_one = 5` i `num_two = 4` utwórz `total` (suma), `diff` (`num_one` minus `num_two`), `product` (iloczyn), `division` (iloraz), `remainder` (reszta z dzielenia), `exp` (`num_one` do potęgi `num_two`) i `floor_division` (dzielenie całkowite).
+de: Mit `num_one = 5` und `num_two = 4` erzeugst du `total` (Summe), `diff` (`num_one` minus `num_two`), `product` (Produkt), `division` (Quotient), `remainder` (Rest), `exp` (`num_one` hoch `num_two`) und `floor_division` (ganzzahlige Division).
+es: Con `num_one = 5` y `num_two = 4`, crea `total` (suma), `diff` (`num_one` menos `num_two`), `product` (producto), `division` (cociente), `remainder` (resto), `exp` (`num_one` elevado a `num_two`) y `floor_division` (división entera).
+fr: Avec `num_one = 5` et `num_two = 4`, crée `total` (somme), `diff` (`num_one` moins `num_two`), `product` (produit), `division` (quotient), `remainder` (reste), `exp` (`num_one` puissance `num_two`) et `floor_division` (division entière).
+@hint
+en: The operators are `+`, `-`, `*`, `/`, `%`, `**` and `//`.
+pl: Potrzebne operatory to `+`, `-`, `*`, `/`, `%`, `**` i `//`.
+de: Die Operatoren sind `+`, `-`, `*`, `/`, `%`, `**` und `//`.
+es: Los operadores son `+`, `-`, `*`, `/`, `%`, `**` y `//`.
+fr: Les opérateurs sont `+`, `-`, `*`, `/`, `%`, `**` et `//`.
+@starter
+num_one = 5
+num_two = 4
+total = num_one + num_two
+@end
+@solution
+num_one = 5
+num_two = 4
+total = num_one + num_two
+diff = num_one - num_two
+product = num_one * num_two
+division = num_one / num_two
+remainder = num_one % num_two
+exp = num_one ** num_two
+floor_division = num_one // num_two
+@end
+@case
+expr: total == 9 and diff == 1 and product == 20
+expr: division == 1.25 and remainder == 1
+expr: exp == 625 and floor_division == 1
+
+@exercise circle
+@title
+en: Area of a circle
+pl: Pole koła
+de: Fläche eines Kreises
+es: Área de un círculo
+fr: Aire d'un cercle
+@text
+en: Ask the user for the radius with `input()`, convert it to a float and print the area of the circle: `3.14 * radius ** 2`.
+pl: Zapytaj użytkownika o promień przez `input()`, zamień go na liczbę zmiennoprzecinkową i wypisz pole koła: `3.14 * radius ** 2`.
+de: Frag mit `input()` nach dem Radius, wandle ihn in eine Gleitkommazahl um und gib die Kreisfläche aus: `3.14 * radius ** 2`.
+es: Pide el radio al usuario con `input()`, conviértelo en float e imprime el área del círculo: `3.14 * radius ** 2`.
+fr: Demande le rayon à l'utilisateur avec `input()`, convertis-le en float et affiche l'aire du cercle : `3.14 * radius ** 2`.
+@hint
+en: `radius = float(input('Radius: '))`
+pl: `radius = float(input('Promień: '))`
+de: `radius = float(input('Radius: '))`
+es: `radius = float(input('Radio: '))`
+fr: `radius = float(input('Rayon : '))`
+@starter
+radius = input('Radius: ')
+@end
+@solution
+radius = float(input('Radius: '))
+area = 3.14 * radius ** 2
+print(area)
+@end
+@case stdin="10\n"
+out: 314.0
+@case stdin="2.5\n"
+out: 19.625
+
+@exercise sum-input
+@title
+en: Add two numbers
+pl: Dodaj dwie liczby
+de: Zwei Zahlen addieren
+es: Suma dos números
+fr: Additionne deux nombres
+@text
+en: Read two whole numbers with `input()` and print their sum. Careful: `'3' + '4'` is `'34'`, not `7`!
+pl: Wczytaj dwie liczby całkowite przez `input()` i wypisz ich sumę. Uwaga: `'3' + '4'` to `'34'`, a nie `7`!
+de: Lies zwei ganze Zahlen mit `input()` ein und gib ihre Summe aus. Vorsicht: `'3' + '4'` ist `'34'`, nicht `7`!
+es: Lee dos números enteros con `input()` e imprime su suma. Cuidado: `'3' + '4'` es `'34'`, ¡no `7`!
+fr: Lis deux nombres entiers avec `input()` et affiche leur somme. Attention : `'3' + '4'` donne `'34'`, pas `7` !
+@starter
+a = input('First number: ')
+b = input('Second number: ')
+print(a + b)
+@end
+@solution
+a = int(input('First number: '))
+b = int(input('Second number: '))
+print(a + b)
+@end
+@case stdin="3\n4\n"
+re: (?<![\d-])7(?!\d)
+@case stdin="10\n-2\n"
+re: (?<![\d-])8(?!\d)

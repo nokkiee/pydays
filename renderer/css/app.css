@@ -1752,7 +1752,7 @@ body.side-collapsed .side-spacer {
 
 .cal-layout {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 18px;
   align-items: start;
 }
@@ -1772,7 +1772,7 @@ body.side-collapsed .side-spacer {
 }
 .cal-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px;
 }
 .cal-wd {
@@ -1783,6 +1783,8 @@ body.side-collapsed .side-spacer {
 }
 .cal-day {
   position: relative;
+  min-width: 0;
+  overflow: hidden;
   min-height: 86px;
   padding: 7px 8px;
   border-radius: var(--radius-sm);
@@ -1836,6 +1838,8 @@ body.side-collapsed .side-spacer {
   outline-offset: 1px;
 }
 .cal-chip {
+  display: block;
+  max-width: 100%;
   font-size: 11px;
   padding: 1px 6px;
   border-radius: 5px;

@@ -119,11 +119,14 @@ function workspaceDir(key) {
 
 // files: [{ name, text }] – a lesson's data files, written fresh before every run so a
 // program that changed them can't spoil the next run.
+// A name may include one folder (mypackage/__init__.py) for lessons about packages.
 function writeFiles(dir, files) {
   for (const f of files || []) {
-    const name = path.basename(String(f.name));
-    if (!name || name === '.' || name === '..') continue;
-    fs.writeFileSync(path.join(dir, name), String(f.text ?? ''));
+    const parts = String(f.name).split(/[\\/]/).filter(Boolean);
+    if (!parts.length || parts.length > 2 || parts.some((p) => p === '.' || p === '..' || !/^[\w.\-]+$/.test(p))) continue;
+    const target = path.join(dir, ...parts);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, String(f.text ?? ''));
   }
 }
 

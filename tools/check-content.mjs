@@ -31,6 +31,7 @@ const only = process.argv.slice(2).map(Number).filter(Boolean);
 const dir = path.join(ROOT, 'content', 'days');
 const files = fs.readdirSync(dir).filter((f) => /^\d\d\.txt$/.test(f)).sort();
 let errors = 0;
+const skipped = new Set();
 let warnings = 0;
 const fail = (where, msg) => {
   errors++;
@@ -44,7 +45,10 @@ const warn = (where, msg) => {
 function runPython(cmd, code, stdin, files) {
   return new Promise((resolve) => {
     const cwd = fs.mkdtempSync(path.join(tmp, 'ex-'));
-    for (const f of files) fs.writeFileSync(path.join(cwd, f.name), f.text);
+    for (const f of files) {
+      fs.mkdirSync(path.dirname(path.join(cwd, f.name)), { recursive: true });
+      fs.writeFileSync(path.join(cwd, f.name), f.text);
+    }
     fs.writeFileSync(path.join(cwd, 'example.py'), code);
     const p = spawn(cmd[0], [...cmd.slice(1), '-u', 'example.py'], { cwd, env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' } });
     let out = '';
@@ -101,6 +105,14 @@ for (const f of files) {
   // examples
   for (const [i, b] of day.blocks.entries()) {
     if (b.type !== 'code' || b.opts.norun) continue;
+    // examples that need a third-party package run only where it is installed
+    if (b.opts.needs) {
+      const probe = await runPython(py.cmd, b.opts.needs.split(',').map((m) => `import ${m}`).join('\n'), '', []);
+      if (probe.code !== 0) {
+        skipped.add(b.opts.needs);
+        continue;
+      }
+    }
     const r = await runPython(py.cmd, b.code, b.opts.stdin, day.files);
     if (b.opts.error && r.code === 0) fail(`${f} code#${i}`, 'marked `error` but ran without one');
     if (!b.opts.error && r.code !== 0) fail(`${f} code#${i}`, `exit ${r.code}: ${r.err.trim().split('\n').pop()}\n${b.code.split('\n').slice(0, 3).join('\n')}`);
@@ -136,5 +148,6 @@ for (const f of files) {
 }
 
 fs.rmSync(tmp, { recursive: true, force: true });
+if (skipped.size) console.log(`\nSkipped examples that need: ${[...skipped].join(', ')} (not installed)`);
 console.log(errors ? `\n${errors} error(s), ${warnings} warning(s)` : `\nAll good (${warnings} warning(s)).`);
 process.exit(errors ? 1 : 0);

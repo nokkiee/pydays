@@ -1,0 +1,329 @@
+@day 3
+@source 03_Day_Operators/03_operators.md
+
+@title
+en: Operators
+pl: Operatory
+de: Operatoren
+es: Operadores
+fr: Opérateurs
+
+@summary
+en: Booleans, and the operators for assignment, arithmetic, comparison and logic.
+pl: Wartości logiczne oraz operatory przypisania, arytmetyczne, porównania i logiczne.
+de: Wahrheitswerte und die Operatoren für Zuweisung, Arithmetik, Vergleich und Logik.
+es: Los booleanos y los operadores de asignación, aritméticos, de comparación y lógicos.
+fr: Les booléens et les opérateurs d'affectation, arithmétiques, de comparaison et logiques.
+
+@md
+en: ## Booleans
+A boolean is either `True` or `False` – with a capital letter. Comparisons and logical operators produce booleans, and later `if` statements and loops decide what to do based on them.
+pl: ## Wartości logiczne
+Wartość logiczna (boolean) to `True` (prawda) albo `False` (fałsz) – pisane wielką literą. Porównania i operatory logiczne dają w wyniku wartości logiczne, a później instrukcje `if` i pętle na ich podstawie decydują, co zrobić.
+de: ## Wahrheitswerte
+Ein Wahrheitswert (Boolean) ist entweder `True` oder `False` – mit großem Anfangsbuchstaben. Vergleiche und logische Operatoren liefern Wahrheitswerte, und später entscheiden `if`-Anweisungen und Schleifen danach, was passiert.
+es: ## Booleanos
+Un booleano es `True` (verdadero) o `False` (falso), con mayúscula inicial. Las comparaciones y los operadores lógicos producen booleanos, y más adelante las sentencias `if` y los bucles deciden qué hacer según ellos.
+fr: ## Les booléens
+Un booléen vaut `True` (vrai) ou `False` (faux) – avec une majuscule. Les comparaisons et les opérateurs logiques produisent des booléens, et plus tard les instructions `if` et les boucles décideront quoi faire en fonction d'eux.
+
+@code
+print(True)
+print(False)
+print(type(True))   # <class 'bool'>
+@end
+
+@md
+en: ## Assignment operators
+`=` stores a value in a variable. The combined operators update a variable using its current value: `x += 3` means `x = x + 3`. The same works with `-=`, `*=`, `/=`, `%=`, `//=` and `**=`.
+pl: ## Operatory przypisania
+`=` zapisuje wartość w zmiennej. Operatory złożone zmieniają zmienną na podstawie jej obecnej wartości: `x += 3` znaczy `x = x + 3`. Tak samo działają `-=`, `*=`, `/=`, `%=`, `//=` i `**=`.
+de: ## Zuweisungsoperatoren
+`=` speichert einen Wert in einer Variablen. Die kombinierten Operatoren ändern eine Variable anhand ihres aktuellen Wertes: `x += 3` bedeutet `x = x + 3`. Genauso funktionieren `-=`, `*=`, `/=`, `%=`, `//=` und `**=`.
+es: ## Operadores de asignación
+`=` guarda un valor en una variable. Los operadores combinados actualizan una variable a partir de su valor actual: `x += 3` significa `x = x + 3`. Lo mismo sirve con `-=`, `*=`, `/=`, `%=`, `//=` y `**=`.
+fr: ## Les opérateurs d'affectation
+`=` range une valeur dans une variable. Les opérateurs combinés modifient une variable à partir de sa valeur actuelle : `x += 3` signifie `x = x + 3`. Cela marche aussi avec `-=`, `*=`, `/=`, `%=`, `//=` et `**=`.
+
+@code
+x = 10
+x += 3     # 13
+x -= 1     # 12
+x *= 2     # 24
+x //= 5    # 4
+x **= 2    # 16
+print(x)
+@end
+
+@md
+en: ## Arithmetic operators
+
+| Operator | Name | Example | Result |
+|---|---|---|---|
+| `+` | addition | `7 + 2` | `9` |
+| `-` | subtraction | `7 - 2` | `5` |
+| `*` | multiplication | `7 * 2` | `14` |
+| `/` | division | `7 / 2` | `3.5` |
+| `%` | modulus (remainder) | `7 % 2` | `1` |
+| `//` | floor division | `7 // 2` | `3` |
+| `**` | exponentiation | `7 ** 2` | `49` |
+
+As in maths, `**` is evaluated first, then `*`, `/`, `//` and `%`, then `+` and `-`. Use parentheses to change the order.
+pl: ## Operatory arytmetyczne
+
+| Operator | Nazwa | Przykład | Wynik |
+|---|---|---|---|
+| `+` | dodawanie | `7 + 2` | `9` |
+| `-` | odejmowanie | `7 - 2` | `5` |
+| `*` | mnożenie | `7 * 2` | `14` |
+| `/` | dzielenie | `7 / 2` | `3.5` |
+| `%` | reszta z dzielenia (modulo) | `7 % 2` | `1` |
+| `//` | dzielenie całkowite | `7 // 2` | `3` |
+| `**` | potęgowanie | `7 ** 2` | `49` |
+
+Jak w matematyce najpierw liczy się `**`, potem `*`, `/`, `//` i `%`, a na końcu `+` i `-`. Kolejność zmienia się nawiasami.
+de: ## Arithmetische Operatoren
+
+| Operator | Name | Beispiel | Ergebnis |
+|---|---|---|---|
+| `+` | Addition | `7 + 2` | `9` |
+| `-` | Subtraktion | `7 - 2` | `5` |
+| `*` | Multiplikation | `7 * 2` | `14` |
+| `/` | Division | `7 / 2` | `3.5` |
+| `%` | Modulo (Rest) | `7 % 2` | `1` |
+| `//` | ganzzahlige Division | `7 // 2` | `3` |
+| `**` | Potenz | `7 ** 2` | `49` |
+
+Wie in der Mathematik wird zuerst `**` ausgewertet, dann `*`, `/`, `//` und `%`, dann `+` und `-`. Mit Klammern änderst du die Reihenfolge.
+es: ## Operadores aritméticos
+
+| Operador | Nombre | Ejemplo | Resultado |
+|---|---|---|---|
+| `+` | suma | `7 + 2` | `9` |
+| `-` | resta | `7 - 2` | `5` |
+| `*` | multiplicación | `7 * 2` | `14` |
+| `/` | división | `7 / 2` | `3.5` |
+| `%` | módulo (resto) | `7 % 2` | `1` |
+| `//` | división entera | `7 // 2` | `3` |
+| `**` | potencia | `7 ** 2` | `49` |
+
+Como en matemáticas, primero se calcula `**`, luego `*`, `/`, `//` y `%`, y al final `+` y `-`. Usa paréntesis para cambiar el orden.
+fr: ## Les opérateurs arithmétiques
+
+| Opérateur | Nom | Exemple | Résultat |
+|---|---|---|---|
+| `+` | addition | `7 + 2` | `9` |
+| `-` | soustraction | `7 - 2` | `5` |
+| `*` | multiplication | `7 * 2` | `14` |
+| `/` | division | `7 / 2` | `3.5` |
+| `%` | modulo (reste) | `7 % 2` | `1` |
+| `//` | division entière | `7 // 2` | `3` |
+| `**` | puissance | `7 ** 2` | `49` |
+
+Comme en maths, on calcule d'abord `**`, puis `*`, `/`, `//` et `%`, et enfin `+` et `-`. Les parenthèses changent l'ordre.
+
+@code
+a = 3
+b = 2
+print('a + b =', a + b)
+print('a / b =', a / b)
+print('a // b =', a // b)
+print('a % b =', a % b)
+print('a ** b =', a ** b)
+print(2 + 3 * 4)       # 14
+print((2 + 3) * 4)     # 20
+
+# Body mass index
+weight = 75    # kg
+height = 1.8   # m
+bmi = weight / height ** 2
+print('BMI:', round(bmi, 1))
+@end
+
+@md
+en: ## Comparison operators
+Comparisons give `True` or `False`: `==` (equal), `!=` (not equal), `>`, `<`, `>=` and `<=`. Note the difference between `=` (assign a value) and `==` (compare two values).
+
+Python also has `is` / `is not` (are they the very same object?) and `in` / `not in` (is something inside a string, list…?).
+pl: ## Operatory porównania
+Porównania dają `True` albo `False`: `==` (równe), `!=` (różne), `>`, `<`, `>=` i `<=`. Zwróć uwagę na różnicę między `=` (przypisanie wartości) a `==` (porównanie dwóch wartości).
+
+Python ma też `is` / `is not` (czy to dokładnie ten sam obiekt?) oraz `in` / `not in` (czy coś jest w napisie, liście…?).
+de: ## Vergleichsoperatoren
+Vergleiche ergeben `True` oder `False`: `==` (gleich), `!=` (ungleich), `>`, `<`, `>=` und `<=`. Achte auf den Unterschied zwischen `=` (Wert zuweisen) und `==` (zwei Werte vergleichen).
+
+Außerdem gibt es `is` / `is not` (ist es genau dasselbe Objekt?) und `in` / `not in` (steckt etwas in einer Zeichenkette, Liste…?).
+es: ## Operadores de comparación
+Las comparaciones dan `True` o `False`: `==` (igual), `!=` (distinto), `>`, `<`, `>=` y `<=`. Fíjate en la diferencia entre `=` (asignar un valor) y `==` (comparar dos valores).
+
+Python también tiene `is` / `is not` (¿es exactamente el mismo objeto?) e `in` / `not in` (¿está algo dentro de una cadena, una lista…?).
+fr: ## Les opérateurs de comparaison
+Les comparaisons donnent `True` ou `False` : `==` (égal), `!=` (différent), `>`, `<`, `>=` et `<=`. Attention à la différence entre `=` (affecter une valeur) et `==` (comparer deux valeurs).
+
+Python a aussi `is` / `is not` (est-ce exactement le même objet ?) et `in` / `not in` (quelque chose se trouve-t-il dans une chaîne, une liste… ?).
+
+@code
+print(3 > 2)                        # True
+print(3 == 2)                       # False
+print(3 != 2)                       # True
+print(len('mango') == len('avocado'))  # False
+print('on' in 'python')             # True
+print('A' in 'python')              # False – case matters
+print(1 is 1.0, 1 == 1.0)           # False True
+@end
+
+@md
+en: ## Logical operators
+- `and` is `True` only when both sides are `True`;
+- `or` is `True` when at least one side is `True`;
+- `not` turns `True` into `False` and the other way round.
+pl: ## Operatory logiczne
+- `and` daje `True` tylko wtedy, gdy obie strony są `True`;
+- `or` daje `True`, gdy przynajmniej jedna strona jest `True`;
+- `not` zamienia `True` na `False` i odwrotnie.
+de: ## Logische Operatoren
+- `and` ist nur `True`, wenn beide Seiten `True` sind;
+- `or` ist `True`, wenn mindestens eine Seite `True` ist;
+- `not` macht aus `True` ein `False` und umgekehrt.
+es: ## Operadores lógicos
+- `and` es `True` solo cuando los dos lados son `True`;
+- `or` es `True` cuando al menos un lado es `True`;
+- `not` convierte `True` en `False` y al revés.
+fr: ## Les opérateurs logiques
+- `and` vaut `True` seulement si les deux côtés valent `True` ;
+- `or` vaut `True` si au moins un côté vaut `True` ;
+- `not` transforme `True` en `False` et inversement.
+
+@code
+age = 20
+has_ticket = True
+print(age >= 18 and has_ticket)   # True
+print(age < 18 or has_ticket)     # True
+print(not has_ticket)             # False
+print(3 > 2 and 4 > 3 and 5 > 4)  # True
+@end
+
+@exercise triangle-area
+@title
+en: Area of a triangle
+pl: Pole trójkąta
+de: Fläche eines Dreiecks
+es: Área de un triángulo
+fr: Aire d'un triangle
+@text
+en: Ask the user for the base and the height of a triangle and print its area: `0.5 * base * height`.
+pl: Zapytaj użytkownika o podstawę i wysokość trójkąta i wypisz jego pole: `0.5 * base * height`.
+de: Frag nach Grundseite und Höhe eines Dreiecks und gib seine Fläche aus: `0.5 * base * height`.
+es: Pide al usuario la base y la altura de un triángulo e imprime su área: `0.5 * base * height`.
+fr: Demande à l'utilisateur la base et la hauteur d'un triangle et affiche son aire : `0.5 * base * height`.
+@hint
+en: Two `input()` calls, each wrapped in `float()`.
+pl: Dwa wywołania `input()`, każde opakowane w `float()`.
+de: Zweimal `input()`, jeweils in `float()` verpackt.
+es: Dos llamadas a `input()`, cada una dentro de `float()`.
+fr: Deux appels à `input()`, chacun dans un `float()`.
+@starter
+base = float(input('Base: '))
+@end
+@solution
+base = float(input('Base: '))
+height = float(input('Height: '))
+area = 0.5 * base * height
+print('The area of the triangle is', area)
+@end
+@case stdin="20\n10\n"
+out: 100.0
+@case stdin="3\n5\n"
+out: 7.5
+
+@exercise rectangle
+@title
+en: Rectangle
+pl: Prostokąt
+de: Rechteck
+es: Rectángulo
+fr: Rectangle
+@text
+en: Read the length and the width of a rectangle and print its area (`length * width`) and its perimeter (`2 * (length + width)`).
+pl: Wczytaj długość i szerokość prostokąta i wypisz jego pole (`length * width`) oraz obwód (`2 * (length + width)`).
+de: Lies Länge und Breite eines Rechtecks ein und gib seine Fläche (`length * width`) und seinen Umfang (`2 * (length + width)`) aus.
+es: Lee el largo y el ancho de un rectángulo e imprime su área (`length * width`) y su perímetro (`2 * (length + width)`).
+fr: Lis la longueur et la largeur d'un rectangle et affiche son aire (`length * width`) et son périmètre (`2 * (length + width)`).
+@starter
+length = float(input('Length: '))
+width = float(input('Width: '))
+@end
+@solution
+length = float(input('Length: '))
+width = float(input('Width: '))
+print('Area:', length * width)
+print('Perimeter:', 2 * (length + width))
+@end
+@case stdin="5\n3\n"
+re: (?<![\d.])15(\.0)?(?![\d.])
+re: (?<![\d.])16(\.0)?(?![\d.])
+@case stdin="2.5\n4\n"
+re: (?<![\d.])10(\.0)?(?![\d.])
+re: (?<![\d.])13(\.0)?(?![\d.])
+
+@exercise slope
+@title
+en: Slope and distance
+pl: Nachylenie i odległość
+de: Steigung und Abstand
+es: Pendiente y distancia
+fr: Pente et distance
+@text
+en: For the points (2, 2) and (6, 10), store the slope `(y2 - y1) / (x2 - x1)` in `slope` and the Euclidean distance `((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5` in `distance`.
+pl: Dla punktów (2, 2) i (6, 10) zapisz nachylenie `(y2 - y1) / (x2 - x1)` w zmiennej `slope`, a odległość euklidesową `((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5` w zmiennej `distance`.
+de: Speichere für die Punkte (2, 2) und (6, 10) die Steigung `(y2 - y1) / (x2 - x1)` in `slope` und den euklidischen Abstand `((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5` in `distance`.
+es: Para los puntos (2, 2) y (6, 10), guarda la pendiente `(y2 - y1) / (x2 - x1)` en `slope` y la distancia euclidiana `((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5` en `distance`.
+fr: Pour les points (2, 2) et (6, 10), range la pente `(y2 - y1) / (x2 - x1)` dans `slope` et la distance euclidienne `((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5` dans `distance`.
+@starter
+x1, y1 = 2, 2
+x2, y2 = 6, 10
+@end
+@solution
+x1, y1 = 2, 2
+x2, y2 = 6, 10
+slope = (y2 - y1) / (x2 - x1)
+distance = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+print(slope, distance)
+@end
+@case
+expr: slope == 2
+expr: abs(distance - 80 ** 0.5) < 1e-9
+
+@exercise compare
+@title
+en: True or false?
+pl: Prawda czy fałsz?
+de: Wahr oder falsch?
+es: ¿Verdadero o falso?
+fr: Vrai ou faux ?
+@text
+en: Store booleans – computed by Python, not typed as `True`/`False` – in three variables: `same_length` (do `'python'` and `'dragon'` have the same length?), `both_have_on` (does `'on'` appear in both words?) and `not_jargon` (is `'jargon'` not in the sentence `'I hope this course is not full of jargon'`?).
+pl: Zapisz w trzech zmiennych wartości logiczne – obliczone przez Pythona, a nie wpisane jako `True`/`False`: `same_length` (czy `'python'` i `'dragon'` mają tę samą długość?), `both_have_on` (czy `'on'` występuje w obu słowach?) i `not_jargon` (czy `'jargon'` nie występuje w zdaniu `'I hope this course is not full of jargon'`?).
+de: Speichere Wahrheitswerte – von Python berechnet, nicht als `True`/`False` getippt – in drei Variablen: `same_length` (haben `'python'` und `'dragon'` dieselbe Länge?), `both_have_on` (kommt `'on'` in beiden Wörtern vor?) und `not_jargon` (steht `'jargon'` nicht im Satz `'I hope this course is not full of jargon'`?).
+es: Guarda booleanos (calculados por Python, no escritos como `True`/`False`) en tres variables: `same_length` (¿tienen `'python'` y `'dragon'` la misma longitud?), `both_have_on` (¿aparece `'on'` en las dos palabras?) y `not_jargon` (¿no está `'jargon'` en la frase `'I hope this course is not full of jargon'`?).
+fr: Range des booléens – calculés par Python, pas tapés comme `True`/`False` – dans trois variables : `same_length` (`'python'` et `'dragon'` ont-ils la même longueur ?), `both_have_on` (`'on'` apparaît-il dans les deux mots ?) et `not_jargon` (`'jargon'` est-il absent de la phrase `'I hope this course is not full of jargon'` ?).
+@hint
+en: `len()`, `==`, `in`, `and` and `not in` are all you need.
+pl: Wystarczą `len()`, `==`, `in`, `and` i `not in`.
+de: Du brauchst nur `len()`, `==`, `in`, `and` und `not in`.
+es: Solo necesitas `len()`, `==`, `in`, `and` y `not in`.
+fr: Il te suffit de `len()`, `==`, `in`, `and` et `not in`.
+@starter
+same_length = len('python') == len('dragon')
+@end
+@solution
+same_length = len('python') == len('dragon')
+both_have_on = 'on' in 'python' and 'on' in 'dragon'
+not_jargon = 'jargon' not in 'I hope this course is not full of jargon'
+print(same_length, both_have_on, not_jargon)
+@end
+@case
+expr: same_length is True
+expr: both_have_on is True
+expr: not_jargon is False
+expr: 'len(' in open(__file__).read() and ' in ' in open(__file__).read()

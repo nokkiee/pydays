@@ -32,7 +32,7 @@ if (opt('seed')) {
   const activity = {};
   const days = {};
   const plan = [[-9, 1], [-8, 2], [-6, 3], [-3, 4], [-1, 5]];
-  for (const o of [-12, -9, -8, -7, -6, -4, -3, -2, -1]) activity[day(o)] = { runs: 6 + (o % 4), solved: 1, minutes: 18 + ((o * 7) % 25), done: [] };
+  for (const o of [-12, -9, -8, -7, -6, -4, -3, -2, -1]) activity[day(o)] = { runs: 6 + (-o % 4), solved: 1, minutes: 12 + ((-o * 7) % 25), done: [] };
   for (const [o, n] of plan) {
     activity[day(o)].done.push(n);
     activity[day(o)].minutes = 48;

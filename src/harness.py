@@ -12,6 +12,7 @@ import builtins
 import contextlib
 import io
 import json
+import os
 import re
 import sys
 import traceback
@@ -48,6 +49,8 @@ def main():
 
     sys.stdin = io.StringIO(spec.get("stdin") or "")
     sys.argv = [filename]
+    # like `python file.py`: modules next to the program can be imported
+    sys.path.insert(0, os.getcwd())
     captured = io.StringIO()
     namespace = {"__name__": "__main__", "__file__": filename, "__builtins__": builtins}
     error = None
