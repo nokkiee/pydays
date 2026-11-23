@@ -2,7 +2,8 @@
 // Checks the course files in content/days/:
 //   - they parse, and every text is there in all five languages;
 //   - every runnable example runs under Python without an error (examples marked `error`
-//     must fail), with empty stdin unless the example gives some;
+//     must fail), with empty stdin unless the example gives some; examples marked `net`
+//     need the internet and are not run;
 //   - every exercise's solution passes all its checks, and its starter code does not;
 //   - code spans and table rows agree between the languages (warnings).
 // Usage: node tools/check-content.mjs [day ...]
@@ -105,11 +106,15 @@ for (const f of files) {
   // examples
   for (const [i, b] of day.blocks.entries()) {
     if (b.type !== 'code' || b.opts.norun) continue;
+    if (b.opts.net) {
+      skipped.add('internet access');
+      continue;
+    }
     // examples that need a third-party package run only where it is installed
     if (b.opts.needs) {
       const probe = await runPython(py.cmd, b.opts.needs.split(',').map((m) => `import ${m}`).join('\n'), '', []);
       if (probe.code !== 0) {
-        skipped.add(b.opts.needs);
+        skipped.add(`${b.opts.needs} (not installed)`);
         continue;
       }
     }
@@ -148,6 +153,6 @@ for (const f of files) {
 }
 
 fs.rmSync(tmp, { recursive: true, force: true });
-if (skipped.size) console.log(`\nSkipped examples that need: ${[...skipped].join(', ')} (not installed)`);
+if (skipped.size) console.log(`\nNot run here – examples that need: ${[...skipped].join(', ')}`);
 console.log(errors ? `\n${errors} error(s), ${warnings} warning(s)` : `\nAll good (${warnings} warning(s)).`);
 process.exit(errors ? 1 : 0);

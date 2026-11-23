@@ -1,0 +1,380 @@
+@day 20
+@source 20_Day_Python_package_manager/20_python_package_manager.md
+
+@title
+en: PIP and packages
+pl: PIP i pakiety
+de: PIP und Pakete
+es: PIP y paquetes
+fr: PIP et paquets
+
+@summary
+en: Install third-party packages with pip, record them in requirements.txt, and organise your own code as a package of modules.
+pl: Instaluj zewnętrzne pakiety przez pip, zapisuj je w requirements.txt i układaj własny kod w pakiet modułów.
+de: Pakete von Drittanbietern mit pip installieren, in requirements.txt festhalten und eigenen Code als Paket aus Modulen organisieren.
+es: Instala paquetes de terceros con pip, anótalos en requirements.txt y organiza tu propio código como un paquete de módulos.
+fr: Installe des paquets tiers avec pip, note-les dans requirements.txt et organise ton propre code en un paquet de modules.
+
+@md
+en: ## What is pip?
+The standard library is big, but thousands of other packages – for data analysis, web servers, games, machine learning – are published on **PyPI**, the Python Package Index. **pip** is the tool that downloads and installs them.
+
+pip runs in your system's terminal (Command Prompt or PowerShell on Windows, Terminal on macOS and Linux) – not in the Python shell. `python -m pip` makes sure you use the pip that belongs to the same Python as this app (on Windows `py -m pip` also works):
+
+```
+python -m pip install requests
+python -m pip list
+python -m pip show requests
+python -m pip install --upgrade requests
+python -m pip uninstall requests
+```
+pl: ## Czym jest pip?
+Biblioteka standardowa jest duża, ale tysiące innych pakietów – do analizy danych, serwerów WWW, gier, uczenia maszynowego – są publikowane w **PyPI**, czyli Python Package Index. **pip** to narzędzie, które je pobiera i instaluje.
+
+pip uruchamia się w terminalu systemu (Wiersz polecenia albo PowerShell w Windows, Terminal w macOS i Linuksie) – nie w powłoce Pythona. `python -m pip` daje pewność, że używasz pipa należącego do tego samego Pythona co ta aplikacja (w Windows działa też `py -m pip`):
+
+```
+python -m pip install requests
+python -m pip list
+python -m pip show requests
+python -m pip install --upgrade requests
+python -m pip uninstall requests
+```
+de: ## Was ist pip?
+Die Standardbibliothek ist groß, aber Tausende weiterer Pakete – für Datenanalyse, Webserver, Spiele, maschinelles Lernen – werden auf **PyPI** veröffentlicht, dem Python Package Index. **pip** ist das Werkzeug, das sie herunterlädt und installiert.
+
+pip läuft im Terminal deines Systems (Eingabeaufforderung oder PowerShell unter Windows, Terminal unter macOS und Linux) – nicht in der Python-Shell. Mit `python -m pip` stellst du sicher, dass du das pip desselben Pythons nutzt wie diese App (unter Windows geht auch `py -m pip`):
+
+```
+python -m pip install requests
+python -m pip list
+python -m pip show requests
+python -m pip install --upgrade requests
+python -m pip uninstall requests
+```
+es: ## ¿Qué es pip?
+La biblioteca estándar es grande, pero miles de paquetes más (para análisis de datos, servidores web, juegos, aprendizaje automático) se publican en **PyPI**, el Python Package Index. **pip** es la herramienta que los descarga e instala.
+
+pip se ejecuta en la terminal del sistema (Símbolo del sistema o PowerShell en Windows, Terminal en macOS y Linux), no en el intérprete de Python. `python -m pip` asegura que usas el pip del mismo Python que esta aplicación (en Windows también funciona `py -m pip`):
+
+```
+python -m pip install requests
+python -m pip list
+python -m pip show requests
+python -m pip install --upgrade requests
+python -m pip uninstall requests
+```
+fr: ## Qu'est-ce que pip ?
+La bibliothèque standard est vaste, mais des milliers d'autres paquets – pour l'analyse de données, les serveurs web, les jeux, l'apprentissage automatique – sont publiés sur **PyPI**, le Python Package Index. **pip** est l'outil qui les télécharge et les installe.
+
+pip s'exécute dans le terminal de ton système (Invite de commandes ou PowerShell sous Windows, Terminal sous macOS et Linux) – pas dans l'interpréteur Python. `python -m pip` garantit que tu utilises le pip du même Python que cette application (sous Windows, `py -m pip` fonctionne aussi) :
+
+```
+python -m pip install requests
+python -m pip list
+python -m pip show requests
+python -m pip install --upgrade requests
+python -m pip uninstall requests
+```
+
+@md
+en: ## Using an installed package
+After installing, a package is imported like any module. The example below needs the `requests` package; if it is not installed, the terminal tells you which command installs it.
+pl: ## Korzystanie z zainstalowanego pakietu
+Po instalacji pakiet importuje się jak każdy moduł. Poniższy przykład wymaga pakietu `requests`; jeśli go nie ma, terminal podpowie, jakim poleceniem go zainstalować.
+de: ## Ein installiertes Paket verwenden
+Nach der Installation importierst du ein Paket wie jedes Modul. Das Beispiel unten braucht das Paket `requests`; ist es nicht installiert, sagt dir das Terminal, mit welchem Befehl du es installierst.
+es: ## Usar un paquete instalado
+Una vez instalado, un paquete se importa como cualquier módulo. El ejemplo de abajo necesita el paquete `requests`; si no está instalado, la terminal te dirá con qué comando instalarlo.
+fr: ## Utiliser un paquet installé
+Une fois installé, un paquet s'importe comme n'importe quel module. L'exemple ci-dessous a besoin du paquet `requests` ; s'il n'est pas installé, le terminal t'indique la commande qui l'installe.
+
+@code net needs=requests
+import requests
+
+response = requests.get('https://api.github.com')
+print(response.status_code)
+print(response.headers['content-type'])
+@end
+
+@md
+en: ## requirements.txt
+A project usually lists its packages in a file called `requirements.txt`, one per line, often with an exact version after `==`. `pip freeze` prints the installed packages in that format, and `pip install -r requirements.txt` installs everything in the file. Lines starting with `#` are comments.
+
+```
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+pl: ## requirements.txt
+Projekt zwykle wymienia swoje pakiety w pliku `requirements.txt`, po jednym w wierszu, często z dokładną wersją po `==`. `pip freeze` wypisuje zainstalowane pakiety w tym formacie, a `pip install -r requirements.txt` instaluje wszystko z pliku. Wiersze zaczynające się od `#` to komentarze.
+
+```
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+de: ## requirements.txt
+Ein Projekt listet seine Pakete meist in einer Datei namens `requirements.txt`, eins pro Zeile, oft mit genauer Version nach `==`. `pip freeze` gibt die installierten Pakete in diesem Format aus, und `pip install -r requirements.txt` installiert alles aus der Datei. Zeilen, die mit `#` beginnen, sind Kommentare.
+
+```
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+es: ## requirements.txt
+Un proyecto suele listar sus paquetes en un archivo llamado `requirements.txt`, uno por línea, a menudo con la versión exacta después de `==`. `pip freeze` imprime los paquetes instalados en ese formato, y `pip install -r requirements.txt` instala todo lo que hay en el archivo. Las líneas que empiezan por `#` son comentarios.
+
+```
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+fr: ## requirements.txt
+Un projet liste généralement ses paquets dans un fichier nommé `requirements.txt`, un par ligne, souvent avec la version exacte après `==`. `pip freeze` affiche les paquets installés dans ce format, et `pip install -r requirements.txt` installe tout le contenu du fichier. Les lignes qui commencent par `#` sont des commentaires.
+
+```
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+```
+
+@file requirements.txt
+# web
+Flask==3.1.0
+requests==2.32.3
+
+# data
+pandas==2.2.3
+numpy==2.1.3
+matplotlib
+@end
+
+@md
+en: ## Making your own package
+A **package** is a folder of modules with a file named `__init__.py` in it. The `__init__.py` runs when the package is imported and can be empty, or import the most useful names so users can reach them directly. Modules inside are imported with a dot: `from mypackage import arithmetics` or `import mypackage.greet`.
+
+This lesson's package `mypackage` has three files, shown below.
+pl: ## Własny pakiet
+**Pakiet** to folder z modułami, w którym jest plik o nazwie `__init__.py`. `__init__.py` wykonuje się przy imporcie pakietu i może być pusty albo importować najprzydatniejsze nazwy, żeby użytkownicy mieli do nich bezpośredni dostęp. Moduły w środku importuje się z kropką: `from mypackage import arithmetics` albo `import mypackage.greet`.
+
+Pakiet `mypackage` z tej lekcji ma trzy pliki, pokazane poniżej.
+de: ## Ein eigenes Paket bauen
+Ein **Paket** ist ein Ordner mit Modulen, in dem eine Datei namens `__init__.py` liegt. `__init__.py` läuft beim Import des Pakets und kann leer sein oder die nützlichsten Namen importieren, damit Nutzer sie direkt erreichen. Module darin importierst du mit einem Punkt: `from mypackage import arithmetics` oder `import mypackage.greet`.
+
+Das Paket `mypackage` dieser Lektion hat drei Dateien, die du unten siehst.
+es: ## Crear tu propio paquete
+Un **paquete** es una carpeta de módulos que contiene un archivo llamado `__init__.py`. `__init__.py` se ejecuta al importar el paquete y puede estar vacío o importar los nombres más útiles para que se pueda llegar a ellos directamente. Los módulos de dentro se importan con un punto: `from mypackage import arithmetics` o `import mypackage.greet`.
+
+El paquete `mypackage` de esta lección tiene tres archivos, que ves abajo.
+fr: ## Créer ton propre paquet
+Un **paquet** est un dossier de modules qui contient un fichier nommé `__init__.py`. Ce `__init__.py` s'exécute à l'import du paquet et peut être vide, ou importer les noms les plus utiles pour qu'on y accède directement. Les modules qu'il contient s'importent avec un point : `from mypackage import arithmetics` ou `import mypackage.greet`.
+
+Le paquet `mypackage` de cette leçon contient trois fichiers, affichés ci-dessous.
+
+@file mypackage/__init__.py
+from .greet import greet_person
+
+__version__ = '1.0.0'
+@end
+
+@file mypackage/arithmetics.py
+def add_numbers(*args):
+    total = 0
+    for num in args:
+        total += num
+    return total
+
+
+def subtract(a, b):
+    return a - b
+
+
+def multiple(a, b):
+    return a * b
+
+
+def division(a, b):
+    return a / b
+
+
+def power(a, b):
+    return a ** b
+@end
+
+@file mypackage/greet.py
+def greet_person(firstname, lastname):
+    return f'{firstname} {lastname}, welcome to 30 Days Of Python Challenge!'
+@end
+
+@code
+from mypackage import arithmetics, greet_person
+import mypackage
+
+print(arithmetics.add_numbers(1, 2, 3, 5))
+print(arithmetics.power(2, 10))
+print(greet_person('Ada', 'Lovelace'))
+print(mypackage.__version__)
+@end
+
+@exercise use-package
+@title
+en: Use the package
+pl: Użyj pakietu
+de: Das Paket nutzen
+es: Usa el paquete
+fr: Utilise le paquet
+@text
+en: Import `arithmetics` from `mypackage` and store: `total` – the sum of 5, 10 and 15 with `add_numbers`, `big` – 3 to the power of 4 with `power`, and `welcome` – the greeting for `'Anna', 'Nowak'` with `greet_person`.
+pl: Zaimportuj `arithmetics` z `mypackage` i zapisz: `total` – sumę 5, 10 i 15 przez `add_numbers`, `big` – 3 do potęgi 4 przez `power` oraz `welcome` – powitanie dla `'Anna', 'Nowak'` przez `greet_person`.
+de: Importiere `arithmetics` aus `mypackage` und speichere: `total` – die Summe von 5, 10 und 15 mit `add_numbers`, `big` – 3 hoch 4 mit `power`, und `welcome` – die Begrüßung für `'Anna', 'Nowak'` mit `greet_person`.
+es: Importa `arithmetics` de `mypackage` y guarda: `total`, la suma de 5, 10 y 15 con `add_numbers`; `big`, 3 elevado a 4 con `power`, y `welcome`, el saludo para `'Anna', 'Nowak'` con `greet_person`.
+fr: Importe `arithmetics` depuis `mypackage` et range : `total` – la somme de 5, 10 et 15 avec `add_numbers`, `big` – 3 puissance 4 avec `power`, et `welcome` – le message d'accueil pour `'Anna', 'Nowak'` avec `greet_person`.
+@hint
+en: `from mypackage import arithmetics, greet_person`
+pl: `from mypackage import arithmetics, greet_person`
+de: `from mypackage import arithmetics, greet_person`
+es: `from mypackage import arithmetics, greet_person`
+fr: `from mypackage import arithmetics, greet_person`
+@starter
+# from mypackage import ...
+@end
+@solution
+from mypackage import arithmetics, greet_person
+
+total = arithmetics.add_numbers(5, 10, 15)
+big = arithmetics.power(3, 4)
+welcome = greet_person('Anna', 'Nowak')
+print(total, big, welcome)
+@end
+@case
+expr: total == 30
+expr: big == 81
+expr: welcome == 'Anna Nowak, welcome to 30 Days Of Python Challenge!'
+
+@exercise requirements
+@title
+en: Read requirements.txt
+pl: Odczytaj requirements.txt
+de: requirements.txt lesen
+es: Leer requirements.txt
+fr: Lire requirements.txt
+@text
+en: Write `parse_requirements(text)` that turns the text of a requirements file into a dictionary from package name (in lower case) to version. A line like `numpy==2.1.3` gives `'numpy': '2.1.3'`; a name without a version gives `None`. Skip empty lines and comments. Then store the result for the file `requirements.txt` in `packages`.
+pl: Napisz `parse_requirements(text)`, która zamienia tekst pliku requirements na słownik z nazwy pakietu (małymi literami) na wersję. Wiersz w rodzaju `numpy==2.1.3` daje `'numpy': '2.1.3'`; nazwa bez wersji daje `None`. Pomijaj puste wiersze i komentarze. Potem zapisz wynik dla pliku `requirements.txt` w `packages`.
+de: Schreib `parse_requirements(text)`, die den Text einer Requirements-Datei in ein Dictionary vom Paketnamen (kleingeschrieben) zur Version umwandelt. Eine Zeile wie `numpy==2.1.3` ergibt `'numpy': '2.1.3'`; ein Name ohne Version ergibt `None`. Überspring leere Zeilen und Kommentare. Speichere dann das Ergebnis für die Datei `requirements.txt` in `packages`.
+es: Escribe `parse_requirements(text)`, que convierte el texto de un archivo requirements en un diccionario del nombre del paquete (en minúsculas) a su versión. Una línea como `numpy==2.1.3` da `'numpy': '2.1.3'`; un nombre sin versión da `None`. Sáltate las líneas vacías y los comentarios. Después guarda en `packages` el resultado para el archivo `requirements.txt`.
+fr: Écris `parse_requirements(text)` qui transforme le texte d'un fichier requirements en un dictionnaire associant le nom du paquet (en minuscules) à sa version. Une ligne comme `numpy==2.1.3` donne `'numpy': '2.1.3'` ; un nom sans version donne `None`. Ignore les lignes vides et les commentaires. Range ensuite dans `packages` le résultat pour le fichier `requirements.txt`.
+@hint
+en: For each `line.strip()`: skip it if it is empty or `startswith('#')`; if `'==' in line`, use `line.split('==')`.
+pl: Dla każdego `line.strip()`: pomiń go, jeśli jest pusty albo `startswith('#')`; jeśli `'==' in line`, użyj `line.split('==')`.
+de: Für jedes `line.strip()`: überspringen, wenn leer oder `startswith('#')`; wenn `'==' in line`, nimm `line.split('==')`.
+es: Para cada `line.strip()`: sáltala si está vacía o `startswith('#')`; si `'==' in line`, usa `line.split('==')`.
+fr: Pour chaque `line.strip()` : ignore-la si elle est vide ou `startswith('#')` ; si `'==' in line`, utilise `line.split('==')`.
+@starter
+def parse_requirements(text):
+    pass
+@end
+@solution
+def parse_requirements(text):
+    result = {}
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        if '==' in line:
+            name, version = line.split('==', 1)
+            result[name.strip().lower()] = version.strip()
+        else:
+            result[line.lower()] = None
+    return result
+
+
+with open('requirements.txt', encoding='utf-8') as f:
+    packages = parse_requirements(f.read())
+print(packages)
+@end
+@case
+expr: packages == {'flask': '3.1.0', 'requests': '2.32.3', 'pandas': '2.2.3', 'numpy': '2.1.3', 'matplotlib': None}
+expr: parse_requirements('# nothing\n\nRich==13.9.4\n') == {'rich': '13.9.4'}
+
+@exercise installed
+@title
+en: Is it installed?
+pl: Czy jest zainstalowany?
+de: Ist es installiert?
+es: ¿Está instalado?
+fr: Est-il installé ?
+@text
+en: Write `is_installed(name)` that returns `True` if a module or package with that name can be imported, and `False` otherwise – without actually importing it. Use `importlib.util.find_spec`, which returns `None` for a missing module.
+pl: Napisz `is_installed(name)`, która zwraca `True`, jeśli moduł albo pakiet o tej nazwie da się zaimportować, a w przeciwnym razie `False` – bez faktycznego importowania. Użyj `importlib.util.find_spec`, które dla brakującego modułu zwraca `None`.
+de: Schreib `is_installed(name)`, die `True` zurückgibt, wenn sich ein Modul oder Paket mit diesem Namen importieren lässt, sonst `False` – ohne es wirklich zu importieren. Nimm `importlib.util.find_spec`, das für ein fehlendes Modul `None` liefert.
+es: Escribe `is_installed(name)`, que devuelve `True` si se puede importar un módulo o paquete con ese nombre y `False` si no, sin llegar a importarlo. Usa `importlib.util.find_spec`, que devuelve `None` si el módulo no existe.
+fr: Écris `is_installed(name)` qui renvoie `True` si un module ou un paquet de ce nom peut être importé, et `False` sinon – sans l'importer vraiment. Utilise `importlib.util.find_spec`, qui renvoie `None` pour un module absent.
+@hint
+en: `import importlib.util`, then `return importlib.util.find_spec(name) is not None`.
+pl: `import importlib.util`, potem `return importlib.util.find_spec(name) is not None`.
+de: `import importlib.util`, dann `return importlib.util.find_spec(name) is not None`.
+es: `import importlib.util` y después `return importlib.util.find_spec(name) is not None`.
+fr: `import importlib.util`, puis `return importlib.util.find_spec(name) is not None`.
+@starter
+import importlib.util
+
+
+def is_installed(name):
+    pass
+@end
+@solution
+import importlib.util
+
+
+def is_installed(name):
+    return importlib.util.find_spec(name) is not None
+
+
+for name in ['json', 'mypackage', 'requests', 'pandas']:
+    print(name, is_installed(name))
+@end
+@case
+expr: is_installed('json') is True and is_installed('mypackage') is True
+expr: is_installed('surely_no_such_module_xyz') is False
+
+@exercise versions
+@title
+en: Comparing versions
+pl: Porównywanie wersji
+de: Versionen vergleichen
+es: Comparar versiones
+fr: Comparer des versions
+@text
+en: Version numbers cannot be compared as text: `'1.10.0' < '1.9.2'` is `True`, which is wrong. Write `version_tuple(v)` that turns `'1.10.0'` into `(1, 10, 0)`, and `is_newer(a, b)` that returns `True` if version `a` is newer than `b`.
+pl: Numerów wersji nie można porównywać jak tekstu: `'1.10.0' < '1.9.2'` daje `True`, co jest błędne. Napisz `version_tuple(v)`, która zamienia `'1.10.0'` na `(1, 10, 0)`, oraz `is_newer(a, b)`, która zwraca `True`, jeśli wersja `a` jest nowsza od `b`.
+de: Versionsnummern lassen sich nicht als Text vergleichen: `'1.10.0' < '1.9.2'` ist `True`, was falsch ist. Schreib `version_tuple(v)`, die `'1.10.0'` in `(1, 10, 0)` umwandelt, und `is_newer(a, b)`, die `True` zurückgibt, wenn Version `a` neuer als `b` ist.
+es: Los números de versión no se pueden comparar como texto: `'1.10.0' < '1.9.2'` da `True`, lo cual es falso. Escribe `version_tuple(v)`, que convierte `'1.10.0'` en `(1, 10, 0)`, e `is_newer(a, b)`, que devuelve `True` si la versión `a` es más nueva que `b`.
+fr: On ne peut pas comparer des numéros de version comme du texte : `'1.10.0' < '1.9.2'` vaut `True`, ce qui est faux. Écris `version_tuple(v)` qui transforme `'1.10.0'` en `(1, 10, 0)`, et `is_newer(a, b)` qui renvoie `True` si la version `a` est plus récente que `b`.
+@hint
+en: `tuple(int(part) for part in v.split('.'))` – tuples are compared item by item.
+pl: `tuple(int(part) for part in v.split('.'))` – krotki porównuje się element po elemencie.
+de: `tuple(int(part) for part in v.split('.'))` – Tupel werden Element für Element verglichen.
+es: `tuple(int(part) for part in v.split('.'))`; las tuplas se comparan elemento a elemento.
+fr: `tuple(int(part) for part in v.split('.'))` – les tuples se comparent élément par élément.
+@starter
+def version_tuple(v):
+    pass
+
+
+def is_newer(a, b):
+    return a > b
+@end
+@solution
+def version_tuple(v):
+    return tuple(int(part) for part in v.split('.'))
+
+
+def is_newer(a, b):
+    return version_tuple(a) > version_tuple(b)
+
+
+print(is_newer('1.10.0', '1.9.2'))
+@end
+@case
+expr: version_tuple('1.10.0') == (1, 10, 0)
+expr: version_tuple('3.14') == (3, 14)
+expr: is_newer('1.10.0', '1.9.2') is True
+expr: is_newer('2.0.0', '2.0.0') is False
+expr: is_newer('0.9', '1.0') is False
