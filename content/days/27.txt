@@ -1,0 +1,409 @@
+@day 27
+@source 27_Day_Python_with_mongodb/27_python_with_mongodb.md
+
+@title
+en: Python with MongoDB
+pl: Python i MongoDB
+de: Python mit MongoDB
+es: Python con MongoDB
+fr: Python avec MongoDB
+
+@summary
+en: Learn how document databases store data, run the basic MongoDB operations with pymongo, and build a small in-memory collection that answers the same queries.
+pl: Dowiedz się, jak dokumentowe bazy danych przechowują dane, wykonuj podstawowe operacje MongoDB przez pymongo i zbuduj małą kolekcję w pamięci, która odpowiada na te same zapytania.
+de: Lernen, wie Dokumentdatenbanken Daten speichern, die grundlegenden MongoDB-Operationen mit pymongo ausführen und eine kleine Sammlung im Speicher bauen, die dieselben Abfragen beantwortet.
+es: Aprende cómo guardan los datos las bases de datos de documentos, ejecuta las operaciones básicas de MongoDB con pymongo y construye una pequeña colección en memoria que responde a las mismas consultas.
+fr: Découvre comment les bases de données orientées documents stockent les données, exécute les opérations de base de MongoDB avec pymongo et construis une petite collection en mémoire qui répond aux mêmes requêtes.
+
+@md
+en: ## SQL and NoSQL
+A **database** keeps data safe between runs of a program and lets many programs share it. **SQL** databases (PostgreSQL, MySQL, SQLite) store tables with fixed columns. **NoSQL** databases store data in other shapes; **MongoDB** stores **documents** – records that look just like Python dictionaries, with nested lists and dictionaries allowed. Documents are grouped in **collections**, and collections in a database.
+
+| SQL | MongoDB |
+|---|---|
+| database | database |
+| table | collection |
+| row | document |
+| column | field |
+pl: ## SQL i NoSQL
+**Baza danych** przechowuje dane między uruchomieniami programu i pozwala wielu programom z nich korzystać. Bazy **SQL** (PostgreSQL, MySQL, SQLite) przechowują tabele o stałych kolumnach. Bazy **NoSQL** przechowują dane w innych kształtach; **MongoDB** przechowuje **dokumenty** – rekordy wyglądające jak słowniki Pythona, w których mogą być zagnieżdżone listy i słowniki. Dokumenty są zgrupowane w **kolekcje**, a kolekcje w bazę danych.
+
+| SQL | MongoDB |
+|---|---|
+| baza danych | baza danych |
+| tabela | kolekcja |
+| wiersz | dokument |
+| kolumna | pole |
+de: ## SQL und NoSQL
+Eine **Datenbank** bewahrt Daten zwischen Programmläufen auf und lässt viele Programme sie gemeinsam nutzen. **SQL**-Datenbanken (PostgreSQL, MySQL, SQLite) speichern Tabellen mit festen Spalten. **NoSQL**-Datenbanken speichern Daten in anderen Formen; **MongoDB** speichert **Dokumente** – Datensätze, die genau wie Python-Dictionaries aussehen, auch mit verschachtelten Listen und Dictionaries. Dokumente sind in **Collections** gruppiert, Collections in einer Datenbank.
+
+| SQL | MongoDB |
+|---|---|
+| Datenbank | Datenbank |
+| Tabelle | Collection |
+| Zeile | Dokument |
+| Spalte | Feld |
+es: ## SQL y NoSQL
+Una **base de datos** guarda los datos entre ejecuciones de un programa y permite que muchos programas los compartan. Las bases de datos **SQL** (PostgreSQL, MySQL, SQLite) guardan tablas con columnas fijas. Las **NoSQL** guardan los datos de otras formas; **MongoDB** guarda **documentos**, registros que parecen diccionarios de Python y admiten listas y diccionarios anidados. Los documentos se agrupan en **colecciones**, y las colecciones en una base de datos.
+
+| SQL | MongoDB |
+|---|---|
+| base de datos | base de datos |
+| tabla | colección |
+| fila | documento |
+| columna | campo |
+fr: ## SQL et NoSQL
+Une **base de données** conserve les données entre deux exécutions d'un programme et permet à plusieurs programmes de les partager. Les bases **SQL** (PostgreSQL, MySQL, SQLite) stockent des tables aux colonnes fixes. Les bases **NoSQL** stockent les données sous d'autres formes ; **MongoDB** stocke des **documents** – des enregistrements qui ressemblent à des dictionnaires Python, avec listes et dictionnaires imbriqués autorisés. Les documents sont regroupés en **collections**, et les collections dans une base de données.
+
+| SQL | MongoDB |
+|---|---|
+| base de données | base de données |
+| table | collection |
+| ligne | document |
+| colonne | champ |
+
+@md
+en: ## Connecting with pymongo
+You need a MongoDB server – installed locally or a free cloud database on MongoDB Atlas – and the driver: `python -m pip install pymongo`. A **connection string** tells pymongo where the server is. Keep it out of your code if it contains a password – read it from an environment variable instead. These examples need a running server, so they are not run from the lesson.
+pl: ## Łączenie przez pymongo
+Potrzebujesz serwera MongoDB – zainstalowanego lokalnie albo darmowej bazy w chmurze MongoDB Atlas – i sterownika: `python -m pip install pymongo`. **Connection string** mówi pymongo, gdzie jest serwer. Jeśli zawiera hasło, nie trzymaj go w kodzie – odczytuj go ze zmiennej środowiskowej. Te przykłady wymagają działającego serwera, więc nie uruchamia się ich z lekcji.
+de: ## Verbinden mit pymongo
+Du brauchst einen MongoDB-Server – lokal installiert oder eine kostenlose Cloud-Datenbank bei MongoDB Atlas – und den Treiber: `python -m pip install pymongo`. Ein **Connection String** sagt pymongo, wo der Server ist. Enthält er ein Passwort, gehört er nicht in den Code – lies ihn stattdessen aus einer Umgebungsvariable. Diese Beispiele brauchen einen laufenden Server und werden deshalb nicht aus der Lektion gestartet.
+es: ## Conectar con pymongo
+Necesitas un servidor MongoDB (instalado en tu equipo o una base de datos gratuita en la nube de MongoDB Atlas) y el controlador: `python -m pip install pymongo`. Una **cadena de conexión** indica a pymongo dónde está el servidor. Si contiene una contraseña, no la pongas en el código: léela de una variable de entorno. Estos ejemplos necesitan un servidor en marcha, así que no se ejecutan desde la lección.
+fr: ## Se connecter avec pymongo
+Il te faut un serveur MongoDB – installé en local ou une base gratuite dans le cloud MongoDB Atlas – et le pilote : `python -m pip install pymongo`. Une **chaîne de connexion** indique à pymongo où se trouve le serveur. Si elle contient un mot de passe, ne la mets pas dans le code – lis-la plutôt depuis une variable d'environnement. Ces exemples ont besoin d'un serveur en marche, ils ne se lancent donc pas depuis la leçon.
+
+@code norun needs=pymongo
+import os
+from pymongo import MongoClient
+
+client = MongoClient(os.environ.get('MONGODB_URI', 'mongodb://localhost:27017'))
+db = client['thirty_days_of_python']
+students = db['students']
+
+students.insert_one({'name': 'Asabeneh', 'country': 'Finland', 'city': 'Helsinki', 'age': 250})
+students.insert_many([
+    {'name': 'David', 'country': 'UK', 'city': 'London', 'age': 34},
+    {'name': 'Sami', 'country': 'Finland', 'city': 'Helsinki', 'age': 25},
+])
+print(client.list_database_names())
+@end
+
+@md
+en: ## Finding, updating and deleting
+`find_one(query)` returns the first matching document and `find(query)` all of them. A **query** is a dictionary: `{'country': 'Finland'}` matches documents whose `country` is Finland. Operators start with `$`: `{'age': {'$gt': 30}}` means age greater than 30; others are `$lt`, `$gte`, `$lte`, `$ne` and `$in`. `update_one(query, {'$set': {...}})` changes fields, and `delete_one` and `delete_many` remove documents. Every document gets a unique `_id`.
+pl: ## Wyszukiwanie, aktualizacja i usuwanie
+`find_one(query)` zwraca pierwszy pasujący dokument, a `find(query)` wszystkie. **Zapytanie** to słownik: `{'country': 'Finland'}` pasuje do dokumentów, których `country` to Finland. Operatory zaczynają się od `$`: `{'age': {'$gt': 30}}` znaczy wiek większy niż 30; inne to `$lt`, `$gte`, `$lte`, `$ne` i `$in`. `update_one(query, {'$set': {...}})` zmienia pola, a `delete_one` i `delete_many` usuwają dokumenty. Każdy dokument dostaje unikalne `_id`.
+de: ## Finden, aktualisieren und löschen
+`find_one(query)` liefert das erste passende Dokument, `find(query)` alle. Eine **Abfrage** ist ein Dictionary: `{'country': 'Finland'}` passt auf Dokumente, deren `country` Finland ist. Operatoren beginnen mit `$`: `{'age': {'$gt': 30}}` heißt Alter größer als 30; weitere sind `$lt`, `$gte`, `$lte`, `$ne` und `$in`. `update_one(query, {'$set': {...}})` ändert Felder, `delete_one` und `delete_many` entfernen Dokumente. Jedes Dokument bekommt eine eindeutige `_id`.
+es: ## Buscar, actualizar y borrar
+`find_one(query)` devuelve el primer documento que coincide y `find(query)` todos. Una **consulta** es un diccionario: `{'country': 'Finland'}` coincide con los documentos cuyo `country` es Finland. Los operadores empiezan por `$`: `{'age': {'$gt': 30}}` significa edad mayor que 30; otros son `$lt`, `$gte`, `$lte`, `$ne` e `$in`. `update_one(query, {'$set': {...}})` cambia campos, y `delete_one` y `delete_many` borran documentos. Cada documento recibe un `_id` único.
+fr: ## Chercher, mettre à jour et supprimer
+`find_one(query)` renvoie le premier document correspondant et `find(query)` tous. Une **requête** est un dictionnaire : `{'country': 'Finland'}` correspond aux documents dont le `country` est Finland. Les opérateurs commencent par `$` : `{'age': {'$gt': 30}}` signifie âge supérieur à 30 ; il y a aussi `$lt`, `$gte`, `$lte`, `$ne` et `$in`. `update_one(query, {'$set': {...}})` modifie des champs, et `delete_one` et `delete_many` suppriment des documents. Chaque document reçoit un `_id` unique.
+
+@code norun needs=pymongo
+from pymongo import MongoClient
+
+students = MongoClient('mongodb://localhost:27017')['thirty_days_of_python']['students']
+
+print(students.find_one({'name': 'David'}))
+for s in students.find({'country': 'Finland'}):
+    print(s['name'], s['age'])
+for s in students.find({'age': {'$gt': 30}}).sort('age'):
+    print(s['name'])
+students.update_one({'name': 'Sami'}, {'$set': {'age': 26}})
+students.delete_many({'city': 'London'})
+print(students.count_documents({}))
+@end
+
+@md
+en: ## A collection in memory
+The exercises build a tiny version of a MongoDB collection in plain Python: documents are dictionaries in a list, and a query is checked field by field. Writing it yourself shows what the database does with your queries.
+pl: ## Kolekcja w pamięci
+Ćwiczenia budują malutką wersję kolekcji MongoDB w czystym Pythonie: dokumenty to słowniki na liście, a zapytanie sprawdza się pole po polu. Pisząc to samodzielnie, zobaczysz, co baza danych robi z twoimi zapytaniami.
+de: ## Eine Collection im Speicher
+Die Übungen bauen eine winzige Version einer MongoDB-Collection in reinem Python: Dokumente sind Dictionaries in einer Liste, und eine Abfrage wird Feld für Feld geprüft. Wenn du das selbst schreibst, siehst du, was die Datenbank mit deinen Abfragen macht.
+es: ## Una colección en memoria
+Los ejercicios construyen una versión diminuta de una colección de MongoDB en Python puro: los documentos son diccionarios en una lista y una consulta se comprueba campo a campo. Escribirlo tú mismo te muestra lo que hace la base de datos con tus consultas.
+fr: ## Une collection en mémoire
+Les exercices construisent une toute petite version d'une collection MongoDB en Python pur : les documents sont des dictionnaires dans une liste, et une requête est vérifiée champ par champ. L'écrire toi-même te montre ce que la base de données fait de tes requêtes.
+
+@code
+students = [
+    {'name': 'Asabeneh', 'country': 'Finland', 'age': 250},
+    {'name': 'David', 'country': 'UK', 'age': 34},
+    {'name': 'Sami', 'country': 'Finland', 'age': 25},
+]
+
+def matches(doc, query):
+    return all(doc.get(field) == value for field, value in query.items())
+
+print([s['name'] for s in students if matches(s, {'country': 'Finland'})])
+print([s['name'] for s in students if matches(s, {'country': 'Finland', 'age': 25})])
+@end
+
+@exercise matches
+@title
+en: Query operators
+pl: Operatory zapytań
+de: Abfrageoperatoren
+es: Operadores de consulta
+fr: Opérateurs de requête
+@text
+en: Write `matches(doc, query)` that returns `True` when the document fits the query. A plain value must be equal; a dictionary of operators applies each of them: `$gt`, `$gte`, `$lt`, `$lte`, `$ne` and `$in` (the value is one of a list). A field missing from the document never matches an operator, except `$ne`.
+pl: Napisz `matches(doc, query)`, która zwraca `True`, gdy dokument pasuje do zapytania. Zwykła wartość musi być równa; słownik operatorów stosuje każdy z nich: `$gt`, `$gte`, `$lt`, `$lte`, `$ne` i `$in` (wartość jest jedną z listy). Pole, którego nie ma w dokumencie, nigdy nie pasuje do operatora, z wyjątkiem `$ne`.
+de: Schreib `matches(doc, query)`, die `True` zurückgibt, wenn das Dokument zur Abfrage passt. Ein einfacher Wert muss gleich sein; ein Dictionary von Operatoren wendet jeden davon an: `$gt`, `$gte`, `$lt`, `$lte`, `$ne` und `$in` (der Wert ist einer aus einer Liste). Ein Feld, das im Dokument fehlt, passt nie auf einen Operator, außer `$ne`.
+es: Escribe `matches(doc, query)`, que devuelve `True` cuando el documento encaja con la consulta. Un valor simple debe ser igual; un diccionario de operadores aplica cada uno: `$gt`, `$gte`, `$lt`, `$lte`, `$ne` e `$in` (el valor es uno de una lista). Un campo que no está en el documento nunca encaja con un operador, salvo `$ne`.
+fr: Écris `matches(doc, query)` qui renvoie `True` quand le document correspond à la requête. Une valeur simple doit être égale ; un dictionnaire d'opérateurs applique chacun d'eux : `$gt`, `$gte`, `$lt`, `$lte`, `$ne` et `$in` (la valeur fait partie d'une liste). Un champ absent du document ne correspond jamais à un opérateur, sauf `$ne`.
+@hint
+en: A dictionary from operator names to small functions keeps it short: `OPS = {'$gt': lambda a, b: a > b, ...}`. Check `isinstance(condition, dict)` to tell operators from plain values.
+pl: Słownik z nazw operatorów na małe funkcje skraca kod: `OPS = {'$gt': lambda a, b: a > b, ...}`. Sprawdź `isinstance(condition, dict)`, żeby odróżnić operatory od zwykłych wartości.
+de: Ein Dictionary von Operatornamen zu kleinen Funktionen hält es kurz: `OPS = {'$gt': lambda a, b: a > b, ...}`. Prüf `isinstance(condition, dict)`, um Operatoren von einfachen Werten zu unterscheiden.
+es: Un diccionario de nombres de operador a funciones pequeñas lo deja corto: `OPS = {'$gt': lambda a, b: a > b, ...}`. Comprueba `isinstance(condition, dict)` para distinguir los operadores de los valores simples.
+fr: Un dictionnaire associant les noms d'opérateurs à de petites fonctions garde le code court : `OPS = {'$gt': lambda a, b: a > b, ...}`. Vérifie `isinstance(condition, dict)` pour distinguer les opérateurs des valeurs simples.
+@starter
+def matches(doc, query):
+    return all(doc.get(field) == value for field, value in query.items())
+@end
+@solution
+OPS = {
+    '$gt': lambda a, b: a > b,
+    '$gte': lambda a, b: a >= b,
+    '$lt': lambda a, b: a < b,
+    '$lte': lambda a, b: a <= b,
+    '$ne': lambda a, b: a != b,
+    '$in': lambda a, b: a in b,
+}
+
+
+def matches(doc, query):
+    for field, condition in query.items():
+        if isinstance(condition, dict):
+            for op, arg in condition.items():
+                if field not in doc:
+                    if op != '$ne':
+                        return False
+                    continue
+                if not OPS[op](doc[field], arg):
+                    return False
+        elif doc.get(field) != condition:
+            return False
+    return True
+
+
+print(matches({'name': 'Sami', 'age': 25}, {'age': {'$gt': 20, '$lt': 30}}))
+@end
+@case
+expr: matches({'name': 'Sami', 'age': 25}, {'name': 'Sami'}) and not matches({'name': 'Sami'}, {'name': 'David'})
+expr: matches({'age': 25}, {'age': {'$gt': 20, '$lt': 30}}) and not matches({'age': 35}, {'age': {'$gt': 20, '$lt': 30}})
+expr: matches({'age': 30}, {'age': {'$gte': 30}}) and matches({'age': 30}, {'age': {'$lte': 30}})
+expr: matches({'city': 'Oslo'}, {'city': {'$in': ['Oslo', 'Bergen']}}) and not matches({'city': 'Rome'}, {'city': {'$in': ['Oslo']}})
+expr: matches({'a': 1}, {'b': {'$ne': 5}}) and not matches({'a': 1}, {'b': {'$gt': 0}})
+expr: matches({'a': 1}, {})
+
+@exercise collection
+@title
+en: Insert and find
+pl: Wstawianie i wyszukiwanie
+de: Einfügen und finden
+es: Insertar y buscar
+fr: Insérer et chercher
+@text
+en: Complete the class `Collection`. `insert_one(doc)` stores a **copy** of the document with a new `_id` – 1 for the first document, 2 for the second, and so on – and returns that `_id`. `find(query={})` returns the list of matching documents, `find_one(query={})` the first one or `None`, and `count(query={})` how many match. `matches` from the previous exercise is given.
+pl: Dokończ klasę `Collection`. `insert_one(doc)` zapisuje **kopię** dokumentu z nowym `_id` – 1 dla pierwszego dokumentu, 2 dla drugiego i tak dalej – i zwraca to `_id`. `find(query={})` zwraca listę pasujących dokumentów, `find_one(query={})` pierwszy z nich albo `None`, a `count(query={})` – ile pasuje. `matches` z poprzedniego ćwiczenia jest gotowa.
+de: Vervollständige die Klasse `Collection`. `insert_one(doc)` speichert eine **Kopie** des Dokuments mit einer neuen `_id` – 1 für das erste Dokument, 2 für das zweite und so weiter – und gibt diese `_id` zurück. `find(query={})` liefert die Liste der passenden Dokumente, `find_one(query={})` das erste oder `None` und `count(query={})`, wie viele passen. `matches` aus der vorigen Übung ist vorgegeben.
+es: Completa la clase `Collection`. `insert_one(doc)` guarda una **copia** del documento con un `_id` nuevo (1 para el primero, 2 para el segundo, etc.) y devuelve ese `_id`. `find(query={})` devuelve la lista de documentos que coinciden, `find_one(query={})` el primero o `None`, y `count(query={})` cuántos coinciden. `matches`, del ejercicio anterior, ya está hecha.
+fr: Complète la classe `Collection`. `insert_one(doc)` range une **copie** du document avec un nouvel `_id` – 1 pour le premier document, 2 pour le deuxième, et ainsi de suite – et renvoie cet `_id`. `find(query={})` renvoie la liste des documents correspondants, `find_one(query={})` le premier ou `None`, et `count(query={})` le nombre de correspondances. `matches` de l'exercice précédent est fournie.
+@hint
+en: `stored = {**doc, '_id': self.next_id}` makes the copy. In `find`, use a comprehension with `matches`.
+pl: `stored = {**doc, '_id': self.next_id}` tworzy kopię. W `find` użyj wyrażenia listowego z `matches`.
+de: `stored = {**doc, '_id': self.next_id}` erzeugt die Kopie. Nimm in `find` eine Comprehension mit `matches`.
+es: `stored = {**doc, '_id': self.next_id}` crea la copia. En `find`, usa una comprensión con `matches`.
+fr: `stored = {**doc, '_id': self.next_id}` fait la copie. Dans `find`, utilise une compréhension avec `matches`.
+@starter
+OPS = {
+    '$gt': lambda a, b: a > b,
+    '$gte': lambda a, b: a >= b,
+    '$lt': lambda a, b: a < b,
+    '$lte': lambda a, b: a <= b,
+    '$ne': lambda a, b: a != b,
+    '$in': lambda a, b: a in b,
+}
+
+
+def matches(doc, query):
+    for field, condition in query.items():
+        if isinstance(condition, dict):
+            for op, arg in condition.items():
+                if field not in doc:
+                    if op != '$ne':
+                        return False
+                    continue
+                if not OPS[op](doc[field], arg):
+                    return False
+        elif doc.get(field) != condition:
+            return False
+    return True
+
+
+class Collection:
+    def __init__(self):
+        self.docs = []
+        self.next_id = 1
+
+    def insert_one(self, doc):
+        pass
+
+    def find(self, query={}):
+        pass
+
+    def find_one(self, query={}):
+        pass
+
+    def count(self, query={}):
+        pass
+@end
+@solution
+OPS = {
+    '$gt': lambda a, b: a > b,
+    '$gte': lambda a, b: a >= b,
+    '$lt': lambda a, b: a < b,
+    '$lte': lambda a, b: a <= b,
+    '$ne': lambda a, b: a != b,
+    '$in': lambda a, b: a in b,
+}
+
+
+def matches(doc, query):
+    for field, condition in query.items():
+        if isinstance(condition, dict):
+            for op, arg in condition.items():
+                if field not in doc:
+                    if op != '$ne':
+                        return False
+                    continue
+                if not OPS[op](doc[field], arg):
+                    return False
+        elif doc.get(field) != condition:
+            return False
+    return True
+
+
+class Collection:
+    def __init__(self):
+        self.docs = []
+        self.next_id = 1
+
+    def insert_one(self, doc):
+        stored = {**doc, '_id': self.next_id}
+        self.next_id += 1
+        self.docs.append(stored)
+        return stored['_id']
+
+    def find(self, query={}):
+        return [d for d in self.docs if matches(d, query)]
+
+    def find_one(self, query={}):
+        found = self.find(query)
+        return found[0] if found else None
+
+    def count(self, query={}):
+        return len(self.find(query))
+
+
+students = Collection()
+students.insert_one({'name': 'Asabeneh', 'country': 'Finland', 'age': 250})
+students.insert_one({'name': 'David', 'country': 'UK', 'age': 34})
+print(students.find({'age': {'$gt': 30}}))
+@end
+@case
+expr: (lambda c: [c.insert_one({'name': 'A'}), c.insert_one({'name': 'B'})])(Collection()) == [1, 2]
+expr: (lambda c, d: [c.insert_one(d), d][-1])(Collection(), {'name': 'A'}) == {'name': 'A'}
+expr: (lambda c: [c.insert_one({'name': 'A', 'age': 20}), c.insert_one({'name': 'B', 'age': 40}), c.insert_one({'name': 'C', 'age': 60}), ([x['name'] for x in c.find({'age': {'$gt': 30}})], c.count(), c.count({'age': {'$lt': 50}}), c.find_one({'name': 'C'})['_id'], c.find_one({'name': 'Z'}))][-1])(Collection()) == (['B', 'C'], 3, 2, 3, None)
+
+@exercise update-delete
+@title
+en: Update and delete
+pl: Aktualizacja i usuwanie
+de: Aktualisieren und löschen
+es: Actualizar y borrar
+fr: Mettre à jour et supprimer
+@text
+en: Add two methods to `Collection`. `update_one(query, update)` finds the first matching document and applies `update['$set']` – a dictionary of fields to set – and returns `1` if a document was changed, `0` if none matched. `delete_many(query)` removes every matching document and returns how many it removed.
+pl: Dodaj do `Collection` dwie metody. `update_one(query, update)` znajduje pierwszy pasujący dokument, stosuje `update['$set']` – słownik pól do ustawienia – i zwraca `1`, jeśli dokument został zmieniony, albo `0`, jeśli nic nie pasowało. `delete_many(query)` usuwa każdy pasujący dokument i zwraca, ile usunęła.
+de: Ergänze `Collection` um zwei Methoden. `update_one(query, update)` findet das erste passende Dokument, wendet `update['$set']` an – ein Dictionary der zu setzenden Felder – und gibt `1` zurück, wenn ein Dokument geändert wurde, `0`, wenn keins passte. `delete_many(query)` entfernt alle passenden Dokumente und gibt zurück, wie viele es entfernt hat.
+es: Añade dos métodos a `Collection`. `update_one(query, update)` busca el primer documento que coincide, aplica `update['$set']` (un diccionario con los campos que hay que poner) y devuelve `1` si se cambió un documento o `0` si no coincidió ninguno. `delete_many(query)` borra todos los documentos que coinciden y devuelve cuántos borró.
+fr: Ajoute deux méthodes à `Collection`. `update_one(query, update)` trouve le premier document correspondant, applique `update['$set']` – un dictionnaire des champs à définir – et renvoie `1` si un document a été modifié, `0` si aucun ne correspondait. `delete_many(query)` supprime tous les documents correspondants et renvoie combien elle en a supprimé.
+@hint
+en: `find` returns the stored dictionaries themselves, so `doc.update(update['$set'])` changes the collection. For deleting, keep the documents that do **not** match.
+pl: `find` zwraca same zapisane słowniki, więc `doc.update(update['$set'])` zmienia kolekcję. Przy usuwaniu zostaw dokumenty, które **nie** pasują.
+de: `find` liefert die gespeicherten Dictionaries selbst, also ändert `doc.update(update['$set'])` die Collection. Beim Löschen behältst du die Dokumente, die **nicht** passen.
+es: `find` devuelve los propios diccionarios guardados, así que `doc.update(update['$set'])` cambia la colección. Para borrar, quédate con los documentos que **no** coinciden.
+fr: `find` renvoie les dictionnaires stockés eux-mêmes, donc `doc.update(update['$set'])` modifie la collection. Pour supprimer, garde les documents qui ne correspondent **pas**.
+@starter
+def matches(doc, query):
+    return all(doc.get(field) == value for field, value in query.items())
+
+
+class Collection:
+    def __init__(self):
+        self.docs = []
+        self.next_id = 1
+
+    def insert_one(self, doc):
+        stored = {**doc, '_id': self.next_id}
+        self.next_id += 1
+        self.docs.append(stored)
+        return stored['_id']
+
+    def find(self, query={}):
+        return [d for d in self.docs if matches(d, query)]
+
+    def update_one(self, query, update):
+        pass
+
+    def delete_many(self, query):
+        pass
+@end
+@solution
+def matches(doc, query):
+    return all(doc.get(field) == value for field, value in query.items())
+
+
+class Collection:
+    def __init__(self):
+        self.docs = []
+        self.next_id = 1
+
+    def insert_one(self, doc):
+        stored = {**doc, '_id': self.next_id}
+        self.next_id += 1
+        self.docs.append(stored)
+        return stored['_id']
+
+    def find(self, query={}):
+        return [d for d in self.docs if matches(d, query)]
+
+    def update_one(self, query, update):
+        found = self.find(query)
+        if not found:
+            return 0
+        found[0].update(update['$set'])
+        return 1
+
+    def delete_many(self, query):
+        before = len(self.docs)
+        self.docs = [d for d in self.docs if not matches(d, query)]
+        return before - len(self.docs)
+
+
+students = Collection()
+for name, city in [('Asabeneh', 'Helsinki'), ('David', 'London'), ('Eyob', 'London')]:
+    students.insert_one({'name': name, 'city': city})
+students.update_one({'name': 'Asabeneh'}, {'$set': {'city': 'Espoo'}})
+print(students.delete_many({'city': 'London'}), students.docs)
+@end
+@case
+expr: (lambda c: [c.insert_one({'name': 'A', 'age': 1}), c.insert_one({'name': 'B', 'age': 1}), c.update_one({'age': 1}, {'$set': {'age': 2, 'new': True}}), c.update_one({'name': 'Z'}, {'$set': {'age': 9}}), c.docs][2:])(Collection()) == [1, 0, [{'name': 'A', 'age': 2, '_id': 1, 'new': True}, {'name': 'B', 'age': 1, '_id': 2}]]
+expr: (lambda c: [c.insert_one({'city': 'X'}), c.insert_one({'city': 'Y'}), c.insert_one({'city': 'X'}), c.delete_many({'city': 'X'}), c.delete_many({'city': 'Q'}), [d['_id'] for d in c.docs]][3:])(Collection()) == [2, 0, [2]]
