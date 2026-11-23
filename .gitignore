@@ -1,0 +1,7 @@
+node_modules/
+dist/
+build/wine/
+.venv/
+__pycache__/
+*.log
+/tmp-shots/
