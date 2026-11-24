@@ -8,6 +8,7 @@ const runner = require('./src/runner');
 const store = require('./src/store');
 
 app.setName('PyDays');
+app.setDesktopName('pydays.desktop'); // lets GNOME/KDE match the window to its launcher and icon on Wayland
 if (process.env.PYDAYS_DATA_DIR) app.setPath('userData', process.env.PYDAYS_DATA_DIR);
 if (process.platform === 'linux') app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 if (process.platform === 'win32') app.setAppUserModelId('app.pydays');

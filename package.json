@@ -17,6 +17,8 @@
     "check-content": "node tools/check-content.mjs",
     "smoke": "node scripts/smoke.js",
     "shots": "node scripts/smoke.js --shots",
+    "icons": "electron scripts/make-icon.js",
+    "install-desktop": "scripts/install-desktop.sh",
     "dist": "electron-builder --linux AppImage deb",
     "dist:win": "electron-builder --win nsis portable"
   },
@@ -53,7 +55,10 @@
     ],
     "asar": true,
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "category": "Education",
       "icon": "build/icon.png",
       "synopsis": "Learn Python in 30 days",
@@ -61,7 +66,10 @@
       "executableName": "pydays"
     },
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "build/icon.png",
       "executableName": "PyDays"
     },
