@@ -140,6 +140,31 @@ function createWindow() {
 
   win.loadURL('pydays://app/index.html');
   if (process.env.PYDAYS_SMOKE) require('./scripts/smoke-inner').run(win, app, runner);
+  if (process.env.PYDAYS_SELFTEST) selfTest(win);
+}
+
+// PYDAYS_SELFTEST=1: quick check of a (packaged) build. It opens the course and a lesson, looks for
+// Python, prints the result and quits with a matching exit code.
+async function selfTest(w) {
+  const js = (code) => w.webContents.executeJavaScript(code, true);
+  const until = async (code, ms = 30000) => {
+    const t0 = Date.now();
+    while (Date.now() - t0 < ms) {
+      try {
+        if (await js(code)) return true;
+      } catch {}
+      await new Promise((r) => setTimeout(r, 200));
+    }
+    return false;
+  };
+  const result = {};
+  result.days = await until(`window.pydaysReady === true && document.querySelectorAll('.sidebar .day-link').length === 30`);
+  await js(`location.hash = '#/day/1'`);
+  result.editor = await until(`!!window.monaco && window.monaco.editor.getEditors().length > 0 && document.querySelectorAll('.lesson-scroll .snippet').length > 0`);
+  result.python = (await runner.detect()).ok === true;
+  const ok = Object.values(result).every((v) => v === true);
+  console.log('SELFTEST ' + (ok ? 'OK ' : 'FAILED ') + JSON.stringify(result));
+  app.exit(ok ? 0 : 1);
 }
 
 // ---- IPC -------------------------------------------------------------------------------

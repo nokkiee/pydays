@@ -1,7 +1,7 @@
 {
   "name": "pydays",
   "productName": "PyDays",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "PyDays: learn Python in 30 days, one class a day, with a VS Code-style editor, a real Python terminal and a progress calendar. Follows the 30 Days Of Python curriculum.",
   "main": "main.js",
   "license": "GPL-3.0-only",
@@ -15,12 +15,14 @@
     "dev": "electron . --dev",
     "test": "node --test test/*.test.mjs",
     "check-content": "node tools/check-content.mjs",
-    "smoke": "node scripts/smoke.js",
     "shots": "node scripts/smoke.js --shots",
     "icons": "electron scripts/make-icon.js",
     "install-desktop": "scripts/install-desktop.sh",
     "dist": "electron-builder --linux AppImage deb",
-    "dist:win": "electron-builder --win nsis portable"
+    "dist:win": "electron-builder --win nsis portable",
+    "smoke": "node scripts/smoke.js",
+    "pack": "electron-builder --linux dir",
+    "social": "electron scripts/make-social-preview.js"
   },
   "devDependencies": {
     "electron": "44.9.1",
@@ -60,7 +62,7 @@
         "deb"
       ],
       "category": "Education",
-      "icon": "build/icon.png",
+      "icon": "build/icons",
       "synopsis": "Learn Python in 30 days",
       "maintainer": "nokkiee <202015925+nokkiee@users.noreply.github.com>",
       "executableName": "pydays"
@@ -81,6 +83,17 @@
     },
     "portable": {
       "artifactName": "${productName}-${version}-Portable.${ext}"
-    }
+    },
+    "extraResources": [
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nokkiee/pydays.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nokkiee/pydays/issues"
   }
 }

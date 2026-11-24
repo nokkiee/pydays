@@ -1,0 +1,40 @@
+name: Mistake in a lesson
+description: A wrong explanation, a typo, a bad translation, or an exercise whose check is wrong.
+title: "[Content] "
+labels: [content]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Day and exercise
+      description: Which class, and which exercise if it is about one.
+      placeholder: e.g. day 7, exercise 3
+    validations:
+      required: true
+  - type: dropdown
+    id: lang
+    attributes:
+      label: Language you were reading
+      options: [English, Polski, Deutsch, Español, Français]
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem is it?
+      options:
+        - Wrong or unclear explanation
+        - Typo or translation error
+        - Exercise check rejects a correct solution
+        - Exercise check accepts a wrong solution
+        - Example does not run
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Describe it
+      description: Quote the text, or paste your code and the check's message.
+    validations:
+      required: true

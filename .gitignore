@@ -6,3 +6,4 @@ __pycache__/
 *.log
 /tmp-shots/
 /graphify-out/
+/build-replay.*

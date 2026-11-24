@@ -1,0 +1,74 @@
+name: App build
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    # Builds the installer and the portable version, installs silently and checks that the
+    # installed app starts and passes its self-test.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npx electron-builder --win nsis portable --publish never
+      - name: Install silently and start the installed app
+        shell: pwsh
+        env:
+          PYDAYS_SELFTEST: '1'
+        run: |
+          $setup = Get-ChildItem dist\PyDays-Setup-*.exe | Select-Object -First 1
+          Start-Process $setup.FullName -ArgumentList '/S' -Wait
+          $exe = Join-Path $env:LOCALAPPDATA 'Programs\PyDays\PyDays.exe'
+          if (-not (Test-Path $exe)) { throw "PyDays.exe was not installed" }
+          $p = Start-Process $exe -Wait -PassThru -RedirectStandardOutput selftest.txt -RedirectStandardError selftest-err.txt
+          Get-Content selftest.txt
+          if ($p.ExitCode -ne 0 -or -not (Select-String -Path selftest.txt -Pattern 'SELFTEST OK' -Quiet)) {
+            Get-Content selftest-err.txt
+            throw "Self-test of the installed app failed (exit $($p.ExitCode))"
+          }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PyDays-windows
+          path: dist/*.exe
+          retention-days: 7
+
+  linux:
+    # Builds the AppImage and the .deb and checks that the built app starts and passes its self-test.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npx electron-builder --linux AppImage deb --publish never
+      - name: Start the built app
+        env:
+          PYDAYS_SELFTEST: '1'
+        run: |
+          # CI runners can't set up Chromium's sandbox (no SUID helper)
+          xvfb-run -a dist/linux-unpacked/pydays --no-sandbox | tee selftest.txt
+          grep -q 'SELFTEST OK' selftest.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PyDays-linux
+          path: |
+            dist/*.AppImage
+            dist/*.deb
+          retention-days: 7

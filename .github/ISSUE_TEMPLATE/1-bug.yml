@@ -1,0 +1,73 @@
+name: Bug in the app
+description: Something does not work, or works differently than it should.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! The more precisely you describe what happened, the faster it can be fixed.
+        For a mistake in a lesson or an exercise, use the **Mistake in a lesson** form instead.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Settings → About
+      placeholder: e.g. 1.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: System
+      options:
+        - Windows 10 / 11 (installer)
+        - Windows (portable)
+        - Linux (AppImage)
+        - Linux (.deb)
+        - Running from source
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Shown in the status bar of the editor (Settings → Python).
+      placeholder: e.g. 3.12.4
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: The day, exercise or screen the bug is about.
+      placeholder: e.g. day 12, exercise 2; Calendar; Settings
+  - type: dropdown
+    id: lang
+    attributes:
+      label: Interface language
+      options: [English, Polski, Deutsch, Español, Français]
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can it be reproduced?
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshot, message, code
+      description: Drag a screenshot here, or paste the message or the code you ran.
