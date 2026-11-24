@@ -25,15 +25,15 @@
     "social": "electron scripts/make-social-preview.js"
   },
   "devDependencies": {
-    "electron": "44.9.1",
+    "electron": "^45.5.0",
     "electron-builder": "^26.15.3"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "@fontsource-variable/source-serif-4": "^5.2.5",
-    "marked": "^18.1.1",
-    "monaco-editor": "^0.57.0"
+    "marked": "^18.3.0",
+    "monaco-editor": "^0.58.0"
   },
   "build": {
     "appId": "app.pydays",

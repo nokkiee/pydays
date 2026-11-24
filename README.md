@@ -12,7 +12,7 @@
   <a href="https://github.com/nokkiee/pydays/releases/latest"><img src="https://img.shields.io/github/v/release/nokkiee/pydays?label=release&color=d97757&labelColor=1f1e1d" alt="Latest release"></a>
   <a href="https://github.com/nokkiee/pydays/blob/main/LICENSE"><img src="https://img.shields.io/github/license/nokkiee/pydays?label=license&color=d97757&labelColor=1f1e1d" alt="License"></a>
   <a href="#requirements"><img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white&labelColor=1f1e1d" alt="Python 3.8+"></a>
-  <a href="#requirements"><img src="https://img.shields.io/badge/Electron-44-47848F?logo=electron&logoColor=white&labelColor=1f1e1d" alt="Electron 44"></a>
+  <a href="#requirements"><img src="https://img.shields.io/badge/Electron-45-47848F?logo=electron&logoColor=white&labelColor=1f1e1d" alt="Electron 44"></a>
   <a href="https://github.com/nokkiee/pydays/releases/latest"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-d97757&labelColor=1f1e1d" alt="Windows and Linux"></a>
   <a href="#languages"><img src="https://img.shields.io/badge/languages-EN%20%7C%20PL%20%7C%20DE%20%7C%20ES%20%7C%20FR-d97757&labelColor=1f1e1d" alt="English, Polish, German, Spanish, French"></a>
   <a href="https://github.com/nokkiee/pydays/commits/main"><img src="https://img.shields.io/github/last-commit/nokkiee/pydays?label=last%20commit&color=d97757&labelColor=1f1e1d" alt="Last commit"></a>

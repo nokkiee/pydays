@@ -7,8 +7,8 @@ It bundles the following software and materials.
 
 | Component | Version | License | Copyright |
 |---|---|---|---|
-| [Electron](https://www.electronjs.org/) (includes Chromium and Node.js) | 44 | MIT (Chromium and Node.js: see `LICENSES.chromium.html` next to the executable) | GitHub Inc. and Electron contributors |
-| [Monaco Editor](https://github.com/microsoft/monaco-editor) | 0.57.0 | MIT | Microsoft Corporation |
+| [Electron](https://www.electronjs.org/) (includes Chromium and Node.js) | 45 | MIT (Chromium and Node.js: see `LICENSES.chromium.html` next to the executable) | GitHub Inc. and Electron contributors |
+| [Monaco Editor](https://github.com/microsoft/monaco-editor) | 0.58.0 | MIT | Microsoft Corporation |
 | [marked](https://github.com/markedjs/marked) | 18 | MIT | Christopher Jeffrey and the marked contributors |
 
 ### MIT License (Electron, Monaco Editor, marked)
