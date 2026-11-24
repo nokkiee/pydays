@@ -39,6 +39,7 @@ jobs:
             throw "Self-test of the installed app failed (exit $($p.ExitCode))"
           }
       - uses: actions/upload-artifact@v4
+        continue-on-error: true # the account's artifact storage can be full; the build itself already passed
         with:
           name: PyDays-windows
           path: dist/*.exe
@@ -66,6 +67,7 @@ jobs:
           xvfb-run -a dist/linux-unpacked/pydays --no-sandbox | tee selftest.txt
           grep -q 'SELFTEST OK' selftest.txt
       - uses: actions/upload-artifact@v4
+        continue-on-error: true # the account's artifact storage can be full; the build itself already passed
         with:
           name: PyDays-linux
           path: |

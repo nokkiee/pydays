@@ -1,0 +1,79 @@
+name: Release
+
+# Builds the installers for a version tag and attaches them to a GitHub release, with SHA256SUMS.txt.
+# Runs when a tag like v1.0.0 is pushed, or by hand for an existing tag.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to release, e.g. v1.0.0
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  TAG: ${{ inputs.tag || github.ref_name }}
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.TAG }}
+      - name: Create the release with the changelog entry as its notes
+        run: |
+          VERSION="${TAG#v}"
+          awk -v v="$VERSION" '$0 ~ "^## \\[" v "\\]" {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md > notes.md
+          test -s notes.md
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --verify-tag --title "PyDays $VERSION" --notes-file notes.md
+
+  windows:
+    needs: create
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx electron-builder --win nsis portable --publish never
+      - name: Upload to the release
+        shell: pwsh
+        run: gh release upload $env:TAG (Get-ChildItem dist\*.exe).FullName --clobber
+
+  linux:
+    needs: create
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx electron-builder --linux AppImage deb --publish never
+      - name: Upload to the release
+        run: gh release upload "$TAG" dist/*.AppImage dist/*.deb --clobber
+
+  checksums:
+    needs: [windows, linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compute SHA256SUMS.txt from the released files and attach it
+        run: |
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir files --pattern '*.exe' --pattern '*.AppImage' --pattern '*.deb'
+          cd files
+          sha256sum -- * | sort -k2 > ../SHA256SUMS.txt
+          cd ..
+          cat SHA256SUMS.txt
+          gh release upload "$TAG" SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --clobber
