@@ -26,6 +26,11 @@ export default {
   'lang.apply': 'Dalej',
   'lang.hello': 'Cześć!',
 
+  'starters.title': 'Kod startowy w zadaniach',
+  'starters.text': 'W niektórych zadaniach edytor zawiera kilka gotowych wierszy, na przykład dane, na których pracujesz. Chcesz tak, czy wolisz zaczynać od pustego pliku? Możesz to zmienić później w Ustawieniach → Edytor.',
+  'starters.blank': 'Pusty plik',
+  'starters.keep': 'Zostaw kod startowy',
+
   'home.morning': 'Dzień dobry',
   'home.afternoon': 'Dzień dobry',
   'home.evening': 'Dobry wieczór',
@@ -215,6 +220,8 @@ export default {
   'set.fontSizeText': 'Kod w edytorze.',
   'set.wrap': 'Zawijanie wierszy',
   'set.wrapText': 'Zawijaj długie wiersze zamiast przewijać w bok.',
+  'set.starters': 'Kod startowy',
+  'set.startersText': 'Otwieraj zadania z gotowym fragmentem kodu, na przykład z danymi do pracy.',
   'set.python': 'Python',
   'set.pythonPath': 'Interpreter Pythona',
   'set.pythonAuto': 'Wykryj automatycznie',

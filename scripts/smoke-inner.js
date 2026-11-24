@@ -51,6 +51,10 @@ async function run(win, app) {
   await new Promise((r) => (win.webContents.isLoading() ? win.webContents.once('did-finish-load', r) : r()));
   await step('boot', () => until(`window.pydaysReady === true && !!document.querySelector('.sidebar .day-link')`));
   await step('days', () => js(`document.querySelectorAll('.sidebar .day-link').length`).then((n) => n === Number(process.env.PYDAYS_EXPECT_DAYS || 30) || `found ${n}`));
+  // a first start asks whether exercises get starter code; keeping it is the primary button
+  await step('starterAsk', () => until(`/starter/i.test(document.querySelector('.modal h3')?.textContent || '')`, 5000));
+  await js(`document.querySelector('.modal-actions .btn.primary').click()`);
+  await step('starterSaved', () => until(`!document.querySelector('.modal') && document.querySelectorAll('.switch input').length === 0`, 5000));
   // a first start asks for the language; the smoke test always runs with one chosen
   await js(`document.querySelector('.lang-opt.sel')?.click(); document.querySelector('.modal-actions .btn.primary')?.click()`);
   await step('home', () => until(`!!document.querySelector('.continue') && !!document.querySelector('.track')`));
@@ -150,6 +154,7 @@ async function run(win, app) {
 
   await js(`location.hash = '#/settings'`);
   await step('settings', () => until(`document.querySelectorAll('.set-row').length > 5`));
+  await step('starterToggle', () => until(`document.querySelectorAll('.switch input')[1]?.checked === true`, 5000));
 
   const ok = Object.values(result).every((v) => v === true);
   console.log('SMOKE ' + (ok ? 'OK ' : 'FAILED ') + JSON.stringify(result));

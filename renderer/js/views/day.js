@@ -271,7 +271,7 @@ export function render(root, params) {
   createIde(ideBox, {
     key,
     base: { file: lessonFile(d.day), starter: `# ${t('common.day', { n: d.day })}: ${pick(d.title)}\n# ${t('day.scratchComment')}\n\n${firstCode ? firstCode.code + '\n' : ''}` },
-    exercises: d.exercises.map((e, i) => ({ id: e.id, file: exFiles[i], starter: e.starter ? e.starter + '\n' : '', cases: e.cases, title: pick(e.title), solved: solved.has(e.id) })),
+    exercises: d.exercises.map((e, i) => ({ id: e.id, file: exFiles[i], starter: e.starter && getSettings().starters !== false ? e.starter + '\n' : '', cases: e.cases, title: pick(e.title), solved: solved.has(e.id) })),
     files: d.files,
     onRun: () => updateProgress((p) => logRun(p)),
     onChecked,

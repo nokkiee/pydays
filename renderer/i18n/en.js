@@ -26,6 +26,11 @@ export default {
   'lang.apply': 'Continue',
   'lang.hello': 'Hello!',
 
+  'starters.title': 'Starter code in exercises',
+  'starters.text': 'Some exercises come with a few lines already in the editor, for example the data you work with. Do you want that, or would you rather start from an empty file? You can change it later in Settings → Editor.',
+  'starters.blank': 'Empty file',
+  'starters.keep': 'Keep starter code',
+
   'home.morning': 'Good morning',
   'home.afternoon': 'Good afternoon',
   'home.evening': 'Good evening',
@@ -215,6 +220,8 @@ export default {
   'set.fontSizeText': 'Code in the editor.',
   'set.wrap': 'Word wrap',
   'set.wrapText': 'Wrap long lines instead of scrolling sideways.',
+  'set.starters': 'Starter code',
+  'set.startersText': 'Open exercises with some code already written, such as the data to work with.',
   'set.python': 'Python',
   'set.pythonPath': 'Python interpreter',
   'set.pythonAuto': 'Find automatically',

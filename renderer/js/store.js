@@ -4,6 +4,7 @@ const DEFAULTS = {
   lang: null, // null until the first-start language picker has been answered
   fontSize: 14,
   wordWrap: false,
+  starters: null, // exercises open with starter code; null until the first-start question is answered
   pythonPath: '',
   sidebarCollapsed: false,
   lessonWidth: null,

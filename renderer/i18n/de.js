@@ -26,6 +26,11 @@ export default {
   'lang.apply': 'Weiter',
   'lang.hello': 'Hallo!',
 
+  'starters.title': 'Startcode in Aufgaben',
+  'starters.text': 'Bei manchen Aufgaben stehen schon ein paar Zeilen im Editor, zum Beispiel die Daten, mit denen du arbeitest. Möchtest du das, oder lieber mit einer leeren Datei beginnen? Du kannst das später unter Einstellungen → Editor ändern.',
+  'starters.blank': 'Leere Datei',
+  'starters.keep': 'Startcode behalten',
+
   'home.morning': 'Guten Morgen',
   'home.afternoon': 'Guten Tag',
   'home.evening': 'Guten Abend',
@@ -215,6 +220,8 @@ export default {
   'set.fontSizeText': 'Code im Editor.',
   'set.wrap': 'Zeilenumbruch',
   'set.wrapText': 'Lange Zeilen umbrechen statt seitlich zu scrollen.',
+  'set.starters': 'Startcode',
+  'set.startersText': 'Aufgaben mit etwas vorgegebenem Code öffnen, zum Beispiel den Daten, mit denen du arbeitest.',
   'set.python': 'Python',
   'set.pythonPath': 'Python-Interpreter',
   'set.pythonAuto': 'Automatisch finden',

@@ -26,6 +26,11 @@ export default {
   'lang.apply': 'Continuar',
   'lang.hello': '¡Hola!',
 
+  'starters.title': 'Código inicial en los ejercicios',
+  'starters.text': 'Algunos ejercicios traen unas líneas ya escritas en el editor, por ejemplo los datos con los que trabajas. ¿Quieres eso o prefieres empezar con un archivo vacío? Puedes cambiarlo después en Ajustes → Editor.',
+  'starters.blank': 'Archivo vacío',
+  'starters.keep': 'Mantener código inicial',
+
   'home.morning': 'Buenos días',
   'home.afternoon': 'Buenas tardes',
   'home.evening': 'Buenas noches',
@@ -215,6 +220,8 @@ export default {
   'set.fontSizeText': 'El código del editor.',
   'set.wrap': 'Ajuste de línea',
   'set.wrapText': 'Partir las líneas largas en vez de desplazarse a los lados.',
+  'set.starters': 'Código inicial',
+  'set.startersText': 'Abrir los ejercicios con algo de código ya escrito, como los datos con los que trabajas.',
   'set.python': 'Python',
   'set.pythonPath': 'Intérprete de Python',
   'set.pythonAuto': 'Buscar automáticamente',

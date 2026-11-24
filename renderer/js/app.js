@@ -155,6 +155,7 @@ export function languagePicker({ first = false }) {
     dlg.close();
     // Monaco reads its interface language at start, so a change reloads the page
     if (changed && chosen !== lang) setTimeout(() => location.reload(), 50);
+    else askStarters();
   };
   render();
   const dlg = modal({
@@ -162,6 +163,21 @@ export function languagePicker({ first = false }) {
     closable: !first,
     body: h('div', null, h('p', null, first ? t('lang.firstText') : t('lang.text')), list),
     actions: [{ label: t('lang.apply'), kind: 'primary', onClick: () => (apply(), true) }],
+  });
+}
+
+// Asked once: should exercises open with starter code? The answer lives in Settings → Editor.
+function askStarters() {
+  if (getSettings().starters != null) return;
+  const answer = (v) => () => void setSettings({ starters: v });
+  modal({
+    title: t('starters.title'),
+    closable: false,
+    body: h('p', null, t('starters.text')),
+    actions: [
+      { label: t('starters.blank'), kind: 'ghost', onClick: answer(false) },
+      { label: t('starters.keep'), kind: 'primary', onClick: answer(true) },
+    ],
   });
 }
 
@@ -202,6 +218,7 @@ async function boot() {
   navigate();
   document.body.classList.remove('loading');
   if (!getSettings().lang) languagePicker({ first: true });
+  else askStarters();
   startActivityTimer();
   window.pydaysReady = true;
 }

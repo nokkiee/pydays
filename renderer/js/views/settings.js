@@ -23,7 +23,7 @@ export function render(root) {
   // editor
   const size = h('select', { class: 'select' }, [12, 13, 14, 15, 16, 18, 20].map((n) => h('option', { value: n, selected: n === st.fontSize }, `${n} px`)));
   size.addEventListener('change', () => setSettings({ fontSize: Number(size.value) }));
-  inner.appendChild(group(t('set.editor'), [row(t('set.fontSize'), t('set.fontSizeText'), size), row(t('set.wrap'), t('set.wrapText'), toggle(st.wordWrap, (v) => setSettings({ wordWrap: v })))]));
+  inner.appendChild(group(t('set.editor'), [row(t('set.fontSize'), t('set.fontSizeText'), size), row(t('set.wrap'), t('set.wrapText'), toggle(st.wordWrap, (v) => setSettings({ wordWrap: v }))), row(t('set.starters'), t('set.startersText'), toggle(st.starters !== false, (v) => setSettings({ starters: v })))]));
 
   // python
   const status = h('span', { class: 'muted small' });
