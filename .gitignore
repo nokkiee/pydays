@@ -5,3 +5,4 @@ build/wine/
 __pycache__/
 *.log
 /tmp-shots/
+/graphify-out/
